@@ -243,6 +243,10 @@ h3 {
 	color: white;
 }
 
+.hidden {
+    display: none;
+}
+
 .mathrixrecomendsSpan {
 	font-family: "Montserrat", sans-serif;
 	font-weight: 600;
@@ -321,12 +325,27 @@ h3 {
 	margin-bottom: 3rem;
 }
 
+/* Stellen Sie sicher, dass der Body sich über die volle Höhe erstreckt */
+.MainContainer {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Minimale Höhe des Viewports */
+}
+
+/* Definieren Sie .archive_sec so, dass sie den verfügbaren Platz einnimmt */
+.archive_sec {
+    flex: 1; /* Erlaubt .archive_sec zu wachsen und den verfügbaren Platz einzunehmen */
+    display: flex;
+    flex-direction: column;
+}
+
 .footerContainer {
 	background-color: #D8DCDF;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-around;
 	gap: 1rem;
+	align-items: center; /* Added to vertically center the content within the footer */
 }
 
 #footerLogo {
@@ -363,6 +382,7 @@ h3 {
 	flex-direction: row;
 	padding-block: 2rem;
 	gap: 2.5rem;
+	align-items: center; /* Added to vertically center the content within the footer */
 }
 
 .anchorTagsFooterContainer {
@@ -379,9 +399,13 @@ h3 {
 	gap: 1rem;
 }
 
-/* .rightContainer {
+.RightContainer {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 3rem;
 	padding: 2rem 6rem 2rem 0rem;
-} */
+}
 
 .socialAnchorTags {
 	display: flex;

@@ -1,47 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Karriere</title>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-	rel="stylesheet">
-<link rel="stylesheet" href="{{ asset('asset/css/navBarStyle.css') }}">
-<link rel="stylesheet"
-	href="{{ asset('asset/css/forBildungStyle.css') }}">
-<link rel="stylesheet" href="{{ asset('asset/css/utilities.css') }}">
-<link rel="apple-touch-icon" sizes="57x57"
-	href="/favicon/apple-icon-57x57.png">
-<link rel="apple-touch-icon" sizes="60x60"
-	href="/favicon/apple-icon-60x60.png">
-<link rel="apple-touch-icon" sizes="72x72"
-	href="/favicon/apple-icon-72x72.png">
-<link rel="apple-touch-icon" sizes="76x76"
-	href="/favicon/apple-icon-76x76.png">
-<link rel="apple-touch-icon" sizes="114x114"
-	href="/favicon/apple-icon-114x114.png">
-<link rel="apple-touch-icon" sizes="120x120"
-	href="/favicon/apple-icon-120x120.png">
-<link rel="apple-touch-icon" sizes="144x144"
-	href="/favicon/apple-icon-144x144.png">
-<link rel="apple-touch-icon" sizes="152x152"
-	href="/favicon/apple-icon-152x152.png">
-<link rel="apple-touch-icon" sizes="180x180"
-	href="/favicon/apple-icon-180x180.png">
-<link rel="icon" type="image/png" sizes="192x192"
-	href="/favicon/android-icon-192x192.png">
-<link rel="icon" type="image/png" sizes="32x32"
-	href="/favicon/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="96x96"
-	href="/favicon/favicon-96x96.png">
-<link rel="icon" type="image/png" sizes="16x16"
-	href="/favicon/favicon-16x16.png">
-<link rel="manifest" href="/favicon/manifest.json">
-<meta name="msapplication-TileColor" content="#ffffff">
-<meta name="msapplication-TileImage"
-	content="/favicon/ms-icon-144x144.png">
-<meta name="theme-color" content="#ffffff">
+@include('includes.head')
+@section('title', 'Karriere')
+<link rel="stylesheet" href="{{ asset('asset/css/forBildungStyle.css') }}">
 </head>
 <body class="MainContainer">
 
@@ -61,9 +23,9 @@
 			<div class="centerCon">
 				<h1 class="primary-Heading">Karriere</h1><br />
 
-                <img id="aladinImage"
-                src="{{ asset('asset/images/todayAboutImage.png') }}"
-                alt="Aladin Image">
+                <img id="StudyGenieImage"
+                src="{{ asset('asset/images/ToolsImage.png') }}"
+                alt="StudyGenieImage">
 			</div>
 			<div class="rightCon"></div>
 
@@ -71,7 +33,7 @@
 
 		<div class="categoryClouds">
 
-			<a href="/JobNavigator" class="Cloud_Karriere"
+			<a href="/KarriereGenie" class="Cloud_Karriere"
 				id="textInspirationCloud">
 				<button type="button" class="btn" data-bs-toggle="tooltip"
 					data-bs-placement="top"
@@ -91,10 +53,8 @@
 							fill="#F3922A" />
                 <text class="textStyle" x="38" y="65"
 							font-family: 'Milonga', cursive; font-size="24" fill="#FFFFFF"
-							font-weight="400">JobNavigator</text>
+							font-weight="400">KarriereGenie</text>
                 </svg>
-
-
 
             </g>
             <defs>
@@ -141,8 +101,7 @@
 							fill="none" />
                 <text class="textStyle" x="26" y="65"
 							font-family: 'Milonga', cursive; font-size="24" fill="#2D3E4E"
-							font-weight="400">BewerbeGenie
-                </text>
+							font-weight="400">BewerbeGenie</text>
                 </svg>
 
 
@@ -188,8 +147,7 @@
 							fill="none" />
                  <text class="textStyle" x="26" y="65"
 							font-family: 'Milonga', cursive; font-size="24" fill="#2D3E4E"
-							font-weight="400">BewerbeGenie
-                </text>
+							font-weight="400">BewerbeGenie</text>
                 </svg>
 
 
@@ -216,7 +174,7 @@
             </defs>
             </svg>
 			</a> @endif @if((auth()->user()->subscription_name == 'diamant') &&
-			$check) <a href="/genie-interview" class="Cloud_Karriere"
+			$check) <a href="/KarriereMentor" class="Cloud_Karriere"
 				id="themeInspirationCloud">
 				<button type="button" class="btn" data-bs-toggle="tooltip"
 					data-bs-placement="top"
@@ -545,7 +503,7 @@
             html:
                 'Dazu musst du dein Abo upgraden goto , ' +
                 '<a href="/profile">Profile</a> ' +
-                'and use this tool',
+                'zum freischalten.',
 
             });
     }

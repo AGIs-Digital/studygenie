@@ -71,8 +71,6 @@
 	bottom: 0;
 	right: 0;
 	opacity: .7;
-	/* z-index: -1; */
-	/* height: 250px; */
 }
 
 .content-written.message .ab5 {
@@ -97,7 +95,6 @@
 	background-size: 100% 80%;
 	background-repeat: no-repeat;
 	background-position: top;
-	/* padding: 71px 16% 35px 23%; */
     padding: 56px 8% 25px 17%;
 	margin-top: 0;
 }
@@ -235,17 +232,17 @@
 	width: 600px;
 }
 
-.geniebrain_sec .content-written {
+.GenieBrain_sec .content-written {
 	max-width: 100%;
 }
 
-.geniebrain_sec .group-box span {
+.GenieBrain_sec .group-box span {
 	text-align: left;
 	margin-top: 20px;
 	font-weight: 700;
 }
 
-.geniebrain_sec .group-box input {
+.GenieBrain_sec .group-box input {
 	width: 100%;
 }
 
@@ -267,7 +264,14 @@
 }
 
 .custom-select select {
-	display: none;
+    display: block; /* Stellt sicher, dass das Dropdown angezeigt wird */
+    width: 100%; /* Passt die Breite an */
+    padding: 5px; /* Fügt etwas Innenabstand hinzu */
+    margin-top: 12px; /* Fügt etwas Abstand oben hinzu */
+	border-radius: 10px;
+	border: 1px solid #CBCDCD;
+	background: #CBCDCD;
+	color: #404040;
 }
 
 .select-selected {
@@ -347,7 +351,6 @@
 	text-align: center;
 	padding: 9px 4px;
 	border-radius: 50%;
-	cursor: pointer;
 	display: none;
 	transform: translate(-50%, 25px);
 }
@@ -362,7 +365,6 @@
 	text-align: center;
 	padding: 9px 4px;
 	border-radius: 50%;
-	cursor: pointer;
 	display: none;
 	/* transform: translate(-50%, 25px); */
 	/* margin: 1px; */
@@ -378,7 +380,11 @@
 	text-align: center;
 	padding: 9px 4px;
 	border-radius: 50%;
-	cursor: pointer;
+	display: none;
+}
+
+.save_folder2{
+	cursor:pointer;
 	display: none;
 }
 

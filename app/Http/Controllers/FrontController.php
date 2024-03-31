@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
 use App\Models\User;
 use App\Models\Archive;
@@ -100,10 +101,9 @@ class FrontController extends Controller
     {
         try {
             Log::info('Memory usage before request: ' . memory_get_usage());
-            Log::info('Sending OpenAI request with payload: ', $payload);
+            Log::info('Sending OpenAI request with payload: ', (array)$payload); // Stellen Sie sicher, dass das Payload als Array übergeben wird
 
             $response = Cache::remember('ai_response_' . md5(serialize($payload)), 60, function () use ($payload) {
-
                 return $this->httpClient->post($this->endpoint, [
                     'headers' => [
                         'Authorization' => 'Bearer ' . $this->openAIKey,
@@ -114,6 +114,10 @@ class FrontController extends Controller
             });
 
             $response = json_decode($response, true);
+            if (!isset($response['choices'])) {
+                Log::error("Fehlende erwartete Felder in der Antwortdaten");
+                return "Fehler: Die erwarteten Daten fehlen in der Antwort.";
+            }
             $responseSize = strlen(json_encode($response));
             Log::info("Response size: $responseSize bytes");
             Log::info('Memory usage after request: ' . memory_get_usage());
@@ -127,6 +131,7 @@ class FrontController extends Controller
             // Speichern der extrahierten Daten in der Datenbank
             $this->saveAIResponse($userId, $userRequest, $botResponse, $toolIdentifier);
 
+            Log::info("Response: " . json_encode($response)); // Stellen Sie sicher, dass die Antwort als String geloggt wird
             return $response;
         } catch (\Exception $e) {
             Log::error("Error sending request to OpenAI: " . $e->getMessage());
@@ -207,13 +212,18 @@ class FrontController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'birthdate' => $data['birthdate'] ?? null,
             'tutorial_shown' => false // Ensure tutorial_shown is set to false for new users
         ]);
     }
 
     public function postLogin(Request $request)
     {
-        $validator = ValidationRules::validateUserLogin($request->all());
+        // Validierung für das Einloggen
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
 
         if ($validator->fails()) {
             return response()->json([
@@ -222,13 +232,10 @@ class FrontController extends Controller
             ]);
         }
 
-        if (Auth::attempt($request->only([
-            'email',
-            'password'
-        ]))) {
+        if (Auth::attempt($request->only(['email', 'password']))) {
             return response()->json([
                 "status" => true,
-                "redirect" => url("tools")
+                "redirect" => '/tools'
             ]);
         }
 
@@ -242,13 +249,29 @@ class FrontController extends Controller
 
     public function postRegistration(Request $request)
     {
-        $validator = ValidationRules::validateUserRegistration($request->all());
+        // Validierung für die Account-Erstellung
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8',
+            'birthdate' => 'nullable|date',
+        ]);
+
         if ($validator->fails()) {
             return response()->json([
                 "status" => false,
                 "errors" => $validator->errors()
             ]);
         }
+
+        $user = $this->create($request->all());
+
+        Auth::login($user);
+
+        return response()->json([
+            'status' => true,
+            'redirect' => '/tools'
+        ]);
     }
 
     public function getArchive()
@@ -312,6 +335,20 @@ class FrontController extends Controller
 
         return true;
     }
+
+    public function delete()
+{
+    $user = Auth::user();
+
+    DB::transaction(function () use ($user) {
+        // Löschen aller Archivdaten, die dem Benutzer zugeordnet sind
+        Archive::where('user_id', $user->id)->delete();
+
+        $user->delete(); // Löscht den Benutzer selbst
+    });
+
+    return redirect('/')->with('success', 'Ihr Account wurde erfolgreich gelöscht.');
+}
 
     /*
      * HIER ALLES ZU BEZAHLUNG UND ABO PLÄNEN
@@ -452,10 +489,10 @@ class FrontController extends Controller
      */
 
     // Tool: GenieBrain
-    public function genieBrainProcess(Request $request)
+    public function GenieBrainProcess(Request $request)
     {
-        $toolIdentifier = 'genieBrain'; // Tool-Identifier für GenieBrain
-        $newQuestion = $this->buildBrainProcessQuestion($request);
+        $toolIdentifier = 'GenieBrain'; // Tool-Identifier für GenieBrain
+        $newQuestion = $this->buildBrainQuestion($request);
         $payload = $this->createPayload($newQuestion, true, null, $toolIdentifier);
         $responseData = $this->sendOpenAIRequest($payload, auth()->user()->id, $toolIdentifier);
 
@@ -467,7 +504,7 @@ class FrontController extends Controller
         ]);
     }
 
-    private function buildBrainProcessQuestion($request)
+    private function buildBrainQuestion($request)
     {
         $newQuestion = null;
 
@@ -501,7 +538,7 @@ class FrontController extends Controller
     }
 
     // Tool: GenieCheck
-    public function index(Request $request)
+    public function GenieCheck(Request $request)
     {
         $toolIdentifier = 'GenieCheck'; // Tool-Identifier für GenieCheck
         $type = 'null';
@@ -582,11 +619,54 @@ class FrontController extends Controller
         ]);
     }
 
-    public function genieMotivationProcess(Request $request)
+    public function KarriereMentor()
     {
-        $newQuestion = $this->buildMotivationProcessQuestion($request);
-        $payload = $this->createPayload($newQuestion, true, null, 'genieMotivation');
-        $responseData = $this->sendOpenAIRequest($payload, auth()->user()->id, 'genieMotivation');
+        if ((auth()->user()->subscription_name == 'diamant')) {
+            return view('Karriere.KarriereMentor');
+        }
+        return abort(404);
+    }
+
+    public function KarriereMentorFirst()
+    {
+        $newQuestion = "Dein Ziel ist es, meine Ängste und Unsicherheiten zu erkennen und beseitigen, mir praktische Tipps und Vorbereitungsstrategien zu geben und mich zu bestärken. Verwende Feedbackschleifen um mein Ziel zu erreichen.
+        Begrüße mich zunächst und stelle dich vor. Frage mich anschließend nach und nach im Dialog:
+        1. Wie ich mich im Hinblick auf mein bevorstehendes Bewerbungsgespräch fühle.
+        2. Wofür genau ich mich bewerbe.
+        3. Was meine größten Bedenken und Fragen sind.
+        Beende den Dialog mit einer motivierenden Zusammenfassung erst, wenn wir beide unser Ziel erreicht haben.";
+        $toolIdentifier = 'KarriereMetor'; // Beispiel-Tool-Identifier
+        $payload = $this->createPayload($newQuestion, true, null, $toolIdentifier);
+        $responseData = $this->sendOpenAIRequest($payload, auth()->user()->id, $toolIdentifier);
+        $formattedData = $this->formatApiResponse($responseData);
+
+        return response()->json([
+            "status" => true,
+            "data" => $formattedData
+        ]);
+    }
+
+    public function KarriereMetorUser(Request $request)
+    {
+        $toolIdentifier = 'KarriereMetor'; // Beispiel-Tool-Identifier
+        $newQuestion = $request->user;
+        $isFirstCommand = true; // oder false basierend auf deiner Logik
+        $payload = $this->createPayload($newQuestion, $isFirstCommand, null, $toolIdentifier);
+        $responseData = $this->sendOpenAIRequest($payload, auth()->user()->id, $toolIdentifier);
+        $formattedData = $this->formatApiResponse($responseData);
+
+        return response()->json([
+            "status" => true,
+            "data" => $formattedData
+        ]);
+    }
+
+
+    public function MotivationsschreibenProcess(Request $request)
+    {
+        $newQuestion = $this->MotivationsschreibenQuestion($request);
+        $payload = $this->createPayload($newQuestion, true, null, 'Motivationsschreiben');
+        $responseData = $this->sendOpenAIRequest($payload, auth()->user()->id, 'Motivationsschreiben');
 
         $formattedData = $this->formatApiResponse($responseData);
 
@@ -596,19 +676,18 @@ class FrontController extends Controller
         ]);
     }
 
-    private function buildMotivationProcessQuestion($request)
+    private function MotivationsschreibenQuestion($request)
     {
-        $newQuestion = "Du bist langjähriger Bewerbungstrainer und musst mir dabei helfen, ein professionelles und authentisches Motivationsschreiben zu verfassen. ";
+        $newQuestion = "Du bist langjähriger Bewerbungstrainer und musst mir dabei helfen, ein professionelles und authentisches Motivationsschreiben zu verfassen. Bei der Erstellung berücksichtigst du ";
 
         // Hier deine Logik zur Erweiterung des $newQuestion Strings um die Benutzerfelder
         $fields = [
-            'field1' => "Berücksichtige bei der Erstellung den von mir angestrebten Studiengang oder Beruf ",
-            'field2' => "Meine persönliche Motivation für meine Wahl ist ",
-            'field3' => "Berücksichtige meine akademischen Hintergründe ",
-            'field4' => "Sowie meine beruflichen Erfahrungen ",
-            'field5' => "Meine persönlichen Stärken sind ",
-            'field6' => "Meine persönlichen Beweggründe für meine Wahl ",
-            'field7' => "Meine persönlichen Erfahrungen und Herausforderungen sind "
+            'field1' => "Den von mir angestrebten Studiengang oder Beruf ",
+            'field2' => "Meine Qualifikationen und Fähigkeiten ",
+            'field3' => "Meine beruflichen Erfahrungen  ",
+            'field4' => "Meine persönliche Motivation ",
+            'field5' => "Meinen persönlichen Bezug ",
+            'field6' => "Zusätzliche Informationen "
             // Füge weitere Felder hier hinzu
         ];
 
@@ -621,96 +700,22 @@ class FrontController extends Controller
         return $newQuestion;
     }
 
-    public function genieInterview()
+    public function JobMatchProcess(Request $request) //JobMatch
     {
-        if ((auth()->user()->subscription_name == 'diamant')) {
-            return view('Karriere.genieinterview');
-        }
-        return abort(404);
-    }
-
-    public function genieInterviewFirst()
-    {
-        $username = $this->getUsername();
-        $toolIdentifier = 'GenieTutorFirst'; // Tool-Identifier für GenieTutorFirst
-        $newQuestion = $this->buildInterviewFirstQuestion($username);
-
-        $payload = $this->createPayload($newQuestion, true, null, $toolIdentifier);
-        $responseData = $this->sendOpenAIRequest($payload, auth()->user()->id, $toolIdentifier);
-
-        $formattedData = $this->formatApiResponse($responseData);
-
-        return response()->json([
-            "status" => true,
-            "data" => $formattedData
-        ]);
-    }
-
-    private function buildInterviewFirstQuestion($username)
-    {
-        $newQuestion = "
-    Dein Ziel ist es, meine Ängste und Unsicherheiten zu erkennen und beseitigen, mir praktische Tipps und Vorbereitungsstrategien zu geben und mich zu bestärken. Verwende Feedbackschleifen um mein Ziel zu erreichen.
-    Begrüße mich zunächst und stelle dich vor. Frage mich anschließend nach und nach im Dialog:
-    1. Wie ich mich im Hinblick auf mein bevorstehendes Bewerbungsgespräch fühle.
-    2. Wofür genau ich mich bewerbe.
-    3. Was meine größten Bedenken und Fragen sind.
-    Beende den Dialog mit einer motivierenden Zusammenfassung erst, wenn wir beide unser Ziel erreicht haben.";
-
-        // Hier können weitere Anweisungen oder Logik hinzugefügt werden, falls nötig
-
-        return $newQuestion;
-    }
-
-    public function JobNavigatorProcess(Request $request)
-    {
-        // Validierung der Eingaben
-        $validator = Validator::make($request->all(), [
-            'field2' => 'required',
-            'field3' => 'required',
-            'field4' => 'required',
-            'field5' => 'required',
-            'field6' => 'required',
-            'field7' => 'required'
-            // weitere Validierungsregeln...
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json([
-                "status" => false,
-                "errors" => $validator->errors(),
-                "message" => "Bitte fülle alle Felder aus"
-            ]);
-
-            // $username = $this->getUsername();
-            $newQuestion = $this->buildKarriereProcessQuestion($request);
-            $type = $this->determineResponseType($request);
-
-            $payload = $this->createPayload($newQuestion, true, null, 'JobNavigator');
-            $responseData = $this->sendOpenAIRequest($payload, auth()->user()->id, 'JobNavigator');
+        
+            $newQuestion = $this->JobMatchQuestion($request); //JobMatch
+            $payload = $this->createPayload($newQuestion, true, null, 'JobMatch');
+            $responseData = $this->sendOpenAIRequest($payload, auth()->user()->id, 'JobMatch');
             $formattedData = $this->formatApiResponse($responseData);
 
             return response()->json([
                 "status" => true,
                 "data" => $formattedData,
-                "type" => $type
             ]);
-        }
     }
 
-    private function buildKarriereProcessQuestion($request)
+    private function JobMatchQuestion($request)
     {
-        // Überprüfe, ob das erste Feld ausgefüllt ist
-        if (! empty($request->field1)) {
-            // Generiere einen spezifischen Prompt für den Beruf in field1
-            return "Generiere eine umfassende und präzise Übersicht über den Beruf: " . $request->field1 . ". " . "Die Informationen sollten folgende Aspekte beinhalten, um dem Nutzer eine klare Einschätzung des Berufsfeldes zu ermöglichen:
-                1. Berufsbeschreibung: Gib eine Beschreibung des Berufs, inklusive der Hauptaufgaben und Verantwortlichkeiten.
-                2. Qualifikationen und Fähigkeiten: Liste die erforderlichen Ausbildungen, Fähigkeiten und Zertifikate auf, die typischerweise für diesen Beruf benötigt werden. Hebe besondere Qualifikationen hervor, die den Beruf besonders attraktiv oder einzigartig machen.
-                3. Arbeitsmarkt und Karriereaussichten: Biete Informationen über die aktuelle Nachfrage am deutschen Arbeitsmarkt, Karrierewege und Entwicklungsmöglichkeiten. Betone sowohl kurz- als auch langfristige Perspektiven.
-                4. Arbeitsumgebung und -bedingungen: Beschreibe die typische Arbeitsumgebung, Arbeitszeiten und andere relevante Bedingungen. Gehe auch auf häufige physische oder psychische Anforderungen des Berufs ein.
-                5. Gehaltsaussichten: Branchenübliche Brutto Gehaltsspanne und Einkommensmöglichkeiten in €. Berücksichtige dabei regionale Unterschiede, falls relevant.
-                6. Berufliche Herausforderungen und Vorteile: Erläutere sowohl die Herausforderungen als auch die Vorteile dieses Berufs. Gehe darauf ein, wie dieser Beruf zur beruflichen und persönlichen Zufriedenheit beitragen kann.";
-        }
-        // Ansonsten generiere einen anderen Prompt basierend auf den anderen Feldern
         $newQuestion = "Generiere drei passende Karrierevorschläge die zu meinen folgenden Anforderungen passen: ";
 
         $fields = [
@@ -733,10 +738,35 @@ class FrontController extends Controller
         return $newQuestion;
     }
 
+    public function JobInsiderProcess(Request $request)
+    {
+            $newQuestion = $this->JobInsiderQuestion($request);
+            $payload = $this->createPayload($newQuestion, true, null, 'JobInsider');
+            $responseData = $this->sendOpenAIRequest($payload, auth()->user()->id, 'JobInsider');
+            $formattedData = $this->formatApiResponse($responseData);
+
+            return response()->json([
+                "status" => true,
+                "data" => $formattedData,
+            ]);
+    }
+
+    private function JobInsiderQuestion($request)
+    {
+        $newQuestion = "Generiere eine umfassende und präzise Übersicht über den folgenden Beruf:" . $request->field1 . ". Die Informationen sollten folgende Aspekte beinhalten, um dem Nutzer eine klare Einschätzung des Berufsfeldes zu ermöglichen:
+            1. Berufsbeschreibung: Gib eine Beschreibung des Berufs, inklusive der Hauptaufgaben und Verantwortlichkeiten.
+            2. Qualifikationen und Fähigkeiten: Liste die erforderlichen Ausbildungen, Fähigkeiten und Zertifikate auf, die typischerweise für diesen Beruf benötigt werden. Hebe besondere Qualifikationen hervor, die den Beruf besonders attraktiv oder einzigartig machen.
+            3. Arbeitsmarkt und Karriereaussichten: Biete Informationen über die aktuelle Nachfrage am deutschen Arbeitsmarkt, Karrierewege und Entwicklungsmöglichkeiten. Betone sowohl kurz- als auch langfristige Perspektiven.
+            4. Arbeitsumgebung und -bedingungen: Beschreibe die typische Arbeitsumgebung, Arbeitszeiten und andere relevante Bedingungen. Gehe auch auf häufige physische oder psychische Anforderungen des Berufs ein.
+            5. Gehaltsaussichten: Branchenübliche Brutto Gehaltsspanne und Einkommensmöglichkeiten in €. Berücksichtige dabei regionale Unterschiede, falls relevant.
+            6. Berufliche Herausforderungen und Vorteile: Erläutere sowohl die Herausforderungen als auch die Vorteile dieses Berufs. Gehe darauf ein, wie dieser Beruf zur beruflichen und persönlichen Zufriedenheit beitragen kann.";
+        return $newQuestion;
+    }
+
     public function toolsPage()
     {
         $this->updatePlaneSec();
-        return view('todayabout');
+        return view('Tools');
     }
     
     /**

@@ -2,18 +2,9 @@
 <html lang="en">
 
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Page</title>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-	rel="stylesheet">
-
-<link rel="stylesheet" href="{{ asset('asset/css/navBarStyle.css') }}">
-<link rel="stylesheet" href="{{ asset('asset/css/utilities.css') }}">
-<link rel="stylesheet"
-	href="{{ asset('asset/css/written-green-board.css') }}">
-
+@include('includes.head')
+@section('title', 'Impressum')
+<link rel="stylesheet" href="{{ asset('asset/css/homepage.css') }}">
 </head>
 
 <body class="MainContainer">
@@ -96,14 +87,41 @@
 
 	</section>
 
+    <footer class="mainFooterContainer">
+        <div class="footerContainer">
+            <img id="footerLogo" src="{{ asset('asset/images/Logo (2).png') }}"
+                width="133" height="77" alt="Logo " loading="lazy">
+            <div class="CenterContainer">
+                <div class="anchorTagsFooterContainer">
+                    <a href="/impressum" class="footerHeading"> Impressum </a>
+                </div>
+                <div class="anchorTagsFooterContainer">
+                    <a href="/agb" class="footerHeading"> AGBs </a>
 
+                </div>
+                <div class="anchorTagsFooterContainer">
+                    <a href="/datenschutz" class="footerHeading"> Datenschutz </a>
+                </div>
 
+            </div>
+
+            <div class="rightContainer" style="gap: 0rem;">
+                <div class="socialAnchorTags">
+                    <a href=""><img id="instagram"
+                        src="{{ asset('asset/images/instagram.svg') }}" alt="Instagram" loading="lazy"></a>
+                    <a href=""><img id="tiktok"
+                        src="{{ asset('asset/images/tiktok.svg') }}" alt="TikTok" loading="lazy"></a> <a
+                        href=""><img id="linkedin"
+                        src="{{ asset('asset/images/linkedin.svg') }}" alt="LinkedIn" loading="lazy"></a>
+                </div>
+            </div>
+        </div>
+    </footer>
 
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-		crossorigin="anonymous"></script>
-
+		crossorigin="anonymous">
+	</script>		
 </body>
-
 </html>

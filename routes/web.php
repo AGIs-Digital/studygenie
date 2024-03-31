@@ -31,10 +31,6 @@ Route::get('/Karriere', function () {
     return view('Karriere');
 });
 
-Route::get('/written', function () {
-    return view('written');
-});
-
 Route::get('/profile', function () {
     return view('profile');
 })->name('profile');
@@ -42,13 +38,13 @@ Route::get('/profile', function () {
 
 Route::get('/archive', [FrontController::class, 'getArchive']);
 
-Route::get('/genie-check', function () {
-    return view('Bildung.geniecheck');
+Route::get('/GenieCheck', function () {
+    return view('Bildung.GenieCheck');
 });
 
-Route::get('/genie-brain', function () {
+Route::get('/GenieBrain', function () {
     if((auth()->user()->subscription_name == 'gold' || auth()->user()->subscription_name == 'diamant')){
-        return view('Bildung.geniebrain');
+        return view('Bildung.GenieBrain');
     }
 
     return abort(404);
@@ -64,45 +60,46 @@ Route::get('/BewerbeGenie', function () {
 
 });
 
-Route::get('/motivationsschreiben', function () {
+Route::get('/Motivationsschreiben', function () {
     if((auth()->user()->subscription_name == 'gold' || auth()->user()->subscription_name == 'diamant')){
-        return view('Karriere.motivationsschreiben');
+        return view('Karriere.Motivationsschreiben');
     }
 
     return abort(404);
 
 });
 
-Route::get('/lebenslauf', function () {
+Route::get('/Lebenslauf', function () {
     if((auth()->user()->subscription_name == 'gold' || auth()->user()->subscription_name == 'diamant')){
-        return view('Karriere.lebenslauf');
+        return view('Karriere.Lebenslauf');
     }
 
     return abort(404);
 
 });
 
-Route::post('motivationprocess', [FrontController::class, 'genieMotivationProcess'])->name('motivation.process');
+Route::post('MotivationsschreibenProcess', [FrontController::class, 'MotivationsschreibenProcess'])->name('MotivationsschreibenProcess');
 
 Route::get('GenieTutor', [FrontController::class, 'GenieTutor']);
-Route::post('/GenieTutor-one', [FrontController::class, 'GenieTutorFirst'])->name('genie.firstreqeust');
-
+Route::post('/GenieTutor-one', [FrontController::class, 'GenieTutorFirst'])->name('GenieTutor');
 Route::post('GenieTutor-user', [FrontController::class, 'GenieTutorUser'])->name('GenieTutoruser');
 
-Route::post('geniebrainprocess', [FrontController::class, 'genieBrainProcess'])->name('geniebrainprocess');
+Route::get('/KarriereMentor', [FrontController::class, 'KarriereMentor']);
+Route::post('/KarriereMentor-one', [FrontController::class, 'KarriereMentorFirst'])->name('KarriereMentor');
+Route::post('KarriereMentor-user', [FrontController::class, 'KarriereMentorUser'])->name('KarriereMentoruser');
 
-Route::post('JobNavigatorprocess', [FrontController::class, 'JobNavigatorProcess'])->name('JobNavigatorprocess');
+Route::post('GenieBrainprocess', [FrontController::class, 'GenieBrainProcess'])->name('GenieBrainprocess');
 
+Route::post('JobMatchProcess', [FrontController::class, 'JobMatchProcess'])->name('JobMatchProcess');
 
-
+Route::post('JobInsiderProcess', [FrontController::class, 'JobInsiderProcess'])->name('JobInsiderProcess');
 
 Route::post('savedata', [FrontController::class, 'saveData'])->name('save.data');
 
-Route::get('/genie-interview', [FrontController::class, 'genieInterview']);
+Route::post('GenieCheck', [FrontController::class, 'GenieCheck'])->name('GenieCheck');
 
-Route::post('/genie-interview-one', [FrontController::class, 'genieInterviewFirst'])->name('genie.first');
-Route::get('/JobNavigator', function () {
-    return view('Karriere.JobNavigator');
+Route::get('/KarriereGenie', function () {
+    return view('Karriere.KarriereGenie');
 });
 
 Route::get('/JobMatch', function () {
@@ -113,15 +110,11 @@ Route::get('/JobInsider', function () {
     return view('Karriere.JobInsider');
 });
 
-
-
-
-
 });
 
-Route::post('post-login', [FrontController::class, 'postLogin'])->name('login.post');
-Route::post('post-registration', [FrontController::class, 'postRegistration'])->name('register.post');
-Route::post('/testGpt', [FrontController::class, 'index'])->name('processForm');
+Route::post('/postLogin', [FrontController::class, 'postLogin']);
+Route::post('/postRegistration', [FrontController::class, 'postRegistration']);
+Route::post('/register', [UserController::class, 'register'])->name('register.post');
 
 Route::get('/impressum', function () {
     return view('impressum');
@@ -148,3 +141,4 @@ Route::post('change-password', [FrontController::class, 'updateUserPassword'])->
 
 Auth::routes();
 Route::delete('/archive/{id}', [FrontController::class, 'deleteArchive'])->name('archive.delete');
+Route::delete('/user/delete', [FrontController::class, 'delete'])->name('user.delete');

@@ -1,48 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bildung</title>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-	rel="stylesheet">
-<link rel="stylesheet" href="{{ asset('asset/css/navBarStyle.css') }}">
-<link rel="stylesheet"
-	href="{{ asset('asset/css/forBildungStyle.css') }}">
-<link rel="stylesheet" href="{{ asset('asset/css/utilities.css') }}">
-<link rel="apple-touch-icon" sizes="57x57"
-	href="/favicon/apple-icon-57x57.png">
-<link rel="apple-touch-icon" sizes="60x60"
-	href="/favicon/apple-icon-60x60.png">
-<link rel="apple-touch-icon" sizes="72x72"
-	href="/favicon/apple-icon-72x72.png">
-<link rel="apple-touch-icon" sizes="76x76"
-	href="/favicon/apple-icon-76x76.png">
-<link rel="apple-touch-icon" sizes="114x114"
-	href="/favicon/apple-icon-114x114.png">
-<link rel="apple-touch-icon" sizes="120x120"
-	href="/favicon/apple-icon-120x120.png">
-<link rel="apple-touch-icon" sizes="144x144"
-	href="/favicon/apple-icon-144x144.png">
-<link rel="apple-touch-icon" sizes="152x152"
-	href="/favicon/apple-icon-152x152.png">
-<link rel="apple-touch-icon" sizes="180x180"
-	href="/favicon/apple-icon-180x180.png">
-<link rel="icon" type="image/png" sizes="192x192"
-	href="/favicon/android-icon-192x192.png">
-<link rel="icon" type="image/png" sizes="32x32"
-	href="/favicon/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="96x96"
-	href="/favicon/favicon-96x96.png">
-<link rel="icon" type="image/png" sizes="16x16"
-	href="/favicon/favicon-16x16.png">
-<link rel="manifest" href="/favicon/manifest.json">
-<meta name="msapplication-TileColor" content="#ffffff">
-<meta name="msapplication-TileImage"
-	content="/favicon/ms-icon-144x144.png">
-<meta name="theme-color" content="#ffffff">
+@include('includes.head')
+@section('title', 'Bildung')
+<link rel="stylesheet" href="{{ asset('asset/css/forBildungStyle.css') }}">
 </head>
+
 <body class="MainContainer">
 
 	@include('includes.header')
@@ -59,9 +22,9 @@
 			</div>
 			<div class="centerCon">
 				<h1 class="primary-Heading">Bildung</h1><br />
-                <img id="aladinImage"
-                src="{{ asset('asset/images/todayAboutImage.png') }}"
-                alt="Aladin Image">
+                <img id="StudyGenieImage"
+                src="{{ asset('asset/images/ToolsImage.png') }}"
+                alt="StudyGenieImage">
 			</div>
 			<div class="rightCon"></div>
 
@@ -72,7 +35,7 @@
 			null && \Carbon\Carbon::parse($date)->gt(\Carbon\Carbon::now())){
 			$check = true; } @endphp @if((auth()->user()->subscription_name ==
 			'gold' || auth()->user()->subscription_name == 'diamant') && $check)
-			<a href="/genie-brain" class="Cloud" id="GenieBrain">
+			<a href="/GenieBrain" class="Cloud" id="GenieBrain">
 				<button type="button" class="btn" data-bs-toggle="tooltip"
 					data-bs-placement="top" title="Soforthilfe für kreative Texte.">
 					<img src="{{ asset('asset/images/info.svg') }}" width="20" alt="">
@@ -161,7 +124,7 @@
                     </filter>
                 </defs>
                 </svg>
-			</a> @endif <a href="/genie-check" class="Cloud" id="GenieCheck">
+			</a> @endif <a href="/GenieCheck" class="Cloud" id="GenieCheck">
 				<button type="button" class="btn" data-bs-toggle="tooltip"
 					data-bs-placement="top"
 					title="Schnelle Textkorrektur für Grammatik, Stil und mehr.">
@@ -225,7 +188,7 @@
                 <path
 							d="M169.358 42.2315C168.781 41.9628 168.298 41.5259 167.973 40.978C167.649 40.4302 167.497 39.797 167.538 39.1615C167.542 35.3204 166.738 31.5215 165.178 28.0115C162.524 22.1812 158.554 17.0465 153.578 13.0115C146.948 7.75151 139.508 5.15151 130.978 6.26151C125.298 7.00151 119.978 8.62151 115.718 12.7015C114.988 13.3915 114.468 13.2215 113.838 12.6115C112.988 11.7915 112.108 11.0215 111.208 10.2615C102.958 3.37151 93.6882 -0.438494 82.7182 0.671506C75.2957 1.34277 68.1756 3.93439 62.0582 8.19151C55.4282 12.8215 50.7482 18.8215 48.9982 26.8615C48.8982 27.2948 48.7882 27.7148 48.6682 28.1215C48.2782 29.4915 48.2582 29.4915 46.9082 28.8715L46.4182 28.6215C41.2329 26.2577 35.6161 24.9879 29.9182 24.8915C29.2982 24.8915 28.6782 24.8915 28.0582 24.8915C27.4382 24.8915 26.7182 25.0615 26.0582 25.1415C22.1076 25.5463 18.2931 26.8095 14.8817 28.8425C11.4702 30.8756 8.54417 33.6294 6.30823 36.9115C2.14823 42.6815 0.498228 49.3015 0.308228 56.2815C0.0240566 64.608 2.75469 72.7572 7.99823 79.2315C13.7282 86.4815 20.9382 91.2315 30.4882 91.4715C30.8327 91.4485 31.1759 91.5321 31.4711 91.711C31.7663 91.89 31.9993 92.1555 32.1382 92.4715C33.7782 95.7615 36.4782 98.1215 39.2082 100.472C43.5116 104.24 48.7348 106.803 54.3482 107.902C59.814 108.946 65.4026 109.188 70.9382 108.622C78.7765 107.891 86.3705 105.505 93.2182 101.622C96.477 99.7219 99.5184 97.4719 102.288 94.9115C103.358 93.9115 103.398 93.9815 104.288 95.0515C106.509 97.6491 109.247 99.7553 112.327 101.236C115.408 102.717 118.762 103.539 122.178 103.652C131.868 104.212 139.718 100.362 145.718 92.7315C146.518 91.7315 146.518 91.6615 147.568 92.3715C149.763 93.8095 152.358 94.5102 154.978 94.3715C159.262 94.2134 163.441 93.0046 167.148 90.8515C175.398 86.1615 180.348 79.0115 182.698 70.0115C183.53 66.8929 183.668 63.6297 183.101 60.4522C182.534 57.2747 181.277 54.2602 179.418 51.6215C176.877 47.7215 173.424 44.4987 169.358 42.2315Z"
 							fill="none" />
-                <text class="textStyle" x="32" y="65"
+                <text class="textStyle" x="42" y="65"
 							font-family: 'Milonga', cursive; font-size="24" fill="#2D3E4E"
 							font-weight="400">GenieTutor</text>
                 </svg>
@@ -314,12 +277,12 @@
 
     function showDialog(){
         Swal.fire({
-            title: '<strong>You Can Not Access This Tool</strong>',
+            title: '<strong>Dieses Tool ist noch gesperrt</strong>',
             icon: 'info',
             html:
-                'You Can Not Access This Tool Please Upgrade Your Plan goto , ' +
+                'Dieses Tool ist noch gesperrt. Hol dir ein Upgrade goto , ' +
                 '<a href="/profile">Profile</a> ' +
-                'and use this tool',
+                'zum freischalten.',
 
             });
     }

@@ -2,52 +2,14 @@
 <html lang="en">
 
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dein Profil</title>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-	rel="stylesheet">
-
-<link rel="stylesheet" href="{{ asset('asset/css/navBarStyle.css') }}">
-<link rel="stylesheet" href="{{ asset('asset/css/utilities.css') }}">
+@include('includes.head')
+@section('title', Auth::check() ? Auth::user()->name . ' - Profil' : 'Profil')
 <link rel="stylesheet" href="{{ asset('asset/css/profile.css') }}">
-<link rel="apple-touch-icon" sizes="57x57"
-	href="/favicon/apple-icon-57x57.png">
-<link rel="apple-touch-icon" sizes="60x60"
-	href="/favicon/apple-icon-60x60.png">
-<link rel="apple-touch-icon" sizes="72x72"
-	href="/favicon/apple-icon-72x72.png">
-<link rel="apple-touch-icon" sizes="76x76"
-	href="/favicon/apple-icon-76x76.png">
-<link rel="apple-touch-icon" sizes="114x114"
-	href="/favicon/apple-icon-114x114.png">
-<link rel="apple-touch-icon" sizes="120x120"
-	href="/favicon/apple-icon-120x120.png">
-<link rel="apple-touch-icon" sizes="144x144"
-	href="/favicon/apple-icon-144x144.png">
-<link rel="apple-touch-icon" sizes="152x152"
-	href="/favicon/apple-icon-152x152.png">
-<link rel="apple-touch-icon" sizes="180x180"
-	href="/favicon/apple-icon-180x180.png">
-<link rel="icon" type="image/png" sizes="192x192"
-	href="/favicon/android-icon-192x192.png">
-<link rel="icon" type="image/png" sizes="32x32"
-	href="/favicon/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="96x96"
-	href="/favicon/favicon-96x96.png">
-<link rel="icon" type="image/png" sizes="16x16"
-	href="/favicon/favicon-16x16.png">
-<link rel="manifest" href="/favicon/manifest.json">
-<meta name="msapplication-TileColor" content="#ffffff">
-<meta name="msapplication-TileImage"
-	content="/favicon/ms-icon-144x144.png">
-<meta name="theme-color" content="#ffffff">
+
 </head>
 
 <body class="MainContainer">
 	@include('includes.header')
-
 	<div class="container mt-5">
 		<div class="row">
 			<div class="col-md-12">
@@ -213,67 +175,104 @@
 							<br />
 						</div>
 					</div>
-					<div class="col-md-12">
-						<br>
-						<h1>Passwort ändern</h1>
-					</div>
-					<div class="col-md-4">
-						<div class="input_group">
-							<label for="">Altes Passwort</label> <input type="password"
-								name="old_password" class="form-control">
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="input_group">
-							<label for="">Neues Passwort</label> <input type="password"
-								name="new_password" class="form-control">
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="input_group">
-							<label for="">Wiederhole Neues Passwort</label> <input
-								type="password" name="new_confirm_password" class="form-control">
-						</div>
+				</div>
+				<div class="row">
+					<div class="col-12 d-flex justify-content-between">
+						<button id="changePasswordButton" type="button" class="btn btn-primary">Account Einstellungen</button>
+						<form method="POST" action="{{ route('user.delete') }}" onsubmit="return confirmDeletion();">
+							@csrf
+							@method('DELETE')
+							
+						</form>
 					</div>
 				</div>
-
-			</div>
-
-			<div class="row">
-				<div class="col-md-12 text-center">
-					<button type="submit" class="submit_button">Änderung speichern</button>
+				<div id="passwordChangeForm" class="hidden">
+					<div class="row">
+						<div class="col-md-4">
+							<div class="input_group">
+								<label for="old_password">Altes Passwort</label>
+								<input type="password" name="old_password" class="form-control form-control-sm">
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="input_group">
+								<label for="new_password">Neues Passwort</label>
+								<input type="password" name="new_password" class="form-control form-control-sm">
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="input_group">
+								<label for="new_confirm_password">Wiederhole Neues Passwort</label>
+								<input type="password" name="new_confirm_password" class="form-control form-control-sm">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-2 text-end">
+							<form method="POST" action="{{ route('user.delete') }}" onsubmit="return confirmDeletion();">
+								@csrf
+								@method('DELETE')
+								<button type="submit" class="btn btn-danger">Account löschen</button>
+							</form>
+						</div>
+					</div>
+					<div id="passwordChangeForm" class="hidden">
+						<div class="row">
+							<div class="col-md-4">
+								<div class="input_group">
+									<label for="old_password">Altes Passwort</label>
+									<input type="password" name="old_password" class="form-control form-control-sm">
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="input_group">
+									<label for="new_password">Neues Passwort</label>
+									<input type="password" name="new_password" class="form-control form-control-sm">
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="input_group">
+									<label for="new_confirm_password">Wiederhole Neues Passwort</label>
+									<input type="password" name="new_confirm_password" class="form-control form-control-sm">
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12 text-center">
+								<button type="submit" class="btn btn-primary mt-2">Änderung speichern</button>
+							</div>
+						</div>
+					</div>
 				</div>
 
 			</div>
 		</form>
 
-	</div>
+	</div> <!-- Ende des Hauptinhalts-Containers -->
+
 	<footer class="mainFooterContainer">
-		<div class="footerContainer">
-			<img id="footerLogo" src="{{ asset('asset/images/Logo (2).png') }}"
-				width="133" height="77" alt="Logo ">
-			<div class="CenterContainer">
-				<div class="anchorTagsFooterContainer">
-					<a href="/impressum" class="footerHeading"> Impressum </a>
-				</div>
-				<div class="anchorTagsFooterContainer">
-					<a href="/agb" class="footerHeading"> AGBs </a>
+		<div class="container-fluid px-0"> <!-- Verwendung von container-fluid für volle Breite -->
+			<div class="footerContainer">
+				<img id="footerLogo" src="{{ asset('asset/images/Logo (2).png') }}" width="133" height="77" alt="Logo " loading="lazy">
+				<div class="CenterContainer">
+					<div class="anchorTagsFooterContainer">
+						<a href="/impressum" class="footerHeading"> Impressum </a>
+					</div>
+					<div class="anchorTagsFooterContainer">
+						<a href="/agb" class="footerHeading"> AGBs </a>
+					</div>
+					<div class="anchorTagsFooterContainer">
+						<a href="/datenschutz" class="footerHeading"> Datenschutz </a>
+					</div>
 
 				</div>
-				<div class="anchorTagsFooterContainer">
-					<a href="/datenschutz" class="footerHeading"> Datenschutz </a>
-				</div>
 
-			</div>
-
-			<div class="rightContainer" style="gap: 0rem;">
-				<div class="socialAnchorTags">
-					<a href=""><img id="instagram"
-						src="{{ asset('asset/images/instagram.svg') }}" alt="Instagram"></a>
-					<a href=""><img id="tiktok"
-						src="{{ asset('asset/images/tiktok.svg') }}" alt="TikTok"></a> <a
-						href=""><img id="linkedin"
-						src="{{ asset('asset/images/linkedin.svg') }}" alt="LinkedIn"></a>
+				<div class="rightContainer" style="gap: 0rem;">
+					<div class="socialAnchorTags">
+						<a href=""><img id="instagram" src="{{ asset('asset/images/instagram.svg') }}" alt="Instagram" loading="lazy"></a>
+						<a href=""><img id="tiktok" src="{{ asset('asset/images/tiktok.svg') }}" alt="TikTok" loading="lazy"></a> <a
+							href=""><img id="linkedin" src="{{ asset('asset/images/linkedin.svg') }}" alt="LinkedIn" loading="lazy"></a>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -314,7 +313,22 @@
             window.location.href = url;
         }
     }
-      </script>
+    
+    document.addEventListener('DOMContentLoaded', function () {
+        document.getElementById('changePasswordButton').addEventListener('click', function () {
+            var form = document.getElementById('passwordChangeForm');
+            if (form.classList.contains('hidden')) {
+                form.classList.remove('hidden');
+            } else {
+                form.classList.add('hidden');
+            }
+        });
+    });
+
+    function confirmDeletion() {
+        return confirm('ACHTUNG: Diese Aktion wird Ihren Account und alle damit verbundenen Daten dauerhaft löschen. Diese Aktion kann nicht rückgängig gemacht werden. Sind Sie sicher, dass Sie fortfahren möchten?');
+    }
+</script>
 
 </body>
 

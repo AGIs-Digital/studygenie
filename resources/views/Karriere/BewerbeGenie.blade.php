@@ -1,16 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BewerbeGenie</title>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-	rel="stylesheet">
-<link rel="stylesheet" href="{{ asset('asset/css/navBarStyle.css') }}">
-<link rel="stylesheet"
-	href="{{ asset('asset/css/forBildungStyle.css') }}">
-<link rel="stylesheet" href="{{ asset('asset/css/utilities.css') }}">
+@include('includes.head')
+@section('title', 'BewerbeGenie')
+<link rel="stylesheet" href="{{ asset('asset/css/forBildungStyle.css') }}">
+</head>
 <style>
 .categoryClouds {
 	grid-template-columns: 1fr 1fr;
@@ -20,38 +14,7 @@
 	font-size: 16.5px;
 }
 </style>
-<link rel="apple-touch-icon" sizes="57x57"
-	href="/favicon/apple-icon-57x57.png">
-<link rel="apple-touch-icon" sizes="60x60"
-	href="/favicon/apple-icon-60x60.png">
-<link rel="apple-touch-icon" sizes="72x72"
-	href="/favicon/apple-icon-72x72.png">
-<link rel="apple-touch-icon" sizes="76x76"
-	href="/favicon/apple-icon-76x76.png">
-<link rel="apple-touch-icon" sizes="114x114"
-	href="/favicon/apple-icon-114x114.png">
-<link rel="apple-touch-icon" sizes="120x120"
-	href="/favicon/apple-icon-120x120.png">
-<link rel="apple-touch-icon" sizes="144x144"
-	href="/favicon/apple-icon-144x144.png">
-<link rel="apple-touch-icon" sizes="152x152"
-	href="/favicon/apple-icon-152x152.png">
-<link rel="apple-touch-icon" sizes="180x180"
-	href="/favicon/apple-icon-180x180.png">
-<link rel="icon" type="image/png" sizes="192x192"
-	href="/favicon/android-icon-192x192.png">
-<link rel="icon" type="image/png" sizes="32x32"
-	href="/favicon/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="96x96"
-	href="/favicon/favicon-96x96.png">
-<link rel="icon" type="image/png" sizes="16x16"
-	href="/favicon/favicon-16x16.png">
-<link rel="manifest" href="/favicon/manifest.json">
-<meta name="msapplication-TileColor" content="#ffffff">
-<meta name="msapplication-TileImage"
-	content="/favicon/ms-icon-144x144.png">
-<meta name="theme-color" content="#ffffff">
-</head>
+
 <body class="MainContainer">
 
 	@include('includes.header')
@@ -68,9 +31,9 @@
 			</div>
 			<div class="centerCon">
 				<h1 class="primary-Heading">BewerbeGenie</h1><br />
-                <img id="aladinImage"
-                src="{{ asset('asset/images/todayAboutImage.png') }}"
-                alt="Aladin Image">
+                <img id="StudyGenieImage"
+                src="{{ asset('asset/images/ToolsImage.png') }}"
+                alt="StudyGenieImage">
 			</div>
 			<div class="rightCon"></div>
 
@@ -78,7 +41,7 @@
 
 		<div class="categoryClouds">
 
-			<a href="/lebenslauf" class="Cloud_Karriere" id="textInspirationCloud">
+			<a href="/Lebenslauf" class="Cloud_Karriere" id="textInspirationCloud">
 				<svg xmlns="http://www.w3.org/2000/svg" width="245" height="167"
 					viewBox="0 0 245 167" fill="none">
             <g filter="url(#filter0_d_168_754)">
@@ -119,7 +82,7 @@
                 </filter>
             </defs>
             </svg>
-			</a> <a href="/motivationsschreiben" class="Cloud_Karriere"
+			</a> <a href="/Motivationsschreiben" class="Cloud_Karriere"
 				id="textInspirationCloud2"> <svg xmlns="http://www.w3.org/2000/svg"
 					width="245" height="167" viewBox="0 0 245 167" fill="none">
             <g filter="url(#filter0_d_168_754)">
@@ -174,19 +137,17 @@
 
     function showDialog(){
         Swal.fire({
-            title: '<strong>You Can Not Access This Tool</strong>',
+            title: '<strong>Dieses Tool ist noch gesperrt</strong>',
             icon: 'info',
             html:
-                'You Can Not Access This Tool Please Upgrade Your Plan goto , ' +
+                'Dieses Tool ist noch gesperrt. Hol dir ein Upgrade goto , ' +
                 '<a href="/profile">Profile</a> ' +
-                'and use this tool',
+                'zum freischalten.',
 
             });
     }
 
   </script>
-
-
 
 </body>
 </html>

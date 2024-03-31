@@ -1,49 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lebenslauf</title>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-	rel="stylesheet">
-
-<link rel="stylesheet" href="{{ asset('asset/css/navBarStyle.css') }}">
-<link rel="stylesheet" href="{{ asset('asset/css/utilities.css') }}">
-<link rel="stylesheet"
-	href="{{ asset('asset/css/written-green-board.css') }}">
-<link rel="apple-touch-icon" sizes="57x57"
-	href="/favicon/apple-icon-57x57.png">
-<link rel="apple-touch-icon" sizes="60x60"
-	href="/favicon/apple-icon-60x60.png">
-<link rel="apple-touch-icon" sizes="72x72"
-	href="/favicon/apple-icon-72x72.png">
-<link rel="apple-touch-icon" sizes="76x76"
-	href="/favicon/apple-icon-76x76.png">
-<link rel="apple-touch-icon" sizes="114x114"
-	href="/favicon/apple-icon-114x114.png">
-<link rel="apple-touch-icon" sizes="120x120"
-	href="/favicon/apple-icon-120x120.png">
-<link rel="apple-touch-icon" sizes="144x144"
-	href="/favicon/apple-icon-144x144.png">
-<link rel="apple-touch-icon" sizes="152x152"
-	href="/favicon/apple-icon-152x152.png">
-<link rel="apple-touch-icon" sizes="180x180"
-	href="/favicon/apple-icon-180x180.png">
-<link rel="icon" type="image/png" sizes="192x192"
-	href="/favicon/android-icon-192x192.png">
-<link rel="icon" type="image/png" sizes="32x32"
-	href="/favicon/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="96x96"
-	href="/favicon/favicon-96x96.png">
-<link rel="icon" type="image/png" sizes="16x16"
-	href="/favicon/favicon-16x16.png">
-<link rel="manifest" href="/favicon/manifest.json">
-<meta name="msapplication-TileColor" content="#ffffff">
-<meta name="msapplication-TileImage"
-	content="/favicon/ms-icon-144x144.png">
-<meta name="theme-color" content="#ffffff">
+@include('includes.head')
+@section('title', 'Lebenslauf')
 </head>
 
 <body class="MainContainer">
@@ -122,11 +81,11 @@
 								<div class="accordion-body">
 									<div class="personal_info">
 										<div class="form-group">
-											<label for="">Vor</label> <input type="text"
+											<label for="">Vorname</label> <input type="text"
 												id="first_name">
 										</div>
 										<div class="form-group">
-											<label for="">Nach</label> <input type="text"
+											<label for="">Nachname</label> <input type="text"
 												id="last_name">
 										</div>
 										<div class="form-group">
@@ -388,328 +347,22 @@
 
 						</div>
 					</div>
-					<div class="text-center">
-						<button
-							style="width: 156px; font-size: 12px; padding: 8px 7px; border: none; color: #fff; background: #f3922a; border-radius: 7px; margin-top: 10px; margin-left: auto; margin-right: auto;"
-							onclick="writeCv();">einreichen</button>
+					<div class="text-center" style="display: flex; justify-content: center; align-items: center;">
+						
+					<button type="button" class="send_button" style="margin:10px"
+							onclick="writeCv();">Erstellen</button>
+							<img src="{{ asset('asset/images/pdf.svg') }}" width="35" height="40" onclick="generatePDF()" id="save_folder" class="save_folder2">
 					</div>
-
-
+					<div id="toast" class="toast">Lebenslauf heruntergeladen</div>
 				</div>
 
 				<div class="col-md-7">
-					<div class="cv_box_sec" id="cv_appnd">
-						{{--
-						<div class="cv_box" id="all_cv_content">
-							<h2>
-								<span>Tom</span> <span>Ablen</span>
-							</h2>
-							<div class="personal_info_box">
-								<div class="row">
-									<div class="col-md-5 mt-2">
-										<div class="box">
-											<div class="img">
-												<img src="{{ asset(" asset/images/location.svg") }}" alt="">
-											</div>
-											<div class="content">
-												<span>address</span> <span>postal_code</span>
-											</div>
-										</div>
-									</div>
-									<div class="col-md-5 mt-2">
-										<div class="box">
-											<div class="img">
-												<svg xmlns="http://www.w3.org/2000/svg" width="14"
-													height="14" viewBox="0 0 5.822 5.822">
-                                                    <g id="Group_66"
-														data-name="Group 66"
-														transform="translate(-0.264 -290.914)">
-                                                      <path
-														id="Path_302" data-name="Path 302"
-														d="M1.059.264a.8.8,0,0,0-.8.795V5.292a.8.8,0,0,0,.8.795H5.291a.8.8,0,0,0,.795-.795V1.059A.8.8,0,0,0,5.291.264Zm0,.529H5.291a.26.26,0,0,1,.266.266v.264H.793V1.059A.261.261,0,0,1,1.059.793ZM.793,1.852H5.557v3.44a.26.26,0,0,1-.266.266H1.059a.261.261,0,0,1-.266-.266Zm1.853.529a.265.265,0,1,0,.265.265A.265.265,0,0,0,2.646,2.381Zm1.058,0a.265.265,0,1,0,.265.265A.265.265,0,0,0,3.7,2.381Zm1.058,0a.265.265,0,1,0,.265.265A.265.265,0,0,0,4.762,2.381ZM1.587,3.44a.265.265,0,1,0,.265.265A.265.265,0,0,0,1.587,3.44Zm1.058,0A.265.265,0,1,0,2.91,3.7.265.265,0,0,0,2.646,3.44Zm1.058,0a.265.265,0,1,0,.265.265A.265.265,0,0,0,3.7,3.44Zm1.058,0a.265.265,0,1,0,.265.265A.265.265,0,0,0,4.762,3.44ZM1.587,4.5a.265.265,0,1,0,.265.265A.265.265,0,0,0,1.587,4.5Zm1.058,0a.265.265,0,1,0,.265.265A.265.265,0,0,0,2.646,4.5ZM3.7,4.5a.265.265,0,1,0,.265.265A.265.265,0,0,0,3.7,4.5Z"
-														transform="translate(0 290.65)" fill="#fff"
-														fill-rule="evenodd" />
-                                                    </g>
-                                                  </svg>
-
-											</div>
-											<div class="content">
-												<span>address</span>
-
-											</div>
-										</div>
-									</div>
-									<div class="col-md-5 mt-3">
-										<div class="box">
-											<div class="img">
-												<svg xmlns="http://www.w3.org/2000/svg" width="14"
-													height="14" viewBox="0 0 92.636 92.638">
-                                                    <path id="Path_303"
-														data-name="Path 303"
-														d="M94,77.1l-.743,8.063a14.757,14.757,0,0,1-6.2,10.731,14.942,14.942,0,0,1-8.558,2.707,15.207,15.207,0,0,1-3.745-.477A101.491,101.491,0,0,1,1.877,25.269a14.915,14.915,0,0,1,2.23-12.3,14.756,14.756,0,0,1,10.722-6.2l8.082-.753a9.434,9.434,0,0,1,10.112,7.548,68.02,68.02,0,0,0,3.926,12.752A9.461,9.461,0,0,1,32.86,38.259L27.79,41.07A83.343,83.343,0,0,0,58.945,72.225l2.811-5.07a9.447,9.447,0,0,1,11.951-4.088,69,69,0,0,0,12.751,3.926A9.427,9.427,0,0,1,94,77.1Z"
-														transform="translate(-1.401 -5.967)" fill="#fff" />
-                                                  </svg>
-											</div>
-											<div class="content">
-												<span>+92 3242342141</span>
-
-											</div>
-										</div>
-									</div>
-									<div class="col-md-5 mt-3">
-										<div class="box">
-											<div class="img">
-												<svg xmlns="http://www.w3.org/2000/svg" width="14"
-													height="14" viewBox="0 0 81.84 54.6">
-                                                    <g id="_1"
-														data-name="1" transform="translate(-7.08 -20.7)">
-                                                      <path
-														id="Path_304" data-name="Path 304"
-														d="M88.92,67.3a8,8,0,0,1-1.4,4.519L60.12,48l27.4-23.82a8,8,0,0,1,1.4,4.52ZM48,53.24l36.46-31.7a8,8,0,0,0-3.54-.84H15.08a8,8,0,0,0-3.54.84ZM8.48,24.18a8,8,0,0,0-1.4,4.52V67.3a8,8,0,0,0,1.4,4.519L35.88,48Zm48.6,26.47L49.31,57.4a2,2,0,0,1-2.62,0l-7.77-6.75L11.54,74.46a8,8,0,0,0,3.54.84H80.92a8,8,0,0,0,3.54-.84Z"
-														fill="#fff" />
-                                                    </g>
-                                                  </svg>
-
-											</div>
-											<div class="content">
-												<span>example@gmail.com</span>
-
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<div class="professional_background_box mt-4">
-								<div class="row">
-									<div class="col-md-12">
-										<h3>
-											<span> <svg xmlns="http://www.w3.org/2000/svg" width="14"
-													height="14" viewBox="0 0 28 26">
-                                                    <g id="Layer_2"
-														data-name="Layer 2" transform="translate(-2 -3)">
-                                                      <path
-														id="Path_305" data-name="Path 305"
-														d="M28,7H22V6a3,3,0,0,0-3-3H13a3,3,0,0,0-3,3V7H4A2,2,0,0,0,2,9v5a3,3,0,0,0,2,2.816V26a3,3,0,0,0,3,3H25a3,3,0,0,0,3-3V16.816A3,3,0,0,0,30,14V9A2,2,0,0,0,28,7ZM12,6a1,1,0,0,1,1-1h6a1,1,0,0,1,1,1V7H12ZM26,26a1,1,0,0,1-1,1H7a1,1,0,0,1-1-1V17H8v1a1,1,0,0,0,2,0V17H22v1a1,1,0,0,0,2,0V17h2Zm2-12a1,1,0,0,1-1,1H24V14a1,1,0,0,0-2,0v1H10V14a1,1,0,0,0-2,0v1H5a1,1,0,0,1-1-1V9H28Z"
-														fill="#fff" />
-                                                    </g>
-                                                  </svg>
-											</span> Beruflicher Werdegang
-										</h3>
-									</div>
-									<div class="col-md-3 mt-2">
-										<span class="left_date"> 08/2023 - 03/2025 </span>
-									</div>
-									<div class="col-md-5 mt-2">
-										<span class="edu_1"> Sales & Marketing Manager </span> <span
-											class="location_edu"> Edward </span>
-									</div>
-								</div>
-							</div>
-
-							<div class="training_sec_box mt-4">
-								<div class="row">
-									<div class="col-md-12">
-										<h3>
-											<span> <svg xmlns="http://www.w3.org/2000/svg" width="14"
-													height="14" viewBox="0 0 120 94.2">
-                                                    <g id="Group_66"
-														data-name="Group 66" transform="translate(-15 -27.9)">
-                                                      <path
-														id="Path_306" data-name="Path 306"
-														d="M127.8,75.8l-1.4,3.7-21.6-8.3a4.9,4.9,0,0,1-3.7,1.6,5.061,5.061,0,0,1-3.7-1.6L80.1,77.8a5.1,5.1,0,0,1-10.2-.2,5.019,5.019,0,0,1,.2-1.2L51.5,62.3A5.528,5.528,0,0,1,49,63a5.2,5.2,0,0,1-2.5-.7l-22.3,17-2.4-3.2,22.3-17a5.019,5.019,0,0,1-.2-1.2,5.1,5.1,0,0,1,10.2,0,5.019,5.019,0,0,1-.2,1.2L72.5,73.3a4.975,4.975,0,0,1,6.2.9L96,67.5a5.1,5.1,0,0,1,10.2,0Z"
-														fill="#fff" />
-                                                      <path
-														id="Path_307" data-name="Path 307"
-														d="M97.4,94.3A8.2,8.2,0,1,1,89.2,86,8.324,8.324,0,0,1,97.4,94.3Z"
-														fill="#fff" />
-                                                      <path
-														id="Path_308" data-name="Path 308"
-														d="M106.5,122.1H82.1A21.4,21.4,0,0,0,77.7,111a17.352,17.352,0,0,1,28.8,11.1Z"
-														fill="#fff" />
-                                                      <path
-														id="Path_309" data-name="Path 309"
-														d="M69,94.3A8.2,8.2,0,1,1,60.8,86,8.324,8.324,0,0,1,69,94.3Z"
-														fill="#fff" />
-                                                      <path
-														id="Path_310" data-name="Path 310"
-														d="M78.1,122.1H43.5a17.4,17.4,0,0,1,34.6,0Z" fill="#fff" />
-                                                      <path
-														id="Path_311" data-name="Path 311"
-														d="M129,27.9H21a6.018,6.018,0,0,0-6,6v71.6a6.018,6.018,0,0,0,6,6H38.9v-4H21a2.006,2.006,0,0,1-2-2V46H131v59.6a2.006,2.006,0,0,1-2,2H111.1v4H129a6.018,6.018,0,0,0,6-6V33.9A6.018,6.018,0,0,0,129,27.9Zm-9.7,7H126v4h-6.7Z"
-														fill="#fff" />
-                                                    </g>
-                                                  </svg>
-											</span> Ausbildung
-										</h3>
-									</div>
-									<div class="col-md-3 mt-2">
-										<span class="left_date"> 08/2023 - 03/2025 </span>
-									</div>
-									<div class="col-md-8 mt-2">
-										<span class="edu_1"> Sales & Marketing Manager </span> <span
-											class="location_edu"> Edward </span>
-									</div>
-									<div class="col-md-3 mt-2">
-										<span class="left_date"> 08/2023 - 03/2025 </span>
-									</div>
-									<div class="col-md-5 mt-2">
-										<span class="edu_1"> Sales & Marketing Manager </span> <span
-											class="location_edu"> Edward </span>
-									</div>
-								</div>
-							</div>
-
-							<div class="expertise_sec_box mt-4">
-								<div class="row">
-									<div class="col-md-12">
-										<h3>
-											<span> <svg xmlns="http://www.w3.org/2000/svg" width="14"
-													height="14" viewBox="0 0 120 94.2">
-                                                    <g id="Group_66"
-														data-name="Group 66" transform="translate(-15 -27.9)">
-                                                      <path
-														id="Path_306" data-name="Path 306"
-														d="M127.8,75.8l-1.4,3.7-21.6-8.3a4.9,4.9,0,0,1-3.7,1.6,5.061,5.061,0,0,1-3.7-1.6L80.1,77.8a5.1,5.1,0,0,1-10.2-.2,5.019,5.019,0,0,1,.2-1.2L51.5,62.3A5.528,5.528,0,0,1,49,63a5.2,5.2,0,0,1-2.5-.7l-22.3,17-2.4-3.2,22.3-17a5.019,5.019,0,0,1-.2-1.2,5.1,5.1,0,0,1,10.2,0,5.019,5.019,0,0,1-.2,1.2L72.5,73.3a4.975,4.975,0,0,1,6.2.9L96,67.5a5.1,5.1,0,0,1,10.2,0Z"
-														fill="#fff" />
-                                                      <path
-														id="Path_307" data-name="Path 307"
-														d="M97.4,94.3A8.2,8.2,0,1,1,89.2,86,8.324,8.324,0,0,1,97.4,94.3Z"
-														fill="#fff" />
-                                                      <path
-														id="Path_308" data-name="Path 308"
-														d="M106.5,122.1H82.1A21.4,21.4,0,0,0,77.7,111a17.352,17.352,0,0,1,28.8,11.1Z"
-														fill="#fff" />
-                                                      <path
-														id="Path_309" data-name="Path 309"
-														d="M69,94.3A8.2,8.2,0,1,1,60.8,86,8.324,8.324,0,0,1,69,94.3Z"
-														fill="#fff" />
-                                                      <path
-														id="Path_310" data-name="Path 310"
-														d="M78.1,122.1H43.5a17.4,17.4,0,0,1,34.6,0Z" fill="#fff" />
-                                                      <path
-														id="Path_311" data-name="Path 311"
-														d="M129,27.9H21a6.018,6.018,0,0,0-6,6v71.6a6.018,6.018,0,0,0,6,6H38.9v-4H21a2.006,2.006,0,0,1-2-2V46H131v59.6a2.006,2.006,0,0,1-2,2H111.1v4H129a6.018,6.018,0,0,0,6-6V33.9A6.018,6.018,0,0,0,129,27.9Zm-9.7,7H126v4h-6.7Z"
-														fill="#fff" />
-                                                    </g>
-                                                  </svg>
-											</span> Kenntnisse
-										</h3>
-									</div>
-									<div class="col-md-3 mt-2"></div>
-									<div class="col-md-6 mt-2">
-										<span class="left_date"> 08/2023 - 03/2025 </span>
-									</div>
-
-
-								</div>
-							</div>
-
-							<div class="sprachen_sec_box mt-4">
-								<div class="row">
-									<div class="col-md-12">
-										<h3>
-											<span> <svg xmlns="http://www.w3.org/2000/svg" width="14"
-													height="14" viewBox="0 0 120 94.2">
-                                                    <g id="Group_66"
-														data-name="Group 66" transform="translate(-15 -27.9)">
-                                                      <path
-														id="Path_306" data-name="Path 306"
-														d="M127.8,75.8l-1.4,3.7-21.6-8.3a4.9,4.9,0,0,1-3.7,1.6,5.061,5.061,0,0,1-3.7-1.6L80.1,77.8a5.1,5.1,0,0,1-10.2-.2,5.019,5.019,0,0,1,.2-1.2L51.5,62.3A5.528,5.528,0,0,1,49,63a5.2,5.2,0,0,1-2.5-.7l-22.3,17-2.4-3.2,22.3-17a5.019,5.019,0,0,1-.2-1.2,5.1,5.1,0,0,1,10.2,0,5.019,5.019,0,0,1-.2,1.2L72.5,73.3a4.975,4.975,0,0,1,6.2.9L96,67.5a5.1,5.1,0,0,1,10.2,0Z"
-														fill="#fff" />
-                                                      <path
-														id="Path_307" data-name="Path 307"
-														d="M97.4,94.3A8.2,8.2,0,1,1,89.2,86,8.324,8.324,0,0,1,97.4,94.3Z"
-														fill="#fff" />
-                                                      <path
-														id="Path_308" data-name="Path 308"
-														d="M106.5,122.1H82.1A21.4,21.4,0,0,0,77.7,111a17.352,17.352,0,0,1,28.8,11.1Z"
-														fill="#fff" />
-                                                      <path
-														id="Path_309" data-name="Path 309"
-														d="M69,94.3A8.2,8.2,0,1,1,60.8,86,8.324,8.324,0,0,1,69,94.3Z"
-														fill="#fff" />
-                                                      <path
-														id="Path_310" data-name="Path 310"
-														d="M78.1,122.1H43.5a17.4,17.4,0,0,1,34.6,0Z" fill="#fff" />
-                                                      <path
-														id="Path_311" data-name="Path 311"
-														d="M129,27.9H21a6.018,6.018,0,0,0-6,6v71.6a6.018,6.018,0,0,0,6,6H38.9v-4H21a2.006,2.006,0,0,1-2-2V46H131v59.6a2.006,2.006,0,0,1-2,2H111.1v4H129a6.018,6.018,0,0,0,6-6V33.9A6.018,6.018,0,0,0,129,27.9Zm-9.7,7H126v4h-6.7Z"
-														fill="#fff" />
-                                                    </g>
-                                                  </svg>
-											</span> Sprachen
-										</h3>
-									</div>
-									<div class="col-md-3 mt-2"></div>
-									<div class="col-md-6 mt-2">
-										<span class="left_date"> 08/2023 - 03/2025 </span>
-									</div>
-
-
-								</div>
-							</div>
-							<div class="Other_activities_sec_box mt-4">
-								<div class="row">
-									<div class="col-md-12">
-										<h3>
-											<span> <svg xmlns="http://www.w3.org/2000/svg" width="14"
-													height="14" viewBox="0 0 120 94.2">
-                                                    <g id="Group_66"
-														data-name="Group 66" transform="translate(-15 -27.9)">
-                                                      <path
-														id="Path_306" data-name="Path 306"
-														d="M127.8,75.8l-1.4,3.7-21.6-8.3a4.9,4.9,0,0,1-3.7,1.6,5.061,5.061,0,0,1-3.7-1.6L80.1,77.8a5.1,5.1,0,0,1-10.2-.2,5.019,5.019,0,0,1,.2-1.2L51.5,62.3A5.528,5.528,0,0,1,49,63a5.2,5.2,0,0,1-2.5-.7l-22.3,17-2.4-3.2,22.3-17a5.019,5.019,0,0,1-.2-1.2,5.1,5.1,0,0,1,10.2,0,5.019,5.019,0,0,1-.2,1.2L72.5,73.3a4.975,4.975,0,0,1,6.2.9L96,67.5a5.1,5.1,0,0,1,10.2,0Z"
-														fill="#fff" />
-                                                      <path
-														id="Path_307" data-name="Path 307"
-														d="M97.4,94.3A8.2,8.2,0,1,1,89.2,86,8.324,8.324,0,0,1,97.4,94.3Z"
-														fill="#fff" />
-                                                      <path
-														id="Path_308" data-name="Path 308"
-														d="M106.5,122.1H82.1A21.4,21.4,0,0,0,77.7,111a17.352,17.352,0,0,1,28.8,11.1Z"
-														fill="#fff" />
-                                                      <path
-														id="Path_309" data-name="Path 309"
-														d="M69,94.3A8.2,8.2,0,1,1,60.8,86,8.324,8.324,0,0,1,69,94.3Z"
-														fill="#fff" />
-                                                      <path
-														id="Path_310" data-name="Path 310"
-														d="M78.1,122.1H43.5a17.4,17.4,0,0,1,34.6,0Z" fill="#fff" />
-                                                      <path
-														id="Path_311" data-name="Path 311"
-														d="M129,27.9H21a6.018,6.018,0,0,0-6,6v71.6a6.018,6.018,0,0,0,6,6H38.9v-4H21a2.006,2.006,0,0,1-2-2V46H131v59.6a2.006,2.006,0,0,1-2,2H111.1v4H129a6.018,6.018,0,0,0,6-6V33.9A6.018,6.018,0,0,0,129,27.9Zm-9.7,7H126v4h-6.7Z"
-														fill="#fff" />
-                                                    </g>
-                                                  </svg>
-											</span> Weitere Tätigkeiten
-										</h3>
-									</div>
-									<div class="col-md-3 mt-2"></div>
-									<div class="col-md-6 mt-2">
-										<span class="left_date"> 08/2023 - 03/2025 </span>
-									</div>
-
-
-								</div>
-							</div>
-
-							<h4 class="mt-4">However 30,10,2019</h4>
-						</div>
-						--}}
+					<div class="cv_box_sec" id="cv_appnd">		
 					</div>
-
 				</div>
-
-
 			</div>
 		</div>
 	</section>
-
-	<div class="save_folder" id="save_folder" onclick="generatePDF()">
-		<img src="{{ asset('asset/images/pdf.svg') }}" width="30" height="30"
-			alt="">
-	</div>
 
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
@@ -748,6 +401,37 @@
                                         $("#personal_box_open").append(text);
 
         }
+
+		/**
+ * Erstellt und zeigt eine Toast-Nachricht mit einer gegebenen Nachricht an.
+ * @param {string} message - Die Nachricht, die im Toast angezeigt werden soll.
+ */
+function showToast(message) {
+  // Erstelle das Toast-Element
+  var toast = document.createElement('div');
+  toast.textContent = message;
+  toast.style.position = 'fixed';
+  toast.style.bottom = '20px';
+  toast.style.left = '50%';
+  toast.style.transform = 'translateX(-50%)';
+  toast.style.backgroundColor = 'black';
+  toast.style.color = 'white';
+  toast.style.padding = '10px';
+  toast.style.borderRadius = '5px';
+  toast.style.zIndex = '1000';
+  toast.style.opacity = '0';
+  toast.style.transition = 'opacity 0.5s';
+
+  // Füge das Toast-Element hinzu und fade es ein
+  document.body.appendChild(toast);
+  setTimeout(() => toast.style.opacity = '1', 100);
+
+  // Entferne das Toast-Element nach einer gewissen Zeit
+  setTimeout(() => {
+    toast.style.opacity = '0';
+    setTimeout(() => document.body.removeChild(toast), 500); // Warte auf das Ende der Opacity-Transition
+  }, 3000);
+}
 
         function traningAppend(){
             constvar++;
@@ -843,7 +527,6 @@
         }
 
         function writeCv(){
-            // alert($('#first_name').val());
             let emptyFirst = '';
             let emptySecond = '';
             let emptyThird = '';
@@ -856,8 +539,6 @@
             let postal_code = $('#postal_code').val();
             let birth_date = changeDateFormat($('#birth_date').val());
             let city_date =$('#city_date').val();
-
-
             let phone = $('#phone').val();
             let email_address = $('#email_address').val();
 
@@ -868,9 +549,7 @@
                                 <div class="col-md-5 mt-2">
                                     <div class="box">
                                         <div class="img">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 72 90">
-                                                <path id="Path_301" data-name="Path 301" d="M50,95C68,77,86,60.882,86,41a36,36,0,0,0-72,0C14,60.882,32,77,50,95Zm0-64A10,10,0,1,1,40,41,10,10,0,0,1,50,31Z" transform="translate(-14 -5)" fill="#fff"/>
-                                              </svg>
+                                            <img src="{{ asset('asset/images/location.png') }}" width="14" height="14">
                                         </div>
                                         <div class="content">
                                             <span>${address}</span>
@@ -881,12 +560,7 @@
                                 <div class="col-md-5 mt-2">
                                     <div class="box">
                                         <div class="img">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 5.822 5.822">
-                                                <g id="Group_66" data-name="Group 66" transform="translate(-0.264 -290.914)">
-                                                  <path id="Path_302" data-name="Path 302" d="M1.059.264a.8.8,0,0,0-.8.795V5.292a.8.8,0,0,0,.8.795H5.291a.8.8,0,0,0,.795-.795V1.059A.8.8,0,0,0,5.291.264Zm0,.529H5.291a.26.26,0,0,1,.266.266v.264H.793V1.059A.261.261,0,0,1,1.059.793ZM.793,1.852H5.557v3.44a.26.26,0,0,1-.266.266H1.059a.261.261,0,0,1-.266-.266Zm1.853.529a.265.265,0,1,0,.265.265A.265.265,0,0,0,2.646,2.381Zm1.058,0a.265.265,0,1,0,.265.265A.265.265,0,0,0,3.7,2.381Zm1.058,0a.265.265,0,1,0,.265.265A.265.265,0,0,0,4.762,2.381ZM1.587,3.44a.265.265,0,1,0,.265.265A.265.265,0,0,0,1.587,3.44Zm1.058,0A.265.265,0,1,0,2.91,3.7.265.265,0,0,0,2.646,3.44Zm1.058,0a.265.265,0,1,0,.265.265A.265.265,0,0,0,3.7,3.44Zm1.058,0a.265.265,0,1,0,.265.265A.265.265,0,0,0,4.762,3.44ZM1.587,4.5a.265.265,0,1,0,.265.265A.265.265,0,0,0,1.587,4.5Zm1.058,0a.265.265,0,1,0,.265.265A.265.265,0,0,0,2.646,4.5ZM3.7,4.5a.265.265,0,1,0,.265.265A.265.265,0,0,0,3.7,4.5Z" transform="translate(0 290.65)" fill="#fff" fill-rule="evenodd"/>
-                                                </g>
-                                              </svg>
-
+										<img src="{{ asset('asset/images/calendar.png') }}" width="14" height="14">
                                         </div>
                                         <div class="content">
                                             <span>${birth_date}</span>
@@ -897,9 +571,7 @@
                                 <div class="col-md-5 mt-3">
                                     <div class="box">
                                         <div class="img">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 92.636 92.638">
-                                                <path id="Path_303" data-name="Path 303" d="M94,77.1l-.743,8.063a14.757,14.757,0,0,1-6.2,10.731,14.942,14.942,0,0,1-8.558,2.707,15.207,15.207,0,0,1-3.745-.477A101.491,101.491,0,0,1,1.877,25.269a14.915,14.915,0,0,1,2.23-12.3,14.756,14.756,0,0,1,10.722-6.2l8.082-.753a9.434,9.434,0,0,1,10.112,7.548,68.02,68.02,0,0,0,3.926,12.752A9.461,9.461,0,0,1,32.86,38.259L27.79,41.07A83.343,83.343,0,0,0,58.945,72.225l2.811-5.07a9.447,9.447,0,0,1,11.951-4.088,69,69,0,0,0,12.751,3.926A9.427,9.427,0,0,1,94,77.1Z" transform="translate(-1.401 -5.967)" fill="#fff"/>
-                                              </svg>
+										<img src="{{ asset('asset/images/phone.png') }}" width="14" height="14">
                                         </div>
                                         <div class="content">
                                             <span>${phone}</span>
@@ -910,12 +582,7 @@
                                 <div class="col-md-5 mt-3">
                                     <div class="box">
                                         <div class="img">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 81.84 54.6">
-                                                <g id="_1" data-name="1" transform="translate(-7.08 -20.7)">
-                                                  <path id="Path_304" data-name="Path 304" d="M88.92,67.3a8,8,0,0,1-1.4,4.519L60.12,48l27.4-23.82a8,8,0,0,1,1.4,4.52ZM48,53.24l36.46-31.7a8,8,0,0,0-3.54-.84H15.08a8,8,0,0,0-3.54.84ZM8.48,24.18a8,8,0,0,0-1.4,4.52V67.3a8,8,0,0,0,1.4,4.519L35.88,48Zm48.6,26.47L49.31,57.4a2,2,0,0,1-2.62,0l-7.77-6.75L11.54,74.46a8,8,0,0,0,3.54.84H80.92a8,8,0,0,0,3.54-.84Z" fill="#fff"/>
-                                                </g>
-                                              </svg>
-
+										<img src="{{ asset('asset/images/mail.png') }}" width="14" height="14">
                                         </div>
                                         <div class="content">
                                             <span>${email_address}</span>
@@ -935,8 +602,7 @@
             let language = document.getElementsByClassName('language');
             let task = document.getElementsByClassName('task');
             let expenses = [];
-
-            let profisianal= '';
+            let professional= '';
             let traning= '';
             let expertise= '';
             let languagesbox= '';
@@ -952,7 +618,7 @@
 
                if(pos != '' || employer != '' || start_date != '' || end_date != '' ){
 
-                            profisianal += ` <div class="col-md-3 mt-2">
+                            professional += ` <div class="col-md-3 mt-2">
                                             <span class="left_date">
                                                 ${start_date} - ${end_date}
                                             </span>
@@ -973,21 +639,17 @@
 
             }
 
-            if(emptySecond == '' && profisianal != ''){
+            if(emptySecond == '' && professional != ''){
                 emptySecond = `<div class="professional_background_box mt-4">
                             <div class="row">
                                 <div class="col-md-12">
                                     <h3>
                                         <span>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 28 26">
-                                                <g id="Layer_2" data-name="Layer 2" transform="translate(-2 -3)">
-                                                  <path id="Path_305" data-name="Path 305" d="M28,7H22V6a3,3,0,0,0-3-3H13a3,3,0,0,0-3,3V7H4A2,2,0,0,0,2,9v5a3,3,0,0,0,2,2.816V26a3,3,0,0,0,3,3H25a3,3,0,0,0,3-3V16.816A3,3,0,0,0,30,14V9A2,2,0,0,0,28,7ZM12,6a1,1,0,0,1,1-1h6a1,1,0,0,1,1,1V7H12ZM26,26a1,1,0,0,1-1,1H7a1,1,0,0,1-1-1V17H8v1a1,1,0,0,0,2,0V17H22v1a1,1,0,0,0,2,0V17h2Zm2-12a1,1,0,0,1-1,1H24V14a1,1,0,0,0-2,0v1H10V14a1,1,0,0,0-2,0v1H5a1,1,0,0,1-1-1V9H28Z" fill="#fff"/>
-                                                </g>
-                                              </svg>
+										<img src="{{ asset('asset/images/beruf.png') }}" width="14" height="14">
                                         </span>
                                          Beruflicher Werdegang</h3>
                                 </div>
-                                ${profisianal}
+                                ${professional}
                             </div>
                         </div>`;
             }
@@ -1027,16 +689,7 @@
                                 <div class="col-md-12">
                                     <h3>
                                         <span>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 120 94.2">
-                                                <g id="Group_66" data-name="Group 66" transform="translate(-15 -27.9)">
-                                                  <path id="Path_306" data-name="Path 306" d="M127.8,75.8l-1.4,3.7-21.6-8.3a4.9,4.9,0,0,1-3.7,1.6,5.061,5.061,0,0,1-3.7-1.6L80.1,77.8a5.1,5.1,0,0,1-10.2-.2,5.019,5.019,0,0,1,.2-1.2L51.5,62.3A5.528,5.528,0,0,1,49,63a5.2,5.2,0,0,1-2.5-.7l-22.3,17-2.4-3.2,22.3-17a5.019,5.019,0,0,1-.2-1.2,5.1,5.1,0,0,1,10.2,0,5.019,5.019,0,0,1-.2,1.2L72.5,73.3a4.975,4.975,0,0,1,6.2.9L96,67.5a5.1,5.1,0,0,1,10.2,0Z" fill="#fff"/>
-                                                  <path id="Path_307" data-name="Path 307" d="M97.4,94.3A8.2,8.2,0,1,1,89.2,86,8.324,8.324,0,0,1,97.4,94.3Z" fill="#fff"/>
-                                                  <path id="Path_308" data-name="Path 308" d="M106.5,122.1H82.1A21.4,21.4,0,0,0,77.7,111a17.352,17.352,0,0,1,28.8,11.1Z" fill="#fff"/>
-                                                  <path id="Path_309" data-name="Path 309" d="M69,94.3A8.2,8.2,0,1,1,60.8,86,8.324,8.324,0,0,1,69,94.3Z" fill="#fff"/>
-                                                  <path id="Path_310" data-name="Path 310" d="M78.1,122.1H43.5a17.4,17.4,0,0,1,34.6,0Z" fill="#fff"/>
-                                                  <path id="Path_311" data-name="Path 311" d="M129,27.9H21a6.018,6.018,0,0,0-6,6v71.6a6.018,6.018,0,0,0,6,6H38.9v-4H21a2.006,2.006,0,0,1-2-2V46H131v59.6a2.006,2.006,0,0,1-2,2H111.1v4H129a6.018,6.018,0,0,0,6-6V33.9A6.018,6.018,0,0,0,129,27.9Zm-9.7,7H126v4h-6.7Z" fill="#fff"/>
-                                                </g>
-                                              </svg>
+										<img src="{{ asset('asset/images/school.png') }}" width="14" height="14">
                                         </span>
                                         Ausbildung</h3>
                                 </div>
@@ -1069,16 +722,7 @@
                                 <div class="col-md-12">
                                     <h3>
                                         <span>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 120 94.2">
-                                                <g id="Group_66" data-name="Group 66" transform="translate(-15 -27.9)">
-                                                  <path id="Path_306" data-name="Path 306" d="M127.8,75.8l-1.4,3.7-21.6-8.3a4.9,4.9,0,0,1-3.7,1.6,5.061,5.061,0,0,1-3.7-1.6L80.1,77.8a5.1,5.1,0,0,1-10.2-.2,5.019,5.019,0,0,1,.2-1.2L51.5,62.3A5.528,5.528,0,0,1,49,63a5.2,5.2,0,0,1-2.5-.7l-22.3,17-2.4-3.2,22.3-17a5.019,5.019,0,0,1-.2-1.2,5.1,5.1,0,0,1,10.2,0,5.019,5.019,0,0,1-.2,1.2L72.5,73.3a4.975,4.975,0,0,1,6.2.9L96,67.5a5.1,5.1,0,0,1,10.2,0Z" fill="#fff"/>
-                                                  <path id="Path_307" data-name="Path 307" d="M97.4,94.3A8.2,8.2,0,1,1,89.2,86,8.324,8.324,0,0,1,97.4,94.3Z" fill="#fff"/>
-                                                  <path id="Path_308" data-name="Path 308" d="M106.5,122.1H82.1A21.4,21.4,0,0,0,77.7,111a17.352,17.352,0,0,1,28.8,11.1Z" fill="#fff"/>
-                                                  <path id="Path_309" data-name="Path 309" d="M69,94.3A8.2,8.2,0,1,1,60.8,86,8.324,8.324,0,0,1,69,94.3Z" fill="#fff"/>
-                                                  <path id="Path_310" data-name="Path 310" d="M78.1,122.1H43.5a17.4,17.4,0,0,1,34.6,0Z" fill="#fff"/>
-                                                  <path id="Path_311" data-name="Path 311" d="M129,27.9H21a6.018,6.018,0,0,0-6,6v71.6a6.018,6.018,0,0,0,6,6H38.9v-4H21a2.006,2.006,0,0,1-2-2V46H131v59.6a2.006,2.006,0,0,1-2,2H111.1v4H129a6.018,6.018,0,0,0,6-6V33.9A6.018,6.018,0,0,0,129,27.9Zm-9.7,7H126v4h-6.7Z" fill="#fff"/>
-                                                </g>
-                                              </svg>
+										<img src="{{ asset('asset/images/skill.png') }}" width="14" height="14">
                                         </span>
                                         Weitere Tätigkeiten</h3>
                                 </div>
@@ -1112,18 +756,9 @@
                                 <div class="col-md-12">
                                     <h3>
                                         <span>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 120 94.2">
-                                                <g id="Group_66" data-name="Group 66" transform="translate(-15 -27.9)">
-                                                  <path id="Path_306" data-name="Path 306" d="M127.8,75.8l-1.4,3.7-21.6-8.3a4.9,4.9,0,0,1-3.7,1.6,5.061,5.061,0,0,1-3.7-1.6L80.1,77.8a5.1,5.1,0,0,1-10.2-.2,5.019,5.019,0,0,1,.2-1.2L51.5,62.3A5.528,5.528,0,0,1,49,63a5.2,5.2,0,0,1-2.5-.7l-22.3,17-2.4-3.2,22.3-17a5.019,5.019,0,0,1-.2-1.2,5.1,5.1,0,0,1,10.2,0,5.019,5.019,0,0,1-.2,1.2L72.5,73.3a4.975,4.975,0,0,1,6.2.9L96,67.5a5.1,5.1,0,0,1,10.2,0Z" fill="#fff"/>
-                                                  <path id="Path_307" data-name="Path 307" d="M97.4,94.3A8.2,8.2,0,1,1,89.2,86,8.324,8.324,0,0,1,97.4,94.3Z" fill="#fff"/>
-                                                  <path id="Path_308" data-name="Path 308" d="M106.5,122.1H82.1A21.4,21.4,0,0,0,77.7,111a17.352,17.352,0,0,1,28.8,11.1Z" fill="#fff"/>
-                                                  <path id="Path_309" data-name="Path 309" d="M69,94.3A8.2,8.2,0,1,1,60.8,86,8.324,8.324,0,0,1,69,94.3Z" fill="#fff"/>
-                                                  <path id="Path_310" data-name="Path 310" d="M78.1,122.1H43.5a17.4,17.4,0,0,1,34.6,0Z" fill="#fff"/>
-                                                  <path id="Path_311" data-name="Path 311" d="M129,27.9H21a6.018,6.018,0,0,0-6,6v71.6a6.018,6.018,0,0,0,6,6H38.9v-4H21a2.006,2.006,0,0,1-2-2V46H131v59.6a2.006,2.006,0,0,1-2,2H111.1v4H129a6.018,6.018,0,0,0,6-6V33.9A6.018,6.018,0,0,0,129,27.9Zm-9.7,7H126v4h-6.7Z" fill="#fff"/>
-                                                </g>
-                                              </svg>
+										<img src="{{ asset('asset/images/kenntnisse.png') }}" width="14" height="14">
                                         </span>
-                                        Kenntnisse</h3>
+                                        Kenntnisse & Fähigkeiten</h3>
                                 </div>
                                 ${expertise}
 
@@ -1147,11 +782,7 @@
                         emptySix = '';
 
                     }
-
-
-
             }
-
 
             if(emptySix == '' && languagesbox != ''){
                 emptySix = `   <div class="sprachen_sec_box mt-4">
@@ -1159,16 +790,7 @@
                                 <div class="col-md-12">
                                     <h3>
                                         <span>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 120 94.2">
-                                                <g id="Group_66" data-name="Group 66" transform="translate(-15 -27.9)">
-                                                  <path id="Path_306" data-name="Path 306" d="M127.8,75.8l-1.4,3.7-21.6-8.3a4.9,4.9,0,0,1-3.7,1.6,5.061,5.061,0,0,1-3.7-1.6L80.1,77.8a5.1,5.1,0,0,1-10.2-.2,5.019,5.019,0,0,1,.2-1.2L51.5,62.3A5.528,5.528,0,0,1,49,63a5.2,5.2,0,0,1-2.5-.7l-22.3,17-2.4-3.2,22.3-17a5.019,5.019,0,0,1-.2-1.2,5.1,5.1,0,0,1,10.2,0,5.019,5.019,0,0,1-.2,1.2L72.5,73.3a4.975,4.975,0,0,1,6.2.9L96,67.5a5.1,5.1,0,0,1,10.2,0Z" fill="#fff"/>
-                                                  <path id="Path_307" data-name="Path 307" d="M97.4,94.3A8.2,8.2,0,1,1,89.2,86,8.324,8.324,0,0,1,97.4,94.3Z" fill="#fff"/>
-                                                  <path id="Path_308" data-name="Path 308" d="M106.5,122.1H82.1A21.4,21.4,0,0,0,77.7,111a17.352,17.352,0,0,1,28.8,11.1Z" fill="#fff"/>
-                                                  <path id="Path_309" data-name="Path 309" d="M69,94.3A8.2,8.2,0,1,1,60.8,86,8.324,8.324,0,0,1,69,94.3Z" fill="#fff"/>
-                                                  <path id="Path_310" data-name="Path 310" d="M78.1,122.1H43.5a17.4,17.4,0,0,1,34.6,0Z" fill="#fff"/>
-                                                  <path id="Path_311" data-name="Path 311" d="M129,27.9H21a6.018,6.018,0,0,0-6,6v71.6a6.018,6.018,0,0,0,6,6H38.9v-4H21a2.006,2.006,0,0,1-2-2V46H131v59.6a2.006,2.006,0,0,1-2,2H111.1v4H129a6.018,6.018,0,0,0,6-6V33.9A6.018,6.018,0,0,0,129,27.9Zm-9.7,7H126v4h-6.7Z" fill="#fff"/>
-                                                </g>
-                                              </svg>
+										<img src="{{ asset('asset/images/sprachen.png') }}" width="14" height="14">
                                         </span>
                                         Sprachen</h3>
                                 </div>
@@ -1216,10 +838,9 @@
                         // Add the image to the PDF
                         pdf.addImage(dataURL, 'PNG', 0, 0, pdf.internal.pageSize.width, pdf.internal.pageSize.height,'','FAST');
                         pdf.save('Lebenslauf.pdf');
+                        showToast("Lebenslauf heruntergeladen");
                     });
         }
-
-
 
         function changeDateFormat(inputDate) {
 
@@ -1235,7 +856,7 @@
             var day = parts[2];
 
             // Create the new format: dd.mm.yyyy
-            var newFormatDate = day + '-' + month + '-' + year;
+            var newFormatDate = day + '.' + month + '.' + year;
 
 
             // Display the formatted date

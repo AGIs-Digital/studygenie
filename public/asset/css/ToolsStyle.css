@@ -34,26 +34,115 @@
 	z-index: -1;
 }
 
-#aladinImage {
+.navigationTags {
+	margin-block: 1rem;
+	color: black;
+}
+
+.Cloud_Karriere svg svg path {
+	fill: #2B4053;
+}
+
+.Cloud_Karriere svg svg text {
+	fill: #FFFFFF;
+	font-size: 20.5px;
+}
+
+.Cloud_Karriere:hover {
+	transform: scale(1.2);
+	-webkit-transform: scale(1.2);
+	-moz-transform: scale(1.2);
+	-ms-transform: scale(1.2);
+	-o-transform: scale(1.2);
+}
+.centerCon {
+    text-align: center;
+}
+
+.Cloud_Karriere:hover svg path {
+	fill: #2B4053;
+}
+
+.Cloud, .Cloud_Karriere {
+	transition: 0.5s all ease-in-out;
+}
+
+.Cloud svg svg path {
+	fill: #F3922A;
+}
+
+.Cloud svg svg text {
+	fill: #FFFFFF;
+	font-size: 20.5px;
+}
+
+.Cloud:hover {
+	transform: scale(1.2);
+	-webkit-transform: scale(1.2);
+	-moz-transform: scale(1.2);
+	-ms-transform: scale(1.2);
+	-o-transform: scale(1.2);
+}
+
+.Cloud:hover svg path {
+	fill: #F3922A;
+}
+
+#navigationSpan {
+	font-family: 'Montserrat Alternates', sans-serif;
+	font-size: 1rem;
+	font-weight: 600;
+	color: #2D3E4E;
+	margin-inline: 3rem;
+}
+
+#StudyGenieImage {
 	height: 190px;
 	width: 100px;
 }
 
 .categoryClouds {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	column-gap: 2rem;
+}
+
+.categoryClouds a {
+	position: relative;
+}
+
+.categoryClouds a button {
+	position: absolute;
+	top: 37px;
+	right: 43px;
+}
+
+.headerMainContainer {
+	width: 50rem;
+	margin-block: 1rem;
+	margin-inline: 5rem;
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
 	gap: 3rem;
 }
 
-@media screen and (max-width:530px) {
+@media screen and (max-width:820px) {
+.headerMainContainer {
+		max-width: 100%;
+	}
 	.categoryClouds {
 		flex-direction: column;
 		gap: 1rem;
 	}
 	.mainContainer {
 		height: auto;
-		margin-top: 1rem;
+		}
+}
+
+@media screen and (max-width:550px) {
+	.categoryClouds {
+		grid-template-columns: 1fr;
 	}
 	.mainContainer .ab1, .mainContainer .ab2, .mainContainer .ab3,
 		.mainContainer .ab4 {
@@ -90,7 +179,6 @@
 	bottom: 20%;
 	right: 10%;
 	transform: translate(-50%, -50%);
-	/* width: 302px; */
 	cursor: pointer;
 }
 
@@ -192,13 +280,7 @@
 	bottom: 0px;
 	left: 6px;
 }
-/* .image_box_first.fou .second_img {
-    bottom: 48px;
-    left: 93px;
-} */
-/* .image_box_first.fou .second_img img {
-    width: 150px;
-} */
+
 .image_box_first.fou .third_img {
 	bottom: 52vh;
 }

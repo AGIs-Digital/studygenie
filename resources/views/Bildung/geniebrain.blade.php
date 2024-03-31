@@ -2,56 +2,14 @@
 <html lang="en">
 
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GenieBrain</title>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-	rel="stylesheet">
-<meta name="csrf-token" content="{{ csrf_token() }}" />
-
-
-<link rel="stylesheet" href="{{ asset('asset/css/navBarStyle.css') }}">
-<link rel="stylesheet" href="{{ asset('asset/css/utilities.css') }}">
-<link rel="stylesheet"
-	href="{{ asset('asset/css/written-green-board.css') }}">
-<link rel="apple-touch-icon" sizes="57x57"
-	href="/favicon/apple-icon-57x57.png">
-<link rel="apple-touch-icon" sizes="60x60"
-	href="/favicon/apple-icon-60x60.png">
-<link rel="apple-touch-icon" sizes="72x72"
-	href="/favicon/apple-icon-72x72.png">
-<link rel="apple-touch-icon" sizes="76x76"
-	href="/favicon/apple-icon-76x76.png">
-<link rel="apple-touch-icon" sizes="114x114"
-	href="/favicon/apple-icon-114x114.png">
-<link rel="apple-touch-icon" sizes="120x120"
-	href="/favicon/apple-icon-120x120.png">
-<link rel="apple-touch-icon" sizes="144x144"
-	href="/favicon/apple-icon-144x144.png">
-<link rel="apple-touch-icon" sizes="152x152"
-	href="/favicon/apple-icon-152x152.png">
-<link rel="apple-touch-icon" sizes="180x180"
-	href="/favicon/apple-icon-180x180.png">
-<link rel="icon" type="image/png" sizes="192x192"
-	href="/favicon/android-icon-192x192.png">
-<link rel="icon" type="image/png" sizes="32x32"
-	href="/favicon/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="96x96"
-	href="/favicon/favicon-96x96.png">
-<link rel="icon" type="image/png" sizes="16x16"
-	href="/favicon/favicon-16x16.png">
-<link rel="manifest" href="/favicon/manifest.json">
-<meta name="msapplication-TileColor" content="#ffffff">
-<meta name="msapplication-TileImage"
-	content="/favicon/ms-icon-144x144.png">
-<meta name="theme-color" content="#ffffff">
-
+@include('includes.head')
+@section('title', 'GenieBrain')
 </head>
+
 
 <body class="MainContainer backimage">
 	@include('includes.header')
-	<section class="geniebrain_sec">
+	<section class="GenieBrain_sec">
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-md-2">
@@ -117,7 +75,7 @@
                                         <span class="small_text_font">Thema:
                                             <strong type="button" class="" data-bs-toggle="tooltip"
                                             data-bs-placement="top" title="Zu welchem Thema brauchst du Inspiration?"> <img
-                                                src="{{ asset('asset/images/info.svg') }}" width="16" alt="">
+                                                src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
                                         </strong>
                                         </span> <input type="text" placeholder="" id="field_1"
                                             name="field1">
@@ -127,7 +85,7 @@
                                         <span class="small_text_font">Art der Textaufgabe: <strong
                                             type="button" class="" data-bs-toggle="tooltip"
                                             data-bs-placement="top" title="Worum geht es? Aufsatz, Bachelorarbeit, Hausaufgabe etc."> <img
-                                                src="{{ asset('asset/images/info.svg') }}" width="16" alt="">
+                                                src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
                                         </strong>
                                         </span> <input type="text" placeholder="" id="field_2"
                                             name="field2">
@@ -137,7 +95,7 @@
                                         <span class="small_text_font">Das interessiert mich: <strong type="button"
                                             class="" data-bs-toggle="tooltip" data-bs-placement="top"
                                             title="Gibt es persönliche Interessene du mit einfließen lassen möchtest?"> <img
-                                                src="{{ asset('asset/images/info.svg') }}" width="16" alt="">
+                                                src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
                                         </strong>
                                         </span> <input type="text" placeholder="" id="field_3"
                                             name="field3">
@@ -147,7 +105,7 @@
                                             <label>Textteil: <strong
                                                 type="button" class="" data-bs-toggle="tooltip"
                                                 data-bs-placement="top" title="Bei welchem Teil brauchst du Inspiration?"> <img
-                                                    src="{{ asset('asset/images/info.svg') }}" width="16" alt="">
+                                                    src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
                                             </strong>
                                             </label>
                                         </div>
@@ -174,7 +132,7 @@
                                         <span class="small_text_font">Dein Schreibstil: <strong
                                             type="button" class="" data-bs-toggle="tooltip"
                                             data-bs-placement="top" title="Füge hier ein Text von dir ein um deinen Schreibstil zu übernehmen"> <img
-                                                src="{{ asset('asset/images/info.svg') }}" width="16" alt="">
+                                                src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
                                         </strong>
                                         </span> <input type="text" id="field_4" name="field4"
                                             placeholder="" required>
@@ -266,7 +224,7 @@
                 var formData = new FormData(form);
                 $("#save_data").val('');
                 $.ajax({
-                    url: "{{ route('geniebrainprocess') }}",
+                    url: "{{ route('GenieBrainprocess') }}",
                     type: "POST",
                     data: formData,
                     processData: false,

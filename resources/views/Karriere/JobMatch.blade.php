@@ -2,56 +2,13 @@
 <html lang="en">
 
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>JobMatch</title>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-	rel="stylesheet">
-<meta name="csrf-token" content="{{ csrf_token() }}" />
-
-
-<link rel="stylesheet" href="{{ asset('asset/css/navBarStyle.css') }}">
-<link rel="stylesheet" href="{{ asset('asset/css/utilities.css') }}">
-<link rel="stylesheet"
-	href="{{ asset('asset/css/written-green-board.css') }}">
-<link rel="apple-touch-icon" sizes="57x57"
-	href="/favicon/apple-icon-57x57.png">
-<link rel="apple-touch-icon" sizes="60x60"
-	href="/favicon/apple-icon-60x60.png">
-<link rel="apple-touch-icon" sizes="72x72"
-	href="/favicon/apple-icon-72x72.png">
-<link rel="apple-touch-icon" sizes="76x76"
-	href="/favicon/apple-icon-76x76.png">
-<link rel="apple-touch-icon" sizes="114x114"
-	href="/favicon/apple-icon-114x114.png">
-<link rel="apple-touch-icon" sizes="120x120"
-	href="/favicon/apple-icon-120x120.png">
-<link rel="apple-touch-icon" sizes="144x144"
-	href="/favicon/apple-icon-144x144.png">
-<link rel="apple-touch-icon" sizes="152x152"
-	href="/favicon/apple-icon-152x152.png">
-<link rel="apple-touch-icon" sizes="180x180"
-	href="/favicon/apple-icon-180x180.png">
-<link rel="icon" type="image/png" sizes="192x192"
-	href="/favicon/android-icon-192x192.png">
-<link rel="icon" type="image/png" sizes="32x32"
-	href="/favicon/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="96x96"
-	href="/favicon/favicon-96x96.png">
-<link rel="icon" type="image/png" sizes="16x16"
-	href="/favicon/favicon-16x16.png">
-<link rel="manifest" href="/favicon/manifest.json">
-<meta name="msapplication-TileColor" content="#ffffff">
-<meta name="msapplication-TileImage"
-	content="/favicon/ms-icon-144x144.png">
-<meta name="theme-color" content="#ffffff">
-
+@include('includes.head')
+@section('title', 'JobMatch')
 </head>
 
 <body class="MainContainer backimage">
 	@include('includes.header')
-	<section class="geniebrain_sec">
+	<section class="GenieBrain_sec">
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-md-2">
@@ -116,7 +73,7 @@
                                             type="button" class="" data-bs-toggle="tooltip"
                                             data-bs-placement="top"
                                             title="Was kannst du deiner Meinung nach besonders gut?"> <img
-                                                src="{{ asset('asset/images/info.svg') }}" width="16" alt="">
+                                                src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
                                         </strong>
                                         </span> <input type="text" placeholder="" id="field_2"
                                             name="field2">
@@ -127,21 +84,18 @@
                                             type="button" class="" data-bs-toggle="tooltip"
                                             data-bs-placement="top"
                                             title="Welche Hobbies hast du, was begeistert dich?"> <img
-                                                src="{{ asset('asset/images/info.svg') }}" width="16" alt="">
+                                                src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
                                         </strong>
                                         </span> <input type="text" placeholder="" id="field_3"
                                             name="field3">
                                     </div>
-
-
-
 
                                     <div class="group-box">
                                         <span class="small_text_font">Das möchte ich lernen: <strong
                                             type="button" class="" data-bs-toggle="tooltip"
                                             data-bs-placement="top"
                                             title="Was möchtest du in deinem zukünftigen Beruf lernen?"> <img
-                                                src="{{ asset('asset/images/info.svg') }}" width="16" alt="">
+                                                src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
                                         </strong>
                                         </span> <input type="text" id="field_4" name="field4"
                                             placeholder="" required>
@@ -151,7 +105,7 @@
                                             type="button" class="" data-bs-toggle="tooltip"
                                             data-bs-placement="top"
                                             title="Wie bist du am produktivsten? In Gruppen? Alleine? Draußen? etc.">
-                                                <img src="{{ asset('asset/images/info.svg') }}" width="16"
+                                                <img src="{{ asset('asset/images/info-tools.svg') }}" width="16"
                                                 alt="">
                                         </strong>
                                         </span> <input type="text" id="field_5" name="field5"
@@ -163,7 +117,7 @@
                                                 type="button" class="" data-bs-toggle="tooltip"
                                                 data-bs-placement="top"
                                                 title="Wie wichtig sind dir Entscheidungsfreiheit und Kontrolle bei Aufgaben?">
-                                                    <img src="{{ asset('asset/images/info.svg') }}" width="16"
+                                                    <img src="{{ asset('asset/images/info-tools.svg') }}" width="16"
                                                     alt="">
                                             </strong>
                                             </label>
@@ -188,7 +142,7 @@
                                                 data-bs-placement="top"
                                                 title="Introvertiert: Mag Ruhe, ist gern alleine<br>
                                                 Extrovertiert: Mag Action, ist gern unter Menschen"> <img
-                                                    src="{{ asset('asset/images/info.svg') }}" width="16" alt="">
+                                                    src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
                                             </strong>
                                             </label>
                                         </div>
@@ -223,8 +177,6 @@
                                     <img src="{{ asset('asset/images/savefolder.svg') }}" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Speichern" width="40"
                                         height="40" alt="">
                                 </div>
-								{{-- <img src="../images/green-board.jpg" alt="Green Board">
-								--}}
 							</div>
 						</div>
 					</div>
@@ -253,7 +205,7 @@
 								name="name" placeholder="Speichername">
 						</div>
 						<input type="hidden" name="save_val" id="save_val"> <input
-							type="hidden" name="tooltype" value="JobNavigator"> <input
+							type="hidden" name="tooltype" value="JobMatch"> <input
 							type="hidden" name="type" value="Karriere" id="Bildung">
 
 
@@ -276,188 +228,83 @@
 
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script>
-        let textToType = "";
-        let textarray = [];
-        let typedTextElement = '';
+           $(document).ready(function () {
+    // Event-Handler für das Absenden des Formulars
+    $("#submitForm").click(function () {
+        var formData = new FormData(document.getElementById("myForm"));
 
-        $(document).ready(function () {
-            $("#submitForm").click(function () {
-                var form = document.getElementById("myForm");
-                var formData = new FormData(form);
-
-                $("#save_data").val('');
-                $.ajax({
-                    url: "{{ route('JobNavigatorprocess') }}",
-                    type: "POST",
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    beforeSend: function(){
-                        $("#submitForm").text("lädt...");
-                    },
-                    success: function (data) {
-                        $("#submitForm").text("Senden");
-                        // console.log(data);
-                        if (data.status) {
-                            $("#save_folder").css('display','block');
-                                if(data.type == 'first'){
-                                    $("#first_box").css('display','flex');
-                                    // textToType1 = data.data.choices[0]['message']['content'];
-                                    textToType = data.data.choices[0]['message']['content'].replace(/\n/g, " <br> ");
-                                    document.getElementById('typed-text1').innerHTML = '';
-                                    // typeText1();
-                                    $('#field_1').prop('disabled', false);
-                                    document.getElementById("save_val").value = textToType+" <br> <br> ";
-
-                                    let checks = data.data.choices[0]['message']['content'].split('\n');
-                                    textarray = checks;
-                                    console.log(textarray);
-                                    typedTextElement = document.getElementById('typed-text1');
-                                    typeFun();
-
-                                }else {
-                                    $("#second_box").css('display','flex');
-                                    // textToType2 = data.data.choices[0]['message']['content'];
-                                    textToType = data.data.choices[0]['message']['content'].replace(/\n/g, " <br> ");
-                                    document.getElementById('typed-text2').innerHTML = '';
-                                    document.getElementById("save_val").value += textToType+" <br> <br> ";
-
-                                    let checks = data.data.choices[0]['message']['content'].split('\n');
-                                    textarray = checks;
-                                    console.log(textarray);
-                                    typedTextElement = document.getElementById('typed-text2');
-                                    typeFun();
-                                    // typeText2();
-                                    // $("#save_folder").css('display','block');
-                                    // $("#save_val").val(textToType2);
-                                }
-                        }else{
-                            alert(data.message);
-
-                        }
-                    },
-                    error: function (xhr, status, error) {
-                    }
-                });
-            });
-
-            $("#saveForm").click(function () {
-                var form = document.getElementById("save_data");
-                var formData = new FormData(form);
-
-                $.ajax({
-                    url: "{{ route('save.data') }}",
-                    type: "POST",
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    success: function (data) {
-                       $("#save_name").val('');
-                       $("#saveModal").modal('hide');
-                       // Zeige eine Toast-Nachricht an
-    				showToast(document.title + " Gespeichert!");
-                    },
-                    error: function (xhr, status, error) {
-                        // Handle errors
-                    }
-                });
-            });
-
-/**
- * Erstellt und zeigt eine Toast-Nachricht mit einer gegebenen Nachricht an.
- * @param {string} message - Die Nachricht, die im Toast angezeigt werden soll.
- */
-function showToast(message) {
-  // Erstelle das Toast-Element
-  var toast = document.createElement('div');
-  toast.textContent = message;
-  toast.style.position = 'fixed';
-  toast.style.bottom = '20px';
-  toast.style.left = '50%';
-  toast.style.transform = 'translateX(-50%)';
-  toast.style.backgroundColor = 'black';
-  toast.style.color = 'white';
-  toast.style.padding = '10px';
-  toast.style.borderRadius = '5px';
-  toast.style.zIndex = '1000';
-  toast.style.opacity = '0';
-  toast.style.transition = 'opacity 0.5s';
-
-  // Füge das Toast-Element hinzu und fade es ein
-  document.body.appendChild(toast);
-  setTimeout(() => toast.style.opacity = '1', 100);
-
-  // Entferne das Toast-Element nach einer gewissen Zeit
-  setTimeout(() => {
-    toast.style.opacity = '0';
-    setTimeout(() => document.body.removeChild(toast), 500); // Warte auf das Ende der Opacity-Transition
-  }, 3000);
-}
-
-            $('#field_1').on('keyup', function() {
-                var typedText = $(this).val();
-
-                // Disable other fields (field2 and field3)
-                $('#field_2,#field_3,#field_4,#field_5').prop('disabled', true);
-                $(':radio:not(:checked)').attr('disabled', true);
-                // Enable them again when text is cleared in field1
-                if (typedText === '') {
-                    $(':radio:not(:checked)').attr('disabled', false);
-                    $('#field_2,#field_3,#field_4,#field_5').prop('disabled', false);
+        $.ajax({
+            url: "{{ route('JobMatchProcess') }}",
+            type: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            beforeSend: function(){
+                $("#submitForm").text("lädt...");
+            },
+            success: function (data) {
+                if (data && data.choices && data.choices.length > 0) {
+                    var textToDisplay = data.choices[0].message.content.replace(/\n/g, "<br>");
+                    $("#typed-text1").html(textToDisplay);
+                    $("#save_folder").show();
+                } else {
+                    console.error("Fehlerhafte oder fehlende Daten in der Antwort");
+                    alert("Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.");
                 }
-            });
-
-            $('#field_2,#field_3,#field_4,#field_5').on('keyup', function() {
-                // Get the typed text from field1
-                var typedText = $(this).val();
-
-                // Disable other fields (field2 and field3)
-                $('#field_1').prop('disabled', true);
-                // Enable them again when text is cleared in field1
-                if (typedText === '') {
-                    $('#field_1').prop('disabled', false);
-                }
-            });
-        });
-
-
-
-        // let typedTextElement = document.getElementById('typed-text');
-        let currentChar = 0;
-        let curloop = 0;
-        let alltext = '';
-
-        function typeText() {
-            if (currentChar < textToType.length) {
-                typedTextElement.innerHTML += textToType.charAt(currentChar);
-                currentChar++;
-                setTimeout(typeText, 10); // Adjust the typing speed (in milliseconds)
-                typedTextElement.scrollTop = typedTextElement.scrollHeight;
-
-            }else {
-                alltext +=textToType+" <br> ";
-                typedTextElement.innerHTML = alltext;
-                currentChar = 0;
-                curloop++;
-                typeFun();
+                $("#submitForm").text("Berufe finden");
+            },
+            error: function (xhr, status, error) {
+                console.error("Ein Fehler ist aufgetreten: " + error);
             }
-        }
-
-        function typeFun(){
-            if(curloop < textarray.length){
-                textToType = textarray[curloop];
-                typeText();
-            }else {
-                alltext = '';
-                textToType= [];
-                curloop = 0;
-            }
-        }
-
-        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl)
         });
+    });
+
+    // Event-Handler für das Speichern der Daten
+    $("#saveForm").click(function () {
+        var formData = new FormData(document.getElementById("save_data"));
+
+        $.ajax({
+            url: "{{ route('save.data') }}",
+            type: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                $("#saveModal").modal('hide');
+                showToast("Gespeichert!");
+            },
+            error: function (xhr, status, error) {
+                console.error("Ein Fehler ist aufgetreten: " + error);
+            }
+        });
+    });
+
+    // Funktion zum Anzeigen einer Toast-Nachricht
+    function showToast(message) {
+        var toast = document.createElement('div');
+        toast.textContent = message;
+        // Stil und Positionierung des Toasts
+        toast.style.position = 'fixed';
+        toast.style.bottom = '20px';
+        toast.style.left = '50%';
+        toast.style.transform = 'translateX(-50%)';
+        toast.style.backgroundColor = 'black';
+        toast.style.color = 'white';
+        toast.style.padding = '10px';
+        toast.style.borderRadius = '5px';
+        toast.style.zIndex = '1000';
+        toast.style.opacity = '0';
+        toast.style.transition = 'opacity 0.5s';
+
+        document.body.appendChild(toast);
+        setTimeout(() => toast.style.opacity = '1', 100);
+
+        setTimeout(() => {
+            toast.style.opacity = '0';
+            setTimeout(() => document.body.removeChild(toast), 500);
+        }, 3000);
+    }
+});
         </script>
 </body>
 

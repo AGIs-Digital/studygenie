@@ -1,56 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GenieCheck</title>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-	rel="stylesheet">
-<meta name="csrf-token" content="{{ csrf_token() }}" />
-
-
-<link rel="stylesheet" href="{{ asset('asset/css/navBarStyle.css') }}">
-<link rel="stylesheet" href="{{ asset('asset/css/utilities.css') }}">
-<link rel="stylesheet"
-	href="{{ asset('asset/css/written-green-board.css') }}">
-<link rel="apple-touch-icon" sizes="57x57"
-	href="/favicon/apple-icon-57x57.png">
-<link rel="apple-touch-icon" sizes="60x60"
-	href="/favicon/apple-icon-60x60.png">
-<link rel="apple-touch-icon" sizes="72x72"
-	href="/favicon/apple-icon-72x72.png">
-<link rel="apple-touch-icon" sizes="76x76"
-	href="/favicon/apple-icon-76x76.png">
-<link rel="apple-touch-icon" sizes="114x114"
-	href="/favicon/apple-icon-114x114.png">
-<link rel="apple-touch-icon" sizes="120x120"
-	href="/favicon/apple-icon-120x120.png">
-<link rel="apple-touch-icon" sizes="144x144"
-	href="/favicon/apple-icon-144x144.png">
-<link rel="apple-touch-icon" sizes="152x152"
-	href="/favicon/apple-icon-152x152.png">
-<link rel="apple-touch-icon" sizes="180x180"
-	href="/favicon/apple-icon-180x180.png">
-<link rel="icon" type="image/png" sizes="192x192"
-	href="/favicon/android-icon-192x192.png">
-<link rel="icon" type="image/png" sizes="32x32"
-	href="/favicon/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="96x96"
-	href="/favicon/favicon-96x96.png">
-<link rel="icon" type="image/png" sizes="16x16"
-	href="/favicon/favicon-16x16.png">
-<link rel="manifest" href="/favicon/manifest.json">
-<meta name="msapplication-TileColor" content="#ffffff">
-<meta name="msapplication-TileImage"
-	content="/favicon/ms-icon-144x144.png">
-<meta name="theme-color" content="#ffffff">
+@include('includes.head')
+@section('title', 'GenieCheck')
 </head>
 
 <body class="MainContainer backimage">
 	@include('includes.header')
-	<section class="geniebrain_sec">
+	<section class="GenieBrain_sec">
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-md-2">
@@ -108,28 +65,23 @@
 					<form id="myForm">
 						@csrf
 						<div class="written-green-board">
-							{{--
-							<div class="Bildung-heading" class="mt-5">Bildung</div>
-							--}}
-
 							<div class="content-written left">
                                 <div class="left_scroll">
                                     <div class="group-box">
                                         <span>Text zum Prüfen: <strong type="button" class=""
                                             data-bs-toggle="tooltip" data-bs-placement="top"
                                             title="Welchen Text möchtest du geprüft haben?"> <img
-                                                src="{{ asset('asset/images/info.svg') }}" width="16" alt="">
+                                                src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
                                         </strong>
                                         </span>
                                         <textarea name="text1" id="field1" cols="30" rows="10" required></textarea>
-                                        {{-- <input type="text" placeholder="Math and formula"> --}}
                                     </div>
 
                                     <div class="group-box">
                                         <span>Zitierweise: <strong type="button" class=""
                                             data-bs-toggle="tooltip" data-bs-placement="top"
                                             title="Prüfe zusätzlich die Zitation"> <img
-                                                src="{{ asset('asset/images/info.svg') }}" width="16" alt="">
+                                                src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
                                         </strong>
                                         </span>
                                         <div class="custom-select">
@@ -144,25 +96,12 @@
                                                 <option value="ISO 690">ISO 690</option>
                                             </select>
                                         </div>
-                                        <input type="hidden" id="type" name="type" value="first">
-                                    </div>
-
-                                    <div class="group-box">
-                                        <span>Matheaufgaben und Formeln: <strong type="button" class=""
-                                            data-bs-toggle="tooltip" data-bs-placement="top"
-                                            title="Lass dir selbst bei Formeln helfen"> <img
-                                                src="{{ asset('asset/images/info.svg') }}" width="16" alt="">
-                                        </strong>
-                                        </span> <input type="text" id="field2" name="math"
-                                            placeholder="Formel eingeben" required>
                                     </div>
                                 </div>
 
 							</div>
 
-							<button type="button" class="send_button" id="submitForm">Senden</button>
-
-
+							<button type="button" class="send_button" id="submitForm">Prüfen</button>
 						</div>
 					</form>
 				</div>
@@ -179,9 +118,6 @@
                             <img src="{{ asset('asset/images/savefolder.svg') }}" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Speichern" width="40"
                             height="40" alt="">
                         </div>
-
-
-
 					</div>
 				</div>
 			</div>
@@ -281,17 +217,13 @@
           }
           x[i].appendChild(b);
           a.addEventListener("click", function(e) {
-              /*when the select box is clicked, close any other select boxes,
-              and open/close the current select box:*/
               e.stopPropagation();
               closeAllSelect(this);
               this.nextSibling.classList.toggle("select-hide");
               this.classList.toggle("select-arrow-active");
             });
         }
-        function closeAllSelect(elmnt) {
-          /*a function that will close all select boxes in the document,
-          except the current select box:*/
+        function closeAllSelect(elmnt) {/
           var x, y, i, xl, yl, arrNo = [];
           x = document.getElementsByClassName("select-items");
           y = document.getElementsByClassName("select-selected");
@@ -310,8 +242,7 @@
             }
           }
         }
-        /*if the user clicks anywhere outside the select box,
-        then close all select boxes:*/
+
         document.addEventListener("click", closeAllSelect);
 
         $(document).ready(function () {
@@ -320,7 +251,7 @@
                 var formData = new FormData(form);
                 // document.getElementById('typed-text').style.height = 'auto';
                 $.ajax({
-                    url: "{{ route('processForm') }}",
+                    url: "{{ route('GenieCheck') }}",
                     type: "POST",
                     data: formData,
                     processData: false,
@@ -462,21 +393,15 @@ function showToast(message) {
                 textToType = textarray[curloop];
                 typeText();
             }else {
-                // alert('heelo empty');
                 alltext = '';
                 textToType= [];
                 curloop = 0;
-                // typedTextElement.style.height = 'calc(100vh - 224px)';
-                // typedTextElement.style.overflow = 'auto';
-                // style="height: calc(100vh - 224px);overflow: auto;"
-                // $('.content-written').css('height','calc(100vh - 155px)');
             }
         }
         var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
         var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl)
         });
-// document.addEventListener("DOMContentLoaded", typeText);
         </script>
 </body>
 

@@ -2,55 +2,13 @@
 <html lang="en">
 
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Motivationsschreiben</title>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-	rel="stylesheet">
-<meta name="csrf-token" content="{{ csrf_token() }}" />
-
-
-<link rel="stylesheet" href="{{ asset('asset/css/navBarStyle.css') }}">
-<link rel="stylesheet" href="{{ asset('asset/css/utilities.css') }}">
-<link rel="stylesheet"
-	href="{{ asset('asset/css/written-green-board.css') }}">
-<link rel="apple-touch-icon" sizes="57x57"
-	href="/favicon/apple-icon-57x57.png">
-<link rel="apple-touch-icon" sizes="60x60"
-	href="/favicon/apple-icon-60x60.png">
-<link rel="apple-touch-icon" sizes="72x72"
-	href="/favicon/apple-icon-72x72.png">
-<link rel="apple-touch-icon" sizes="76x76"
-	href="/favicon/apple-icon-76x76.png">
-<link rel="apple-touch-icon" sizes="114x114"
-	href="/favicon/apple-icon-114x114.png">
-<link rel="apple-touch-icon" sizes="120x120"
-	href="/favicon/apple-icon-120x120.png">
-<link rel="apple-touch-icon" sizes="144x144"
-	href="/favicon/apple-icon-144x144.png">
-<link rel="apple-touch-icon" sizes="152x152"
-	href="/favicon/apple-icon-152x152.png">
-<link rel="apple-touch-icon" sizes="180x180"
-	href="/favicon/apple-icon-180x180.png">
-<link rel="icon" type="image/png" sizes="192x192"
-	href="/favicon/android-icon-192x192.png">
-<link rel="icon" type="image/png" sizes="32x32"
-	href="/favicon/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="96x96"
-	href="/favicon/favicon-96x96.png">
-<link rel="icon" type="image/png" sizes="16x16"
-	href="/favicon/favicon-16x16.png">
-<link rel="manifest" href="/favicon/manifest.json">
-<meta name="msapplication-TileColor" content="#ffffff">
-<meta name="msapplication-TileImage"
-	content="/favicon/ms-icon-144x144.png">
-<meta name="theme-color" content="#ffffff">
+@include('includes.head')
+@section('title', 'Motivationsschreiben')
 </head>
 
 <body class="MainContainer backimage">
 	@include('includes.header')
-	<section class="geniebrain_sec">
+	<section class="GenieBrain_sec">
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-md-2">
@@ -108,115 +66,84 @@
 					<form id="myForm">
 						@csrf
 						<div class="written-green-board">
-							{{--
-							<div class="Bildung-heading" class="mt-5">Bildung</div>
-							--}}
 
 							<div class="content-written left brain">
                                 <div class="left_scroll">
                                     <div class="group-box">
-                                        <span class="small_text_font">Welchen Studiengang oder Beruf
-                                            strebst du an? <strong type="button" class=""
+                                        <span class="small_text_font">Gewünschte Position/Studiengang <strong type="button" class=""
                                             data-bs-toggle="tooltip" data-bs-placement="top"
-                                            title="lorem ipsum"> <img
-                                                src="{{ asset('asset/images/info.svg') }}" width="16" alt="">
+                                            title="Wofür genau bewirbst du dich?"> <img
+                                                src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
                                         </strong>
                                         </span> <input type="text" placeholder="" id="field_1"
                                             name="field1">
                                     </div>
 
                                     <div class="group-box">
-                                        <span class="small_text_font">Was sind deine persönlichen
-                                            Gründe für die Wahl dieses Berufs/ Studiengangs? <strong
+                                        <span class="small_text_font">Qualifikationen und Fähigkeiten <strong
                                             type="button" class="" data-bs-toggle="tooltip"
-                                            data-bs-placement="top" title="lorem ipsum"> <img
-                                                src="{{ asset('asset/images/info.svg') }}" width="16" alt="">
+                                            data-bs-placement="top" title="Was sind deine relevanten Stärken für diese Stelle?"> <img
+                                                src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
                                         </strong>
                                         </span> <input type="text" placeholder="" id="field_2"
                                             name="field2">
                                     </div>
 
                                     <div class="group-box">
-                                        <span class="small_text_font">Hast du bereits eine Ausbildung
-                                            oder ein Studium absolviert? <strong type="button" class=""
+                                        <span class="small_text_font">Berufliche Erfahrungen <strong type="button" class=""
                                             data-bs-toggle="tooltip" data-bs-placement="top"
-                                            title="lorem ipsum"> <img
-                                                src="{{ asset('asset/images/info.svg') }}" width="16" alt="">
+                                            title="Beschreibe deine bisherigen Erfahrungen (Praktika, Jobs etc.)"> <img
+                                                src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
                                         </strong>
                                         </span> <input type="text" placeholder="" id="field_3"
                                             name="field3">
                                     </div>
 
                                     <div class="group-box">
-                                        <span class="small_text_font">Hast du bereits Berufliche
-                                            Erfahrungen sammeln können? <strong type="button" class=""
+                                        <span class="small_text_font">Persönliche Motivation <strong type="button" class=""
                                             data-bs-toggle="tooltip" data-bs-placement="top"
-                                            title="lorem ipsum"> <img
-                                                src="{{ asset('asset/images/info.svg') }}" width="16" alt="">
+                                            title="Wieso bewirbst du dich für genau diese Stelle?"> <img
+                                                src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
                                         </strong>
                                         </span> <input type="text" id="field_4" name="field4"
                                             placeholder="" required>
                                     </div>
 
                                     <div class="group-box">
-                                        <span class="small_text_font">Was sind deine persönlichen
-                                            Stärken? <strong type="button" class=""
+                                        <span class="small_text_font">Bezug zum Unternehmen/Studiengang <strong type="button" class=""
                                             data-bs-toggle="tooltip" data-bs-placement="top"
-                                            title="lorem ipsum"> <img
-                                                src="{{ asset('asset/images/info.svg') }}" width="16" alt="">
+                                            title="Warum genau dieses Unternehmen/Studiengang? Erkläre deine Gründe"> <img
+                                                src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
                                         </strong>
                                         </span> <input type="text" id="field_5" name="field5"
                                             placeholder="" required>
                                     </div>
 
                                     <div class="group-box">
-                                        <span class="small_text_font">Warum entscheidest du dich für
-                                            folgendes Studium/ Beruf/ Unternehmen? <strong type="button"
+                                        <span class="small_text_font">Nice to know <strong type="button"
                                             class="" data-bs-toggle="tooltip" data-bs-placement="top"
-                                            title="lorem ipsum"> <img
-                                                src="{{ asset('asset/images/info.svg') }}" width="16" alt="">
+                                            title="Alle anderen Infos, die in die Bewerbung einfließen sollen"> <img
+                                                src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
                                         </strong>
                                         </span> <input type="text" id="field_6" name="field6"
                                             placeholder="" required>
                                     </div>
-
-                                    <div class="group-box">
-                                        <span class="small_text_font">Gibt es persönliche Erfahrungen
-                                            oder Hintergründe, die dich einzigartig machen? <strong
-                                            type="button" class="" data-bs-toggle="tooltip"
-                                            data-bs-placement="top" title="lorem ipsum"> <img
-                                                src="{{ asset('asset/images/info.svg') }}" width="16" alt="">
-                                        </strong>
-                                        </span> <input type="text" id="field_7" name="field7"
-                                            placeholder="" required>
-                                    </div>
                                 </div>
 
-
-
 							</div>
-							<button type="button" class="send_button" id="submitForm">Senden</button>
-
-
-
-							{{-- <img src="../images/green-board.jpg" alt="Green Board"> --}}
+							<button type="button" class="send_button" id="submitForm">Erstellen</button>
 
 						</div>
 					</form>
 				</div>
 				<div class="col-md-6">
 					<div class="written-green-board">
-						{{--
-						<div class="Bildung-heading" class="mt-5">Bildung</div>
-						--}}
 
 						<div class="content-written right" id="getpdf">
 							<div class="typing-container">
 								<div id="typed-text"></div>
 							</div>
 						</div>
-
-						{{-- <img src="../images/green-board.jpg" alt="Green Board"> --}}
 
 					</div>
 				</div>
@@ -316,8 +243,6 @@
 				transform="translate(5630 7180)" fill="#293a4a" fill-rule="evenodd" />
             </g>
           </svg>
-		{{-- <img src="{{ asset('asset/images/copyicon.svg') }}" width="20"
-			height="30" alt=""> --}}
 	</div>
 
 	<div class="pdfbox" style="display: none">
@@ -350,7 +275,7 @@
                 var formData = new FormData(form);
                 $("#save_data").val('');
                 $.ajax({
-                    url: "{{ route('motivation.process') }}",
+                    url: "{{ route('MotivationsschreibenProcess') }}",
                     type: "POST",
                     data: formData,
                     processData: false,

@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Cache;
 class FrontController extends Controller
 {
 
-    public function index(Request $request)
+    public function GenieCheck(Request $request)
     {
         $type = 'null';
         if ($request->type == 'first') {
@@ -203,7 +203,7 @@ class FrontController extends Controller
         return response()->json($responseData);
     }
 
-    public function genieBrainProcess(Request $request)
+    public function GenieBrainProcess(Request $request)
     {
         $newQuestion = null;
         if (isset($request->field1)) {
@@ -328,15 +328,15 @@ class FrontController extends Controller
         }
     }
 
-    public function genieInterview()
+    public function KarriereMentor()
     {
         if ((auth()->user()->subscription_name == 'diamant')) {
-            return view('Karriere.genieinterview');
+            return view('Karriere.KarriereMentor');
         }
         return abort(404);
     }
 
-    public function genieInterviewFirst()
+    public function KarriereMentorFirst()
     {
         $username = auth()->user()->name;
         $apiKey = env('OPENAI_API_KEY');
@@ -395,7 +395,7 @@ class FrontController extends Controller
         ]);
     }
 
-    public function JobNavigatorProcess(Request $request)
+    public function JobInsiderProcess(Request $request)
     {
         $username = auth()->user()->name;
         $newQuestion = null;
@@ -648,7 +648,7 @@ class FrontController extends Controller
         User::find(auth()->user()->id)->update([
             'password' => Hash::make($request->new_password)
         ]);
-        return redirect()->back()->with('success', 'Password Change Successfully');
+        return redirect()->back()->with('success', 'Passwort erfolgreich geändert');
     }
 
     public function updatePlaneSec()
@@ -666,6 +666,6 @@ class FrontController extends Controller
     public function toolsPage()
     {
         $this->updatePlaneSec();
-        return view('todayabout');
+        return view('Tools');
     }
 }
