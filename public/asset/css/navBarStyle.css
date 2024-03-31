@@ -1,0 +1,51 @@
+.navContainer {
+	background-color: rgba(41, 58, 74, 1);
+	border-bottom-left-radius: 5rem;
+}
+
+.nav-link.active {
+	color: #f3922a;
+}
+
+.CenterAnchorTagsContainer {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.nav-link:focus, .nav-link:hover {
+	color: #F3922A !important;
+}
+
+.CenterAnchorTagsContainer a {
+	margin-inline: 1rem;
+	text-decoration: none;
+	font-family: "Milonga";
+	color: white;
+	font-weight: 400;
+	font-size: 1.25rem;
+}
+
+.CenterAnchorTagsContainer a:nth-child(2) {
+	color: #F3922A;
+}
+
+.barIconContainer {
+	display: none;
+}
+
+@media screen and (max-width:650px) {
+	.logOutbutton {
+		display: block;
+	}
+	.CenterAnchorTagsContainer {
+		display: inline-block;
+	}
+	.barIconContainer {
+		display: block;
+	}
+}
+
+.cv_box {
+	font-family: Arial, sans-serif;
+}

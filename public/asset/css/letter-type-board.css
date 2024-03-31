@@ -1,0 +1,39 @@
+@import
+	url('https://fonts.googleapis.com/css2?family=Milonga&display=swap');
+
+#main-body {
+	font-family: 'Milonga', cursive;
+	height: 90vh;
+	background-image:
+		url("../images/WhatsApp\ Image\ 2023-09-18\ at\ 9.41.22\ AM.jpeg");
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+#bottom-nav {
+	margin-left: 1rem;
+	margin-top: 1rem;
+}
+
+#Bildung-text {
+	opacity: 0.5;
+}
+
+#letter-type-board {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+
+#letter-type-board img {
+	z-index: 1;
+	margin-top: -3rem;
+	width: 300px;
+}
+
+#letter-type-board>h3 {
+	z-index: 2;
+	margin-top: 2rem;
+	text-align:  center;
+}
