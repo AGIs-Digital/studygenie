@@ -8,7 +8,7 @@
 
 <body class="MainContainer backimage">
 	@include('includes.header')
-	<section class="GenieBrain_sec">
+	<section class="TextInspiration_sec">
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-md-2">
@@ -66,6 +66,7 @@
 						<div class="written-green-board">
 
 							<div class="content-written left brain">
+                            <br>
                                 <div class="left_scroll">
                                     <div class="group-box">
                                         <span class="small_text_font">Welcher Beruf interessiert dich?
@@ -129,8 +130,7 @@
 					<div class="modal-body">
 
 						<div class="mb-3">
-							<label for="exampleFormControlInput1" class="form-label">Enter
-								Name</label> <input type="text" class="form-control"
+							<label for="save_name" class="form-label">Speichername</label> <input type="text" class="form-control"
 								id="save_name" name="name" placeholder="Speichername">
 						</div>
 						<input type="hidden" name="save_val" id="save_val"> <input
@@ -153,202 +153,67 @@
 
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script>
+    $(document).ready(function () {
+        $("#submitForm").click(function () {
+            var formData = new FormData(document.getElementById("myForm"));
 
-function scrollToBottom() {
-    var typingContainer = document.getElementById("typingContainer");
-    if (typingContainer) {
-        typingContainer.scrollTop = typingContainer.scrollHeight;
-    }
-}
-
-function addContent(newContent) {
-    var typedTextElement = document.getElementById('typed-text2');
-    if (typedTextElement) {
-        typedTextElement.innerHTML += newContent; // Hier fügen Sie den neuen Inhalt hinzu
-        scrollToBottom(); // Scrollen Sie nach unten, nachdem der Inhalt hinzugefügt wurde
-    }
-}
-
-        let textToType = "";
-        let textarray = [];
-        let typedTextElement = '';
-
-        $(document).ready(function () {
-            $("#submitForm").click(function () {
-                var form = document.getElementById("myForm");
-                var formData = new FormData(form);
-
-                $("#save_data").val('');
-                $.ajax({
-                    url: "{{ route('JobInsiderProcess') }}",
-                    type: "POST",
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    beforeSend: function(){
-                        $("#submitForm").text("lädt...");
-                    },
-                    success: function (data) {
-                        $("#submitForm").text("Senden");
-                        if (data.status) {
-                            $("#save_folder").css('display','block');
-                                if(data.type == 'first'){
-                                    $("#first_box").css('display','flex');
-                                    textToType = data.data.choices[0]['message']['content'].replace(/\n/g, " <br> ");
-                                    document.getElementById('typed-text1').innerHTML = '';
-                                    $('#field_1').prop('disabled', false);
-                                    document.getElementById("save_val").value = textToType+" <br> <br> ";
-
-                                    let checks = data.data.choices[0]['message']['content'].split('\n');
-                                    textarray = checks;
-                                    console.log(textarray);
-                                    typedTextElement = document.getElementById('typed-text1');
-                                    typeFun();
-
-
-                                }else {
-                                    $("#second_box").css('display','flex');
-                                    textToType = data.data.choices[0]['message']['content'].replace(/\n/g, " <br> ");
-                                    document.getElementById('typed-text2').innerHTML = '';
-                                    document.getElementById("save_val").value += textToType+" <br> <br> ";
-
-                                    let checks = data.data.choices[0]['message']['content'].split('\n');
-                                    textarray = checks;
-                                    console.log(textarray);
-                                    typedTextElement = document.getElementById('typed-text2');
-                                    typeFun();
-                                }
-                        }else{
-                            alert(data.message);
-                        }
-                    },
-                    error: function (xhr, status, error) {
-                        // Handle errors
+            $.ajax({
+                url: "{{ route('JobInsiderprocess') }}",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                beforeSend: function(){
+                    $("#submitForm").text("lädt...");
+                },
+                success: function (data) {
+                    $("#submitForm").text("Beruf analysieren");
+                    if (data.status) {
+                        $("#second_box").css('display','flex');
+                        var typingContainer = document.getElementById('typingContainer');
+                        // Ersetzt den Inhalt von typingContainer mit der neuen Antwort
+                        typingContainer.innerHTML = data.data.choices[0]['message']['content'].replace(/\n/g, "<br>");
+                        $("#save_val").val(typingContainer.innerHTML); // Aktualisiert den Wert für das Speichern
+                    } else {
+                        alert(data.message);
                     }
-                });
-            });
-
-            $("#saveForm").click(function () {
-                var form = document.getElementById("save_data");
-                var formData = new FormData(form);
-
-                $.ajax({
-                    url: "{{ route('save.data') }}",
-                    type: "POST",
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    success: function (data) {
-                       $("#save_name").val('');
-                       $("#saveModal").modal('hide');
-                       // Zeige eine Toast-Nachricht an
-    				showToast(document.title + " Gespeichert!");
-                    },
-                    error: function (xhr, status, error) {
-                        // Handle errors
-                    }
-                });
-            });
-
-/**
- * Erstellt und zeigt eine Toast-Nachricht mit einer gegebenen Nachricht an.
- * @param {string} message - Die Nachricht, die im Toast angezeigt werden soll.
- */
-function showToast(message) {
-  // Erstelle das Toast-Element
-  var toast = document.createElement('div');
-  toast.textContent = message;
-  toast.style.position = 'fixed';
-  toast.style.bottom = '20px';
-  toast.style.left = '50%';
-  toast.style.transform = 'translateX(-50%)';
-  toast.style.backgroundColor = 'black';
-  toast.style.color = 'white';
-  toast.style.padding = '10px';
-  toast.style.borderRadius = '5px';
-  toast.style.zIndex = '1000';
-  toast.style.opacity = '0';
-  toast.style.transition = 'opacity 0.5s';
-
-  // Füge das Toast-Element hinzu und fade es ein
-  document.body.appendChild(toast);
-  setTimeout(() => toast.style.opacity = '1', 100);
-
-  // Entferne das Toast-Element nach einer gewissen Zeit
-  setTimeout(() => {
-    toast.style.opacity = '0';
-    setTimeout(() => document.body.removeChild(toast), 500); // Warte auf das Ende der Opacity-Transition
-  }, 3000);
-}
-
-            $('#field_1').on('keyup', function() {
-                // Get the typed text from field1
-                var typedText = $(this).val();
-
-                // Disable other fields (field2 and field3)
-                $('#field_2,#field_3,#field_4,#field_5').prop('disabled', true);
-                $(':radio:not(:checked)').attr('disabled', true);
-                // Enable them again when text is cleared in field1
-                if (typedText === '') {
-                    $(':radio:not(:checked)').attr('disabled', false);
-                    $('#field_2,#field_3,#field_4,#field_5').prop('disabled', false);
-                }
-            });
-
-            $('#field_2,#field_3,#field_4,#field_5').on('keyup', function() {
-                // Get the typed text from field1
-                var typedText = $(this).val();
-
-                // Disable other fields (field2 and field3)
-                $('#field_1').prop('disabled', true);
-                if (typedText === '') {
-                    $('#field_1').prop('disabled', false);
+                },
+                error: function (xhr, status, error) {
+                    // Fehlerbehandlung
+                    console.error("Ein Fehler ist aufgetreten: " + error);
                 }
             });
         });
 
+        $("#saveForm").click(function () {
+            var formData = new FormData(document.getElementById("save_data"));
 
-
-        // let typedTextElement = document.getElementById('typed-text');
-        let currentChar = 0;
-        let curloop = 0;
-        let alltext = '';
-
-        function typeText() {
-    if (currentChar < textToType.length) {
-        typedTextElement.innerHTML += textToType.charAt(currentChar);
-        currentChar++;
-        setTimeout(typeText, 10); // Passen Sie die Schreibgeschwindigkeit an
-        typedTextElement.scrollTop = typedTextElement.scrollHeight;// Stellen Sie sicher, dass diese Zeile nach dem Hinzufügen des Textes steht
-    } else {
-        alltext += textToType + "<br> ";
-        typedTextElement.innerHTML = alltext;
-       // Auch hier sicherstellen, dass nach dem Abschluss der Ausgabe gescrollt wird
-        currentChar = 0;
-        curloop++;
-        typeFun();
-    }
-}
-
-
-        function typeFun(){
-            if(curloop < textarray.length){
-                textToType = textarray[curloop];
-                typeText();
-            }else {
-                alltext = '';
-                textToType= [];
-                curloop = 0;
-
-            }
-        }
-
-        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl)
+            $.ajax({
+                url: "{{ route('save.data') }}",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    $("#save_name").val('');
+                    $("#saveModal").modal('hide');
+                    showToast(document.title + " Gespeichert!");
+                },
+                error: function (xhr, status, error) {
+                    // Fehlerbehandlung
+                    console.error("Ein Fehler ist aufgetreten: " + error);
+                }
+            });
         });
+    });
 
+    function showToast(message) {
+        var toast = document.createElement('div');
+        toast.textContent = message;
+        // Stil und Positionierung des Toasts
+        document.body.appendChild(toast);
+        // Anzeigen und Entfernen des Toasts
+    }
 </script>
 </body>
-
 </html>

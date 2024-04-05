@@ -8,7 +8,7 @@
 
 <body class="MainContainer backimage">
 	@include('includes.header')
-	<section class="GenieBrain_sec">
+	<section class="TextInspiration_sec">
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-md-2">
@@ -75,8 +75,8 @@
                                             title="Was kannst du deiner Meinung nach besonders gut?"> <img
                                                 src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
                                         </strong>
-                                        </span> <input type="text" placeholder="" id="field_2"
-                                            name="field2">
+                                        </span> <input type="text" placeholder="" id="field_1"
+                                            name="field1">
                                     </div>
 
                                     <div class="group-box">
@@ -86,8 +86,8 @@
                                             title="Welche Hobbies hast du, was begeistert dich?"> <img
                                                 src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
                                         </strong>
-                                        </span> <input type="text" placeholder="" id="field_3"
-                                            name="field3">
+                                        </span> <input type="text" placeholder="" id="field_2"
+                                            name="field2">
                                     </div>
 
                                     <div class="group-box">
@@ -97,7 +97,7 @@
                                             title="Was möchtest du in deinem zukünftigen Beruf lernen?"> <img
                                                 src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
                                         </strong>
-                                        </span> <input type="text" id="field_4" name="field4"
+                                        </span> <input type="text" id="field_3" name="field3"
                                             placeholder="" required>
                                     </div>
                                     <div class="group-box">
@@ -108,7 +108,7 @@
                                                 <img src="{{ asset('asset/images/info-tools.svg') }}" width="16"
                                                 alt="">
                                         </strong>
-                                        </span> <input type="text" id="field_5" name="field5"
+                                        </span> <input type="text" id="field_4" name="field4"
                                             placeholder="" required>
                                     </div>
                                     <div class="row radio_button_box">
@@ -123,21 +123,21 @@
                                             </label>
                                         </div>
                                         <div class="col-md-3">
-                                            <label> <input type="radio" name="field6" value="wichtig"> <i>wichtig</i>
+                                            <label> <input type="radio" name="field5" value="wichtig"> <i>wichtig</i>
                                             </label>
                                         </div>
                                         <div class="col-md-3">
-                                            <label> <input type="radio" name="field6" value="neutral"> <i>neutral</i>
+                                            <label> <input type="radio" name="field5" value="neutral"> <i>neutral</i>
                                             </label>
                                         </div>
                                         <div class="col-md-4">
-                                            <label> <input type="radio" name="field6"
-                                                value="weniger wichtig"> <i>unwichtig</i>
+                                            <label> <input type="radio" name="field5"
+                                                value="unwichtig"> <i>unwichtig</i>
                                             </label>
                                         </div>
-                                        <br> <br>
+                                        <br> <br> <br>
                                         <div class="col-md-12">
-                                            <label>Wie beschreibst du dich? <strong type="button" class=""
+                                            <label>Persönlichkeitstyp: <strong type="button" class=""
                                                 data-bs-toggle="tooltip" data-bs-html="true"
                                                 data-bs-placement="top"
                                                 title="Introvertiert: Mag Ruhe, ist gern alleine<br>
@@ -147,15 +147,16 @@
                                             </label>
                                         </div>
                                         <div class="col-md-6">
-                                            <label> <input type="radio" name="field7"
+                                            <label> <input type="radio" name="field6"
                                                 value="introvertiert"> <i>Introvertiert</i>
                                             </label>
                                         </div>
                                         <div class="col-md-6">
-                                            <label> <input type="radio" name="field7"
+                                            <label> <input type="radio" name="field6"
                                                 value="extrovertiert"> <i>Extrovertiert</i>
                                             </label>
                                         </div>
+                                        <br> <br>
                                     </div>
                                 </div>
 							</div>
@@ -200,7 +201,7 @@
 					<div class="modal-body">
 
 						<div class="mb-3">
-							<label for="exampleFormControlInput1" class="form-label">Speichername
+							<label for="save_name" class="form-label">Speichername
 							</label> <input type="text" class="form-control" id="save_name"
 								name="name" placeholder="Speichername">
 						</div>
@@ -234,7 +235,7 @@
         var formData = new FormData(document.getElementById("myForm"));
 
         $.ajax({
-            url: "{{ route('JobMatchProcess') }}",
+            url: "{{ route('JobMatchprocess') }}",
             type: "POST",
             data: formData,
             processData: false,

@@ -21,14 +21,14 @@
 								<button class="accordion-button collapsed" type="button"
 									data-bs-toggle="collapse" data-bs-target="#BildungCollpasetool1"
 									aria-expanded="true" aria-controls="BildungCollpasetool1">
-									GenieBrain</button>
+									TextInspiration</button>
 							</h2>
 							<div id="BildungCollpasetool1" class="accordion-collapse collapse"
 								aria-labelledby="BildungOne" data-bs-parent="#accordionBildung">
 								<div class="accordion-body">
 									<div class="accordion accordion-flush"
 										id="accordionFlushExample2">
-										 <?php createAccordion($Bildung, 'GenieBrain'); ?>
+										 <?php createAccordion($Bildung, 'TextInspiration'); ?>
 									</div>
 								</div>
 							</div>
@@ -45,7 +45,7 @@
 								aria-labelledby="Bildungcheck" data-bs-parent="#accordionBildung">
 								<div class="accordion-body">
 									<div class="accordion accordion-flush"
-										id="accordionFlushGenieBrain">
+										id="accordionFlushTextInspiration">
 										 <?php createAccordion($Bildung, 'GenieCheck'); ?>
 									</div>
 								</div>
@@ -63,7 +63,7 @@
 								aria-labelledby="BildungMentor" data-bs-parent="#accordionBildung">
 								<div class="accordion-body">
 									<div class="accordion accordion-flush"
-										id="accordionFlushGenieBrain">
+										id="accordionFlushTextInspiration">
 										 <?php createAccordion($Bildung, 'GenieTutor'); ?>
 									</div>
 								</div>

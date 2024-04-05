@@ -7,7 +7,7 @@
 
 <body class="MainContainer backimage">
 	@include('includes.header')
-	<section class="GenieBrain_sec">
+	<section class="TextInspiration_sec">
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-md-2">
@@ -68,40 +68,19 @@
 							<div class="content-written left">
                                 <div class="left_scroll">
                                     <div class="group-box">
-                                        <span>Text zum Prüfen: <strong type="button" class=""
+                                        <span>Deine Frage: <strong type="button" class=""
                                             data-bs-toggle="tooltip" data-bs-placement="top"
-                                            title="Welchen Text möchtest du geprüft haben?"> <img
+                                            title="Worum geht es? Matheaufgaben, Textaufgaben ich kann alles prüfen!"> <img
                                                 src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
                                         </strong>
                                         </span>
-                                        <textarea name="text1" id="field1" cols="30" rows="10" required></textarea>
-                                    </div>
-
-                                    <div class="group-box">
-                                        <span>Zitierweise: <strong type="button" class=""
-                                            data-bs-toggle="tooltip" data-bs-placement="top"
-                                            title="Prüfe zusätzlich die Zitation"> <img
-                                                src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
-                                        </strong>
-                                        </span>
-                                        <div class="custom-select">
-                                            <select name="citation">
-                                                <option value="0">Zitierweise auswählen</option>
-                                                <option value="Deutsche Zitierweise">Deutsche Zitierweise</option>
-                                                <option value="APA">APA</option>
-                                                <option value="MLA">MLA</option>
-                                                <option value="Chicago">Chicago</option>
-                                                <option value="Harvard">Harvard</option>
-                                                <option value="Vancouver">Vancouver</option>
-                                                <option value="ISO 690">ISO 690</option>
-                                            </select>
-                                        </div>
+                                        <textarea name="text1" id="field1" rows="20" style="width:100%;" oninput="this.style.height = '';this.style.height = this.scrollHeight + 'px'"></textarea>
                                     </div>
                                 </div>
 
 							</div>
 
-							<button type="button" class="send_button" id="submitForm">Prüfen</button>
+							<button type="button" class="send_button" id="submitForm">GenieCheck</button>
 						</div>
 					</form>
 				</div>
@@ -139,7 +118,7 @@
 					<div class="modal-body">
 
 						<div class="mb-3">
-							<label for="exampleFormControlInput1" class="form-label">Name:</label>
+							<label for="save_name" class="form-label">Name:</label>
 							<input type="text" class="form-control" id="save_name"
 								name="name" placeholder="Speichername eingeben">
 						</div>
@@ -223,7 +202,7 @@
               this.classList.toggle("select-arrow-active");
             });
         }
-        function closeAllSelect(elmnt) {/
+        function closeAllSelect(elmnt) {
           var x, y, i, xl, yl, arrNo = [];
           x = document.getElementsByClassName("select-items");
           y = document.getElementsByClassName("select-selected");
@@ -249,9 +228,9 @@
             $("#submitForm").click(function () {
                 var form = document.getElementById("myForm");
                 var formData = new FormData(form);
-                // document.getElementById('typed-text').style.height = 'auto';
+                document.getElementById('typed-text').style.height = 'auto';
                 $.ajax({
-                    url: "{{ route('GenieCheck') }}",
+                    url: "{{ route('GenieCheckprocess') }}",
                     type: "POST",
                     data: formData,
                     processData: false,

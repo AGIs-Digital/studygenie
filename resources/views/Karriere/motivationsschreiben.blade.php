@@ -8,7 +8,7 @@
 
 <body class="MainContainer backimage">
 	@include('includes.header')
-	<section class="GenieBrain_sec">
+	<section class="TextInspiration_sec">
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-md-2">
@@ -90,13 +90,23 @@
                                     </div>
 
                                     <div class="group-box">
+                                        <span class="small_text_font">Akademischer Hintergrund <strong type="button" class=""
+                                            data-bs-toggle="tooltip" data-bs-placement="top"
+                                            title="Deine relevantesten Schul- oder Studienabschlüsse?"> <img
+                                                src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
+                                        </strong>
+                                        </span> <input type="text" placeholder="" id="field_3"
+                                            name="field3">
+                                    </div>
+
+                                    <div class="group-box">
                                         <span class="small_text_font">Berufliche Erfahrungen <strong type="button" class=""
                                             data-bs-toggle="tooltip" data-bs-placement="top"
                                             title="Beschreibe deine bisherigen Erfahrungen (Praktika, Jobs etc.)"> <img
                                                 src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
                                         </strong>
-                                        </span> <input type="text" placeholder="" id="field_3"
-                                            name="field3">
+                                        </span> <input type="text" placeholder="" id="field_4"
+                                            name="field4">
                                     </div>
 
                                     <div class="group-box">
@@ -105,7 +115,7 @@
                                             title="Wieso bewirbst du dich für genau diese Stelle?"> <img
                                                 src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
                                         </strong>
-                                        </span> <input type="text" id="field_4" name="field4"
+                                        </span> <input type="text" id="field_5" name="field5"
                                             placeholder="" required>
                                     </div>
 
@@ -115,7 +125,7 @@
                                             title="Warum genau dieses Unternehmen/Studiengang? Erkläre deine Gründe"> <img
                                                 src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
                                         </strong>
-                                        </span> <input type="text" id="field_5" name="field5"
+                                        </span> <input type="text" id="field_6" name="field6"
                                             placeholder="" required>
                                     </div>
 
@@ -125,9 +135,10 @@
                                             title="Alle anderen Infos, die in die Bewerbung einfließen sollen"> <img
                                                 src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
                                         </strong>
-                                        </span> <input type="text" id="field_6" name="field6"
+                                        </span> <input type="text" id="field_7" name="field7"
                                             placeholder="" required>
                                     </div>
+                                    <br >
                                 </div>
 
 							</div>
@@ -204,7 +215,7 @@
 					<div class="modal-body">
 
 						<div class="mb-3">
-							<label for="exampleFormControlInput1" class="form-label">Name:</label>
+							<label for="save_name" class="form-label">Name:</label>
 							<input type="text" class="form-control" id="save_name"
 								name="name" placeholder="Speichername">
 						</div>
@@ -250,15 +261,10 @@
 	</div>
 
 
-
-
-
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-	{{--
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-	--}}
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -268,6 +274,14 @@
 	<script>
         window.jsPDF = window.jspdf.jsPDF;
         let textToType = "";
+        const typedTextElement = document.getElementById('typed-text');
+        let currentChar = 0;
+        let curloop = 0;
+        let alltext = '';
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
 
         $(document).ready(function () {
             $("#submitForm").click(function () {
@@ -275,7 +289,7 @@
                 var formData = new FormData(form);
                 $("#save_data").val('');
                 $.ajax({
-                    url: "{{ route('MotivationsschreibenProcess') }}",
+                    url: "{{ route('Motivationsschreibenprocess') }}",
                     type: "POST",
                     data: formData,
                     processData: false,
@@ -284,10 +298,9 @@
                         $("#submitForm").text("lädt...");
                     },
                     success: function (data) {
+                        // Verarbeite die empfangenen Daten
                         $("#submitForm").text("Senden");
-                        // document.createElement('br');
                         textToType = data.choices[0]['message']['content'].replace(/\n/g, " <br> ");
-                        // document.getElementById('typed-text').innerHTML = textToType+" <br> <br> ";
 
                         document.getElementById('pdf_style').innerHTML = textToType+" <br> <br> ";
                         document.getElementById('template_add').innerHTML = textToType+" <br> <br> ";
@@ -296,12 +309,7 @@
                         let checks = data.choices[0]['message']['content'].split('\n')
                         textarray = checks;
                         typeFun();
-
-
-                        // typeText();
                         $(".save_folder").css('display','block');
-                        // document.getElementById("save_val").value += textToType+" <br> <br> ";
-                        // $("#save_val").val(textToType);
                        console.log(data.choices[0]['message']['content']);
                     },
                     error: function (xhr, status, error) {
@@ -331,10 +339,7 @@
                 });
 		}
 
-        const typedTextElement = document.getElementById('typed-text');
-        let currentChar = 0;
-        let curloop = 0;
-        let alltext = '';
+
 
         function typeText() {
             if (currentChar < textToType.length) {
@@ -357,11 +362,9 @@
                 textToType = textarray[curloop];
                 typeText();
             }else {
-                // alert('heelo empty');
                 alltext = '';
                 textToType= [];
                 curloop = 0;
-
             }
         }
 
@@ -430,16 +433,6 @@ function showToast(message) {
   }, 3000);
 }
 
-
-
-        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl)
-        })
-
-
-// document.addEventListener("DOMContentLoaded", typeText);
-        </script>
+</script>
 </body>
-
 </html>

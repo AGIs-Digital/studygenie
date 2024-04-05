@@ -95,7 +95,7 @@
 	background-size: 100% 80%;
 	background-repeat: no-repeat;
 	background-position: top;
-    padding: 56px 8% 25px 17%;
+    padding: 64px 8% 25px 17%;
 	margin-top: 0;
 }
 
@@ -232,17 +232,17 @@
 	width: 600px;
 }
 
-.GenieBrain_sec .content-written {
+.TextInspiration_sec .content-written {
 	max-width: 100%;
 }
 
-.GenieBrain_sec .group-box span {
+.TextInspiration_sec .group-box span {
 	text-align: left;
 	margin-top: 20px;
 	font-weight: 700;
 }
 
-.GenieBrain_sec .group-box input {
+.TextInspiration_sec .group-box input {
 	width: 100%;
 }
 
@@ -428,17 +428,24 @@
 
 .radio_button_box label {
 	color: #404040;
-	font-size: 12px;
+	font-size: 14px;
 	font-style: normal;
 	font-weight: 700;
 	line-height: 20px;
 	letter-spacing: 1px;
-	display: block;
+	display: Block;
+    align-items: center;
 	margin-top: 12px;
 }
 
-.radio_button_box label i {
-	vertical-align: text-bottom;
+.col-md-12 > label {
+	font-size: 14px;
+	text-align: left;
+}
+
+label > i {
+	font-size: 12px;
+	font-weight: 400;
 }
 
 .user_input_form {

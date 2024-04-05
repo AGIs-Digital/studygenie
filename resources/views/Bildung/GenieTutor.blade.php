@@ -8,7 +8,7 @@
 
 <body class="MainContainer">
 	@include('includes.header')
-	<section class="GenieBrain_sec">
+	<section class="TextInspiration_sec">
 		<div class="container-fluid">
 			<div class="row justify-content-center">
 
@@ -158,7 +158,7 @@
 					<form id="save_data">
 						@csrf
 						<div class="mb-3">
-							<label for="exampleFormControlInput1" class="form-label">Name:</label>
+							<label for="save_name" class="form-label">Name:</label>
 							<input type="text" class="form-control" id="save_name"
 								name="name" placeholder="Speichername eingeben">
 						</div>

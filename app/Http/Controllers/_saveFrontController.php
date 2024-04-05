@@ -203,7 +203,7 @@ class FrontController extends Controller
         return response()->json($responseData);
     }
 
-    public function GenieBrainProcess(Request $request)
+    public function TextInspirationprocess(Request $request)
     {
         $newQuestion = null;
         if (isset($request->field1)) {
@@ -251,7 +251,7 @@ class FrontController extends Controller
         return response()->json($responseData);
     }
 
-    public function genieMotivationProcess(Request $request)
+    public function genieMotivationprocess(Request $request)
     {
         $newQuestion = "Du bist langjähriger Bewerbungstrainer und musst mir dabei helfen, ein professionelles und authentisches Motivationsschreiben zu verfassen. ";
         if (isset($request->field1)) {
@@ -395,7 +395,7 @@ class FrontController extends Controller
         ]);
     }
 
-    public function JobInsiderProcess(Request $request)
+    public function JobInsiderprocess(Request $request)
     {
         $username = auth()->user()->name;
         $newQuestion = null;
@@ -648,7 +648,7 @@ class FrontController extends Controller
         User::find(auth()->user()->id)->update([
             'password' => Hash::make($request->new_password)
         ]);
-        return redirect()->back()->with('success', 'Passwort erfolgreich geändert');
+        return redirect()->back()->with('success', 'Password Change Successfully');
     }
 
     public function updatePlaneSec()

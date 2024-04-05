@@ -488,90 +488,100 @@ class FrontController extends Controller
      * HIER BEGINNEN DIE PROMPTS FÜR DIE TOOLS
      */
 
-    // Tool: GenieBrain
-    public function GenieBrainProcess(Request $request)
+    public function TextInspirationprocess(Request $request)
     {
-        $toolIdentifier = 'GenieBrain'; // Tool-Identifier für GenieBrain
-        $newQuestion = $this->buildBrainQuestion($request);
-        $payload = $this->createPayload($newQuestion, true, null, $toolIdentifier);
-        $responseData = $this->sendOpenAIRequest($payload, auth()->user()->id, $toolIdentifier);
+        $newQuestion = $this->TextInspirationQuestion($request);
+            $payload = $this->createPayload($newQuestion, true, null, 'TextInspiration');
+            $responseData = $this->sendOpenAIRequest($payload, auth()->user()->id, 'TextInspiration');
+            $formattedData = $this->formatApiResponse($responseData);
 
-        $formattedData = $this->formatApiResponse($responseData);
-
-        return response()->json([
-            "status" => true,
-            "data" => $formattedData
-        ]);
+            return response()->json([
+                "status" => true,
+                "data" => $formattedData,
+            ]);
     }
 
-    private function buildBrainQuestion($request)
+    private function TextInspirationQuestion($request)
     {
-        $newQuestion = null;
+        $newQuestion = "Du bist professioneller & kreativer Schriftsteller. Analysiere die folgenden Angaben um mich bei der Texterstellung zu unterstützen: ";
 
-        // Hier deine Logik zur Erstellung des $newQuestion Strings
-        if (isset($request->field1)) {
-            $newQuestion = "Es geht um das Thema " . $request->field1 . ".";
-            if (isset($request->field2) && isset($request->field3)) {
-                $newQuestion = $newQuestion . ' Art der Textaufgabe: ' . $request->field2 . '. Persönliches Interesse: ' . $request->field3 . '.';
-                if (isset($request->field4)) {
-                    $newQuestion = $newQuestion . ' Greife bei deiner Antwort meinen Schreibstil aus folgendem Beispieltext auf und verwende diesen: ' . $request->field4 . '
-                    Bitte weise mich bei meinem Beispieltext auf häufige Wortwiederholungen sowie wiederholte Satzanfänge hin und biete mir
-                    Alternativen an um meinen Stil zu verbessern.';
-                }
-            }
-        } else {
-            if (isset($request->field2) && isset($request->field3)) {
-                $newQuestion = 'Ich schreibe eine ' . $request->field2 . ' und möchte mein persönliches Interesse an ' . $request->field3 . ' einfließen lassen. Achte und ergänze
-                Geschlechtergerechte Sprache, indem zu beispielsweise aus "Studenten" ein "Student*Innen" machst, wo es angemessen ist.';
-                if (isset($request->mode)) {
-                    $newQuestion = $newQuestion . ' Schreibe mir folgenden Teil: ' . $request->mode;
-                }
-                if (isset($request->field4)) {
-                    $newQuestion = $newQuestion . ' Greife bei deiner Antwort meinen Schreibstil aus folgendem Beispieltext auf und verwende diesen: ' . $request->field4 . '
-                    Bitte weise mich bei meinem Beispieltext auf häufige Wortwiederholungen sowie wiederholte Satzanfänge hin und biete mir
-                    Alternativen an um meinen Stil zu verbessern.';
-                }
+        $fields = [
+            'field1' => "Aufgabenart: ",
+            'field2' => "Level: ",
+            'field3' => "Thema: ",
+            'field4' => "Besonderen Anforderungen/Interessen: ",
+            'field5' => "Zu erstellender Text: ",
+            'field6' => "Bisheriger Text: "
+            // Weitere Felder...
+        ];
+
+        foreach ($fields as $field => $description) {
+            if (!empty($request->$field)) {
+                $newQuestion .= $description . $request->$field . " ";
             }
         }
+        
+        if (!empty($request->field6)) {
+            $newQuestion .= ". Analysiere meinen bisherigen Text und verfasse deine Weiterführung so, dass diese sowohl logisch als auch sprachlich adäquat ist und an meinen bisher verfassten Text nahtlos anknüpft.";
+        }
+        
+        $newQuestion .= " Verfasse die von mir gewünschte Textpassage und achte dabei auf grammatikalische Korrektheit und Rechtschreibung.";
 
         return $newQuestion;
     }
 
-    // Tool: GenieCheck
-    public function GenieCheck(Request $request)
+    public function TextAnalyseprocess(Request $request)
     {
-        $toolIdentifier = 'GenieCheck'; // Tool-Identifier für GenieCheck
-        $type = 'null';
-        if ($request->type == 'first') {
-            $type = "1. Bitte prüfe diesen Text hinsichtlich Grammatik, Rechtschreibung, Ausdruck, Struktur und Kommasetzung: " . $request->field1;
-        } else {
-            $type = "1. Löse folgende Aufgabe: " . $request->field2;
-        }
-        $apiKey = env('OPENAI_API_KEY');
-        $endpoint = "https://api.openai.com/v1/chat/completions";
-        $isFirstCommand = true;
-        $firstCommand = 'null';
-        $citation = "Korrigiere außerdem folgende Zitierweise: " . $request->citation;
-        $newQuestion = $type . ' ' . $citation . ' 2. Korrigiere den Text mit hoher Genauigkeit. Korrekturen sollen über HTML Code in roter Farbe ersichtlich dargestellt werden. Überprüfe deine Korrektur vor dem Absenden noch einmal gründlich.
-        2. Gib mir ein tabellarisches Feedback mit Anzahl der Korrekturen je Kategorie, Fehleranzahl insgesamt und voraussichtliche Schulnote entsprechend des deutschen Bildungssystems. Weise mich auf meine Schwächen und wiederholende Fehler hin.
-        3. Erkläre mir meine Fehler separat nach Kategorie. Hilf mir mit Merksätze, Eselsbrücken oder einfache Beispiele diese Fehler künftig zu vermeiden.
-        4. Promote deine Premiumfunktion "GenieTutor" je nach Schulnote für jede Kategorie.';
-        $payload = [
-            "model" => "gpt-3.5-turbo-1106",
-            "messages" => [
-                [
-                    "role" => "user",
-                    "content" => ! $isFirstCommand ? $firstCommand : $newQuestion
-                ]
-            ],
-            "temperature" => 0.5
-        ];
-        $response = Http::withHeaders([
-            'Authorization' => 'Bearer ' . $apiKey,
-            'Content-Type' => 'application/json'
-        ])->post($endpoint, $payload);
-        $responseData = $response->json();
-        return response()->json($responseData);
+        $newQuestion = $this->TextAnalyseQuestion($request);
+            $payload = $this->createPayload($newQuestion, true, null, 'TextAnalyse');
+            $responseData = $this->sendOpenAIRequest($payload, auth()->user()->id, 'TextAnalyse');
+            $formattedData = $this->formatApiResponse($responseData);
+
+            return response()->json([
+                "status" => true,
+                "data" => $formattedData,
+            ]);
+    }
+
+    
+    private function TextAnalyseQuestion($request)
+    {
+        $newQuestion = "Analysiere den folgenden Text auf Rechtschreib-, Grammatikfehler und stilistische Aspekte. Korrigiere Rechtschreibfehler und Grammatikfehler nicht direkt im Text, sondern erstelle eine Liste mit den Fehlern und füge dahinter in Klammern die Korrekte Schreibweise an. Vorschläge für Stilverbesserungen sind ebenfalls in der Liste aufzuführen. Argumentiere eventuelle Stilverbesserungen, damit ich die Verbesserungsvorschläge verstehen kann. Ich werde dann entscheiden, ob ich diese Vorschläge übernehmen möchte oder nicht.
+        Weise mich auf meine Schwächen und wiederholende Fehler hin.
+        Hilf mir mit Merksätzen, Eselsbrücken oder einfache Beispiele diese Fehler künftig zu vermeiden.
+        Mein Text: " . $request->field1 . ".";
+
+        return $newQuestion;
+    }   
+
+    public function GenieCheckprocess(Request $request)
+    {
+        $newQuestion = $this->GenieCheckQuestion($request);
+            $payload = $this->createPayload($newQuestion, true, null, 'GenieCheck');
+            $responseData = $this->sendOpenAIRequest($payload, auth()->user()->id, 'GenieCheck');
+            $formattedData = $this->formatApiResponse($responseData);
+
+            return response()->json([
+                "status" => true,
+                "data" => $formattedData,
+            ]);
+    }
+
+    public function GenieCheckQuestion(Request $request)
+    {
+        $newQuestion = "Analysiere die eingegebene Nutzerfrage, um das Kernproblem zu identifizieren. 
+        Gib eine kurze und informative Antwort, die das Wesentliche der Frage abdeckt. Berücksichtige dabei die inhaltliche Ausrichtung der Frage, um festzustellen, welches unserer Tools dem Nutzer zusätzlich von Nutzen sein könnte:
+            - Geht es um das Verfassen von Texten, empfiehl das Tool 'TextInspiration' für kreative Schreibhilfen.
+            - Geht es um die Verbesserung der Rechtschreibung, der Grammatik oder des Schreibstils, weise auf das Tool 'TextAnalyse' hin.
+            - Möchte der Nutzer Wissen generieren und tiefergehende Erklärungen erhalten, ist 'GenieTutor' das richtige Tool, um gemeinsam mit StudyGenie interaktiv zu lernen und sich auf Klassenarbeiten & Klausuren vorzubereiten.
+            - Bei Fragen zur beruflichen Orientierung oder zum Finden des passenden Berufs, empfiehl 'JobMatch' für einen Interessen- und Fähigkeitstest.
+            - Wenn der Nutzer detaillierte Informationen zu spezifischen Berufen sucht, weise auf 'JobInsider' hin.
+            - Bei Bedarf an Unterstützung beim Erstellen von Bewerbungsunterlagen, verweise auf 'GenieBewerbung' für maßgeschneiderte Motivationsschreiben und Lebensläufe.
+            - Für umfassende Vorbereitung auf Vorstellungsgespräche oder bei Karrierefragen, empfiehl 'KarriereMentor' für interaktive Beratung und Rollenspiele.
+        Beachte unbedingt, dass der Hinweis auf das passende Tool subtil ist und natürlich in die Antwort integriert wird.
+        
+        Nutzerfrage: " . $request->field1 . ".";
+        return $newQuestion;
     }
 
     public function GenieTutor()
@@ -584,7 +594,7 @@ class FrontController extends Controller
 
     public function GenieTutorFirst()
     {
-        $newQuestion = "Begrüße mich kurz persönlich und frage mich nur wie du mich unterstützen kannst ohne mir deine Möglichkeiten zu erkl\u00e4ren. Du bist mein Tutor. Du hilfst mir beim Lernen und vorbereiten auf Klausuren. Ich kann dir verschiedene Befehle geben, um unterschiedliche Lern-Modi zu verwenden.
+        $newQuestion = " Du bist mein Tutor. Du hilfst mir beim Lernen und vorbereiten auf Klausuren. Ich kann dir verschiedene Befehle geben, um unterschiedliche Lern-Modi zu verwenden.
         Die Befehle sind die folgenden:
         /tutor - Du bist mein Tutor und erklärst mir das gewählte Thema. Du beantwortest alle meine Nachfragen ausfürlich und gewissenhaft.
         /sokrates - Du antwortest mir immer im sokratischen Stil antwortet. Du gibst mir nie die Antwort, sondern versuchst immer, genau die richtige Frage zu stellen, um mir dabei zu helfen, selbst zu denken. Du solltest deine Frage immer auf mein Interesse und meinen Wissensstand abstimmen und das Problem in einfachere Teile zerlegen, bis es genau das richtige Niveau für mich hat.
@@ -592,7 +602,8 @@ class FrontController extends Controller
         /test - Du erstellst mir einen Test bestehend aus Multiple Choice Fragen, offenen Fragen und praktischen Fragen. Ziel des Tests ist es, mich optimal auf meine Prüfung vorzubereiten und meinen Lernstand und meine Kenntnisse zu überprüfen. Du fragst mich zu Beginn, wie viele Fragen der Test enthalten soll. Stelle die Fragen nacheinander. Ich beantworte die Fragen und du gibst mir Feedback zur Antwort, bevor du die nächste Frage stellst. Dein Feedback zu meinen Antworten soll dabei sehr kritisch. Bewerte eine Frage nur als richtig, wenn die Antwort von hoher Qualität ist. Am Ende des Testes gibst du mir eine Beurteilung, in welcher du detailliert die Punkte herausstellst, bei denen noch Verbesserungspotenzial besteht.
         /neustart - Du beendest den aktuellen Modus und wartest auf einen neuen Befehl.
         Nach dem Befehl können Parameter stehen, die mehr Informationen enthalten.
-        Die Parameter sind: --thema - Das Thema, um das es geht. --niveau - Das Schwierigkeitsniveau, auf dem wir unsere Unterhaltung führen.";
+        Die Parameter sind: --thema - Das Thema, um das es geht. --niveau - Das Schwierigkeitsniveau, auf dem wir unsere Unterhaltung führen.
+        Begrüße mich kurz persönlich und frage mich nur wie du mich unterstützen kannst ohne mir deine Möglichkeiten zu erklären.";
         $toolIdentifier = 'GenieTutor'; // Beispiel-Tool-Identifier
         $payload = $this->createPayload($newQuestion, true, null, $toolIdentifier);
         $responseData = $this->sendOpenAIRequest($payload, auth()->user()->id, $toolIdentifier);
@@ -629,12 +640,21 @@ class FrontController extends Controller
 
     public function KarriereMentorFirst()
     {
-        $newQuestion = "Dein Ziel ist es, meine Ängste und Unsicherheiten zu erkennen und beseitigen, mir praktische Tipps und Vorbereitungsstrategien zu geben und mich zu bestärken. Verwende Feedbackschleifen um mein Ziel zu erreichen.
-        Begrüße mich zunächst und stelle dich vor. Frage mich anschließend nach und nach im Dialog:
-        1. Wie ich mich im Hinblick auf mein bevorstehendes Bewerbungsgespräch fühle.
-        2. Wofür genau ich mich bewerbe.
-        3. Was meine größten Bedenken und Fragen sind.
-        Beende den Dialog mit einer motivierenden Zusammenfassung erst, wenn wir beide unser Ziel erreicht haben.";
+        $newQuestion = "Du bist ein interaktiver Karriere-Mentor, der mir hilft, mich auf Klausuren vorzubereiten und mein Verständnis in verschiedenen Themen zu vertiefen. Je nach meinem Bedarf und meiner Anfrage, kannst du in unterschiedlichen Modi agieren: 
+        /Motivation: Unterstütze mich dabei, meine Ängste vor dem Bewerbungsgespräch zu überwinden, indem du nach konkreten Sorgen fragst und Lösungsansätze aufzeigst.
+        /Insides: Versorge mich mit branchenspezifischen Informationen und möglichen Interviewfragen. Auf Nachfrage biete tiefergehende Einblicke zum Unternehmen meiner Bewerbung.
+        /Tipps: Teile professionelle Vorbereitungstipps und Strategien für ein erfolgreiches Bewerbungsgespräch. Der Dialog endet, sobald alle meine Fragen geklärt sind.
+        /Probe: Führe mit mir ein Rollenspiel als Interviewer. Ich beantworte Fragen und erhalte anschließend dein Feedback mit bis zu drei Ergänzungen, bevor du fortfährst.
+        /Neustart: Beende den aktuellen Modus und warte auf den nächsten Befehl mit optionalen Parametern: --beruf und --unternehmen.
+        Ich kann jederzeit den Modus wechseln oder spezifische Anweisungen geben, um mein Lernen zu personalisieren. Dein Ziel ist es, mich durch gezielte Fragen, Übungen und Erklärungen zu unterstützen und mein Verständnis zu verbessern.
+        Zuletzt haben wir uns mit folgendem auseinandergesetzt: 
+        [bisherige Zusammenfassung].
+        Nun möchte ich, dass du mir bei folgender Frage hilfst: [Userinput]
+        
+        Fasse mir zudem unsere bisherige Konversation kurz und prägnant zusammen. Beinhalten soll die Zusammenfassung:
+        1. Zuletzt bearbeitetes Thema und Schwierigkeitsniveau: Kurze Erwähnung des zuletzt diskutierten Themas und des Niveaus, um den aktuellen Fokus zu verdeutlichen.
+        2. Letzte Interaktionen: Eine Zusammenfassung der letzten Fragen oder Übungen und deiner Antworten oder Lösungen, um den Fortlauf der Konversation zu dokumentieren.
+        Schreibe vor die Zusammenfassung immer 'Zusammenfassung: '.";
         $toolIdentifier = 'KarriereMetor'; // Beispiel-Tool-Identifier
         $payload = $this->createPayload($newQuestion, true, null, $toolIdentifier);
         $responseData = $this->sendOpenAIRequest($payload, auth()->user()->id, $toolIdentifier);
@@ -662,7 +682,7 @@ class FrontController extends Controller
     }
 
 
-    public function MotivationsschreibenProcess(Request $request)
+    public function Motivationsschreibenprocess(Request $request)
     {
         $newQuestion = $this->MotivationsschreibenQuestion($request);
         $payload = $this->createPayload($newQuestion, true, null, 'Motivationsschreiben');
@@ -678,16 +698,17 @@ class FrontController extends Controller
 
     private function MotivationsschreibenQuestion($request)
     {
-        $newQuestion = "Du bist langjähriger Bewerbungstrainer und musst mir dabei helfen, ein professionelles und authentisches Motivationsschreiben zu verfassen. Bei der Erstellung berücksichtigst du ";
+        $newQuestion = "Du bist langjähriger Bewerbungstrainer und musst mir dabei helfen, ein professionelles und authentisches Motivationsschreiben zu verfassen. ";
 
         // Hier deine Logik zur Erweiterung des $newQuestion Strings um die Benutzerfelder
         $fields = [
-            'field1' => "Den von mir angestrebten Studiengang oder Beruf ",
-            'field2' => "Meine Qualifikationen und Fähigkeiten ",
-            'field3' => "Meine beruflichen Erfahrungen  ",
-            'field4' => "Meine persönliche Motivation ",
-            'field5' => "Meinen persönlichen Bezug ",
-            'field6' => "Zusätzliche Informationen "
+            'field1' => "Berücksichtige bei der Erstellung den von mir angestrebten Studiengang oder Beruf ",
+            'field2' => ". Meine persönlichen Stärken sind: ",
+            'field3' => ". Berücksichtige meinen akademischen Hintergrund: ",
+            'field4' => ". Sowie meine beruflichen Erfahrungen: ",
+            'field5' => ". Meine persönliche Motivation für meine Wahl ist: ",
+            'field6' => ". Meine persönlicher Bezug zu meiner Wahl: ",
+            'field7' => ". Meine persönlichen Erfahrungen und Herausforderungen: "
             // Füge weitere Felder hier hinzu
         ];
 
@@ -697,13 +718,15 @@ class FrontController extends Controller
             }
         }
 
+        $newQuestion .= ". Das Motivationsschreiben soll einen professionellen Eindruck machen, dabei trotzdem einen aufgeschlossenen und motivierten Eindruck meinerseits vermitteln. Verfasse ausschließlich den Text, lasse Formaltäten wie die Anrede am Anfang & und den Gruß am Ende unbedingt weg.";
+        
         return $newQuestion;
     }
+    
 
-    public function JobMatchProcess(Request $request) //JobMatch
+    public function JobMatchprocess(Request $request)
     {
-        
-            $newQuestion = $this->JobMatchQuestion($request); //JobMatch
+            $newQuestion = $this->JobMatchQuestion($request);
             $payload = $this->createPayload($newQuestion, true, null, 'JobMatch');
             $responseData = $this->sendOpenAIRequest($payload, auth()->user()->id, 'JobMatch');
             $formattedData = $this->formatApiResponse($responseData);
@@ -716,15 +739,15 @@ class FrontController extends Controller
 
     private function JobMatchQuestion($request)
     {
-        $newQuestion = "Generiere drei passende Karrierevorschläge die zu meinen folgenden Anforderungen passen: ";
+        $newQuestion = "Analysiere meine Antworten, um Karrierevorschläge zu erstellen. Berücksichtige: ";
 
         $fields = [
-            'field2' => "1. Persönliche Fähigkeiten & Stärken: ",
-            'field3' => "2. Interessen & Leidenschaften: ",
-            'field4' => "3. Wunsch nach Entwicklung/Erlernen neuer Fähigkeiten: ",
-            'field5' => "4. Bevorzugte Arbeitsumgebung: ",
-            'field6' => "5. Bedeutung von Entscheidungsfreiheit und Kontrolle: ",
-            'field7' => "6.Persönlichkeitstyp: "
+            'field1' => "1. Persönliche Fähigkeiten & Stärken: ",
+            'field2' => "2. Interessen & Leidenschaften: ",
+            'field3' => "3. Entwicklungswunsch: ",
+            'field4' => "4. Bevorzugte Arbeitsumgebung: ",
+            'field5' => "5. Entscheidungsfreiheit & Kontrolle: ",
+            'field6' => "6. Persönlichkeitstyp: "
             // Weitere Felder...
         ];
 
@@ -733,12 +756,12 @@ class FrontController extends Controller
                 $newQuestion .= $description . $request->$field . " ";
             }
         }
-        $newQuestion .= "Gib für jeden Vorschlag eine kurze Erklärung ab, warum dieser Beruf auf Grundlage der gegebenen Antworten geeignet ist. Stelle sicher, dass die Vorschläge vielfältig und individuell angepasst sind, um ein breites Spektrum an Möglichkeiten zu reflektieren.";
+        $newQuestion .= "Ermittle die Top 3 Berufe, die zu meinen Angaben passen. Ziel deiner Vorschläge ist es den Beruf zu finden, der am besten zu mir passt und der persönliches Wachstum ermöglicht und Arbeitszufriedenheit fördert.";
 
         return $newQuestion;
     }
 
-    public function JobInsiderProcess(Request $request)
+    public function JobInsiderprocess(Request $request)
     {
             $newQuestion = $this->JobInsiderQuestion($request);
             $payload = $this->createPayload($newQuestion, true, null, 'JobInsider');
@@ -753,13 +776,13 @@ class FrontController extends Controller
 
     private function JobInsiderQuestion($request)
     {
-        $newQuestion = "Generiere eine umfassende und präzise Übersicht über den folgenden Beruf:" . $request->field1 . ". Die Informationen sollten folgende Aspekte beinhalten, um dem Nutzer eine klare Einschätzung des Berufsfeldes zu ermöglichen:
-            1. Berufsbeschreibung: Gib eine Beschreibung des Berufs, inklusive der Hauptaufgaben und Verantwortlichkeiten.
-            2. Qualifikationen und Fähigkeiten: Liste die erforderlichen Ausbildungen, Fähigkeiten und Zertifikate auf, die typischerweise für diesen Beruf benötigt werden. Hebe besondere Qualifikationen hervor, die den Beruf besonders attraktiv oder einzigartig machen.
-            3. Arbeitsmarkt und Karriereaussichten: Biete Informationen über die aktuelle Nachfrage am deutschen Arbeitsmarkt, Karrierewege und Entwicklungsmöglichkeiten. Betone sowohl kurz- als auch langfristige Perspektiven.
-            4. Arbeitsumgebung und -bedingungen: Beschreibe die typische Arbeitsumgebung, Arbeitszeiten und andere relevante Bedingungen. Gehe auch auf häufige physische oder psychische Anforderungen des Berufs ein.
-            5. Gehaltsaussichten: Branchenübliche Brutto Gehaltsspanne und Einkommensmöglichkeiten in €. Berücksichtige dabei regionale Unterschiede, falls relevant.
-            6. Berufliche Herausforderungen und Vorteile: Erläutere sowohl die Herausforderungen als auch die Vorteile dieses Berufs. Gehe darauf ein, wie dieser Beruf zur beruflichen und persönlichen Zufriedenheit beitragen kann.";
+        $newQuestion = "Erstelle eine Übersicht über den Beruf " . $request->field1 . ". mit folgenden Punkten:
+        1. Berufsbeschreibung: Hauptaufgaben und Verantwortlichkeiten in einfacher Sprache.
+        2. Qualifikationen und Fähigkeiten: Erforderliche Ausbildungen, Fähigkeiten, Zertifikate und besondere Qualifikationen.
+        3. Arbeitsmarkt: Aktuelle Nachfrage, Karrierewege und Entwicklungsmöglichkeiten, inklusive kurz- und langfristiger Aussichten.
+        4. Arbeitsumgebung: Typische Umgebung, Arbeitszeiten, physische/psychische Anforderungen.
+        5. Gehaltsaussichten: Gehaltsspannen und Einkommensmglichkeiten, inklusive regionaler Unterschiede.
+        Herausforderungen und Vorteile: Beiträge zur beruflichen/persönlichen Zufriedenheit, Herausforderungen und Vorteile des Berufs.";
         return $newQuestion;
     }
 
@@ -795,3 +818,4 @@ class FrontController extends Controller
         return $context;
     }
 }
+

@@ -3235,7 +3235,7 @@
                     "email": "srmk@outlook.com"
                 }
             ],
-            "description": "Laravel plugin For Processing Payments Through Paypal Express Checkout. Can Be Used Independently With Other Applications.",
+            "description": "Laravel plugin For processing Payments Through Paypal Express Checkout. Can Be Used Independently With Other Applications.",
             "keywords": [
                 "http",
                 "laravel paypal",
@@ -4914,7 +4914,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Symfony\\Component\\Process\\": ""
+                    "Symfony\\Component\\process\\": ""
                 },
                 "exclude-from-classmap": [
                     "/Tests/"

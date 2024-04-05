@@ -42,13 +42,15 @@ Route::get('/GenieCheck', function () {
     return view('Bildung.GenieCheck');
 });
 
-Route::get('/GenieBrain', function () {
+Route::get('/TextAnalyse', function () {
+    return view('Bildung.TextAnalyse');
+});
+
+Route::get('/TextInspiration', function () {
     if((auth()->user()->subscription_name == 'gold' || auth()->user()->subscription_name == 'diamant')){
-        return view('Bildung.GenieBrain');
+        return view('Bildung.TextInspiration');
     }
-
     return abort(404);
-
 });
 
 Route::get('/BewerbeGenie', function () {
@@ -57,28 +59,38 @@ Route::get('/BewerbeGenie', function () {
     }
 
     return abort(404);
-
 });
 
 Route::get('/Motivationsschreiben', function () {
     if((auth()->user()->subscription_name == 'gold' || auth()->user()->subscription_name == 'diamant')){
         return view('Karriere.Motivationsschreiben');
     }
-
     return abort(404);
+});
 
+Route::get('/GenieAutor', function () {
+    if((auth()->user()->subscription_name == 'gold' || auth()->user()->subscription_name == 'diamant')){
+    return view('Bildung.GenieAutor');
+    }
+    return abort(404);
+});
+
+Route::get('/JobMatch', function () {
+    return view('Karriere.JobMatch');
+});
+
+Route::get('/JobInsider', function () {
+    return view('Karriere.JobInsider');
 });
 
 Route::get('/Lebenslauf', function () {
     if((auth()->user()->subscription_name == 'gold' || auth()->user()->subscription_name == 'diamant')){
         return view('Karriere.Lebenslauf');
     }
-
     return abort(404);
-
 });
 
-Route::post('MotivationsschreibenProcess', [FrontController::class, 'MotivationsschreibenProcess'])->name('MotivationsschreibenProcess');
+Route::post('Motivationsschreibenprocess', [FrontController::class, 'Motivationsschreibenprocess'])->name('Motivationsschreibenprocess');
 
 Route::get('GenieTutor', [FrontController::class, 'GenieTutor']);
 Route::post('/GenieTutor-one', [FrontController::class, 'GenieTutorFirst'])->name('GenieTutor');
@@ -88,26 +100,18 @@ Route::get('/KarriereMentor', [FrontController::class, 'KarriereMentor']);
 Route::post('/KarriereMentor-one', [FrontController::class, 'KarriereMentorFirst'])->name('KarriereMentor');
 Route::post('KarriereMentor-user', [FrontController::class, 'KarriereMentorUser'])->name('KarriereMentoruser');
 
-Route::post('GenieBrainprocess', [FrontController::class, 'GenieBrainProcess'])->name('GenieBrainprocess');
+Route::post('TextInspirationprocess', [FrontController::class, 'TextInspirationprocess'])->name('TextInspirationprocess');
+Route::post('TextAnalyseprocess', [FrontController::class, 'TextAnalyseprocess'])->name('TextAnalyseprocess');
+Route::post('JobMatchprocess', [FrontController::class, 'JobMatchprocess'])->name('JobMatchprocess');
 
-Route::post('JobMatchProcess', [FrontController::class, 'JobMatchProcess'])->name('JobMatchProcess');
-
-Route::post('JobInsiderProcess', [FrontController::class, 'JobInsiderProcess'])->name('JobInsiderProcess');
+Route::get('JobInsiderprocess', [FrontController::class, 'JobInsiderprocess'])->name('JobInsiderprocess');
 
 Route::post('savedata', [FrontController::class, 'saveData'])->name('save.data');
 
-Route::post('GenieCheck', [FrontController::class, 'GenieCheck'])->name('GenieCheck');
+Route::post('GenieCheckprocess', [FrontController::class, 'GenieCheckprocess'])->name('GenieCheckprocess');
 
 Route::get('/KarriereGenie', function () {
     return view('Karriere.KarriereGenie');
-});
-
-Route::get('/JobMatch', function () {
-    return view('Karriere.JobMatch');
-});
-
-Route::get('/JobInsider', function () {
-    return view('Karriere.JobInsider');
 });
 
 });

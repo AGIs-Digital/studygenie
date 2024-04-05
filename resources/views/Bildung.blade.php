@@ -35,9 +35,9 @@
 			null && \Carbon\Carbon::parse($date)->gt(\Carbon\Carbon::now())){
 			$check = true; } @endphp @if((auth()->user()->subscription_name ==
 			'gold' || auth()->user()->subscription_name == 'diamant') && $check)
-			<a href="/GenieBrain" class="Cloud" id="GenieBrain">
+			<a href="/GenieCheck" class="Cloud" id="GenieCheck">
 				<button type="button" class="btn" data-bs-toggle="tooltip"
-					data-bs-placement="top" title="Soforthilfe für kreative Texte.">
+					data-bs-placement="top" title="Schnelle Textkorrektur für Grammatik, Stil und mehr.">
 					<img src="{{ asset('asset/images/info.svg') }}" width="20" alt="">
 				</button> <svg xmlns="http://www.w3.org/2000/svg" width="245"
 					height="167" viewBox="0 0 245 167" fill="none">
@@ -53,7 +53,7 @@
 							fill="#F3922A" />
                 <text class="textStyle" x="41" y="65"
 							font-family: 'Milonga', cursive; font-size="24" fill="#FFFFFF"
-							font-weight="400">GenieBrain</text>
+							font-weight="400">GenieCheck</text>
                 </svg>
 
 
@@ -79,7 +79,7 @@
                 </filter>
             </defs>
             </svg>
-			</a> @else <a onclick="showDialog();" class="Cloud" id="GenieBrain">
+			</a> @else <a onclick="showDialog();" class="Cloud" id="GenieCheck">
 				<button type="button" class="btn" data-bs-toggle="tooltip"
 					data-bs-placement="top" title="Soforthilfe für kreative Texte.">
 					<img src="{{ asset('asset/images/info.svg') }}" width="20" alt="">
@@ -97,7 +97,7 @@
 							fill="#F3922A" />
                     <text class="textStyle" x="41" y="65"
 							font-family: 'Milonga', cursive; font-size="24" fill="#FFFFFF"
-							font-weight="400">GenieBrain</text>
+							font-weight="400">GenieCheck</text>
                     </svg>
 
 
@@ -124,10 +124,10 @@
                     </filter>
                 </defs>
                 </svg>
-			</a> @endif <a href="/GenieCheck" class="Cloud" id="GenieCheck">
+			</a> @endif <a href="/GenieAutor" class="Cloud" id="GenieAutor">
 				<button type="button" class="btn" data-bs-toggle="tooltip"
 					data-bs-placement="top"
-					title="Schnelle Textkorrektur für Grammatik, Stil und mehr.">
+					title="Textkorrekturen und -inspiration für Grammatik, Stil und mehr.">
 					<img src="{{ asset('asset/images/info.svg') }}" width="20" alt="">
 				</button> <svg xmlns="http://www.w3.org/2000/svg" width="245"
 					height="167" viewBox="0 0 245 167" fill="none">
@@ -143,7 +143,7 @@
 							fill="none" />
                 <text class="textStyle" x="39" y="65"
 							font-family: 'Milonga', cursive; font-size="24" fill="#2D3E4E"
-							font-weight="400">GenieCheck</text>
+							font-weight="400">GenieAutor</text>
                 </svg>
 
 
