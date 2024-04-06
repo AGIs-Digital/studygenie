@@ -242,7 +242,7 @@
 							fill="none" />
                 <text class="textStyle" x="20" y="65"
 							font-family: 'Milonga', cursive; font-size="24" fill="#2D3E4E"
-							font-weight="400">GeniusInterview</text>
+							font-weight="400">KarriereMentor</text>
                 </svg>
 
 

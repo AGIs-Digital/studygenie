@@ -138,9 +138,7 @@
 			</div>
 		</div>
 	</div>
-
-
-	<script
+<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
 		crossorigin="anonymous"></script>
@@ -149,115 +147,48 @@
 	<script>
         let textToType = "";
         let textarray = [];
-
-        var x, i, j, l, ll, selElmnt, a, b, c;
-        /*look for any elements with the class "custom-select":*/
-        x = document.getElementsByClassName("custom-select");
-        l = x.length;
-        for (i = 0; i < l; i++) {
-          selElmnt = x[i].getElementsByTagName("select")[0];
-          ll = selElmnt.length;
-          /*for each element, create a new DIV that will act as the selected item:*/
-          a = document.createElement("DIV");
-          a.setAttribute("class", "select-selected");
-          a.innerHTML = selElmnt.options[selElmnt.selectedIndex].innerHTML;
-          x[i].appendChild(a);
-          /*for each element, create a new DIV that will contain the option list:*/
-          b = document.createElement("DIV");
-          b.setAttribute("class", "select-items select-hide");
-          for (j = 1; j < ll; j++) {
-            /*for each option in the original select element,
-            create a new DIV that will act as an option item:*/
-            c = document.createElement("DIV");
-            c.innerHTML = selElmnt.options[j].innerHTML;
-            c.addEventListener("click", function(e) {
-                /*when an item is clicked, update the original select box,
-                and the selected item:*/
-                var y, i, k, s, h, sl, yl;
-                s = this.parentNode.parentNode.getElementsByTagName("select")[0];
-                sl = s.length;
-                h = this.parentNode.previousSibling;
-                for (i = 0; i < sl; i++) {
-                  if (s.options[i].innerHTML == this.innerHTML) {
-                    s.selectedIndex = i;
-                    h.innerHTML = this.innerHTML;
-                    y = this.parentNode.getElementsByClassName("same-as-selected");
-                    yl = y.length;
-                    for (k = 0; k < yl; k++) {
-                      y[k].removeAttribute("class");
-                    }
-                    this.setAttribute("class", "same-as-selected");
-                    break;
-                  }
-                }
-                h.click();
-            });
-            b.appendChild(c);
-          }
-          x[i].appendChild(b);
-          a.addEventListener("click", function(e) {
-              e.stopPropagation();
-              closeAllSelect(this);
-              this.nextSibling.classList.toggle("select-hide");
-              this.classList.toggle("select-arrow-active");
-            });
-        }
-        function closeAllSelect(elmnt) {
-          var x, y, i, xl, yl, arrNo = [];
-          x = document.getElementsByClassName("select-items");
-          y = document.getElementsByClassName("select-selected");
-          xl = x.length;
-          yl = y.length;
-          for (i = 0; i < yl; i++) {
-            if (elmnt == y[i]) {
-              arrNo.push(i)
-            } else {
-              y[i].classList.remove("select-arrow-active");
-            }
-          }
-          for (i = 0; i < xl; i++) {
-            if (arrNo.indexOf(i)) {
-              x[i].classList.add("select-hide");
-            }
-          }
-        }
-
-        document.addEventListener("click", closeAllSelect);
+        const typedTextElement = document.getElementById('typed-text');
+        let currentChar = 0;
+        let curloop = 0;
+        let alltext = '';
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+        });
 
         $(document).ready(function () {
             $("#submitForm").click(function () {
                 var form = document.getElementById("myForm");
                 var formData = new FormData(form);
-                document.getElementById('typed-text').style.height = 'auto';
+                $("#save_data").val('');
                 $.ajax({
-                    url: "{{ route('TextAnalyseprocess') }}",
+                    url: "{{ route('TextInspirationprocess') }}",
                     type: "POST",
                     data: formData,
                     processData: false,
                     contentType: false,
                     beforeSend: function(){
-                        $("#submitForm").text("lädt...");
+                        $("#submitForm").text("lädt..");
                     },
-                    success: function (data) {
-                        console.log(data);
-                        $("#submitForm").text("Senden");
-                        // textToType = data.choices[0]['message']['content'];
+        			success: function (data) {
+            			// Verarbeite die empfangenen Daten
+            			$("#submitForm").text("Senden");
                         textToType = data.choices[0]['message']['content'].replace(/\n/g, " <br> ");
+
                         document.getElementById('typed-text').innerHTML = '';
-                        let checks = data.choices[0]['message']['content'].split('\n');
+                        let checks = data.choices[0]['message']['content'].split('\n')
                         textarray = checks;
-                        // document.getElementById('typed-text').innerHTML = textToType+" <br> <br> ";
-                        // typeText();
-                        $("#save_folder").css('display','block');
+
                         document.getElementById("save_val").value = textToType+" <br> <br> ";
                         typeFun();
+                        $("#save_folder").css('display','block');
                        console.log(data.choices[0]['message']['content']);
-                    },
-                    error: function (xhr, status, error) {
-                        // Handle errors
-                    }
-                });
-            });
+        			},
+        			error: function (xhr, status, error) {
+            			// Fehlerbehandlung
+        			}
+    			});
+			});
 
             $("#saveForm").click(function () {
                 var form = document.getElementById("save_data");
@@ -267,6 +198,10 @@
                     url: "{{ route('save.data') }}",
                     type: "POST",
                     data: formData,
+                    error: function (xhr, status, error) {
+                        // Benachrichtige den Benutzer über den Fehler
+                        alert("Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.");
+                    }
                     processData: false,
                     contentType: false,
                     success: function (data) {
@@ -280,8 +215,9 @@
                     }
                 });
             });
+        });
 
-/**
+        /**
  * Erstellt und zeigt eine Toast-Nachricht mit einer gegebenen Nachricht an.
  * @param {string} message - Die Nachricht, die im Toast angezeigt werden soll.
  */
@@ -312,50 +248,10 @@ function showToast(message) {
   }, 3000);
 }
 
-
-            $('#field1').on('keyup', function() {
-                // Get the typed text from field1
-                var typedText = $(this).val();
-
-                // Disable other fields (field2 and field3)
-                $('#field2').prop('disabled', true);
-                $("#type").val('first');
-                // Enable them again when text is cleared in field1
-                if (typedText === '') {
-                    $("#type").val('first');
-                    $('#field2').prop('disabled', false);
-                }
-            });
-
-            $('#field2').on('keyup', function() {
-                // Get the typed text from field1
-                var typedText = $(this).val();
-
-                // Disable other fields (field2 and field3)
-                $('#field1').prop('disabled', true);
-                $("#type").val('second');
-                // Enable them again when text is cleared in field1
-                if (typedText === '') {
-                    $("#type").val('first');
-                    $('#field1').prop('disabled', false);
-                }
-            });
-        });
-
-
-
-        const typedTextElement = document.getElementById('typed-text');
-        let currentChar = 0;
-        let curloop = 0;
-        let alltext = '';
-
-        function typeText() {
+function typeText() {
             if (currentChar < textToType.length) {
                 typedTextElement.innerHTML += textToType.charAt(currentChar);
                 currentChar++;
-                // $('#checkcontent_box').animate({
-                //             scrollTop: $('#checkcontent_box').get(0).scrollHeight
-                //         }, 2000);
                 setTimeout(typeText, 10); // Adjust the typing speed (in milliseconds)
                 typedTextElement.scrollTop = typedTextElement.scrollHeight;
 
@@ -374,15 +270,43 @@ function showToast(message) {
                 typeText();
             }else {
                 alltext = '';
-                textToType= [];
+                textToType= "";
                 curloop = 0;
             }
         }
-        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl)
-        });
-        </script>
-</body>
 
+/**
+ * Kopiert den Inhalt eines spezifizierten Div-Elements in die Zwischenablage
+ * und zeigt eine Toast-Nachricht an, um den Erfolg zu bestätigen.
+ */
+function copyText() {
+  var divElement = document.getElementById('typed-text'); // Dein Div-Element
+
+  // Überprüfe, ob das Div-Element vorhanden ist
+  if (divElement) {
+    var htmlContent = divElement.innerHTML; // Erhalte den HTML-Inhalt
+    var hiddenDiv = document.createElement('div'); // Erstelle ein verstecktes Div
+
+    // Konfiguriere das versteckte Div, sodass es bearbeitet und kopiert werden kann, aber nicht sichtbar ist
+    hiddenDiv.style.position = 'absolute';
+    hiddenDiv.style.left = '-9999px';
+    hiddenDiv.contentEditable = true;
+
+    // Füge das versteckte Div hinzu und kopiere dessen Inhalt
+    document.body.appendChild(hiddenDiv);
+    hiddenDiv.innerHTML = htmlContent; // Setze den HTML-Inhalt in das versteckte Div
+    hiddenDiv.unselectable = "off";
+    hiddenDiv.focus();
+    document.execCommand('selectAll', false, null);
+    navigator.clipboard.writeText(htmlContent);
+    document.body.removeChild(hiddenDiv);
+
+    // Zeige eine Toast-Nachricht an
+    showToast("Text kopiert!");
+  } else {
+    console.log('Div-Element nicht gefunden.');
+  }
+}
+</script>
+</body>
 </html>

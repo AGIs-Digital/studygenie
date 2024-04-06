@@ -27,7 +27,7 @@
 								aria-labelledby="BildungOne" data-bs-parent="#accordionBildung">
 								<div class="accordion-body">
 									<div class="accordion accordion-flush"
-										id="accordionFlushExample2">
+										id="accordionFlushTextInspiration">
 										 <?php createAccordion($Bildung, 'TextInspiration'); ?>
 									</div>
 								</div>
@@ -45,7 +45,7 @@
 								aria-labelledby="Bildungcheck" data-bs-parent="#accordionBildung">
 								<div class="accordion-body">
 									<div class="accordion accordion-flush"
-										id="accordionFlushTextInspiration">
+										id="accordionFlushGenieCheck">
 										 <?php createAccordion($Bildung, 'GenieCheck'); ?>
 									</div>
 								</div>
@@ -57,14 +57,14 @@
 								<button class="accordion-button collapsed" type="button"
 									data-bs-toggle="collapse" data-bs-target="#BildungCollpasetool3"
 									aria-expanded="true" aria-controls="BildungCollpasetool3">
-									GenieTutor</button>
+									genieTutor</button>
 							</h2>
 							<div id="BildungCollpasetool3" class="accordion-collapse collapse"
 								aria-labelledby="BildungMentor" data-bs-parent="#accordionBildung">
 								<div class="accordion-body">
 									<div class="accordion accordion-flush"
-										id="accordionFlushTextInspiration">
-										 <?php createAccordion($Bildung, 'GenieTutor'); ?>
+										id="accordionFlushgenieTutor">
+										 <?php createAccordion($Bildung, 'genieTutor'); ?>
 									</div>
 								</div>
 							</div>
@@ -85,7 +85,7 @@
 								aria-labelledby="headingOne" data-bs-parent="#accordionKarriere">
 								<div class="accordion-body">
 									<div class="accordion accordion-flush"
-										id="accordionJobInsider">
+										id="accordionFlushJobInsider">
 										 <?php createAccordion($Karriere, 'JobInsider'); ?>
 									</div>
 								</div>
@@ -96,14 +96,14 @@
 								<button class="accordion-button collapsed" type="button"
 									data-bs-toggle="collapse" data-bs-target="#collapseTwo"
 									aria-expanded="false" aria-controls="collapseTwo">
-									GeniusInterview</button>
+									KarriereMentor</button>
 							</h2>
 							<div id="collapseTwo" class="accordion-collapse collapse"
 								aria-labelledby="headingTwo" data-bs-parent="#accordionKarriere">
 								<div class="accordion-body">
 									<div class="accordion accordion-flush"
-										id="accordionGeniusInterview">
-										 <?php createAccordion($Karriere, 'GeniusInterview'); ?>
+										id="accordionFlushKarriereMentor">
+										 <?php createAccordion($Karriere, 'KarriereMentor'); ?>
 									</div>
 								</div>
 							</div>

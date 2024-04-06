@@ -139,121 +139,50 @@
 		</div>
 	</div>
 
+<!-- Modal hier -->
 
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-		crossorigin="anonymous"></script>
-
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
         let textToType = "";
         let textarray = [];
-
-        var x, i, j, l, ll, selElmnt, a, b, c;
-        /*look for any elements with the class "custom-select":*/
-        x = document.getElementsByClassName("custom-select");
-        l = x.length;
-        for (i = 0; i < l; i++) {
-          selElmnt = x[i].getElementsByTagName("select")[0];
-          ll = selElmnt.length;
-          /*for each element, create a new DIV that will act as the selected item:*/
-          a = document.createElement("DIV");
-          a.setAttribute("class", "select-selected");
-          a.innerHTML = selElmnt.options[selElmnt.selectedIndex].innerHTML;
-          x[i].appendChild(a);
-          /*for each element, create a new DIV that will contain the option list:*/
-          b = document.createElement("DIV");
-          b.setAttribute("class", "select-items select-hide");
-          for (j = 1; j < ll; j++) {
-            /*for each option in the original select element,
-            create a new DIV that will act as an option item:*/
-            c = document.createElement("DIV");
-            c.innerHTML = selElmnt.options[j].innerHTML;
-            c.addEventListener("click", function(e) {
-                /*when an item is clicked, update the original select box,
-                and the selected item:*/
-                var y, i, k, s, h, sl, yl;
-                s = this.parentNode.parentNode.getElementsByTagName("select")[0];
-                sl = s.length;
-                h = this.parentNode.previousSibling;
-                for (i = 0; i < sl; i++) {
-                  if (s.options[i].innerHTML == this.innerHTML) {
-                    s.selectedIndex = i;
-                    h.innerHTML = this.innerHTML;
-                    y = this.parentNode.getElementsByClassName("same-as-selected");
-                    yl = y.length;
-                    for (k = 0; k < yl; k++) {
-                      y[k].removeAttribute("class");
-                    }
-                    this.setAttribute("class", "same-as-selected");
-                    break;
-                  }
-                }
-                h.click();
-            });
-            b.appendChild(c);
-          }
-          x[i].appendChild(b);
-          a.addEventListener("click", function(e) {
-              e.stopPropagation();
-              closeAllSelect(this);
-              this.nextSibling.classList.toggle("select-hide");
-              this.classList.toggle("select-arrow-active");
-            });
-        }
-        function closeAllSelect(elmnt) {
-          var x, y, i, xl, yl, arrNo = [];
-          x = document.getElementsByClassName("select-items");
-          y = document.getElementsByClassName("select-selected");
-          xl = x.length;
-          yl = y.length;
-          for (i = 0; i < yl; i++) {
-            if (elmnt == y[i]) {
-              arrNo.push(i)
-            } else {
-              y[i].classList.remove("select-arrow-active");
-            }
-          }
-          for (i = 0; i < xl; i++) {
-            if (arrNo.indexOf(i)) {
-              x[i].classList.add("select-hide");
-            }
-          }
-        }
-
-        document.addEventListener("click", closeAllSelect);
+        const typedTextElement = document.getElementById('typed-text');
+        let currentChar = 0;
+        let curloop = 0;
+        let alltext = '';
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        });
 
         $(document).ready(function () {
-            $("#submitForm").click(function () {
-                var form = document.getElementById("myForm");
-                var formData = new FormData(form);
-                document.getElementById('typed-text').style.height = 'auto';
+            $("#submitForm").on("click", function () {
+                let form = $("#myForm")[0];
+                let formData = new FormData(form);
+                $("#save_data").val('x');
                 $.ajax({
-                    url: "{{ route('GenieCheckprocess') }}",
-                    type: "POST",
+                    url: "/GenieCheckprocess",
+                    method: "POST",
                     data: formData,
-                    processData: false,
                     contentType: false,
+                    cache: false,
+                    processData: false,
                     beforeSend: function(){
-                        $("#submitForm").text("lädt...");
+                        $("#submitForm").text("Lädt...");
                     },
-                    success: function (data) {
+                    success: function (response) {
                         $("#submitForm").text("Senden");
-                        // textToType = data.choices[0]['message']['content'];
-                        textToType = data.choices[0]['message']['content'].replace(/\n/g, " <br> ");
-                        document.getElementById('typed-text').innerHTML = '';
-                        let checks = data.choices[0]['message']['content'].split('\n');
+                        textToType = response.choices[0]['message']['content'].replace(/\n/g, " <br> ");
+                        $('#typed-text').empty();
+                        let checks = response.choices[0]['message']['content'].split('\n');
                         textarray = checks;
-                        // document.getElementById('typed-text').innerHTML = textToType+" <br> <br> ";
-                        // typeText();
-                        $("#save_folder").css('display','block');
-                        document.getElementById("save_val").value = textToType+" <br> <br> ";
+                        $("#save_val").val(textToType + " <br> <br> ");
                         typeFun();
-                       console.log(data.choices[0]['message']['content']);
+                        $("#save_folder").show();
+                        console.log(response.choices[0]['message']['content']);
                     },
                     error: function (xhr, status, error) {
-                        // Handle errors
+                        console.error("Ein Fehler ist aufgetreten: " + error);
                     }
                 });
             });
@@ -269,97 +198,53 @@
                     processData: false,
                     contentType: false,
                     success: function (data) {
-                       $("#save_name").val('');
-                       $("#saveModal").modal('hide');
-                       // Zeige eine Toast-Nachricht an
-    				showToast(document.title + " Gespeichert!");
+                        $("#save_name").val('');
+                        $("#saveModal").modal('hide');
+                        showToast(document.title + " Gespeichert!");
                     },
                     error: function (xhr, status, error) {
-                        // Handle errors
+                        alert("Ein Fehler ist aufgetreten: " + error);
                     }
                 });
             });
-
-/**
- * Erstellt und zeigt eine Toast-Nachricht mit einer gegebenen Nachricht an.
- * @param {string} message - Die Nachricht, die im Toast angezeigt werden soll.
- */
-function showToast(message) {
-  // Erstelle das Toast-Element
-  var toast = document.createElement('div');
-  toast.textContent = message;
-  toast.style.position = 'fixed';
-  toast.style.bottom = '20px';
-  toast.style.left = '50%';
-  toast.style.transform = 'translateX(-50%)';
-  toast.style.backgroundColor = 'black';
-  toast.style.color = 'white';
-  toast.style.padding = '10px';
-  toast.style.borderRadius = '5px';
-  toast.style.zIndex = '1000';
-  toast.style.opacity = '0';
-  toast.style.transition = 'opacity 0.5s';
-
-  // Füge das Toast-Element hinzu und fade es ein
-  document.body.appendChild(toast);
-  setTimeout(() => toast.style.opacity = '1', 100);
-
-  // Entferne das Toast-Element nach einer gewissen Zeit
-  setTimeout(() => {
-    toast.style.opacity = '0';
-    setTimeout(() => document.body.removeChild(toast), 500); // Warte auf das Ende der Opacity-Transition
-  }, 3000);
-}
-
-
-            $('#field1').on('keyup', function() {
-                // Get the typed text from field1
-                var typedText = $(this).val();
-
-                // Disable other fields (field2 and field3)
-                $('#field2').prop('disabled', true);
-                $("#type").val('first');
-                // Enable them again when text is cleared in field1
-                if (typedText === '') {
-                    $("#type").val('first');
-                    $('#field2').prop('disabled', false);
-                }
-            });
-
-            $('#field2').on('keyup', function() {
-                // Get the typed text from field1
-                var typedText = $(this).val();
-
-                // Disable other fields (field2 and field3)
-                $('#field1').prop('disabled', true);
-                $("#type").val('second');
-                // Enable them again when text is cleared in field1
-                if (typedText === '') {
-                    $("#type").val('first');
-                    $('#field1').prop('disabled', false);
-                }
-            });
         });
 
+        function showToast(message) {
+            // Erstelle das Toast-Element
+            var toast = document.createElement('div');
+            toast.textContent = message;
+            toast.style.position = 'fixed';
+            toast.style.bottom = '20px';
+            toast.style.left = '50%';
+            toast.style.transform = 'translateX(-50%)';
+            toast.style.backgroundColor = 'black';
+            toast.style.color = 'white';
+            toast.style.padding = '10px';
+            toast.style.borderRadius = '5px';
+            toast.style.zIndex = '1000';
+            toast.style.opacity = '0';
+            toast.style.transition = 'opacity 0.5s';
 
+            // Füge das Toast-Element hinzu und fade es ein
+            document.body.appendChild(toast);
+            setTimeout(() => toast.style.opacity = '1', 100);
 
-        const typedTextElement = document.getElementById('typed-text');
-        let currentChar = 0;
-        let curloop = 0;
-        let alltext = '';
+            // Entferne das Toast-Element nach einer gewissen Zeit
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                setTimeout(() => document.body.removeChild(toast), 500); // Warte auf das Ende der Opacity-Transition
+            }, 3000);
+        }
 
         function typeText() {
-            if (currentChar < textToType.length) {
-                typedTextElement.innerHTML += textToType.charAt(currentChar);
+            let localTextToType = textToType; // Speichere den aktuellen Zustand von textToType lokal
+            if (currentChar < localTextToType.length) {
+                typedTextElement.innerHTML += localTextToType.charAt(currentChar);
                 currentChar++;
-                // $('#checkcontent_box').animate({
-                //             scrollTop: $('#checkcontent_box').get(0).scrollHeight
-                //         }, 2000);
                 setTimeout(typeText, 10); // Adjust the typing speed (in milliseconds)
                 typedTextElement.scrollTop = typedTextElement.scrollHeight;
-
-            }else {
-                alltext +=textToType+" <br> ";
+            } else {
+                alltext += localTextToType + " <br> ";
                 typedTextElement.innerHTML = alltext;
                 currentChar = 0;
                 curloop++;
@@ -369,19 +254,48 @@ function showToast(message) {
 
         function typeFun(){
             if(curloop < textarray.length){
-                textToType = textarray[curloop];
-                typeText();
+                // Direktes Setzen des innerHTML mit dem gesamten Text
+                typedTextElement.innerHTML += textarray.slice(curloop).join(" <br> ");
+                curloop = textarray.length; // Setze curloop auf die Länge von textarray, um die Schleife zu beenden
             }else {
                 alltext = '';
-                textToType= [];
+                textToType= "";
                 curloop = 0;
             }
         }
-        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl)
-        });
-        </script>
-</body>
 
+/**
+ * Kopiert den Inhalt eines spezifizierten Div-Elements in die Zwischenablage
+ * und zeigt eine Toast-Nachricht an, um den Erfolg zu bestätigen.
+ */
+function copyText() {
+  var divElement = document.getElementById('typed-text'); // Dein Div-Element
+
+  // Überprüfe, ob das Div-Element vorhanden ist
+  if (divElement) {
+    var htmlContent = divElement.innerHTML; // Erhalte den HTML-Inhalt
+    var hiddenDiv = document.createElement('div'); // Erstelle ein verstecktes Div
+
+    // Konfiguriere das versteckte Div, sodass es bearbeitet und kopiert werden kann, aber nicht sichtbar ist
+    hiddenDiv.style.position = 'absolute';
+    hiddenDiv.style.left = '-9999px';
+    hiddenDiv.contentEditable = true;
+
+    // Füge das versteckte Div hinzu und kopiere dessen Inhalt
+    document.body.appendChild(hiddenDiv);
+    hiddenDiv.innerHTML = htmlContent; // Setze den HTML-Inhalt in das versteckte Div
+    hiddenDiv.unselectable = "off";
+    hiddenDiv.focus();
+    // Entfernt, da navigator.clipboard.writeText für zuverlässige Zwischenablageoperationen verwendet wird
+    navigator.clipboard.writeText(htmlContent);
+    document.body.removeChild(hiddenDiv);
+
+    // Zeige eine Toast-Nachricht an
+    showToast("Text kopiert!");
+  } else {
+    console.log('Div-Element nicht gefunden.');
+  }
+}
+</script>
+</body>
 </html>

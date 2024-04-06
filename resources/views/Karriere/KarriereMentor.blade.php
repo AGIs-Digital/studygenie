@@ -223,35 +223,54 @@
                 var formData = new FormData(form);
 
                 $.ajax({
-                    url: "{{ route('GenieTutoruser') }}",
+                    url: "{{ route('genieTutoruser') }}",
                     type: "POST",
                     data: formData,
                     processData: false,
                     contentType: false,
                     success: function (data) {
-						count++;
+                        // Deaktiviere Eingabefelder und Buttons, um Mehrfacheingaben zu verhindern
+                        $("#user_input, #submitForm").prop('disabled', true);
+                        count++;
                         $("#user_input").val('');
-                        textToType = data.choices[0]['message']['content'].replace(/\n/g, " <br> ");
-                        $("#all_content").append(`<div class="right_box">
+                        textToType = data.choices[0]['message']['content'];
+                        
+                        // Nachrichten in eine Warteschlange einreihen statt direkt anzuhängen
+                        let messageContainer = `<div class="right_box">
                                         <span><img src="../asset/images/chatgeni.svg" width="25" height="35" alt="logoContainer"></span>
                                         <span id="chatbot_${count}"></span>
-                                    </div>`);
-									
-									let checks = data.choices[0]['message']['content'].split('\n');
-                                    textarray = checks;
-                                    typedTextElement = document.getElementById('chatbot_'+count);
-
-                                    $("#submitForm").text('Send');
-                        $('#all_content').animate({
-                            scrollTop: $('#all_content').get(0).scrollHeight
-                        }, 2000);
-                        $("#save_val").val($('#all_content').html());
-						typeFun();
+                                    </div>`;
+                        let checks = data.choices[0]['message']['content'].split('\n');
+                        textarray = checks;
+                        typedTextElement = document.getElementById('chatbot_'+count);
+                        
+                        // Füge die Nachricht nach der Verarbeitung der Warteschlange hinzu
+                        setTimeout(function() {
+                            $("#all_content").append(messageContainer);
+                            $("#submitForm").text('Send');
+                            $('#all_content').animate({
+                                scrollTop: $('#all_content').get(0).scrollHeight
+                            }, 2000);
+                            $("#save_val").val($('#all_content').html());
+                            typeFun();
+                            // Reaktiviere Eingabefelder und Buttons
+                            $("#user_input, #submitForm").prop('disabled', false);
+                        }, 1000); // Verzögerung, um die Verarbeitung zu simulieren
 
                        console.log(data.choices[0]['message']['content']);
                     },
                     error: function (xhr, status, error) {
-                        // Handle errors
+                        var errorMessage = "Ein Fehler ist aufgetreten. Bitte überprüfen Sie Ihre Eingaben oder versuchen Sie es später erneut.";
+                        // Anzeige einer benutzerfreundlicheren Fehlermeldung
+                        $("#error_message").text(errorMessage).show();
+                        // Änderung des Button-Textes, um dem Benutzer eine Aktion zu ermöglichen
+                        $("#submitForm").text('Erneut versuchen');
+                        // Optional: Hinzufügen einer Funktion, um das Formular bei Bedarf zurückzusetzen
+                        $("#resetForm").show().on('click', function() {
+                            $("#myForm").trigger("reset");
+                            $("#error_message").hide();
+                            $("#submitForm").text('Senden');
+                        });
                     }
                 });
             });

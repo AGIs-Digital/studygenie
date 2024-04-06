@@ -216,7 +216,7 @@
 
 						<div class="mb-3">
 							<label for="save_name" class="form-label">Name:</label>
-							<input type="text" class="form-control" id="save_name"
+							<input type="text" class="form-control" id="save_name2"
 								name="name" placeholder="Speichername">
 						</div>
 						<input type="hidden" name="save_val" id="save_val"> <input

@@ -433,8 +433,7 @@
 	font-weight: 700;
 	line-height: 20px;
 	letter-spacing: 1px;
-	display: Block;
-    align-items: center;
+	display: block;
 	margin-top: 12px;
 }
 
@@ -971,22 +970,7 @@ input[type="text"]:disabled {
 .copy_path_box.active svg path {
 	fill: #fff;
 }
-@media screen and (max-width:1450px) {
-    /* .left_scroll {
-        height: calc(100vh - 237px);
-    } */
-    /* .content-written.left {
-        padding: 53px 9% 20px 17%;
-    } */
-}
-@media screen and (max-width:1300px) {
-    /* .left_scroll {
-        height: calc(100vh - 233px);
-    } */
-    /* .content-written.left {
-        padding: 53px 9% 20px 17%;
-    } */
-}
+
 @media only screen and (max-width: 1150px) {
 	.user_input_form {
 		margin: 0;
@@ -1002,18 +986,8 @@ input[type="text"]:disabled {
 	.user_input_form button {
 		width: 14.5%;
 	}
-    /* .left_scroll {
-        height: calc(100vh - 260px);
-    }
-    .content-written.left {
-        padding: 53px 9% 20px 17%;
-    } */
 }
-/* @media only screen and (max-width: 1050px) {
-    .left_scroll {
-        height: calc(100vh - 271px);
-    }
-} */
+
 
 @media only screen and (max-width: 400px) {
 	.content-written.left {

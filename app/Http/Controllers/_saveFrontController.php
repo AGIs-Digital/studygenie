@@ -116,15 +116,20 @@ class FrontController extends Controller
         ]);
     }
 
-    public function GenieTutor()
+    public function genieTutor()
     {
-        if ((auth()->user()->subscription_name == 'diamant')) {
-            return view('Bildung.GenieTutor');
+        if (!auth()->check()) {
+            return redirect('login')->with('error', 'Bitte melden Sie sich an, um auf Genie Tutor zugreifen zu können.');
         }
-        return abort(404);
+        
+        if (auth()->user()->subscription_name == 'diamant') {
+            return view('Bildung.genieTutor');
+        } else {
+            return redirect('abonnement')->with('error', 'Zugriff auf Genie Tutor erfordert ein Diamant-Abonnement.');
+        }
     }
 
-    public function GenieTutorFirst()
+    public function genieTutorFirst()
     {
         $username = auth()->user()->name;
         $apiKey = env('OPENAI_API_KEY');
@@ -179,12 +184,12 @@ class FrontController extends Controller
         ]);
     }
 
-    public function GenieTutorUser(Request $request)
+    public function genieTutorUser(Request $request)
     {
         $apiKey = env('OPENAI_API_KEY');
         $endpoint = "https://api.openai.com/v1/chat/completions";
         $isFirstCommand = true;
-        $newQuestion = $request->user;
+        $newQuestion = $request->input('user');
         $payload = [
             "model" => "gpt-3.5-turbo-1106",
             "messages" => [

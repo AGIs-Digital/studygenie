@@ -146,74 +146,162 @@
 			</div>
 		</div>
 	</div>
+<!-- Modal hier -->
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        let textToType = "";
+        let textarray = [];
+        const typedTextElement = document.getElementById('typed-text');
+        let currentChar = 0;
+        let curloop = 0;
+        let alltext = '';
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        });
 
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script>
-    $(document).ready(function () {
-        $("#submitForm").click(function () {
-            var formData = new FormData(document.getElementById("myForm"));
-
-            $.ajax({
-                url: "{{ route('JobInsiderprocess') }}",
-                type: "POST",
-                data: formData,
-                processData: false,
-                contentType: false,
-                beforeSend: function(){
-                    $("#submitForm").text("lädt...");
-                },
-                success: function (data) {
-                    $("#submitForm").text("Beruf analysieren");
-                    if (data.status) {
-                        $("#second_box").css('display','flex');
-                        var typingContainer = document.getElementById('typingContainer');
-                        // Ersetzt den Inhalt von typingContainer mit der neuen Antwort
-                        typingContainer.innerHTML = data.data.choices[0]['message']['content'].replace(/\n/g, "<br>");
-                        $("#save_val").val(typingContainer.innerHTML); // Aktualisiert den Wert für das Speichern
-                    } else {
-                        alert(data.message);
+        $(document).ready(function () {
+            $("#submitForm").on("click", function () {
+                let form = $("#myForm")[0];
+                let formData = new FormData(form);
+                $("#save_data").val('x');
+                $.ajax({
+                    url: "/JobInsiderprocess",
+                    method: "POST",
+                    data: formData,
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    beforeSend: function(){
+                        $("#submitForm").text("Lädt...");
+                    },
+                    success: function (response) {
+                        $("#submitForm").text("Senden");
+                        textToType = response.choices[0]['message']['content'].replace(/\n/g, " <br> ");
+                        $('#typed-text').empty();
+                        let checks = response.choices[0]['message']['content'].split('\n');
+                        textarray = checks;
+                        $("#save_val").val(textToType + " <br> <br> ");
+                        typeFun();
+                        $("#save_folder").show();
+                        console.log(response.choices[0]['message']['content']);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Ein Fehler ist aufgetreten: " + error);
                     }
-                },
-                error: function (xhr, status, error) {
-                    // Fehlerbehandlung
-                    console.error("Ein Fehler ist aufgetreten: " + error);
-                }
+                });
+            });
+
+            $("#saveForm").click(function () {
+                var form = document.getElementById("save_data");
+                var formData = new FormData(form);
+
+                $.ajax({
+                    url: "{{ route('save.data') }}",
+                    type: "POST",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        $("#save_name").val('');
+                        $("#saveModal").modal('hide');
+                        showToast(document.title + " Gespeichert!");
+                    },
+                    error: function (xhr, status, error) {
+                        // Fehlerbehandlung
+                    }
+                });
             });
         });
 
-        $("#saveForm").click(function () {
-            var formData = new FormData(document.getElementById("save_data"));
+        function showToast(message) {
+            // Erstelle das Toast-Element
+            var toast = document.createElement('div');
+            toast.textContent = message;
+            toast.style.position = 'fixed';
+            toast.style.bottom = '20px';
+            toast.style.left = '50%';
+            toast.style.transform = 'translateX(-50%)';
+            toast.style.backgroundColor = 'black';
+            toast.style.color = 'white';
+            toast.style.padding = '10px';
+            toast.style.borderRadius = '5px';
+            toast.style.zIndex = '1000';
+            toast.style.opacity = '0';
+            toast.style.transition = 'opacity 0.5s';
 
-            $.ajax({
-                url: "{{ route('save.data') }}",
-                type: "POST",
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function (data) {
-                    $("#save_name").val('');
-                    $("#saveModal").modal('hide');
-                    showToast(document.title + " Gespeichert!");
-                },
-                error: function (xhr, status, error) {
-                    // Fehlerbehandlung
-                    console.error("Ein Fehler ist aufgetreten: " + error);
-                }
-            });
-        });
-    });
+            // Füge das Toast-Element hinzu und fade es ein
+            document.body.appendChild(toast);
+            setTimeout(() => toast.style.opacity = '1', 100);
 
-    function showToast(message) {
-        var toast = document.createElement('div');
-        toast.textContent = message;
-        // Stil und Positionierung des Toasts
-        document.body.appendChild(toast);
-        // Anzeigen und Entfernen des Toasts
-    }
+            // Entferne das Toast-Element nach einer gewissen Zeit
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                setTimeout(() => document.body.removeChild(toast), 500); // Warte auf das Ende der Opacity-Transition
+            }, 3000);
+        }
+
+        function typeText() {
+            let localTextToType = textToType; // Speichere den aktuellen Zustand von textToType lokal
+            if (currentChar < localTextToType.length) {
+                typedTextElement.innerHTML += localTextToType.charAt(currentChar);
+                currentChar++;
+                setTimeout(typeText, 10); // Adjust the typing speed (in milliseconds)
+                typedTextElement.scrollTop = typedTextElement.scrollHeight;
+            } else {
+                alltext += localTextToType + " <br> ";
+                typedTextElement.innerHTML = alltext;
+                currentChar = 0;
+                curloop++;
+                typeFun();
+            }
+        }
+
+        function typeFun(){
+            if(curloop < textarray.length){
+                textToType = textarray[curloop];
+                typeText();
+            }else {
+                alltext = '';
+                textToType= [];
+                curloop = 0;
+            }
+        }
+
+/**
+ * Kopiert den Inhalt eines spezifizierten Div-Elements in die Zwischenablage
+ * und zeigt eine Toast-Nachricht an, um den Erfolg zu bestätigen.
+ */
+function copyText() {
+  var divElement = document.getElementById('typed-text'); // Dein Div-Element
+
+  // Überprüfe, ob das Div-Element vorhanden ist
+  if (divElement) {
+    var htmlContent = divElement.innerHTML; // Erhalte den HTML-Inhalt
+    var hiddenDiv = document.createElement('div'); // Erstelle ein verstecktes Div
+
+    // Konfiguriere das versteckte Div, sodass es bearbeitet und kopiert werden kann, aber nicht sichtbar ist
+    hiddenDiv.style.position = 'absolute';
+    hiddenDiv.style.left = '-9999px';
+    hiddenDiv.contentEditable = true;
+
+    // Füge das versteckte Div hinzu und kopiere dessen Inhalt
+    document.body.appendChild(hiddenDiv);
+    hiddenDiv.innerHTML = htmlContent; // Setze den HTML-Inhalt in das versteckte Div
+    hiddenDiv.unselectable = "off";
+    hiddenDiv.focus();
+    document.execCommand('selectAll', false, null);
+    document.execCommand('copy');
+    document.body.removeChild(hiddenDiv);
+
+    // Zeige eine Toast-Nachricht an
+    showToast("Text kopiert!");
+  } else {
+    console.log('Div-Element nicht gefunden.');
+  }
+}
 </script>
 </body>
 </html>
