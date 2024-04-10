@@ -914,13 +914,7 @@ class FrontController extends Controller
         return view('Tools');
     }
     
-    /**
-     * Erstellt den Konversationskontext für ein spezifisches Tool und einen spezifischen Benutzer.
-     *
-     * @param int $userId Benutzer-ID
-     * @param string $toolIdentifier Eindeutiger Identifier des Tools
-     * @return string Konversationskontext
-     */
+
     private function createConversationContext($userId, $toolIdentifier)
     {
         // Abrufen der letzten 5 Anfragen und Antworten für das spezifische Tool und den Benutzer
@@ -936,7 +930,6 @@ class FrontController extends Controller
             // Hier können Sie anpassen, wie der Kontext formatiert werden soll
             $context .= "Frage: {$response->request} Antwort: {$response->response} ";
         }
-
         return $context;
     }
 

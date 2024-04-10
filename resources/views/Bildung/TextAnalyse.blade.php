@@ -145,82 +145,46 @@
 
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script>
-        let textToType = "";
-        let textarray = [];
-        const typedTextElement = document.getElementById('typed-text');
-        let currentChar = 0;
-        let curloop = 0;
-        let alltext = '';
-        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl)
-        });
+    $(document).ready(function () {
+        // Initialisiere die WebSocket-Verbindung
+        var socket = new WebSocket('ws://localhost:8080'); // Stelle sicher, dass die URL und der Port korrekt sind
 
-        $(document).ready(function () {
-            $("#submitForm").click(function () {
-                var form = document.getElementById("myForm");
-                var formData = new FormData(form);
-                $("#save_data").val('');
-                $.ajax({
-                    url: "{{ route('TextInspirationprocess') }}",
-                    type: "POST",
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    beforeSend: function(){
-                        $("#submitForm").text("lädt..");
-                    },
-        			success: function (data) {
-            			// Verarbeite die empfangenen Daten
-            			$("#submitForm").text("Senden");
-                        textToType = data.choices[0]['message']['content'].replace(/\n/g, " <br> ");
+        // Event-Handler für eingehende Nachrichten
+        socket.onmessage = function(event) {
+            var message = event.data;
+            // Füge die empfangenen Daten zum 'typed-text' Element hinzu
+            document.getElementById('typed-text').innerHTML += message;
+        };
 
-                        document.getElementById('typed-text').innerHTML = '';
-                        let checks = data.choices[0]['message']['content'].split('\n')
-                        textarray = checks;
+        $("#submitForm").click(function () {
+            var form = document.getElementById("myForm");
+            var formData = new FormData(form);
+            // Setze den Wert von 'save_val' basierend auf der Benutzereingabe
+            document.getElementById('save_val').value = document.getElementById('field1').value;
 
-                        document.getElementById("save_val").value = textToType+" <br> <br> ";
-                        typeFun();
-                        $("#save_folder").css('display','block');
-                       console.log(data.choices[0]['message']['content']);
-        			},
-        			error: function (xhr, status, error) {
-            			// Fehlerbehandlung
-        			}
-    			});
-			});
-
-            $("#saveForm").click(function () {
-                var form = document.getElementById("save_data");
-                var formData = new FormData(form);
-
-                $.ajax({
-                    url: "{{ route('save.data') }}",
-                    type: "POST",
-                    data: formData,
-                    error: function (xhr, status, error) {
-                        // Benachrichtige den Benutzer über den Fehler
-                        alert("Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.");
-                    }
-                    processData: false,
-                    contentType: false,
-                    success: function (data) {
-                       $("#save_name").val('');
-                       $("#saveModal").modal('hide');
-                       // Zeige eine Toast-Nachricht an
-    				showToast(document.title + " Gespeichert!");
-                    },
-                    error: function (xhr, status, error) {
-                        // Handle errors
-                    }
-                });
+            $.ajax({
+                url: "TextAnalyseprocess",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                beforeSend: function(){
+                    $("#submitForm").text("lädt..");
+                },
+                success: function (data) {
+                    // Hier könnte zusätzliche Logik stehen, falls nötig
+                    $("#submitForm").text("Analysieren");
+                    // Zeige Toast-Nachricht
+                    showToast("Antwort gespeichert!");
+                },
+                error: function (xhr, status, error) {
+                    // Fehlerbehandlung
+                    console.error("Fehler: " + error);
+                }
             });
         });
 
-        /**
- * Erstellt und zeigt eine Toast-Nachricht mit einer gegebenen Nachricht an.
- * @param {string} message - Die Nachricht, die im Toast angezeigt werden soll.
- */
+
 function showToast(message) {
   // Erstelle das Toast-Element
   var toast = document.createElement('div');
@@ -248,65 +212,41 @@ function showToast(message) {
   }, 3000);
 }
 
-function typeText() {
-            if (currentChar < textToType.length) {
-                typedTextElement.innerHTML += textToType.charAt(currentChar);
-                currentChar++;
-                setTimeout(typeText, 10); // Adjust the typing speed (in milliseconds)
-                typedTextElement.scrollTop = typedTextElement.scrollHeight;
+        // Funktion zum Kopieren des Antworttexts in die Zwischenablage
+        $("#copyToClipboard").click(function () {
+            var text = document.getElementById('typed-text').innerText;
+            navigator.clipboard.writeText(text).then(function() {
+                // Erfolgsmeldung
+                showToast("Text kopiert!");
+            }, function(err) {
+                // Fehlerbehandlung
+                console.error('Fehler beim Kopieren: ', err);
+            });
+        });
 
-            }else {
-                alltext +=textToType+" <br> ";
-                typedTextElement.innerHTML = alltext;
-                currentChar = 0;
-                curloop++;
-                typeFun();
-            }
-        }
+        // Funktion zum Archivieren der Antwort
+        $("#saveForm").click(function () {
+            var form = document.getElementById("save_data");
+            var formData = new FormData(form);
 
-        function typeFun(){
-            if(curloop < textarray.length){
-                textToType = textarray[curloop];
-                typeText();
-            }else {
-                alltext = '';
-                textToType= "";
-                curloop = 0;
-            }
-        }
-
-/**
- * Kopiert den Inhalt eines spezifizierten Div-Elements in die Zwischenablage
- * und zeigt eine Toast-Nachricht an, um den Erfolg zu bestätigen.
- */
-function copyText() {
-  var divElement = document.getElementById('typed-text'); // Dein Div-Element
-
-  // Überprüfe, ob das Div-Element vorhanden ist
-  if (divElement) {
-    var htmlContent = divElement.innerHTML; // Erhalte den HTML-Inhalt
-    var hiddenDiv = document.createElement('div'); // Erstelle ein verstecktes Div
-
-    // Konfiguriere das versteckte Div, sodass es bearbeitet und kopiert werden kann, aber nicht sichtbar ist
-    hiddenDiv.style.position = 'absolute';
-    hiddenDiv.style.left = '-9999px';
-    hiddenDiv.contentEditable = true;
-
-    // Füge das versteckte Div hinzu und kopiere dessen Inhalt
-    document.body.appendChild(hiddenDiv);
-    hiddenDiv.innerHTML = htmlContent; // Setze den HTML-Inhalt in das versteckte Div
-    hiddenDiv.unselectable = "off";
-    hiddenDiv.focus();
-    document.execCommand('selectAll', false, null);
-    navigator.clipboard.writeText(htmlContent);
-    document.body.removeChild(hiddenDiv);
-
-    // Zeige eine Toast-Nachricht an
-    showToast("Text kopiert!");
-  } else {
-    console.log('Div-Element nicht gefunden.');
-  }
-}
+            $.ajax({
+                url: "{{ route('save.data') }}",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    $("#save_name").val('');
+                    $("#saveModal").modal('hide');
+                    // Zeige Toast-Nachricht
+                    showToast("Antwort archiviert!");
+                },
+                error: function (xhr, status, error) {
+                    console.error("Fehler beim Speichern: " + error);
+                }
+            });
+        });
+    });
 </script>
 </body>
 </html>

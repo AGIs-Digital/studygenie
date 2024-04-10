@@ -13,6 +13,9 @@ use App\Http\Controllers\FrontController;
 | das "web" Middleware-Gruppe enthält. Jetzt erstellen Sie etwas Tolles!
 |
 */
+Route::post('/processOpenAIRequest/{toolIdentifier}', [FrontController::class, 'processOpenAIRequest'])
+    ->name('processOpenAIRequest');
+
 
 Route::get('/', function () {
     return view('index');

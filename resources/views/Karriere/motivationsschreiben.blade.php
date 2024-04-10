@@ -287,7 +287,7 @@
             $("#submitForm").click(function () {
                 var form = document.getElementById("myForm");
                 var formData = new FormData(form);
-                $("#save_data").val('');
+                document.getElementById('save_val').value = document.getElementById('typed-text').innerHTML;
                 $.ajax({
                     url: "{{ route('Motivationsschreibenprocess') }}",
                     type: "POST",
