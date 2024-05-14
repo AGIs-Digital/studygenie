@@ -44,7 +44,13 @@ class FrontController extends Controller
 
     public function startNewSessionWithCustomInstructions($userId)
     {
-        $customInstructions = $this->getCustomInstructions();
+        $customInstructions = config('messages.system_prompt');
+
+        # generate a random session id
+        $sessionId = bin2hex(random_bytes(16));
+        Cache::put("session_user_{$userId}", $sessionId, 3600); // Speichert die Session-ID für 1 Stunde
+        return $sessionId;
+
         // Beispiel-Logik zum Starten einer neuen Session mit OpenAI
         try {
             $response = $this->httpClient->post($this->endpoint . '/sessions', [
@@ -77,7 +83,7 @@ class FrontController extends Controller
             return $sessionId;
         } catch (\Exception $e) {
             \Log::error("Fehler beim Starten einer neuen Session: " . $e->getMessage());
-            throw new \Exception("Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.");
+            throw new \Exception("Fehler beim Starten einer neuen Session: " . $e->getMessage() . ". Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.");
         }
     }
 
@@ -93,12 +99,12 @@ class FrontController extends Controller
 
     public function saveAIResponse($userId, $requestContent, $responseContent, $toolIdentifier)
     {
-    $aiResponse = new AIResponse();
-    $aiResponse->user_id = $userId;
-    $aiResponse->request = $requestContent;
-    $aiResponse->response = $responseContent;
-    $aiResponse->tool_identifier = $toolIdentifier; // Setzen des Tool-Identifiers
-    $aiResponse->save();
+        $aiResponse = new AIResponse();
+        $aiResponse->user_id = $userId;
+        $aiResponse->request = $requestContent;
+        $aiResponse->response = $responseContent;
+        $aiResponse->tool_identifier = $toolIdentifier; // Setzen des Tool-Identifiers
+        $aiResponse->save();
     }
 
     public function sendOpenAIRequest($payload, $userId, $toolIdentifier)
@@ -106,6 +112,10 @@ class FrontController extends Controller
         try {
             Log::info('Memory usage before request: ' . memory_get_usage());
             Log::info('Sending OpenAI request with payload: ', (array)$payload);
+            echo '<pre>';
+            print_r($payload);
+            echo '</pre>';
+            return;
 
             $cacheKey = 'ai_response_' . md5(serialize($payload));
             $response = Cache::remember($cacheKey, 60, function () use ($payload) {
@@ -169,30 +179,9 @@ class FrontController extends Controller
         return $this->username;
     }
 
-    private function getCustomInstructions()
-    {
-        return [
-            [
-                "role" => "system",
-                "content" => "
-                Ich bin ChatGPT ein LLM. Ich werde von Schülern über Lerninhalte und Karriere gefragt und antworte als 'StudyGenie', ein persönlicher Assistent mit folgendem Verhalten:
-                1. Fokussierte & Fehlerfreie Aufgabenausführung: Ich führe Aufgaben direkt und zielgerichtet aus, überprüfe jede meiner Antworten auf Vollständigkeit und Genauigkeit und vermeide unnötige Erklärungen.
-                2. Antworten: Meine Antworten sind deinem Alter entsprechend leicht verständlich formuliert und konzentrieren sich auf sachliche Informationen.
-                3. Nutzung Aktueller Informationen & Expertenwissen: Ich verwende stets die aktuellsten verfügbaren Informationen. Ich habe Fachkenntnis und Professionalität in allen Bereichen.
-                4. Markdown-Formatierung: Zur Verbesserung der Lesbarkeit und Strukturierung meiner Antworten nutze ich bevorzugt Aufzählungen statt Fließtext und antworte stehts in HTML Formatierung.
-                5. Persönliche & Benutzerfreundliche Ansprache: Ich spreche Dich mit Deinem Namen an und interagiere im Stil eines Gesprächs mit einem Freund. In meinen Antworten benutze ich Emojis nach eigenem Ermessen.
-                "
-            ],
-            [
-                "role" => "system",
-                "content" => "Buyer Persona: Name: " . $this->getUsername() . ". Alter: 12-18."
-            ]
-        ];
-    }
-
     private function createPayload($newQuestion, $isFirstCommand = true, $firstCommand = null, $toolIdentifier)
     {
-        $customInstructions = $this->getCustomInstructions();
+        $customInstructions = config('prompts.system_prompt');
 
         $messages = array_merge($customInstructions, [
             [
@@ -572,11 +561,11 @@ class FrontController extends Controller
                 $newQuestion .= $description . $request->$field . " ";
             }
         }
-        
+
         if (!empty($request->field6)) {
             $newQuestion .= ". Analysiere meinen bisherigen Text und verfasse deine Weiterführung so, dass diese sowohl logisch als auch sprachlich adäquat ist und an meinen bisher verfassten Text nahtlos anknüpft.";
         }
-        
+
         $newQuestion .= " Verfasse die von mir gewünschte Textpassage und achte dabei auf grammatikalische Korrektheit und Rechtschreibung.";
 
         return $newQuestion;
@@ -620,7 +609,7 @@ class FrontController extends Controller
         ]);
     }
 
-    
+
     private function TextAnalyseQuestion($request)
     {
         $newQuestion = "Analysiere den folgenden Text auf Rechtschreib-, Grammatikfehler und stilistische Aspekte. Korrigiere Rechtschreibfehler und Grammatikfehler nicht direkt im Text, sondern erstelle eine Liste mit den Fehlern und füge dahinter in Klammern die Korrekte Schreibweise an. Vorschläge für Stilverbesserungen sind ebenfalls in der Liste aufzuführen. Argumentiere eventuelle Stilverbesserungen, damit ich die Verbesserungsvorschläge verstehen kann. Ich werde dann entscheiden, ob ich diese Vorschläge übernehmen möchte oder nicht.
@@ -629,14 +618,14 @@ class FrontController extends Controller
         Mein Text: " . $request->field1 . ".";
 
         return $newQuestion;
-    }   
+    }
 
     public function GenieCheckprocess(Request $request)
     {
         $newQuestion = $this->GenieCheckQuestion($request);
         $payload = $this->createPayload($newQuestion, true, null, 'GenieCheck');
         $responseData = null; // Initialisierung von responseData mit einem Standardwert
-        
+
         $error = null;
         try {
             $responseData = $this->sendOpenAIRequest($payload, auth()->user()->id, 'GenieCheck');
@@ -667,7 +656,7 @@ class FrontController extends Controller
 
     public function GenieCheckQuestion(Request $request)
     {
-        $newQuestion = "Analysiere die eingegebene Nutzerfrage, um das Kernproblem zu identifizieren. 
+        $newQuestion = "Analysiere die eingegebene Nutzerfrage, um das Kernproblem zu identifizieren.
         Gib eine kurze und informative Antwort, die das Wesentliche der Frage abdeckt. Berücksichtige dabei die inhaltliche Ausrichtung der Frage, um festzustellen, welches unserer Tools dem Nutzer zusätzlich von Nutzen sein könnte:
             - Geht es um das Verfassen von Texten, empfiehl das Tool 'TextInspiration' für kreative Schreibhilfen.
             - Geht es um die Verbesserung der Rechtschreibung, der Grammatik oder des Schreibstils, weise auf das Tool 'TextAnalyse' hin.
@@ -677,7 +666,7 @@ class FrontController extends Controller
             - Bei Bedarf an Unterstützung beim Erstellen von Bewerbungsunterlagen, verweise auf 'GenieBewerbung' für maßgeschneiderte Motivationsschreiben und Lebensläufe.
             - Für umfassende Vorbereitung auf Vorstellungsgespräche oder bei Karrierefragen, empfiehl 'KarriereMentor' für interaktive Beratung und Rollenspiele.
         Beachte unbedingt, dass der Hinweis auf das passende Tool subtil ist und natürlich in die Antwort integriert wird.
-        
+
         Nutzerfrage: " . $request->field1 . ".";
         return $newQuestion;
     }
@@ -758,17 +747,17 @@ class FrontController extends Controller
 
     public function KarriereMentorFirst()
     {
-        $newQuestion = "Du bist ein interaktiver Karriere-Mentor, der mir hilft, mich auf Klausuren vorzubereiten und mein Verständnis in verschiedenen Themen zu vertiefen. Je nach meinem Bedarf und meiner Anfrage, kannst du in unterschiedlichen Modi agieren: 
+        $newQuestion = "Du bist ein interaktiver Karriere-Mentor, der mir hilft, mich auf Klausuren vorzubereiten und mein Verständnis in verschiedenen Themen zu vertiefen. Je nach meinem Bedarf und meiner Anfrage, kannst du in unterschiedlichen Modi agieren:
         /Motivation: Unterstütze mich dabei, meine Ängste vor dem Bewerbungsgespräch zu überwinden, indem du nach konkreten Sorgen fragst und Lösungsansätze aufzeigst.
         /Insides: Versorge mich mit branchenspezifischen Informationen und möglichen Interviewfragen. Auf Nachfrage biete tiefergehende Einblicke zum Unternehmen meiner Bewerbung.
         /Tipps: Teile professionelle Vorbereitungstipps und Strategien für ein erfolgreiches Bewerbungsgespräch. Der Dialog endet, sobald alle meine Fragen geklärt sind.
         /Probe: Führe mit mir ein Rollenspiel als Interviewer. Ich beantworte Fragen und erhalte anschließend dein Feedback mit bis zu drei Ergänzungen, bevor du fortfährst.
         /Neustart: Beende den aktuellen Modus und warte auf den nächsten Befehl mit optionalen Parametern: --beruf und --unternehmen.
         Ich kann jederzeit den Modus wechseln oder spezifische Anweisungen geben, um mein Lernen zu personalisieren. Dein Ziel ist es, mich durch gezielte Fragen, Übungen und Erklärungen zu unterstützen und mein Verständnis zu verbessern.
-        Zuletzt haben wir uns mit folgendem auseinandergesetzt: 
+        Zuletzt haben wir uns mit folgendem auseinandergesetzt:
         [bisherige Zusammenfassung].
         Nun möchte ich, dass du mir bei folgender Frage hilfst: [Userinput]
-        
+
         Fasse mir zudem unsere bisherige Konversation kurz und prägnant zusammen. Beinhalten soll die Zusammenfassung:
         1. Zuletzt bearbeitetes Thema und Schwierigkeitsniveau: Kurze Erwähnung des zuletzt diskutierten Themas und des Niveaus, um den aktuellen Fokus zu verdeutlichen.
         2. Letzte Interaktionen: Eine Zusammenfassung der letzten Fragen oder Übungen und deiner Antworten oder Lösungen, um den Fortlauf der Konversation zu dokumentieren.
@@ -804,7 +793,7 @@ class FrontController extends Controller
     {
         $newQuestion = $this->MotivationsschreibenQuestion($request);
         $payload = $this->createPayload($newQuestion, true, null, 'Motivationsschreiben');
-        
+
         try {
             $response = $this->sendOpenAIRequest($payload, auth()->user()->id, 'Motivationsschreiben');
             $formattedData = $this->formatApiResponse($response);
@@ -841,10 +830,10 @@ class FrontController extends Controller
         }
 
         $newQuestion .= ". Das Motivationsschreiben soll einen professionellen Eindruck machen, dabei trotzdem einen aufgeschlossenen und motivierten Eindruck meinerseits vermitteln. Verfasse ausschließlich den Text, lasse Formaltäten wie die Anrede am Anfang & und den Gruß am Ende unbedingt weg.";
-        
+
         return $newQuestion;
     }
-    
+
 
     public function JobMatchprocess(Request $request)
     {
@@ -913,7 +902,7 @@ class FrontController extends Controller
         $this->updatePlaneSec();
         return view('Tools');
     }
-    
+
 
     private function createConversationContext($userId, $toolIdentifier)
     {
