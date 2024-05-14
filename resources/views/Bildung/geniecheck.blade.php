@@ -172,14 +172,13 @@
                     },
                     success: function (response) {
                         $("#submitForm").text("Senden");
-                        textToType = response.choices[0]['message']['content'].replace(/\n/g, " <br> ");
+                        textToType = response.data.replace(/\n/g, " <br> ");
                         $('#typed-text').empty();
-                        let checks = response.choices[0]['message']['content'].split('\n');
+                        let checks = response.data.split('\n');
                         textarray = checks;
                         $("#save_val").val(textToType + " <br> <br> ");
                         typeFun();
                         $("#save_folder").show();
-                        console.log(response.choices[0]['message']['content']);
                     },
                     error: function (xhr, status, error) {
                         console.error("Ein Fehler ist aufgetreten: " + error);

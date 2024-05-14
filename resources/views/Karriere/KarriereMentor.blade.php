@@ -82,7 +82,7 @@
 					Neuen Modus starten
 					<hr>
 					<b>--beruf:</b> Beruf auswählen<br />
-					<b>--unternehmen:</b> Spezielle Unternehmeninfos									
+					<b>--unternehmen:</b> Spezielle Unternehmeninfos
 					</div>
 				</div>
 
@@ -234,7 +234,7 @@
                         count++;
                         $("#user_input").val('');
                         textToType = data.choices[0]['message']['content'];
-                        
+
                         // Nachrichten in eine Warteschlange einreihen statt direkt anzuhängen
                         let messageContainer = `<div class="right_box">
                                         <span><img src="../asset/images/chatgeni.svg" width="25" height="35" alt="logoContainer"></span>
@@ -243,7 +243,7 @@
                         let checks = data.choices[0]['message']['content'].split('\n');
                         textarray = checks;
                         typedTextElement = document.getElementById('chatbot_'+count);
-                        
+
                         // Füge die Nachricht nach der Verarbeitung der Warteschlange hinzu
                         setTimeout(function() {
                             $("#all_content").append(messageContainer);
@@ -298,7 +298,7 @@
                     }
                 });
             });
-            
+
 /**
  * Erstellt und zeigt eine Toast-Nachricht mit einer gegebenen Nachricht an.
  * @param {string} message - Die Nachricht, die im Toast angezeigt werden soll.

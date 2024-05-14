@@ -151,8 +151,7 @@
 					<div class="written-green-board">
 
 						<div class="content-written right" id="getpdf">
-							<div class="typing-container">
-								<div id="typed-text"></div>
+							<div class="typing-container" id="typing-container">
 							</div>
 						</div>
 
@@ -274,7 +273,7 @@
 	<script>
         window.jsPDF = window.jspdf.jsPDF;
         let textToType = "";
-        const typedTextElement = document.getElementById('typed-text');
+        const typedTextElement = document.getElementById('typing-container');
         let currentChar = 0;
         let curloop = 0;
         let alltext = '';
@@ -287,7 +286,7 @@
             $("#submitForm").click(function () {
                 var form = document.getElementById("myForm");
                 var formData = new FormData(form);
-                document.getElementById('save_val').value = document.getElementById('typed-text').innerHTML;
+                document.getElementById('save_val').value = document.getElementById('typing-container').innerHTML;
                 $.ajax({
                     url: "{{ route('Motivationsschreibenprocess') }}",
                     type: "POST",
@@ -300,17 +299,16 @@
                     success: function (data) {
                         // Verarbeite die empfangenen Daten
                         $("#submitForm").text("Senden");
-                        textToType = data.choices[0]['message']['content'].replace(/\n/g, " <br> ");
 
                         document.getElementById('pdf_style').innerHTML = textToType+" <br> <br> ";
                         document.getElementById('template_add').innerHTML = textToType+" <br> <br> ";
 
-                        document.getElementById('typed-text').innerHTML = '';
-                        let checks = data.choices[0]['message']['content'].split('\n')
-                        textarray = checks;
-                        typeFun();
+                        document.getElementById('typing-container').innerHTML = data.data;
+                        // let checks = data.data.split('\n')
+                        // textarray = checks;
+                        // typeFun();
                         $(".save_folder").css('display','block');
-                       console.log(data.choices[0]['message']['content']);
+                       console.log(data.data);
                     },
                     error: function (xhr, status, error) {
                         // Handle errors

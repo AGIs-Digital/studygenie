@@ -17,217 +17,59 @@ use App\Rules\MatchOldPassword;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Cache;
 use App\Rules\ValidationRules;
-use GuzzleHttp\Client as HttpClient;
+
+use OpenAI\Laravel\Facades\OpenAI;
+use App\Models\Message;
+use App\Models\Conversation;
 
 class FrontController extends Controller
 {
     private $endpoint;
     private $username;
-    private $httpClient;
     private $openAIKey;
     private $paypalCredentials;
 
     public function __construct()
     {
-        $this->endpoint = config('services.openai.endpoint');
-        \Log::info('OpenAI Endpoint aus .env: ' . env('OPENAI_ENDPOINT'));
-        \Log::info('OpenAI Endpoint aus config: ' . config('services.openai.endpoint'));
-        \Log::info('OpenAI API Key: ' . config('services.openai.key'));
-
-        if (!is_string($this->endpoint) || !preg_match('/^https?:\/\/[\w,.,\/,-]+$/i', $this->endpoint)) {
-            throw new \Exception("OpenAI Endpoint ist nicht korrekt konfiguriert.");
-        }
-        $this->openAIKey = config('services.openai.key');
         $this->paypalCredentials = config('paypal.credentials');
-        $this->httpClient = new HttpClient(); // Initialisierung der HttpClient-Instanz
     }
 
     public function startNewSessionWithCustomInstructions($userId)
     {
-        $customInstructions = config('messages.system_prompt');
-
         # generate a random session id
         $sessionId = bin2hex(random_bytes(16));
         Cache::put("session_user_{$userId}", $sessionId, 3600); // Speichert die Session-ID für 1 Stunde
         return $sessionId;
-
-        // Beispiel-Logik zum Starten einer neuen Session mit OpenAI
-        try {
-            $response = $this->httpClient->post($this->endpoint . '/sessions', [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . $this->openAIKey,
-                    'Content-Type' => 'application/json',
-                ],
-                'json' => [
-                    'model' => 'gpt-3.5-turbo-1106', // oder ein anderes Modell, je nach Bedarf
-                    'custom' => $customInstructions, // Stellen Sie sicher, dass dies das erwartete Format hat
-                ],
-            ]);
-
-            if ($response->getStatusCode() != 200) {
-                \Log::error("Fehlerhafter Statuscode: " . $response->getStatusCode());
-                throw new \Exception("Fehler beim Abrufen der Daten. Statuscode: " . $response->getStatusCode());
-            }
-
-            $responseData = json_decode($response->getBody()->getContents(), true);
-            // Überprüfung, ob 'data' existiert und ob innerhalb von 'data' der Schlüssel 'id' existiert
-            if (!isset($responseData['data']) || !isset($responseData['data']['id'])) {
-                Log::error("Die Antwort enthält nicht die erwarteten Schlüssel 'data' und 'id'.");
-                throw new \Exception("Die Antwort enthält nicht die erwarteten Schlüssel 'data' und 'id'.");
-            }
-            $sessionId = $responseData['data']['id']; // Zugriff auf die Session-ID
-
-            // Speichern der Session-ID mit einer Zuordnung zum Benutzer
-            Cache::put("session_user_{$userId}", $sessionId, 3600); // Speichert die Session-ID für 1 Stunde
-
-            return $sessionId;
-        } catch (\Exception $e) {
-            \Log::error("Fehler beim Starten einer neuen Session: " . $e->getMessage());
-            throw new \Exception("Fehler beim Starten einer neuen Session: " . $e->getMessage() . ". Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.");
-        }
     }
 
-    private function getSessionIdForUser($userId)
+    /**
+     * Creates the payload for openAi from a conversation
+     *
+     * @param Conversation $conversation
+     * @return array
+     */
+    private function createPayload($conversation): array
     {
-        return Cache::get("session_user_{$userId}");
-    }
-
-    private function saveSessionIdForUser($userId, $sessionId)
-    {
-        Cache::put("session_user_{$userId}", $sessionId, 3600); // Speichert die Session-ID für 1 Stunde
-    }
-
-    public function saveAIResponse($userId, $requestContent, $responseContent, $toolIdentifier)
-    {
-        $aiResponse = new AIResponse();
-        $aiResponse->user_id = $userId;
-        $aiResponse->request = $requestContent;
-        $aiResponse->response = $responseContent;
-        $aiResponse->tool_identifier = $toolIdentifier; // Setzen des Tool-Identifiers
-        $aiResponse->save();
-    }
-
-    public function sendOpenAIRequest($payload, $userId, $toolIdentifier)
-    {
-        try {
-            Log::info('Memory usage before request: ' . memory_get_usage());
-            Log::info('Sending OpenAI request with payload: ', (array)$payload);
-            echo '<pre>';
-            print_r($payload);
-            echo '</pre>';
-            return;
-
-            $cacheKey = 'ai_response_' . md5(serialize($payload));
-            $response = Cache::remember($cacheKey, 60, function () use ($payload) {
-                $httpResponse = $this->httpClient->post($this->endpoint, [
-                    'headers' => [
-                        'Authorization' => 'Bearer ' . $this->openAIKey,
-                        'Content-Type' => 'application/json',
-                    ],
-                    'json' => $payload,
-                ]);
-
-                if ($httpResponse->getStatusCode() >= 400) {
-                    Log::error("HTTP-Anfrage fehlgeschlagen mit Statuscode: " . $httpResponse->getStatusCode());
-                    throw new \Exception("Fehler bei der Kommunikation mit dem OpenAI-Service. Statuscode: " . $httpResponse->getStatusCode());
-                }
-                return $httpResponse->getBody()->getContents();
-            });
-
-            $response = json_decode($response, true);
-            if (is_null($response) || json_last_error() !== JSON_ERROR_NONE) {
-                Log::error("Fehler beim Parsen der JSON-Antwort.");
-                throw new \Exception("Fehler beim Parsen der JSON-Antwort.");
-            }
-            if (!isset($response['choices']) || isset($response['error'])) {
-                $errorMsg = $response['error']['message'] ?? "Keine 'choices' im Antwortobjekt gefunden.";
-                Log::error("OpenAI API Fehler: " . $errorMsg);
-                throw new \Exception("OpenAI API Fehler: " . $errorMsg);
-            }
-
-            $responseSize = strlen(json_encode($response));
-            Log::info("Response size: $responseSize bytes");
-            Log::info('Memory usage after request: ' . memory_get_usage());
-
-            $userRequest = collect($payload['messages'])->where('role', 'user')->pluck('content')->last();
-            $botResponse = collect($response['choices'])->pluck('message.content')->first();
-
-            $this->saveAIResponse($userId, $userRequest, $botResponse, $toolIdentifier);
-
-            Log::info("Response: " . json_encode($response));
-            return $response;
-        } catch (\Exception $e) {
-            // Hinzufügen von Kontext zur Fehlermeldung für bessere Debugging-Möglichkeiten
-            $context = [
-                'payload' => $payload,
-                'userId' => $userId,
-                'toolIdentifier' => $toolIdentifier,
-                'exceptionMessage' => $e->getMessage(),
-                'exceptionCode' => $e->getCode(),
+        $messages = $conversation->messages()->orderBy('created_at', 'asc')->get();
+        $messages = $messages->map(function ($message) {
+            return [
+                "role" => $message->role,
+                "content" => $message->content
             ];
-            Log::error("Error sending request to OpenAI with context: " . json_encode($context));
-            // Umwandlung der Exception in eine benutzerfreundlichere Form
-            throw new \Exception("Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.", 0, $e);
-        }
-    }
+        });
 
-    private function getUsername()
-    {
-        if (is_null($this->username)) {
-            $this->username = auth()->user() ? auth()->user()->name : 'Gast';
-        }
-        return $this->username;
-    }
-
-    private function createPayload($newQuestion, $isFirstCommand = true, $firstCommand = null, $toolIdentifier)
-    {
-        $customInstructions = config('prompts.system_prompt');
-
-        $messages = array_merge($customInstructions, [
-            [
-                "role" => "user",
-                "content" => ! $isFirstCommand ? $firstCommand : "Schüler: " . $newQuestion
-            ]
+        # add system prompt as last message
+        $messages->push([
+            "role" => "system",
+            "content" => config('prompts.system_prompt')
         ]);
 
-        // Die Payload wird direkt zurückgegeben, ohne sie zu einem JSON-String zu konvertieren.
-        // Der HTTP-Client kümmert sich intern um die Kodierung.
-        return [
-            'model' => 'gpt-3.5-turbo-1106',
-            'messages' => $messages,
-            "temperature" => 0.5,
-            "top_p" => 0.5
+        $payload = [
+            'model' => config('openai.preferred_model'),
+            'messages' => $messages
         ];
-    }
 
-    private function formatApiResponse($responseData)
-    {
-        Log::info("Formatting API response");
-        // JSON Parsing und Überprüfung der Datenstruktur
-        // Die Zeile zum erneuten Dekodieren von $responseData wurde entfernt, da $responseData bereits als dekodiertes Array übergeben wird.
-        if (json_last_error() !== JSON_ERROR_NONE) {
-            Log::error("Fehler beim Parsen der JSON-Antwort.");
-            throw new \Exception("Fehler: Ungültiges JSON-Format.");
-        }
-
-        if (!is_array($responseData) || !isset($responseData['choices']) || empty($responseData['choices'])) {
-            Log::error("Fehler: Erwartete Datenstruktur 'choices' fehlt oder ist leer.");
-            throw new \Exception("Fehler: Erwartete Datenstruktur 'choices' fehlt oder ist leer.");
-        }
-
-        $firstChoice = reset($responseData['choices']);
-        if (!isset($firstChoice['message']['content'])) {
-            Log::error("Fehler: 'message.content' im ersten 'choices'-Element nicht vorhanden.");
-            throw new \Exception("Fehler: 'message.content' nicht vorhanden.");
-        }
-
-        $data = $firstChoice['message']['content'];
-
-        // Ersetzen von "**text**" durch "<b>text</b>" und von Zeilenumbrüchen durch "<br>"
-        $data = preg_replace('/\*\*(.*?)\*\*/', '<b>$1</b>', $data);
-        $data = str_replace("\n", "<br>", $data);
-
-        return $data;
+        return $payload;
     }
 
     // Benutzer erstellen
@@ -524,151 +366,166 @@ class FrontController extends Controller
      * HIER BEGINNEN DIE PROMPTS FÜR DIE TOOLS
      */
 
-    public function TextInspirationprocess(Request $request)
+    public function TextInspirationprocess(Request $request): \Illuminate\Http\JsonResponse
     {
         try {
-            $newQuestion = $this->TextInspirationQuestion($request);
-            $payload = $this->createPayload($newQuestion, true, null, 'TextInspiration');
-            $responseData = $this->sendOpenAIRequest($payload, auth()->user()->id, 'TextInspiration');
+            $toolIdentifier = 'textInspiration';
 
-            $formattedData = $this->formatApiResponse($responseData);
+            # Create a new conversation
+            $conversation = new Conversation();
+            $conversation->user_id = auth()->user()->id;
+            $conversation->tool_identifier = $toolIdentifier;
+            $conversation->save();
+
+            # Create a new message
+            $message = $this->textInspiration_create_message($request);
+            $message->user_id = auth()->user()->id;
+            $message->role = 'user';
+
+            # add message to conversation
+            $conversation->messages()->save($message);
+
+            $response = OpenAI::chat()->create($this->createPayload($conversation));
+
+            # create new message for response
+            $message = new Message();
+            $message->user_id = auth()->user()->id;
+            $message->content = $response->choices[0]->message->content;
+            $message->role = 'assistant';
+
+            # add message to conversation
+            $conversation->messages()->save($message);
 
             return response()->json([
                 "status" => true,
-                "data" => $formattedData,
+                "data" => $message->content
             ]);
         } catch (\Exception $e) {
+
             return $this->handleException($e, "Fehler bei der TextInspiration Anfrage");
         }
     }
 
-    private function TextInspirationQuestion($request)
+    /**
+     * Creates the prompt for the TextInspiration tool
+     */
+    private function textInspiration_create_message($request): Message
     {
-        $newQuestion = "Du bist professioneller & kreativer Schriftsteller. Analysiere die folgenden Angaben um mich bei der Texterstellung zu unterstützen: ";
+        $message = new Message();
+        $message->content = config('prompts.text_inspiration.base_prompt');
+        $message->replacePlaceholder('task_type', $request->field1, "keine Angabe");
+        $message->replacePlaceholder('task_level', $request->field2, "keine Angabe");
+        $message->replacePlaceholder('task_topic', $request->field3, "keine Angabe");
+        $message->replacePlaceholder('task_requirements', $request->field4, "keine Angabe");
+        $message->replacePlaceholder('task_text_to_create', $request->field5, "keine Angabe");
+        $message->replacePlaceholder('task_previous_text', $request->field6, "keine Angabe");
 
-        $fields = [
-            'field1' => "Aufgabenart: ",
-            'field2' => "Level: ",
-            'field3' => "Thema: ",
-            'field4' => "Besonderen Anforderungen/Interessen: ",
-            'field5' => "Zu erstellender Text: ",
-            'field6' => "Bisheriger Text: "
-            // Weitere Felder...
-        ];
-
-        foreach ($fields as $field => $description) {
-            if (!empty($request->$field)) {
-                $newQuestion .= $description . $request->$field . " ";
-            }
-        }
-
+        # If a previous text is set, add a continuation prompt
         if (!empty($request->field6)) {
-            $newQuestion .= ". Analysiere meinen bisherigen Text und verfasse deine Weiterführung so, dass diese sowohl logisch als auch sprachlich adäquat ist und an meinen bisher verfassten Text nahtlos anknüpft.";
+            $message->replacePlaceholder('continuation_prompt', config('prompts.text_inspiration.continuation_prompt'), '');
         }
 
-        $newQuestion .= " Verfasse die von mir gewünschte Textpassage und achte dabei auf grammatikalische Korrektheit und Rechtschreibung.";
-
-        return $newQuestion;
+        return $message;
     }
 
     public function TextAnalyseprocess(Request $request)
     {
-        $newQuestion = $this->TextAnalyseQuestion($request);
-        $payload = $this->createPayload($newQuestion, true, null, 'TextAnalyse');
-        $attempt = 0;
-        $maxAttempts = 3;
-        $responseData = null;
-        while ($attempt < $maxAttempts) {
-            try {
-                $responseData = $this->sendOpenAIRequest($payload, auth()->user()->id, 'TextAnalyse');
-            } catch (\Exception $e) {
-                \Log::error("Fehler bei der TextAnalyse Anfrage: " . $e->getMessage(), ['request' => $request->all()]);
-                $attempt++;
-                continue;
-            }
-            if ($responseData !== null && !isset($responseData['error'])) {
-                break;
-            }
-            $attempt++;
-        }
+        try {
+            $toolIdentifier = 'textAnalysis';
 
-        if ($responseData === null || isset($responseData['error'])) {
-            $error = $responseData['error'] ?? 'Unbekannter Fehler';
-            \Log::error("TextAnalyseprocess Fehler: $error", ['request' => $request->all()]);
+            # make sure, $request->text1 is set and not empty
+            if (!isset($request->text1) || empty($request->text1)) {
+                return response()->json([
+                    "status" => false,
+                    "error" => "Bitte geben Sie einen Text ein"
+                ]);
+            }
+
+            # Create a new conversation
+            $conversation = new Conversation();
+            $conversation->user_id = auth()->user()->id;
+            $conversation->tool_identifier = $toolIdentifier;
+            $conversation->save();
+
+            # Create a new message
+            $message = new Message();
+            $message->user_id = auth()->user()->id;
+            $message->role = 'user';
+            $message->content = config('prompts.text_analysis.base_prompt');
+            $message->replacePlaceholder('text_to_analyze', $request->text1);
+
+            # add message to conversation
+            $conversation->messages()->save($message);
+
+            $response = OpenAI::chat()->create($this->createPayload($conversation));
+
+            # create new message for response
+            $message = new Message();
+            $message->user_id = auth()->user()->id;
+            $message->content = $response->choices[0]->message->content;
+            $message->role = 'assistant';
+
+            # add message to conversation
+            $conversation->messages()->save($message);
+
             return response()->json([
-                "status" => false,
-                "error" => "Fehler bei der Anfrage nach $attempt Versuchen: $error",
+                "status" => true,
+                "data" => $message->content
             ]);
+        } catch (\Exception $e) {
+
+            return $this->handleException($e, "Fehler bei der TextInspiration Anfrage");
         }
-
-        $formattedData = $this->formatApiResponse($responseData);
-
-        return response()->json([
-            "status" => true,
-            "data" => $formattedData,
-        ]);
-    }
-
-
-    private function TextAnalyseQuestion($request)
-    {
-        $newQuestion = "Analysiere den folgenden Text auf Rechtschreib-, Grammatikfehler und stilistische Aspekte. Korrigiere Rechtschreibfehler und Grammatikfehler nicht direkt im Text, sondern erstelle eine Liste mit den Fehlern und füge dahinter in Klammern die Korrekte Schreibweise an. Vorschläge für Stilverbesserungen sind ebenfalls in der Liste aufzuführen. Argumentiere eventuelle Stilverbesserungen, damit ich die Verbesserungsvorschläge verstehen kann. Ich werde dann entscheiden, ob ich diese Vorschläge übernehmen möchte oder nicht.
-        Weise mich auf meine Schwächen und wiederholende Fehler hin.
-        Hilf mir mit Merksätzen, Eselsbrücken oder einfache Beispiele diese Fehler künftig zu vermeiden.
-        Mein Text: " . $request->field1 . ".";
-
-        return $newQuestion;
     }
 
     public function GenieCheckprocess(Request $request)
     {
-        $newQuestion = $this->GenieCheckQuestion($request);
-        $payload = $this->createPayload($newQuestion, true, null, 'GenieCheck');
-        $responseData = null; // Initialisierung von responseData mit einem Standardwert
-
-        $error = null;
         try {
-            $responseData = $this->sendOpenAIRequest($payload, auth()->user()->id, 'GenieCheck');
-            // Die Überprüfung von responseData erfolgt direkt nach dem Aufruf der Anfrage
-            if ($responseData === null || isset($responseData['error'])) {
-                $error = $responseData['error'] ?? 'Unbekannter Fehler';
-                \Log::error("GenieCheckprocess Fehler: $error", ['request' => $request->all()]);
+            $toolIdentifier = 'genieCheck';
+
+            # make sure, $request->text1 is set and not empty
+            if (!isset($request->text1) || empty($request->text1)) {
+                return response()->json([
+                    "status" => false,
+                    "error" => "Bitte geben Sie eine Frage ein"
+                ]);
             }
-        } catch (\Exception $e) {
-            $error = "Fehler bei der Anfrage: " . $e->getMessage();
-            \Log::error("GenieCheckprocess Fehler: " . $e->getMessage(), ['request' => $request->all()]);
-            $responseData = null; // Setzt responseData auf null, um nach einem Fehler die nachfolgende Logik korrekt zu handhaben.
-        }
-        if ($error !== null) {
+
+            # Create a new conversation
+            $conversation = new Conversation();
+            $conversation->user_id = auth()->user()->id;
+            $conversation->tool_identifier = $toolIdentifier;
+            $conversation->save();
+
+            # Create a new message
+            $message = new Message();
+            $message->user_id = auth()->user()->id;
+            $message->role = 'user';
+            $message->content = config('prompts.genie_check.base_prompt');
+            $message->replacePlaceholder('question', $request->text1);
+
+            # add message to conversation
+            $conversation->messages()->save($message);
+
+            $response = OpenAI::chat()->create($this->createPayload($conversation));
+
+            # create new message for response
+            $message = new Message();
+            $message->user_id = auth()->user()->id;
+            $message->content = $response->choices[0]->message->content;
+            $message->role = 'assistant';
+
+            # add message to conversation
+            $conversation->messages()->save($message);
+
             return response()->json([
-                "status" => false,
-                "error" => $error,
+                "status" => true,
+                "data" => $message->content
             ]);
+        } catch (\Exception $e) {
+
+            return $this->handleException($e, "Fehler bei der GenieCheck Anfrage");
         }
-
-        $formattedData = $this->formatApiResponse($responseData);
-
-        return response()->json([
-            "status" => true,
-            "data" => $formattedData,
-        ]);
-    }
-
-    public function GenieCheckQuestion(Request $request)
-    {
-        $newQuestion = "Analysiere die eingegebene Nutzerfrage, um das Kernproblem zu identifizieren.
-        Gib eine kurze und informative Antwort, die das Wesentliche der Frage abdeckt. Berücksichtige dabei die inhaltliche Ausrichtung der Frage, um festzustellen, welches unserer Tools dem Nutzer zusätzlich von Nutzen sein könnte:
-            - Geht es um das Verfassen von Texten, empfiehl das Tool 'TextInspiration' für kreative Schreibhilfen.
-            - Geht es um die Verbesserung der Rechtschreibung, der Grammatik oder des Schreibstils, weise auf das Tool 'TextAnalyse' hin.
-            - Möchte der Nutzer Wissen generieren und tiefergehende Erklärungen erhalten, ist 'genieTutor' das richtige Tool, um gemeinsam mit StudyGenie interaktiv zu lernen und sich auf Klassenarbeiten & Klausuren vorzubereiten.
-            - Bei Fragen zur beruflichen Orientierung oder zum Finden des passenden Berufs, empfiehl 'JobMatch' für einen Interessen- und Fähigkeitstest.
-            - Wenn der Nutzer detaillierte Informationen zu spezifischen Berufen sucht, weise auf 'JobInsider' hin.
-            - Bei Bedarf an Unterstützung beim Erstellen von Bewerbungsunterlagen, verweise auf 'GenieBewerbung' für maßgeschneiderte Motivationsschreiben und Lebensläufe.
-            - Für umfassende Vorbereitung auf Vorstellungsgespräche oder bei Karrierefragen, empfiehl 'KarriereMentor' für interaktive Beratung und Rollenspiele.
-        Beachte unbedingt, dass der Hinweis auf das passende Tool subtil ist und natürlich in die Antwort integriert wird.
-
-        Nutzerfrage: " . $request->field1 . ".";
-        return $newQuestion;
     }
 
     public function genieTutor()
@@ -679,61 +536,83 @@ class FrontController extends Controller
         return abort(404);
     }
 
-    public function genieTutorFirst()
+    /**
+     * Initiates the Tutor-Conversation with the first message
+     */
+    public function genieTutorFirst(): \Illuminate\Http\JsonResponse
     {
-        $newQuestion = " Du bist mein Tutor. Du hilfst mir beim Lernen und vorbereiten auf Klausuren. Ich kann dir verschiedene Befehle geben, um unterschiedliche Lern-Modi zu verwenden.
-        Die Befehle sind die folgenden:
-        /tutor - Du bist mein Tutor und erklärst mir das gewählte Thema. Du beantwortest alle meine Nachfragen ausfürlich und gewissenhaft.
-        /sokrates - Du antwortest mir immer im sokratischen Stil antwortet. Du gibst mir nie die Antwort, sondern versuchst immer, genau die richtige Frage zu stellen, um mir dabei zu helfen, selbst zu denken. Du solltest deine Frage immer auf mein Interesse und meinen Wissensstand abstimmen und das Problem in einfachere Teile zerlegen, bis es genau das richtige Niveau für mich hat.
-        /mc - Du stellst mir Multiple Choice Fragen zum gewählten Thema. Ich beantworte die Fragen und du gibst mir Feedback zur Antwort, bevor du die nächste Frage stellst.
-        /test - Du erstellst mir einen Test bestehend aus Multiple Choice Fragen, offenen Fragen und praktischen Fragen. Ziel des Tests ist es, mich optimal auf meine Prüfung vorzubereiten und meinen Lernstand und meine Kenntnisse zu überprüfen. Du fragst mich zu Beginn, wie viele Fragen der Test enthalten soll. Stelle die Fragen nacheinander. Ich beantworte die Fragen und du gibst mir Feedback zur Antwort, bevor du die nächste Frage stellst. Dein Feedback zu meinen Antworten soll dabei sehr kritisch. Bewerte eine Frage nur als richtig, wenn die Antwort von hoher Qualität ist. Am Ende des Testes gibst du mir eine Beurteilung, in welcher du detailliert die Punkte herausstellst, bei denen noch Verbesserungspotenzial besteht.
-        /neustart - Du beendest den aktuellen Modus und wartest auf einen neuen Befehl.
-        Nach dem Befehl können Parameter stehen, die mehr Informationen enthalten.
-        Die Parameter sind: --thema - Das Thema, um das es geht. --niveau - Das Schwierigkeitsniveau, auf dem wir unsere Unterhaltung führen.
-        Begrüße mich kurz persönlich und frage mich nur wie du mich unterstützen kannst ohne mir deine Möglichkeiten zu erklären.";
-        $toolIdentifier = 'genieTutor'; // Beispiel-Tool-Identifier
-        $payload = $this->createPayload($newQuestion, true, null, $toolIdentifier);
-        $responseData = $this->sendOpenAIRequest($payload, auth()->user()->id, $toolIdentifier);
+        $toolIdentifier = 'genieTutor';
 
-        // Überprüfung, ob die Antwort null ist oder ein Fehler vorliegt, bevor die Antwort formatiert wird
-        if ($responseData === null || (is_array($responseData) && isset($responseData['error']))) {
-            $error = is_array($responseData) ? ($responseData['error'] ?? 'Unbekannter Fehler') : 'Unbekannter Fehler';
-            return response()->json([
-                "status" => false,
-                "error" => "Fehler bei der Anfrage: $error",
-            ]);
-        }
+        $conversation = new Conversation();
+        $conversation->user_id = auth()->user()->id;
+        $conversation->tool_identifier = $toolIdentifier;
+        $conversation->save();
 
-        $formattedData = $this->formatApiResponse($responseData);
+        $message = new Message();
+        $message->user_id = auth()->user()->id;
+        $message->content = config('prompts.tutor.first');
+        $message->replacePlaceholder('username', auth()->user() ? auth()->user()->name : 'Gast');
+        $message->role = 'user';
+
+        $conversation->messages()->save($message);
+
+        $payload = $this->createPayload($conversation);
+
+        $result = OpenAI::chat()->create($payload);
+
+        $message = new Message();
+        $message->user_id = auth()->user()->id;
+        $message->content = $result->choices[0]->message->content;
+        $message->role = 'assistant';
+
+        # add message to conversation
+        $conversation->messages()->save($message);
 
         return response()->json([
             "status" => true,
-            "data" => $formattedData
+            "data" => $message->content
         ]);
     }
 
-    public function genieTutorUser(Request $request)
+    /**
+     * Handles the user input for the Tutor-Conversation
+     *
+     * @param Request $request
+     */
+    public function genieTutorUser(Request $request): \Illuminate\Http\JsonResponse
     {
-        $toolIdentifier = 'genieTutor'; // Beispiel-Tool-Identifier
-        $newQuestion = $request->user;
-        $isFirstCommand = true; // oder false basierend auf deiner Logik
-        $payload = $this->createPayload($newQuestion, $isFirstCommand, null, $toolIdentifier);
-        $responseData = $this->sendOpenAIRequest($payload, auth()->user()->id, $toolIdentifier);
+        $toolIdentifier = 'genieTutor';
 
-        // Überprüfung, ob die Antwort null ist oder ein Fehler vorliegt, bevor die Antwort formatiert wird
-        if ($responseData === null || (is_array($responseData) && isset($responseData['error']))) {
-            $error = is_array($responseData) ? ($responseData['error'] ?? 'Unbekannter Fehler') : 'Unbekannter Fehler';
-            return response()->json([
-                "status" => false,
-                "error" => "Fehler bei der Anfrage: $error",
-            ]);
-        }
+        # Load conversation to this user and toolIdentifier
+        $conversation = Conversation::where('user_id', auth()->user()->id)
+            ->where('tool_identifier', $toolIdentifier)
+            ->latest()
+            ->first();
 
-        $formattedData = $this->formatApiResponse($responseData);
+        $message = new Message();
+        $message->user_id = auth()->user()->id;
+        $message->content = $request->user;
+        $message->role = 'user';
+
+        # add message to conversation
+        $conversation->messages()->save($message);
+
+        $payload = $this->createPayload($conversation);
+
+        $result = OpenAI::chat()->create($payload);
+
+        # create new message for response
+        $message = new Message();
+        $message->user_id = auth()->user()->id;
+        $message->content = $result->choices[0]->message->content;
+        $message->role = 'assistant';
+
+        # add message to conversation
+        $conversation->messages()->save($message);
 
         return response()->json([
             "status" => true,
-            "data" => $formattedData
+            "data" => $message->content
         ]);
     }
 
@@ -747,155 +626,230 @@ class FrontController extends Controller
 
     public function KarriereMentorFirst()
     {
-        $newQuestion = "Du bist ein interaktiver Karriere-Mentor, der mir hilft, mich auf Klausuren vorzubereiten und mein Verständnis in verschiedenen Themen zu vertiefen. Je nach meinem Bedarf und meiner Anfrage, kannst du in unterschiedlichen Modi agieren:
-        /Motivation: Unterstütze mich dabei, meine Ängste vor dem Bewerbungsgespräch zu überwinden, indem du nach konkreten Sorgen fragst und Lösungsansätze aufzeigst.
-        /Insides: Versorge mich mit branchenspezifischen Informationen und möglichen Interviewfragen. Auf Nachfrage biete tiefergehende Einblicke zum Unternehmen meiner Bewerbung.
-        /Tipps: Teile professionelle Vorbereitungstipps und Strategien für ein erfolgreiches Bewerbungsgespräch. Der Dialog endet, sobald alle meine Fragen geklärt sind.
-        /Probe: Führe mit mir ein Rollenspiel als Interviewer. Ich beantworte Fragen und erhalte anschließend dein Feedback mit bis zu drei Ergänzungen, bevor du fortfährst.
-        /Neustart: Beende den aktuellen Modus und warte auf den nächsten Befehl mit optionalen Parametern: --beruf und --unternehmen.
-        Ich kann jederzeit den Modus wechseln oder spezifische Anweisungen geben, um mein Lernen zu personalisieren. Dein Ziel ist es, mich durch gezielte Fragen, Übungen und Erklärungen zu unterstützen und mein Verständnis zu verbessern.
-        Zuletzt haben wir uns mit folgendem auseinandergesetzt:
-        [bisherige Zusammenfassung].
-        Nun möchte ich, dass du mir bei folgender Frage hilfst: [Userinput]
+        $toolIdentifier = 'karriereMentor';
 
-        Fasse mir zudem unsere bisherige Konversation kurz und prägnant zusammen. Beinhalten soll die Zusammenfassung:
-        1. Zuletzt bearbeitetes Thema und Schwierigkeitsniveau: Kurze Erwähnung des zuletzt diskutierten Themas und des Niveaus, um den aktuellen Fokus zu verdeutlichen.
-        2. Letzte Interaktionen: Eine Zusammenfassung der letzten Fragen oder Übungen und deiner Antworten oder Lösungen, um den Fortlauf der Konversation zu dokumentieren.
-        Schreibe vor die Zusammenfassung immer 'Zusammenfassung: '.";
-        $toolIdentifier = 'KarriereMentor'; // Beispiel-Tool-Identifier
-        $payload = $this->createPayload($newQuestion, true, null, $toolIdentifier);
-        $responseData = $this->sendOpenAIRequest($payload, auth()->user()->id, $toolIdentifier);
-        $formattedData = $this->formatApiResponse($responseData);
+        # Start a new Conversation
+        $conversation = new Conversation();
+        $conversation->user_id = auth()->user()->id;
+        $conversation->tool_identifier = $toolIdentifier;
+        $conversation->save();
+
+        # Add the first message
+        $message = new Message();
+        $message->user_id = auth()->user()->id;
+        $message->content = config('prompts.karriere_mentor.first');
+        // $message->replacePlaceholder('username', auth()->user() ? auth()->user()->name : 'Gast');
+        $message->role = 'user';
+
+        # add the message to the conversation
+        $conversation->messages()->save($message);
+
+        # create payload for OpenAI
+        $payload = $this->createPayload($conversation);
+
+        # send the request to OpenAI
+        $result = OpenAI::chat()->create($payload);
+
+        # create a new message for the response
+        $message = new Message();
+        $message->user_id = auth()->user()->id;
+        $message->content = $result->choices[0]->message->content;
+        $message->role = 'assistant';
+
+        # add message to conversation
+        $conversation->messages()->save($message);
 
         return response()->json([
             "status" => true,
-            "data" => $formattedData
+            "data" => $message->content
         ]);
     }
 
     public function KarriereMentorUser(Request $request)
     {
-        $toolIdentifier = 'KarriereMentor'; // Beispiel-Tool-Identifier
-        $newQuestion = $request->user;
-        $isFirstCommand = true; // oder false basierend auf deiner Logik
-        $payload = $this->createPayload($newQuestion, $isFirstCommand, null, $toolIdentifier);
-        $responseData = $this->sendOpenAIRequest($payload, auth()->user()->id, $toolIdentifier);
-        $formattedData = $this->formatApiResponse($responseData);
+        $toolIdentifier = 'karriereMentor';
+
+        # Load conversation to this user and toolIdentifier
+        $conversation = Conversation::where('user_id', auth()->user()->id)
+            ->where('tool_identifier', $toolIdentifier)
+            ->latest()
+            ->first();
+
+        # Todo: If no conversation is found, redirect to KarriereMentorFirst
+
+        $message = new Message();
+        $message->user_id = auth()->user()->id;
+        $message->content = $request->user;
+        $message->role = 'user';
+
+        # add message to conversation
+        $conversation->messages()->save($message);
+
+        $payload = $this->createPayload($conversation);
+
+        $result = OpenAI::chat()->create($payload);
+
+        # create new message for response
+        $message = new Message();
+        $message->user_id = auth()->user()->id;
+        $message->content = $result->choices[0]->message->content;
+        $message->role = 'assistant';
+
+        # add message to conversation
+        $conversation->messages()->save($message);
 
         return response()->json([
             "status" => true,
-            "data" => $formattedData
+            "data" => $message->content
         ]);
     }
 
 
     public function Motivationsschreibenprocess(Request $request)
     {
-        $newQuestion = $this->MotivationsschreibenQuestion($request);
-        $payload = $this->createPayload($newQuestion, true, null, 'Motivationsschreiben');
-
         try {
-            $response = $this->sendOpenAIRequest($payload, auth()->user()->id, 'Motivationsschreiben');
-            $formattedData = $this->formatApiResponse($response);
+            $toolIdentifier = 'motivationalLetter';
+
+            # Create a new conversation
+            $conversation = new Conversation();
+            $conversation->user_id = auth()->user()->id;
+            $conversation->tool_identifier = $toolIdentifier;
+            $conversation->save();
+
+            # Create a new message
+            $message = new Message();
+            $message->user_id = auth()->user()->id;
+            $message->role = 'user';
+            $message->content = config('prompts.motivational_letter.base_prompt');
+            $message->replacePlaceholder('task_job', $request->field1, "keine Angabe");
+            $message->replacePlaceholder('task_strengths', $request->field2, "keine Angabe");
+            $message->replacePlaceholder('task_academic', $request->field3, "keine Angabe");
+            $message->replacePlaceholder('task_experience', $request->field4, "keine Angabe");
+            $message->replacePlaceholder('task_motivation', $request->field5, "keine Angabe");
+            $message->replacePlaceholder('task_personal', $request->field6, "keine Angabe");
+            $message->replacePlaceholder('task_challenges', $request->field7, "keine Angabe");
+
+            # add message to conversation
+            $conversation->messages()->save($message);
+
+            $response = OpenAI::chat()->create($this->createPayload($conversation));
+
+            # create new message for response
+            $message = new Message();
+            $message->user_id = auth()->user()->id;
+            $message->content = $response->choices[0]->message->content;
+            $message->role = 'assistant';
+
+            # add message to conversation
+            $conversation->messages()->save($message);
+
             return response()->json([
                 "status" => true,
-                "data" => $formattedData
+                "data" => $message->content
             ]);
         } catch (\Exception $e) {
-            \Log::error("Fehler bei der Motivationsschreiben Anfrage: " . $e->getMessage());
-            return response()->json(['status' => false, 'message' => 'Ein unerwarteter Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.']);
+
+            return $this->handleException($e, "Fehler bei der GenieCheck Anfrage");
         }
     }
-
-    private function MotivationsschreibenQuestion($request)
-    {
-        $newQuestion = "Du bist langjähriger Bewerbungstrainer und musst mir dabei helfen, ein professionelles und authentisches Motivationsschreiben zu verfassen. ";
-
-        // Hier deine Logik zur Erweiterung des $newQuestion Strings um die Benutzerfelder
-        $fields = [
-            'field1' => "Berücksichtige bei der Erstellung den von mir angestrebten Studiengang oder Beruf ",
-            'field2' => ". Meine persönlichen Stärken sind: ",
-            'field3' => ". Berücksichtige meinen akademischen Hintergrund: ",
-            'field4' => ". Sowie meine beruflichen Erfahrungen: ",
-            'field5' => ". Meine persönliche Motivation für meine Wahl ist: ",
-            'field6' => ". Meine persönlicher Bezug zu meiner Wahl: ",
-            'field7' => ". Meine persönlichen Erfahrungen und Herausforderungen: "
-            // Füge weitere Felder hier hinzu
-        ];
-
-        foreach ($fields as $field => $description) {
-            if (isset($request->$field)) {
-                $newQuestion .= $description . $request->$field;
-            }
-        }
-
-        $newQuestion .= ". Das Motivationsschreiben soll einen professionellen Eindruck machen, dabei trotzdem einen aufgeschlossenen und motivierten Eindruck meinerseits vermitteln. Verfasse ausschließlich den Text, lasse Formaltäten wie die Anrede am Anfang & und den Gruß am Ende unbedingt weg.";
-
-        return $newQuestion;
-    }
-
 
     public function JobMatchprocess(Request $request)
     {
-            $newQuestion = $this->JobMatchQuestion($request);
-            $payload = $this->createPayload($newQuestion, true, null, 'JobMatch');
-            $responseData = $this->sendOpenAIRequest($payload, auth()->user()->id, 'JobMatch');
-            $formattedData = $this->formatApiResponse($responseData);
+        try {
+            $toolIdentifier = 'jobMatch';
+
+            # Create a new conversation
+            $conversation = new Conversation();
+            $conversation->user_id = auth()->user()->id;
+            $conversation->tool_identifier = $toolIdentifier;
+            $conversation->save();
+
+            # Create a new message
+            $message = new Message();
+            $message->user_id = auth()->user()->id;
+            $message->role = 'user';
+            $message->content = config('prompts.job_match.base_prompt');
+            $message->replacePlaceholder('task_strengths', $request->field1, "keine Angabe");
+            $message->replacePlaceholder('task_interests', $request->field2, "keine Angabe");
+            $message->replacePlaceholder('task_development', $request->field3, "keine Angabe");
+            $message->replacePlaceholder('task_environment', $request->field4, "keine Angabe");
+            $message->replacePlaceholder('task_control', $request->field5, "keine Angabe");
+            $message->replacePlaceholder('task_personality', $request->field6, "keine Angabe");
+
+            # add message to conversation
+            $conversation->messages()->save($message);
+
+            $response = OpenAI::chat()->create($this->createPayload($conversation));
+
+            # create new message for response
+            $message = new Message();
+            $message->user_id = auth()->user()->id;
+            $message->content = $response->choices[0]->message->content;
+            $message->role = 'assistant';
+
+            # add message to conversation
+            $conversation->messages()->save($message);
 
             return response()->json([
                 "status" => true,
-                "data" => $formattedData,
+                "data" => $message->content
             ]);
-    }
-
-    private function JobMatchQuestion($request)
-    {
-        $newQuestion = "Analysiere meine Antworten, um Karrierevorschläge zu erstellen. Berücksichtige: ";
-
-        $fields = [
-            'field1' => "1. Persönliche Fähigkeiten & Stärken: ",
-            'field2' => "2. Interessen & Leidenschaften: ",
-            'field3' => "3. Entwicklungswunsch: ",
-            'field4' => "4. Bevorzugte Arbeitsumgebung: ",
-            'field5' => "5. Entscheidungsfreiheit & Kontrolle: ",
-            'field6' => "6. Persönlichkeitstyp: "
-            // Weitere Felder...
-        ];
-
-        foreach ($fields as $field => $description) {
-            if (! empty($request->$field)) {
-                $newQuestion .= $description . $request->$field . " ";
-            }
+        } catch (\Exception $e) {
+            return $this->handleException($e, "Fehler bei der JobMatch Anfrage");
         }
-        $newQuestion .= "Ermittle die Top 3 Berufe, die zu meinen Angaben passen. Ziel deiner Vorschläge ist es den Beruf zu finden, der am besten zu mir passt und der persönliches Wachstum ermöglicht und Arbeitszufriedenheit fördert.";
-
-        return $newQuestion;
     }
+
 
     public function JobInsiderprocess(Request $request)
     {
-            $newQuestion = $this->JobInsiderQuestion($request);
-            $payload = $this->createPayload($newQuestion, true, null, 'JobInsider');
-            $responseData = $this->sendOpenAIRequest($payload, auth()->user()->id, 'JobInsider');
-            $formattedData = $this->formatApiResponse($responseData);
+        try {
+            $toolIdentifier = 'jobInsider';
+
+            # make sure $request->field1 is set and not empty
+            if (!isset($request->field1) || empty($request->field1)) {
+                return response()->json([
+                    "status" => false,
+                    "error" => "Bitte geben Sie einen Jobnamen ein"
+                ]);
+            }
+
+            # Create a new conversation
+            $conversation = new Conversation();
+            $conversation->user_id = auth()->user()->id;
+            $conversation->tool_identifier = $toolIdentifier;
+            $conversation->save();
+
+            # Create a new message
+            $message = new Message();
+            $message->user_id = auth()->user()->id;
+            $message->role = 'user';
+            $message->content = config('prompts.job_insider.base_prompt');
+            $message->replacePlaceholder('job_name', $request->field1);
+
+            # add message to conversation
+            $conversation->messages()->save($message);
+
+            $response = OpenAI::chat()->create($this->createPayload($conversation));
+
+            # create new message for response
+            $message = new Message();
+            $message->user_id = auth()->user()->id;
+            $message->content = $response->choices[0]->message->content;
+            $message->role = 'assistant';
+
+            # add message to conversation
+            $conversation->messages()->save($message);
 
             return response()->json([
                 "status" => true,
-                "data" => $formattedData,
+                "data" => $message->content
             ]);
+        } catch (\Exception $e) {
+
+            return $this->handleException($e, "Fehler bei der JobMatch Anfrage");
+        }
     }
 
-    private function JobInsiderQuestion($request)
-    {
-        $newQuestion = "Erstelle eine Übersicht über den Beruf " . $request->field1 . ". mit folgenden Punkten:
-        1. Berufsbeschreibung: Hauptaufgaben und Verantwortlichkeiten in einfacher Sprache.
-        2. Qualifikationen und Fähigkeiten: Erforderliche Ausbildungen, Fähigkeiten, Zertifikate und besondere Qualifikationen.
-        3. Arbeitsmarkt: Aktuelle Nachfrage, Karrierewege und Entwicklungsmöglichkeiten, inklusive kurz- und langfristiger Aussichten.
-        4. Arbeitsumgebung: Typische Umgebung, Arbeitszeiten, physische/psychische Anforderungen.
-        5. Gehaltsaussichten: Gehaltsspannen und Einkommensmglichkeiten, inklusive regionaler Unterschiede.
-        Herausforderungen und Vorteile: Beiträge zur beruflichen/persönlichen Zufriedenheit, Herausforderungen und Vorteile des Berufs.";
-        return $newQuestion;
-    }
 
     public function toolsPage()
     {
@@ -903,28 +857,10 @@ class FrontController extends Controller
         return view('Tools');
     }
 
-
-    private function createConversationContext($userId, $toolIdentifier)
-    {
-        // Abrufen der letzten 5 Anfragen und Antworten für das spezifische Tool und den Benutzer
-        $responses = AIResponse::where('user_id', $userId)
-                               ->where('tool_identifier', $toolIdentifier)
-                               ->latest()
-                               ->take(5)
-                               ->get();
-
-        // Erstellen des Kontexts als String
-        $context = '';
-        foreach ($responses as $response) {
-            // Hier können Sie anpassen, wie der Kontext formatiert werden soll
-            $context .= "Frage: {$response->request} Antwort: {$response->response} ";
-        }
-        return $context;
-    }
-
     private function handleException(\Exception $e, $context = 'Allgemeiner Fehler')
     {
         Log::error("$context: " . $e->getMessage());
+        print($e->getMessage());
         return response()->json([
             "status" => false,
             "error" => "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut."

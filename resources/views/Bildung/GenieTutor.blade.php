@@ -78,7 +78,7 @@
 					Neuen Modus starten
 					<hr>
 					<b>--thema:</b> Lernthema auswählen<br />
-					<b>--level:</b> Bildungsgrad auswählen									
+					<b>--level:</b> Bildungsgrad auswählen
 					</div>
 				</div>
 
@@ -227,7 +227,7 @@
                     success: function (data) {
                         count++;
                         $("#user_input").val('');
-                        textToType = data.choices[0]['message']['content'];
+                        textToType = data;
                         let messageContainer = $("<div class='right_box'></div>");
                         let imageSpan = $("<span></span>");
                         let image = $("<img src='../asset/images/chatgeni.svg' width='25' height='35' alt='logoContainer'>");
@@ -237,8 +237,8 @@
                         messageContainer.append(textSpan);
                         textSpan.text(textToType);
                         $("#all_content").append(messageContainer);
-                        
-                        let checks = data.choices[0]['message']['content'].split('\n');
+
+                        let checks = data.data.split('\n');
                                                textarray = checks;
                         typedTextElement = document.getElementById('chatbot_'+count);
                         checks.forEach(function(item) {
@@ -255,7 +255,6 @@
                                                 $("#save_val").val($('#all_content').html());
                         typeFun();
 
-                       console.log(data.choices[0]['message']['content']);
                     },
                     error: function (xhr, status, error) {
                         alert("Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.");
@@ -288,7 +287,7 @@
                     }
                 });
             });
-            
+
 /**
  * Erstellt und zeigt eine Toast-Nachricht mit einer gegebenen Nachricht an.
  * @param {string} message - Die Nachricht, die im Toast angezeigt werden soll.
@@ -338,12 +337,13 @@ function showToast(message) {
                         let checks = data.data.split('<br>');
                         textarray = checks;
                         typeFun();
-                        //
                         document.getElementById("first_box").innerHTML = textToType;
 
                     },
                     error: function (xhr, status, error) {
                         // Handle errors
+                        console.error("error: " + error);
+
                     }
                 });
         }

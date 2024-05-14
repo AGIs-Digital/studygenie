@@ -146,16 +146,6 @@
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script>
     $(document).ready(function () {
-        // Initialisiere die WebSocket-Verbindung
-        var socket = new WebSocket('ws://localhost:8080'); // Stelle sicher, dass die URL und der Port korrekt sind
-
-        // Event-Handler für eingehende Nachrichten
-        socket.onmessage = function(event) {
-            var message = event.data;
-            // Füge die empfangenen Daten zum 'typed-text' Element hinzu
-            document.getElementById('typed-text').innerHTML += message;
-        };
-
         $("#submitForm").click(function () {
             var form = document.getElementById("myForm");
             var formData = new FormData(form);
@@ -174,6 +164,17 @@
                 success: function (data) {
                     // Hier könnte zusätzliche Logik stehen, falls nötig
                     $("#submitForm").text("Analysieren");
+
+                    textToType = data.data
+
+                    document.getElementById('typed-text').innerHTML = '';
+                    let checks = data.data.split('\n')
+                    textarray = checks;
+
+                    document.getElementById("save_val").value = textToType+" <br> <br> ";
+                    typeFun();
+                    $("#save_folder").css('display','block');
+
                     // Zeige Toast-Nachricht
                     showToast("Antwort gespeichert!");
                 },
@@ -184,7 +185,38 @@
             });
         });
 
+let textToType = "";
+let textarray = [];
+const typedTextElement = document.getElementById('typed-text');
+let currentChar = 0;
+let curloop = 0;
 
+function typeText() {
+    if (currentChar < textToType.length) {
+        typedTextElement.innerHTML += textToType.charAt(currentChar);
+        currentChar++;
+        setTimeout(typeText, 10); // Adjust the typing speed (in milliseconds)
+        typedTextElement.scrollTop = typedTextElement.scrollHeight;
+
+    }else {
+        alltext +=textToType+" <br> ";
+        typedTextElement.innerHTML = alltext;
+        currentChar = 0;
+        curloop++;
+        typeFun();
+    }
+}
+
+function typeFun(){
+    if(curloop < textarray.length){
+        textToType = textarray[curloop];
+        typeText();
+    }else {
+        alltext = '';
+        textToType= [];
+        curloop = 0;
+    }
+}
 function showToast(message) {
   // Erstelle das Toast-Element
   var toast = document.createElement('div');

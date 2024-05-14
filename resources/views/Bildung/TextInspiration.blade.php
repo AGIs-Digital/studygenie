@@ -259,16 +259,15 @@
         			success: function (data) {
             			// Verarbeite die empfangenen Daten
             			$("#submitForm").text("Senden");
-                        textToType = data.choices[0]['message']['content'].replace(/\n/g, " <br> ");
+                        textToType = data.data
 
                         document.getElementById('typed-text').innerHTML = '';
-                        let checks = data.choices[0]['message']['content'].split('\n')
+                        let checks = data.data.split('\n')
                         textarray = checks;
 
                         document.getElementById("save_val").value = textToType+" <br> <br> ";
                         typeFun();
                         $("#save_folder").css('display','block');
-                       console.log(data.choices[0]['message']['content']);
         			},
         			error: function (xhr, status, error) {
             			// Fehlerbehandlung
