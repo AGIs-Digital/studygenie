@@ -88,4 +88,11 @@
       'PayPal' => 'Srmklive\\PayPal\\Facades\\PayPal',
     ),
   ),
+  'tightenco/ziggy' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Tighten\\Ziggy\\ZiggyServiceProvider',
+    ),
+  ),
 );

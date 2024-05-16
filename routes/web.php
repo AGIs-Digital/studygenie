@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FrontController;
+use App\Http\Controllers\ConversationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,8 +14,24 @@ use App\Http\Controllers\FrontController;
 | das "web" Middleware-Gruppe enthält. Jetzt erstellen Sie etwas Tolles!
 |
 */
+
 Route::post('/processOpenAIRequest/{toolIdentifier}', [FrontController::class, 'processOpenAIRequest'])
     ->name('processOpenAIRequest');
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::prefix('conversation')->group(function () {
+        // The /create route is a POST request to create a new conversation
+        Route::post('/create', [ConversationController::class, 'create']);
+
+        // The /{toolIdentifier} route is a GET request to get a conversation by its tool identifier
+        Route::get('/init/{toolIdentifier}', [ConversationController::class, 'get'])->name('conversation.get');
+
+        // The /{id}/message route is a POST request to add a message to a conversation
+        Route::post('/{id}/message', [ConversationController::class, 'askAi'])->name('conversation.askAi');
+
+        Route::post('/{conversation}/archive', [ConversationController::class, 'archive'])->name('conversation.archive');
+    });
+});
 
 
 Route::get('/', function () {

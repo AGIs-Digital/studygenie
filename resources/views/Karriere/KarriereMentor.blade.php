@@ -4,6 +4,8 @@
 <head>
 @include('includes.head')
 @section('title', 'KarriereMentor')
+@routes
+@vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body class="MainContainer">
@@ -159,15 +161,12 @@
 						@csrf
 						<div class="mb-3">
 							<label for="save_name" class="form-label">Name:</label>
-							<input type="text" class="form-control" id="save_name"
-								name="name" placeholder="Speichername eingeben">
-						</div>
-						<input type="hidden" name="save_val" id="save_val"> <input
-							type="hidden" name="tooltype" value="KarriereMentor"> <input
-							type="hidden" name="type" value="Karriere" id="Bildung">
-
+							<input type="text" class="form-control" id="save_name" name="name" placeholder="Speichername eingeben">
+					    </div>
+						    <input type="hidden" name="save_val" id="save_val">
+                            <input type="hidden" name="tooltype" value="KarriereMentor">
+                            <input type="hidden" name="type" value="Karriere" id="Bildung">
 					</form>
-
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"
@@ -179,217 +178,138 @@
 		</div>
 	</div>
 
-
-
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
 		crossorigin="anonymous"></script>
 
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script>
-        let textToType = "";
-		let textarray = [];
-        let typedTextElement = document.getElementById('first_box');
 
-        $(document).ready(function () {
+    <script>
+        // Initialisierung bei DOMContentLoaded
+        document.addEventListener('DOMContentLoaded', () => {
+            const toolIdentifier = 'karriere_mentor';
 
-            $('#user_input').keypress(function (e) {
-            if (e.which == 13) {
-                $('#submitForm').click();
-                return false;    //<---- Add this line
-            }
-            });
-			var count = 10;
+            const userInput = document.getElementById('user_input');
+            const submitForm = document.getElementById('submitForm');
+            const messageContainer = document.getElementById('all_content');
+            const conversationForm = document.getElementById('myForm');
+            const saveForm = document.getElementById('saveForm');
+            let conversation = {};
 
-            $("#submitForm").click(function () {
-                var userv = $("#user_input").val();
-                if(userv == ''){
-                    alert('Please Enter The Text');
-                    return false;
-                }
-                $("#all_content").append(`<div class="left_box">
-                    <span>${userv}</span>
-                                        <span><img src="../asset/images/illustrations/chatuser.png" width="35" height="35" alt="logoContainer"></span>
+            // Load an existing or create a new conversation
+            (async () => {
+                const response = await window.fns.loadConversation(toolIdentifier);
+                conversation = response.data;
 
-                                    </div>`);
-                $('#all_content').animate({
-                    scrollTop: $('#all_content').get(0).scrollHeight
-                }, 2000);
-                // $('#all_content').scrollTop($('#all_content').scrollHeight);
-                // return false;
-                $(this).text('lädt...');
-                var form = document.getElementById("myForm");
-                var formData = new FormData(form);
-
-                $.ajax({
-                    url: "{{ route('genieTutoruser') }}",
-                    type: "POST",
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    success: function (data) {
-                        // Deaktiviere Eingabefelder und Buttons, um Mehrfacheingaben zu verhindern
-                        $("#user_input, #submitForm").prop('disabled', true);
-                        count++;
-                        $("#user_input").val('');
-                        textToType = data.choices[0]['message']['content'];
-
-                        // Nachrichten in eine Warteschlange einreihen statt direkt anzuhängen
-                        let messageContainer = `<div class="right_box">
-                                        <span><img src="../asset/images/chatgeni.svg" width="25" height="35" alt="logoContainer"></span>
-                                        <span id="chatbot_${count}"></span>
-                                    </div>`;
-                        let checks = data.choices[0]['message']['content'].split('\n');
-                        textarray = checks;
-                        typedTextElement = document.getElementById('chatbot_'+count);
-
-                        // Füge die Nachricht nach der Verarbeitung der Warteschlange hinzu
-                        setTimeout(function() {
-                            $("#all_content").append(messageContainer);
-                            $("#submitForm").text('Send');
-                            $('#all_content').animate({
-                                scrollTop: $('#all_content').get(0).scrollHeight
-                            }, 2000);
-                            $("#save_val").val($('#all_content').html());
-                            typeFun();
-                            // Reaktiviere Eingabefelder und Buttons
-                            $("#user_input, #submitForm").prop('disabled', false);
-                        }, 1000); // Verzögerung, um die Verarbeitung zu simulieren
-
-                       console.log(data.choices[0]['message']['content']);
-                    },
-                    error: function (xhr, status, error) {
-                        var errorMessage = "Ein Fehler ist aufgetreten. Bitte überprüfen Sie Ihre Eingaben oder versuchen Sie es später erneut.";
-                        // Anzeige einer benutzerfreundlicheren Fehlermeldung
-                        $("#error_message").text(errorMessage).show();
-                        // Änderung des Button-Textes, um dem Benutzer eine Aktion zu ermöglichen
-                        $("#submitForm").text('Erneut versuchen');
-                        // Optional: Hinzufügen einer Funktion, um das Formular bei Bedarf zurückzusetzen
-                        $("#resetForm").show().on('click', function() {
-                            $("#myForm").trigger("reset");
-                            $("#error_message").hide();
-                            $("#submitForm").text('Senden');
-                        });
-                    }
+                // add a chatbubble for each message
+                conversation.messages.forEach(message => {
+                    window.fns.addChatBubble(message, messageContainer, {
+                        typeFun: false
+                    })
                 });
+
+                messageContainer.scrollTop = messageContainer.scrollHeight;
+            })();
+
+            conversationForm.addEventListener('submit', async (event) => {
+
+                // prevent default form submission
+                event.preventDefault();
+
+                // disable the user input form
+                userInput.disabled = true;
+
+                const userValue = userInput.value.trim();
+
+                if (!userValue) {
+                    alert('Bitte geben Sie einen Text ein');
+                    return;
+                }
+
+                userMessage = {
+                    content: userValue,
+                    role: 'user'
+                }
+
+                window.fns.addChatBubble(userMessage, messageContainer);
+
+                messageContainer.scrollTo({
+                    top: messageContainer.scrollHeight,
+                    behavior: 'smooth'
+                });
+
+                submitForm.textContent = 'lädt...';
+
+                try {
+                    const data = await window.fns.sendMessage(userValue, conversation.id);
+
+
+                    window.fns.addChatBubble(data.data, messageContainer);
+
+                    submitForm.textContent = 'Senden';
+
+                    userInput.value = '';
+                    userInput.disabled = false;
+
+                    messageContainer.scrollTo({
+                        top: messageContainer.scrollHeight,
+                        behavior: 'smooth'
+                    });
+
+                    document.getElementById('save_val').value = messageContainer.innerHTML;
+                } catch (error) {
+                    console.log(error)
+                    submitForm.textContent = 'Senden';
+                }
             });
 
+            // Speichern des Chatverlaufs
+            saveForm.addEventListener('click', async () => {
+                await window.fns.saveToArchive(
+                    conversation.id,
+                    $("#save_name").val(),
+                    "KarriereMentor",
+                    "Karriere",
+                );
+
+                document.getElementById('save_val').value = '';
+
+                $("#saveModal").modal('hide');
+
+			    showToast(document.title + " Gespeichert!");
+            });
         });
 
-        $("#saveForm").click(function () {
-                var form = document.getElementById("save_data");
-                var formData = new FormData(form);
+        /**
+         * Erstellt und zeigt eine Toast-Nachricht mit einer gegebenen Nachricht an.
+         * @param {string} message - Die Nachricht, die im Toast angezeigt werden soll.
+         */
+        function showToast(message) {
+          // Erstelle das Toast-Element
+          var toast = document.createElement('div');
+          toast.textContent = message;
+          toast.style.position = 'fixed';
+          toast.style.bottom = '20px';
+          toast.style.left = '50%';
+          toast.style.transform = 'translateX(-50%)';
+          toast.style.backgroundColor = 'black';
+          toast.style.color = 'white';
+          toast.style.padding = '10px';
+          toast.style.borderRadius = '5px';
+          toast.style.zIndex = '1000';
+          toast.style.opacity = '0';
+          toast.style.transition = 'opacity 0.5s';
 
-                $.ajax({
-                    url: "{{ route('save.data') }}",
-                    type: "POST",
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    success: function (data) {
-                       $("#save_name").val('');
-                       $("#saveModal").modal('hide');
-                       // Zeige eine Toast-Nachricht an
-    				showToast(document.title + " Gespeichert!");
-                    },
-                    error: function (xhr, status, error) {
-                        // Handle errors
-                    }
-                });
-            });
+          // Füge das Toast-Element hinzu und fade es ein
+          document.body.appendChild(toast);
+          setTimeout(() => toast.style.opacity = '1', 100);
 
-/**
- * Erstellt und zeigt eine Toast-Nachricht mit einer gegebenen Nachricht an.
- * @param {string} message - Die Nachricht, die im Toast angezeigt werden soll.
- */
-function showToast(message) {
-  // Erstelle das Toast-Element
-  var toast = document.createElement('div');
-  toast.textContent = message;
-  toast.style.position = 'fixed';
-  toast.style.bottom = '20px';
-  toast.style.left = '50%';
-  toast.style.transform = 'translateX(-50%)';
-  toast.style.backgroundColor = 'black';
-  toast.style.color = 'white';
-  toast.style.padding = '10px';
-  toast.style.borderRadius = '5px';
-  toast.style.zIndex = '1000';
-  toast.style.opacity = '0';
-  toast.style.transition = 'opacity 0.5s';
-
-  // Füge das Toast-Element hinzu und fade es ein
-  document.body.appendChild(toast);
-  setTimeout(() => toast.style.opacity = '1', 100);
-
-  // Entferne das Toast-Element nach einer gewissen Zeit
-  setTimeout(() => {
-    toast.style.opacity = '0';
-    setTimeout(() => document.body.removeChild(toast), 500); // Warte auf das Ende der Opacity-Transition
-  }, 3000);
-}
-
-        loadData();
-        function loadData(){
-
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-                $.ajax({
-                    url: "{{ route('KarriereMentor') }}",
-                    type: "POST",
-                    data: {id:1},
-                    processData: false,
-                    contentType: false,
-                    success: function (data) {
-                        textToType = data.data;
-						let checks = data.data.split('<br>');
-                                    textarray = checks;
-                                    typeFun();
-                        //
-                        document.getElementById("first_box").innerHTML = textToType;
-
-                    },
-                    error: function (xhr, status, error) {
-                        // Handle errors
-                    }
-                });
-        }
-		let currentChar = 0;
-        let curloop = 0;
-        let alltext = '';
-
-        function typeText() {
-            if (currentChar < textToType.length) {
-                typedTextElement.innerHTML += textToType.charAt(currentChar);
-                currentChar++;
-
-                setTimeout(typeText, 10); // Adjust the typing speed (in milliseconds)
-            }else {
-                alltext +=textToType+" <br> ";
-                typedTextElement.innerHTML = alltext;
-                currentChar = 0;
-                curloop++;
-                typeFun();
-            }
-        }
-
-        function typeFun(){
-            if(curloop < textarray.length){
-                textToType = textarray[curloop];
-                typeText();
-            }else {
-
-                alltext = '';
-                textToType= [];
-                curloop = 0;
-                $("#save_val").val($('#all_content').html());
-
-            }
+          // Entferne das Toast-Element nach einer gewissen Zeit
+          setTimeout(() => {
+            toast.style.opacity = '0';
+            setTimeout(() => document.body.removeChild(toast), 500); // Warte auf das Ende der Opacity-Transition
+          }, 3000);
         }
 
         var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
@@ -398,5 +318,5 @@ function showToast(message) {
         });
 
         </script>
-</body>
+    </body>
 </html>

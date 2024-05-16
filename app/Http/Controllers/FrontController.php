@@ -155,22 +155,6 @@ class FrontController extends Controller
         return view('archive', compact('Bildung', 'Karriere'));
     }
 
-    public function saveData(Request $request)
-    {
-        $user_id = auth()->user()->id;
-        $data = new Archive();
-        $data->user_id = $user_id;
-        $data->question = $request->name;
-        $data->answer = $request->save_val;
-        $data->tooltype = $request->tooltype;
-        $data->type = $request->type;
-        $data->save();
-        return response()->json([
-            'status' => '200',
-            'message' => 'Nachricht gespeichert'
-        ], 200);
-    }
-
     public function updateUserPassword(Request $request)
     {
         $validationResult = $this->validatePasswordUpdate($request);
@@ -548,15 +532,7 @@ class FrontController extends Controller
         $conversation->tool_identifier = $toolIdentifier;
         $conversation->save();
 
-        $message = new Message();
-        $message->user_id = auth()->user()->id;
-        $message->content = config('prompts.tutor.first');
-        $message->replacePlaceholder('username', auth()->user() ? auth()->user()->name : 'Gast');
-        $message->role = 'user';
-
-        $conversation->messages()->save($message);
-
-        $payload = $this->createPayload($conversation);
+        $payload = $conversation->createPayload();
 
         $result = OpenAI::chat()->create($payload);
 

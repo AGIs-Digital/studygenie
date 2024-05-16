@@ -1,9 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 
 <head>
 @include('includes.head')
 @section('title', 'genieTutor')
+@routes
+@vite(['resources/css/app.css', 'resources/js/app.js'])
+<meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 
 <body class="MainContainer">
@@ -128,7 +131,7 @@
                                         height="40" alt="">
                                     </div>
                                     <input type="text" id="user_input" name="user" required>
-									<button type="button" id="submitForm">Senden</button>
+									<button type="submit" id="submitForm">Senden</button>
 								</form>
 							</div>
 						</div>
@@ -140,8 +143,7 @@
 	</section>
 
 	<!-- Modal -->
-	<div class="modal fade" id="saveModal" tabindex="-1"
-		aria-labelledby="saveModalLabel" aria-hidden="true">
+	<div class="modal fade" id="saveModal" tabindex="-1" aria-labelledby="saveModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 
@@ -174,9 +176,6 @@
 			</div>
 		</div>
 	</div>
-
-
-
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
@@ -184,207 +183,136 @@
 
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script>
-        let textToType = "";
-		let textarray = [];
-        let typedTextElement = document.getElementById('first_box');
+        // Initialisierung bei DOMContentLoaded
+        document.addEventListener('DOMContentLoaded', () => {
+            const toolIdentifier = 'tutor';
 
-        $(document).ready(function () {
+            const userInput = document.getElementById('user_input');
+            const submitForm = document.getElementById('submitForm');
+            const messageContainer = document.getElementById('all_content');
+            const conversationForm = document.getElementById('myForm');
+            const saveForm = document.getElementById('saveForm');
+            let conversation = {};
 
-            $('#user_input').keypress(function (e) {
-            if (e.which == 13) {
-                $('#submitForm').click();
-                return false;    //<---- Add this line
-            }
-            });
-			var count = 10;
+            // Load an existing or create a new conversation
+            (async () => {
+                const response = await window.fns.loadConversation(toolIdentifier);
+                conversation = response.data;
 
-            $("#submitForm").click(function () {
-                var userv = $("#user_input").val();
-                if(userv == ''){
-                    alert('Please Enter The Text');
-                    return false;
-                }
-                $("#all_content").append(`<div class="left_box">
-                    <span>${userv}</span>
-                                        <span><img src="../asset/images/illustrations/chatuser.png" width="35" height="35" alt="logoContainer"></span>
-
-                                    </div>`);
-                $('#all_content').animate({
-                    scrollTop: $('#all_content').get(0).scrollHeight
-                }, 2000);
-// $('#all_content').scrollTop($('#all_content').scrollHeight);
-                // return false;
-                $(this).text('lädt...');
-                var form = document.getElementById("myForm");
-                var formData = new FormData(form);
-
-                $.ajax({
-                    url: "{{ route('genieTutoruser') }}",
-                    type: "POST",
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    success: function (data) {
-                        count++;
-                        $("#user_input").val('');
-                        textToType = data;
-                        let messageContainer = $("<div class='right_box'></div>");
-                        let imageSpan = $("<span></span>");
-                        let image = $("<img src='../asset/images/chatgeni.svg' width='25' height='35' alt='logoContainer'>");
-                        imageSpan.append(image);
-                        messageContainer.append(imageSpan);
-                        let textSpan = $("<span></span>").attr("id", "chatbot_" + count);
-                        messageContainer.append(textSpan);
-                        textSpan.text(textToType);
-                        $("#all_content").append(messageContainer);
-
-                        let checks = data.data.split('\n');
-                                               textarray = checks;
-                        typedTextElement = document.getElementById('chatbot_'+count);
-                        checks.forEach(function(item) {
-                            let textNode = document.createTextNode(item);
-                            let breakNode = document.createElement("br");
-                            typedTextElement.appendChild(textNode);
-                            typedTextElement.appendChild(breakNode);
-                        });
-
-                        $("#submitForm").text('Send');
-                        $('#all_content').animate({
-                            scrollTop: $('#all_content').get(0).scrollHeight
-                        }, 2000);
-                                                $("#save_val").val($('#all_content').html());
-                        typeFun();
-
-                    },
-                    error: function (xhr, status, error) {
-                        alert("Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.");
-                        $("#submitForm").text('Senden');
-                        console.error("Fehlerdetails: " + error);
-                    }
+                // add a chatbubble for each message
+                conversation.messages.forEach(message => {
+                    window.fns.addChatBubble(message, messageContainer, {
+                        typeFun: false
+                    })
                 });
+
+                messageContainer.scrollTop = messageContainer.scrollHeight;
+            })();
+
+            conversationForm.addEventListener('submit', async (event) => {
+
+                // prevent default form submission
+                event.preventDefault();
+
+                // disable the user input form
+                userInput.disabled = true;
+
+                const userValue = userInput.value.trim();
+
+                if (!userValue) {
+                    alert('Bitte geben Sie einen Text ein');
+                    return;
+                }
+
+                userMessage = {
+                    content: userValue,
+                    role: 'user'
+                }
+
+                window.fns.addChatBubble(userMessage, messageContainer);
+
+                messageContainer.scrollTo({
+                    top: messageContainer.scrollHeight,
+                    behavior: 'smooth'
+                });
+
+                submitForm.textContent = 'lädt...';
+
+                try {
+                    const data = await window.fns.sendMessage(userValue, conversation.id);
+
+
+                    window.fns.addChatBubble(data.data, messageContainer);
+
+                    submitForm.textContent = 'Senden';
+
+                    userInput.value = '';
+                    userInput.disabled = false;
+
+                    messageContainer.scrollTo({
+                        top: messageContainer.scrollHeight,
+                        behavior: 'smooth'
+                    });
+
+                    document.getElementById('save_val').value = messageContainer.innerHTML;
+                } catch (error) {
+                    console.log(error)
+                    submitForm.textContent = 'Senden';
+                }
             });
 
+            // Speichern des Chatverlaufs
+            saveForm.addEventListener('click', async () => {
+                await window.fns.saveToArchive(
+                    conversation.id,
+                    $("#save_name").val(),
+                    "genieTutor",
+                    "Bildung",
+                );
+
+                $("#save_name").val('');
+                $("#saveModal").modal('hide');
+                // Zeige eine Toast-Nachricht an
+			    showToast(document.title + " Gespeichert!");
+            });
         });
 
-        $("#saveForm").click(function () {
-                var form = document.getElementById("save_data");
-                var formData = new FormData(form);
 
-                $.ajax({
-                    url: "{{ route('save.data') }}",
-                    type: "POST",
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    success: function (data) {
-                       $("#save_name").val('');
-                       $("#saveModal").modal('hide');
-                       // Zeige eine Toast-Nachricht an
-    				showToast(document.title + " Gespeichert!");
-                    },
-                    error: function (xhr, status, error) {
-                        // Handle errors
-                    }
-                });
-            });
+        /**
+         * Erstellt und zeigt eine Toast-Nachricht mit einer gegebenen Nachricht an.
+         * @param {string} message - Die Nachricht, die im Toast angezeigt werden soll.
+         */
+        function showToast(message) {
+            // Erstelle das Toast-Element
+            var toast = document.createElement('div');
+            toast.textContent = message;
+            toast.style.position = 'fixed';
+            toast.style.bottom = '20px';
+            toast.style.left = '50%';
+            toast.style.transform = 'translateX(-50%)';
+            toast.style.backgroundColor = 'black';
+            toast.style.color = 'white';
+            toast.style.padding = '10px';
+            toast.style.borderRadius = '5px';
+            toast.style.zIndex = '1000';
+            toast.style.opacity = '0';
+            toast.style.transition = 'opacity 0.5s';
 
-/**
- * Erstellt und zeigt eine Toast-Nachricht mit einer gegebenen Nachricht an.
- * @param {string} message - Die Nachricht, die im Toast angezeigt werden soll.
- */
-function showToast(message) {
-  // Erstelle das Toast-Element
-  var toast = document.createElement('div');
-  toast.textContent = message;
-  toast.style.position = 'fixed';
-  toast.style.bottom = '20px';
-  toast.style.left = '50%';
-  toast.style.transform = 'translateX(-50%)';
-  toast.style.backgroundColor = 'black';
-  toast.style.color = 'white';
-  toast.style.padding = '10px';
-  toast.style.borderRadius = '5px';
-  toast.style.zIndex = '1000';
-  toast.style.opacity = '0';
-  toast.style.transition = 'opacity 0.5s';
+            // Füge das Toast-Element hinzu und fade es ein
+            document.body.appendChild(toast);
+            setTimeout(() => toast.style.opacity = '1', 100);
 
-  // Füge das Toast-Element hinzu und fade es ein
-  document.body.appendChild(toast);
-  setTimeout(() => toast.style.opacity = '1', 100);
-
-  // Entferne das Toast-Element nach einer gewissen Zeit
-  setTimeout(() => {
-    toast.style.opacity = '0';
-    setTimeout(() => document.body.removeChild(toast), 500); // Warte auf das Ende der Opacity-Transition
-  }, 3000);
-}
-
-        loadData();
-        function loadData(){
-
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-                $.ajax({
-                    url: "{{ route('genieTutor') }}",
-                    type: "POST",
-                    data: {id:1},
-                    success: function (data) {
-                        textToType = data.data;
-                        let checks = data.data.split('<br>');
-                        textarray = checks;
-                        typeFun();
-                        document.getElementById("first_box").innerHTML = textToType;
-
-                    },
-                    error: function (xhr, status, error) {
-                        // Handle errors
-                        console.error("error: " + error);
-
-                    }
-                });
-        }
-		let currentChar = 0;
-        let curloop = 0;
-        let alltext = '';
-
-        function typeText() {
-            if (currentChar < textToType.length) {
-                typedTextElement.innerHTML += textToType.charAt(currentChar);
-                currentChar++;
-
-                setTimeout(typeText, 10); // Adjust the typing speed (in milliseconds)
-            }else {
-                alltext +=textToType+" <br> ";
-                typedTextElement.innerHTML = alltext;
-                currentChar = 0;
-                curloop++;
-                typeFun();
-            }
-        }
-
-        function typeFun(){
-            if(curloop < textarray.length){
-                textToType = textarray[curloop];
-                typeText();
-            }else {
-
-                alltext = '';
-                textToType= [];
-                curloop = 0;
-                $("#save_val").val($('#all_content').html());
-
-            }
+            // Entferne das Toast-Element nach einer gewissen Zeit
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                setTimeout(() => document.body.removeChild(toast), 500);
+            }, 3000);
         }
 
         var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
         var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl)
+            return new bootstrap.Tooltip(tooltipTriggerEl)
         });
-
         </script>
-</body>
+    </body>
 </html>

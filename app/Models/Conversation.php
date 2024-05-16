@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use App\Custom\Prompt;
 
 class Conversation extends Model
 {
@@ -44,28 +45,97 @@ class Conversation extends Model
 
 
     /**
-     * Überschreibt die save Methode. Löscht Konversationen mit demselben User und Tool Identifier.
+     * Überschreibt die save Methode. Wenn es sich um eine neue Konversation handelt oder die
+     * Converation keine Nachrichten enthält, wird die erste Nachricht erstellt.
      *
      * @param array $options
      * @return bool
      */
     public function save(array $options = [])
     {
-        if (!$this->exists) {
-            // Es handelt sich um eine neue Konversation
-            $existingConversation = self::where('user_id', $this->user_id)
-                ->where('tool_identifier', $this->tool_identifier)
-                ->first();
+        $isNew = !$this->exists;
 
-            if ($existingConversation) {
-                // Lösche die alte Konversation und alle dazugehörigen Nachrichten
-                $existingConversation->deleteMessages();
+        // Speichere zuerst die Konversation, um eine ID zu erhalten
+        $saved = parent::save($options);
 
-                // Lösche die Konversation selbst
-                $existingConversation->delete();
+        // if its a new conversation without any messages, we need to create the first message
+        if ($saved && $this->messages->count() === 0)
+        {
+            $message = $this->messages()->create([
+                'user_id' => $this->user_id,
+                'content' => $this->loadFirstMessagePrompt(['replacements' => ['username' => auth()->user()->name]]),
+                'role' => 'assistant'
+            ]);
+        }
+
+        return $saved;
+    }
+
+    /**
+     * Lädt den Systemprompt für die Konversation and hand des Tool Identifiers.
+     */
+    public function loadSystemPrompt($params)
+    {
+        // load the system prompt for the conversation from config
+        $prompt = new Prompt('prompts.' . $this->tool_identifier . '.system_prompt');
+
+        if (isset($params['replacements'])) {
+            foreach ($params['replacements'] as $placeholder => $replacement) {
+                $prompt->replace($placeholder, $replacement);
             }
         }
 
-        return parent::save($options);
+        return $prompt->get();
+    }
+
+    /**
+     * Lädt den Systemprompt für die Konversation and hand des Tool Identifiers.
+     */
+    public function loadFirstMessagePrompt($params)
+    {
+        // load the system prompt for the conversation from config
+        $prompt = new Prompt(config('prompts.' . $this->tool_identifier . '.first_message'));
+
+        if (isset($params['replacements'])) {
+            foreach ($params['replacements'] as $placeholder => $replacement) {
+                $prompt->replace($placeholder, $replacement);
+            }
+        }
+
+        return $prompt->get();
+    }
+
+
+    /**
+     * Erstellt ein Payload für die OpenAI API.
+     */
+    public function createPayload()
+    {
+        $globalSystemPrompt = config('prompts.system_prompt');
+        $contextualSystemPrompt = $this->loadSystemPrompt(['replacements' => ['username' => auth()->user()->name]]);
+
+        $systemPrompt = $globalSystemPrompt . "\n" . $contextualSystemPrompt;
+
+        $messages = $this->messages()->orderBy('created_at', 'asc')->get();
+        $messages = $messages->map(function ($message) {
+            return [
+                "role" => $message->role,
+                "content" => $message->content
+            ];
+        });
+
+        # add system prompt as last message
+        $messages->push([
+            "role" => "system",
+            "content" => $systemPrompt
+        ]);
+
+        $payload = [
+            'model' => config('openai.preferred_model'),
+            'messages' => $messages
+        ];
+
+        return $payload;
+
     }
 }
