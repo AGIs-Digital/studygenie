@@ -4,6 +4,10 @@ mkae sure to have a running Webserver & MySQL.
 Check .env.example
 
 ```
+composer install
+```
+
+```
 npm install
 npm run dev
 ````
