@@ -18,7 +18,6 @@ class CheckTutorialShown
     {
         if (auth()->check() && !auth()->user()->tutorial_shown) {
             // Logik, um das Tutorial anzuzeigen
-            // Nach dem Anzeigen des Tutorials, aktualisieren Sie den tutorial_shown Status
             auth()->user()->update(['tutorial_shown' => true]);
         }
 

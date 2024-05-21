@@ -119,9 +119,6 @@
 
 	</main>
 
-
-
-
 	<div class="tutorial_sec">
 		<div class="content_box">
 			<div class="cross_tut" onclick="crosstut();">
@@ -235,11 +232,11 @@
 					<img src="{{ asset('asset/images/geni.svg') }}" alt="">
 				</div>
 				<div class="third_img wow fadeInRight">
-					<p>Im 'Archiv' kannst du wertvolle Antworten und Tipps aus unseren
-						Chats speichern. So hast du jederzeit schnellen Zugriff auf
-						bereits besprochene Inhalte und kannst sicher sein, dass keine
-						wichtige Information verloren geht. Denke daran, es als dein
-						persönliches Wissensschatzkästchen zu nutzen!</p>
+					<p>Im Bereich 'Profil' kannst du ganz bequem dein gewünschtes Abo
+						auswählen und bei Bedarf dein Passwort ändern. Gestalte hier
+						StudyGenie so, wie es am besten zu dir und deinen Bedürfnissen
+						passt!
+                    </p>
 					<div class="svg_box" onclick="changeTime('five')">
 
 						<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
@@ -270,10 +267,11 @@
 					<img src="{{ asset('asset/images/geni.svg') }}" alt="">
 				</div>
 				<div class="third_img wow fadeInRight">
-					<p>Im Bereich 'Profil' kannst du ganz bequem dein gewünschtes Abo
-						auswählen und bei Bedarf dein Passwort ändern. Gestalte hier
-						StudyGenie so, wie es am besten zu dir und deinen Bedürfnissen
-						passt!</p>
+					<p>Im 'Archiv' kannst du wertvolle Antworten und Tipps aus unseren
+						Chats speichern. So hast du jederzeit schnellen Zugriff auf
+						bereits besprochene Inhalte und kannst sicher sein, dass keine
+						wichtige Information verloren geht. Denke daran, es als dein
+						persönliches Wissensschatzkästchen zu nutzen!</p>
 					<div class="svg_box" onclick="changeTime('six')">
 
 						<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
@@ -347,14 +345,11 @@
         });
         function changeTime(varname){
             if(varname == 'second'){
-                // alert('hello');
-
                     document.getElementById("first").style.display = 'none';
-                        document.querySelectorAll(".BildungCloud")[0].classList.add('active');
+                    document.querySelectorAll(".BildungCloud")[0].classList.add('active');
                     var sec =  document.getElementById("second");
                     sec.style.display = 'block';
                     secondPageTime = false;
-
             }
 
             if(varname == 'third'){
@@ -369,35 +364,31 @@
             if(varname == 'four'){
                 document.getElementById("third").style.display = 'none';
                 document.querySelectorAll(".KarriereCloud")[0].classList.remove('active');
-                document.querySelectorAll(".archive")[0].classList.add('active');
+                document.querySelectorAll(".profile_u")[0].classList.add('active');
                 var sec =  document.getElementById("four");
                 sec.style.display = 'block';
-
-                    fivePageTime = false;
+                fourPageTime = false;
             }
 
             if(varname == 'five'){
                 document.getElementById("four").style.display = 'none';
-                document.querySelectorAll(".archive")[0].classList.remove('active');
-
-                document.querySelectorAll(".profile_u")[0].classList.add('active');
+                document.querySelectorAll(".profile_u")[0].classList.remove('active');               
+                document.querySelectorAll(".archive")[0].classList.add('active');
                 var sec =  document.getElementById("five");
                 sec.style.display = 'block';
-
                 fivePageTime = false;
             }
 
             if(varname == 'six'){
                 document.getElementById("five").style.display = 'none';
-                        document.querySelectorAll(".profile_u")[0].classList.remove('active');
-                        var sec =  document.getElementById("six");
-                        sec.style.display = 'block';
-
+                document.querySelectorAll(".archive")[0].classList.remove('active');
+                document.querySelectorAll(".KarriereCloud")[0].classList.add('active');
+                document.querySelectorAll(".BildungCloud")[0].classList.add('active');      
+                var sec =  document.getElementById("six");
+                sec.style.display = 'block';
                 sixPageTime = false;
             }
         }
-
-
 
         var w = window.innerWidth;
         var getCoookie=getCookie("user_about");
@@ -408,7 +399,7 @@
             tut[0].style.display = 'block';
             }
             document.body.style.overflow = 'hidden';
-            }, 2000);
+            }, 1000);
 
 
             setTimeout(function(){
@@ -420,9 +411,7 @@
                         sec.style.display = 'block';
                     }
                 }
-
-
-            }, 10000);
+            }, 5000);
 
             setTimeout(function(){
                 if(checktrue){
@@ -434,8 +423,7 @@
                         sec.style.display = 'block';
                     }
                 }
-
-            }, 22000);
+            }, 10000);
 
             setTimeout(function(){
                 if(checktrue){
@@ -447,9 +435,7 @@
                         sec.style.display = 'block';
                     }
                 }
-
-
-            }, 32000);
+            }, 15000);
 
 
             setTimeout(function(){
@@ -463,8 +449,7 @@
                         sec.style.display = 'block';
                     }
                 }
-
-            }, 40000);
+            }, 20000);
 
 
             setTimeout(function(){
@@ -476,7 +461,7 @@
                         sec.style.display = 'block';
                     }
                 }
-            }, 50000);
+            }, 25000);
 
             function crosstut(){
                 checktrue = false;
@@ -508,10 +493,7 @@
                     while (c.charAt(0)==' ') c = c.substring(1,c.length);
                     if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
                 }
-                return null;
-        }
-
+                return null;      
 </script>
-
 </body>
 </html>

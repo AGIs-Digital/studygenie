@@ -33,8 +33,6 @@
 									font-weight="400">GenieCheck</text>
                                 </svg>
 
-
-
                             </g>
                             <defs>
                                 <filter id="filter0_d_168_754" x="0"
@@ -236,14 +234,14 @@
         }
 
         function typeText() {
-            let localTextToType = textToType; // Speichere den aktuellen Zustand von textToType lokal
-            if (currentChar < localTextToType.length) {
-                typedTextElement.innerHTML += localTextToType.charAt(currentChar);
+            if (currentChar < textToType.length) {
+                typedTextElement.innerHTML += textToType.charAt(currentChar);
                 currentChar++;
                 setTimeout(typeText, 10); // Adjust the typing speed (in milliseconds)
                 typedTextElement.scrollTop = typedTextElement.scrollHeight;
-            } else {
-                alltext += localTextToType + " <br> ";
+
+            }else {
+                alltext +=textToType+" <br> ";
                 typedTextElement.innerHTML = alltext;
                 currentChar = 0;
                 curloop++;
@@ -253,12 +251,11 @@
 
         function typeFun(){
             if(curloop < textarray.length){
-                // Direktes Setzen des innerHTML mit dem gesamten Text
-                typedTextElement.innerHTML += textarray.slice(curloop).join(" <br> ");
-                curloop = textarray.length; // Setze curloop auf die Länge von textarray, um die Schleife zu beenden
+                textToType = textarray[curloop];
+                typeText();
             }else {
                 alltext = '';
-                textToType= "";
+                textToType= [];
                 curloop = 0;
             }
         }
@@ -285,7 +282,6 @@ function copyText() {
     hiddenDiv.innerHTML = htmlContent; // Setze den HTML-Inhalt in das versteckte Div
     hiddenDiv.unselectable = "off";
     hiddenDiv.focus();
-    // Entfernt, da navigator.clipboard.writeText für zuverlässige Zwischenablageoperationen verwendet wird
     navigator.clipboard.writeText(htmlContent);
     document.body.removeChild(hiddenDiv);
 

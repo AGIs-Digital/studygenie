@@ -3,7 +3,7 @@
 
 <head>
 @include('includes.head')
-@section('title', Auth::check() ? Auth::user()->name . ' - Profil' : 'Profil')
+@section('title', Auth::check() ? auth()->user()->name . ' - Profil' : 'Profil')
 <link rel="stylesheet" href="{{ asset('asset/css/profile.css') }}">
 
 </head>
@@ -14,7 +14,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<h1>
-					Account Einstellungen<img
+				{{ auth()->user()->name }} Profil Einstellungen<img
 						src="{{ asset('asset/images/profile.svg') }}">
 				</h1>
 			</div>
@@ -45,10 +45,20 @@
 							<img src="{{ asset('asset/images/dayleft.svg') }}" alt="">
 							<div class="con">
 								@if(auth()->user()->subscription_name == 'silber') <span
-									class="last">Unbegrenzt</span> @else <span class="first">{{
-									\Carbon\Carbon::parse(auth()->user()->expire_date)->diffInDays(\Carbon\Carbon::now());
-									}}</span> <span class="last">Tage übrig</span> @endif
-
+									class="last">Unbegrenzt</span> @else <span class="first">
+									@php
+										$heute = \Carbon\Carbon::now();
+										$ablaufdatum = \Carbon\Carbon::parse(auth()->user()->expire_date);
+										$tageUebrig = $heute->diffInDays($ablaufdatum, false);
+									@endphp
+									{{ (int)$tageUebrig }} 
+									</span>
+									@if($tageUebrig > 0)
+										<span class="last">Tage übrig</span>
+									@else
+										<span class="last">Abgelaufen</span>
+									@endif
+								@endif
 							</div>
 
 						</div>
@@ -57,7 +67,6 @@
 				<div class="row">
 					<div class="col-md-12">
 						<br>
-						<h2>{{ auth()->user()->name }}</h2>
 					</div>
 					<div class="col-md-4">
 						<div class="planCard">

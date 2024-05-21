@@ -193,7 +193,6 @@
 							</div>
 						</div>
 					</div>
-
 				</div>
 			</div>
 		</div>
@@ -366,7 +365,6 @@
             }
         }
 
-
 /**
  * Kopiert den Inhalt eines spezifizierten Div-Elements in die Zwischenablage
  * und zeigt eine Toast-Nachricht an, um den Erfolg zu bestätigen.
@@ -389,8 +387,7 @@ function copyText() {
     hiddenDiv.innerHTML = htmlContent; // Setze den HTML-Inhalt in das versteckte Div
     hiddenDiv.unselectable = "off";
     hiddenDiv.focus();
-    document.execCommand('selectAll', false, null);
-    document.execCommand('copy');
+    navigator.clipboard.writeText(htmlContent);
     document.body.removeChild(hiddenDiv);
 
     // Zeige eine Toast-Nachricht an

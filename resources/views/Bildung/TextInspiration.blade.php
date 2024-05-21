@@ -74,7 +74,7 @@
                                     <div class="group-box">
                                         <span class="small_text_font">Aufgabenart:
                                             <strong type="button" class="" data-bs-toggle="tooltip"
-                                            data-bs-placement="top" title="Aufsatz, Gedichtanalyse, Bachelorarbeit, etc."> <img
+                                            data-bs-placement="top" title="Aufsatz, Inhaltsangaben, Bachelorarbeit, etc."> <img
                                                 src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
                                         </strong>
                                         </span> <input type="text" placeholder="" id="field_1"
@@ -115,8 +115,8 @@
                                             </label>
                                         </div>
                                         <div class="col-md-6">
-                                            <label> <input type="radio" name="field5" value="Inhaltsangabe">
-                                                <i>Inhaltsangabe</i>
+                                            <label> <input type="radio" name="field5" value="Inhaltsverzeichnis">
+                                                <i>Inhaltsverzeichnis</i>
                                             </label>
                                         </div>
                                         <div class="col-md-6">
@@ -270,7 +270,7 @@
                         $("#save_folder").css('display','block');
         			},
         			error: function (xhr, status, error) {
-            			// Fehlerbehandlung
+            			console.error("Ein Fehler ist aufgetreten: " + error);
         			}
     			});
 			});
@@ -292,16 +292,13 @@
     				showToast(document.title + " Gespeichert!");
                     },
                     error: function (xhr, status, error) {
-                        // Handle errors
+                        alert("Ein Fehler ist aufgetreten: " + error);
                     }
                 });
             });
         });
 
-        /**
- * Erstellt und zeigt eine Toast-Nachricht mit einer gegebenen Nachricht an.
- * @param {string} message - Die Nachricht, die im Toast angezeigt werden soll.
- */
+
 function showToast(message) {
   // Erstelle das Toast-Element
   var toast = document.createElement('div');

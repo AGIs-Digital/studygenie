@@ -37,7 +37,7 @@
 			'gold' || auth()->user()->subscription_name == 'diamant') && $check)
 			<a href="/GenieCheck" class="Cloud" id="GenieCheck">
 				<button type="button" class="btn" data-bs-toggle="tooltip"
-					data-bs-placement="top" title="Schnelle Textkorrektur für Grammatik, Stil und mehr.">
+					data-bs-placement="top" title="Soforthilfe für alle deine Fragen">
 					<img src="{{ asset('asset/images/info.svg') }}" width="20" alt="">
 				</button> <svg xmlns="http://www.w3.org/2000/svg" width="245"
 					height="167" viewBox="0 0 245 167" fill="none">
@@ -278,7 +278,7 @@
             title: '<strong>Dieses Tool ist noch gesperrt</strong>',
             icon: 'info',
             html:
-                'Dieses Tool ist noch gesperrt. Hol dir ein Upgrade goto , ' +
+                'Dieses Tool ist noch gesperrt. Hol dir ein Upgrade ' +
                 '<a href="/profile">Profile</a> ' +
                 'zum freischalten.',
 

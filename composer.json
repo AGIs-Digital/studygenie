@@ -12,10 +12,11 @@
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.2",
         "openai-php/laravel": "*",
+        "predis/predis": "^2.2",
         "srmklive/paypal": "^3.0",
         "stripe/stripe-php": "^13.1",
         "tecnickcom/tcpdf": "^6.6",
-        "tightenco/ziggy": "^2.1"
+        "tightenco/ziggy": "^2.2"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.9",

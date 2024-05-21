@@ -145,7 +145,7 @@
             title: '<strong>Dieses Tool ist noch gesperrt</strong>',
             icon: 'info',
             html:
-                'Dieses Tool ist noch gesperrt. Hol dir ein Upgrade goto , ' +
+                'Dieses Tool ist noch gesperrt. Hol dir ein Upgrade ' +
                 '<a href="/profile">Profile</a> ' +
                 'zum freischalten.',
 

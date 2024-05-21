@@ -17,6 +17,7 @@ use App\Rules\MatchOldPassword;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Cache;
 use App\Rules\ValidationRules;
+use Illuminate\Support\Facades\Redis;
 
 use OpenAI\Laravel\Facades\OpenAI;
 use App\Models\Message;
@@ -684,7 +685,7 @@ class FrontController extends Controller
     public function Motivationsschreibenprocess(Request $request)
     {
         try {
-            $toolIdentifier = 'motivationalLetter';
+            $toolIdentifier = 'Motivationsschreiben';
 
             # Create a new conversation
             $conversation = new Conversation();

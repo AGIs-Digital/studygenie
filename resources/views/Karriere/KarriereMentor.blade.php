@@ -77,8 +77,8 @@
 					<b>/tipps</b><br />
 					Tipps und Vorbereitungsstrategien<br />
 					<br />
-					<b>/probe</b><br />
-					Interview simulieren<br />
+					<b>/interview</b><br />
+					Bewerbungsgespräch simulieren<br />
 					<br />
 					<b>/neustart</b><br />
 					Neuen Modus starten

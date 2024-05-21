@@ -91,10 +91,10 @@
                                     </div>
 
                                     <div class="group-box">
-                                        <span class="small_text_font">Das möchte ich lernen: <strong
+                                        <span class="small_text_font">Diese Fähigkeiten möchte ich erlernen: <strong
                                             type="button" class="" data-bs-toggle="tooltip"
                                             data-bs-placement="top"
-                                            title="Was möchtest du in deinem zukünftigen Beruf lernen?"> <img
+                                            title="Verhandeln, Kommunikation, etc."> <img
                                                 src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
                                         </strong>
                                         </span> <input type="text" id="field_3" name="field3"
@@ -165,7 +165,7 @@
 							<div class="written-green-board" id="first_box">
 								<div class="content-written right">
 									<div class="typing-container">
-										<div id="typed-text1"></div>
+										<div id="typed-text"></div>
 									</div>
 								</div>
                                 <div class="save_folder center" id="save_folder"  data-bs-toggle="modal"
@@ -195,10 +195,10 @@
 					</div>
 					<div class="modal-body">
 
-						<div class="mb-3">
-							<label for="save_name" class="form-label">Speichername
-							</label> <input type="text" class="form-control" id="save_name"
-								name="name" placeholder="Speichername">
+                        <div class="mb-3">
+							<label for="save_name" class="form-label">Name:</label>
+							<input type="text" class="form-control" id="save_name"
+								name="name" placeholder="Speichername eingeben">
 						</div>
 						<input type="hidden" name="save_val" id="save_val"> <input
 							type="hidden" name="tooltype" value="JobMatch"> <input
@@ -251,14 +251,13 @@
                     },
                     success: function (response) {
                         $("#submitForm").text("Senden");
-                        textToType = response.choices[0]['message']['content'].replace(/\n/g, " <br> ");
+                        textToType = response.data.replace(/\n/g, " <br> ");
                         $('#typed-text').empty();
-                        let checks = response.choices[0]['message']['content'].split('\n');
+                        let checks = response.data.split('\n');
                         textarray = checks;
                         $("#save_val").val(textToType + " <br> <br> ");
                         typeFun();
                         $("#save_folder").show();
-                        console.log(response.choices[0]['message']['content']);
                     },
                     error: function (xhr, status, error) {
                         console.error("Ein Fehler ist aufgetreten: " + error);
@@ -282,7 +281,7 @@
                         showToast(document.title + " Gespeichert!");
                     },
                     error: function (xhr, status, error) {
-                        // Fehlerbehandlung
+                        alert("Ein Fehler ist aufgetreten: " + error);
                     }
                 });
             });
@@ -316,14 +315,14 @@
         }
 
         function typeText() {
-            let localTextToType = textToType; // Speichere den aktuellen Zustand von textToType lokal
-            if (currentChar < localTextToType.length) {
-                typedTextElement.innerHTML += localTextToType.charAt(currentChar);
+            if (currentChar < textToType.length) {
+                typedTextElement.innerHTML += textToType.charAt(currentChar);
                 currentChar++;
                 setTimeout(typeText, 10); // Adjust the typing speed (in milliseconds)
                 typedTextElement.scrollTop = typedTextElement.scrollHeight;
-            } else {
-                alltext += localTextToType + " <br> ";
+
+            }else {
+                alltext +=textToType+" <br> ";
                 typedTextElement.innerHTML = alltext;
                 currentChar = 0;
                 curloop++;
@@ -364,8 +363,7 @@ function copyText() {
     hiddenDiv.innerHTML = htmlContent; // Setze den HTML-Inhalt in das versteckte Div
     hiddenDiv.unselectable = "off";
     hiddenDiv.focus();
-    document.execCommand('selectAll', false, null);
-    document.execCommand('copy');
+    navigator.clipboard.writeText(htmlContent);
     document.body.removeChild(hiddenDiv);
 
     // Zeige eine Toast-Nachricht an
