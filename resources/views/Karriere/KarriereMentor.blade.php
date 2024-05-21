@@ -5,7 +5,7 @@
 @include('includes.head')
 @section('title', 'KarriereMentor')
 @routes
-@vite(['resources/css/app.css', 'resources/js/app.js'])
+@vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 
 <body class="MainContainer">
@@ -100,33 +100,12 @@
 			src="{{ asset('asset/images/ToolsImage.png') }}" class="ab5" alt="">
 							<div class="typing-container d-block">
 								<div class="all_content" id="all_content">
-									<div class="right_box">
-										<span> <img src="../asset/images/chatgeni.svg" width="25"
-											height="35" alt="logoContainer"></span> <span id="first_box"><svg
-												xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-												viewBox="0 0 24 24">
-												<circle cx="18" cy="12" r="0" fill="white">
-												<animate attributeName="r" begin=".67" calcMode="spline"
-													dur="1.5s"
-													keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8"
-													repeatCount="indefinite" values="0;2;0;0" /></circle>
-												<circle cx="12" cy="12" r="0" fill="white">
-												<animate attributeName="r" begin=".33" calcMode="spline"
-													dur="1.5s"
-													keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8"
-													repeatCount="indefinite" values="0;2;0;0" /></circle>
-												<circle cx="6" cy="12" r="0" fill="white">
-												<animate attributeName="r" begin="0" calcMode="spline"
-													dur="1.5s"
-													keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8"
-													repeatCount="indefinite" values="0;2;0;0" /></circle></svg></span>
 
-									</div>
 								</div>
 
 							</div>
 							<div class="user_input_form">
-								<form id="myForm">
+								<form id="form_user_input">
 									@csrf
                                     <div class="save_folder left" id="save_folder" style="display: block"
                                         data-bs-toggle="modal" data-bs-target="#saveModal">
@@ -134,7 +113,7 @@
                                         height="40" alt="">
                                     </div>
                                     <input type="text" id="user_input" name="user" required>
-									<button type="button" id="submitForm">Senden</button>
+									<button type="submit" id="button_submit">Senden</button>
 								</form>
 							</div>
 						</div>
@@ -191,9 +170,9 @@
             const toolIdentifier = 'karriere_mentor';
 
             const userInput = document.getElementById('user_input');
-            const submitForm = document.getElementById('submitForm');
+            const formSubmitButton = document.getElementById('button_submit');
             const messageContainer = document.getElementById('all_content');
-            const conversationForm = document.getElementById('myForm');
+            const conversationForm = document.getElementById('form_user_input');
             const saveForm = document.getElementById('saveForm');
             let conversation = {};
 
@@ -210,6 +189,7 @@
                 });
 
                 messageContainer.scrollTop = messageContainer.scrollHeight;
+                userInput.focus();
             })();
 
             conversationForm.addEventListener('submit', async (event) => {
@@ -219,6 +199,10 @@
 
                 // disable the user input form
                 userInput.disabled = true;
+                // add class "disabled" to the form
+                conversationForm.classList.add('disabled');
+                // remove focus
+                userInput.blur();
 
                 const userValue = userInput.value.trim();
 
@@ -234,33 +218,27 @@
 
                 window.fns.addChatBubble(userMessage, messageContainer);
 
-                messageContainer.scrollTo({
-                    top: messageContainer.scrollHeight,
-                    behavior: 'smooth'
-                });
-
-                submitForm.textContent = 'lädt...';
+                formSubmitButton.textContent = 'lädt...';
 
                 try {
+                    // create an empty bot message
+                    const botMessageId = window.fns.addChatBubble({role: 'assistant', 'content': ''}, messageContainer);
+
                     const data = await window.fns.sendMessage(userValue, conversation.id);
 
+                    window.fns.updateChatBubble(botMessageId, data.data.content, messageContainer);
 
-                    window.fns.addChatBubble(data.data, messageContainer);
-
-                    submitForm.textContent = 'Senden';
+                    formSubmitButton.textContent = 'Senden';
 
                     userInput.value = '';
                     userInput.disabled = false;
-
-                    messageContainer.scrollTo({
-                        top: messageContainer.scrollHeight,
-                        behavior: 'smooth'
-                    });
+                    userInput.focus();
+                    conversationForm.classList.remove('disabled');
 
                     document.getElementById('save_val').value = messageContainer.innerHTML;
                 } catch (error) {
                     console.log(error)
-                    submitForm.textContent = 'Senden';
+                    formSubmitButton.textContent = 'Senden';
                 }
             });
 

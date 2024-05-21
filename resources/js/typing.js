@@ -38,23 +38,33 @@ export function typeFun(text, containerId) {
 
 export function addChatBubble(message, container, params = {typeFun: true})
 {
+    // count existing .chat_message elements
+    let count = document.querySelectorAll('.chat_message').length;
+    // Create an id for the new chat message
+    const id = `chat_message_${++count}`;
+
     if(message.role === 'user') {
         // Neues Benutzer-Nachrichtenfeld erstellen und hinzufügen
         const userMessage = document.createElement('div');
         userMessage.classList.add('left_box');
+        userMessage.classList.add('chat_message');
+        // add the id
+        userMessage.id = id;
         userMessage.innerHTML = `
-            <span>${message.content}</span>
+            <span class="message_content">${message.content}</span>
             <span><img src="../asset/images/illustrations/chatuser.png" width="35" height="35" alt="logoContainer"></span>
         `;
         container.appendChild(userMessage);
 
     } else if (message.role === 'assistant') {
-        console.log('message:', message)
 
         // Neues Bot-Nachrichtenfeld erstellen und hinzufügen
         const botMessage = document.createElement('div');
         botMessage.classList.add('right_box');
         botMessage.classList.add('message_assistant');
+        botMessage.classList.add('chat_message');
+        // add the id
+        botMessage.id = id;
         const imageSpan = document.createElement('span');
         const image = document.createElement('img');
         image.src = '../asset/images/chatgeni.svg';
@@ -68,14 +78,52 @@ export function addChatBubble(message, container, params = {typeFun: true})
         let count = document.querySelectorAll('.message_assistant').length;
 
         const textSpan = document.createElement('span');
+        textSpan.classList.add('message_content');
+
         textSpan.id = `chatbot_${++count}`;
         botMessage.appendChild(textSpan);
         container.appendChild(botMessage);
 
-        // Tippen des Textes
-        if (params.typeFun)
-            typeFun(message.content, textSpan.id);
-        else
-            textSpan.innerHTML = message.content;
+        if (message.content === '') {
+            textSpan.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                <circle cx="18" cy="12" r="0" fill="white">
+                    <animate attributeName="r" begin=".67" calcMode="spline" dur="1.5s" keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8" repeatCount="indefinite" values="0;2;0;0" />
+                </circle>
+                <circle cx="12" cy="12" r="0" fill="white">
+                    <animate attributeName="r" begin=".33" calcMode="spline" dur="1.5s" keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8" repeatCount="indefinite" values="0;2;0;0" />
+                </circle>
+                <circle cx="6" cy="12" r="0" fill="white">
+                    <animate attributeName="r" begin="0" calcMode="spline" dur="1.5s" keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8" repeatCount="indefinite" values="0;2;0;0" />
+                </circle>
+            </svg>`
+        } else {
+            if (params.typeFun)
+                typeFun(message.content, textSpan.id);
+            else
+                textSpan.innerHTML = message.content;
+        }
     }
+
+    scrollContainerToBottom(container)
+
+    // return the id
+    return id;
+}
+
+export function updateChatBubble(id, message, container)
+{
+    const chatMessage = document.getElementById(id);
+    if (chatMessage) {
+        chatMessage.querySelector('.message_content').innerHTML = message;
+    } else {
+        console.error(`Nachricht mit ID ${id} nicht gefunden`);
+    }
+    scrollContainerToBottom(container)
+}
+
+function scrollContainerToBottom(container) {
+    container.scrollTo({
+        top: container.scrollHeight,
+        behavior: 'smooth'
+    });
 }

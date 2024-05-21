@@ -6,3 +6,16 @@
 
 // Bootstrap
 @import 'bootstrap/scss/bootstrap';
+
+// Chatbot styles
+#form_user_input {
+    &.disabled {
+        cursor: not-allowed;
+        opacity: 0.5;
+        pointer-events: none;
+
+        * {
+            opacity: 0.5;
+        }
+    }
+}

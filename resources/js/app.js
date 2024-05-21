@@ -1,5 +1,5 @@
 import './bootstrap';
-import { addChatBubble } from './typing';  // Importiere typeFun richtig
+import { addChatBubble, updateChatBubble } from './typing';  // Importiere typeFun richtig
 
 async function loadConversation(toolIdentifier)
 {
@@ -126,9 +126,22 @@ async function saveToArchive(conversationId, save_name, tooltype, type) {
     }
 }
 
+function showLoadingChat(state) {
+    const loadingChat = document.getElementById('chat_loading_indicator');
+    if (loadingChat) {
+        if (state) {
+            loadingChat.style.display = 'flex';
+        } else {
+            loadingChat.style.display = 'none';
+        }
+    }
+}
+
 window.fns = {
     'loadConversation': loadConversation,
     'sendMessage': sendMessage,
     'addChatBubble': addChatBubble,
+    'updateChatBubble': updateChatBubble, // Alias für addChatBubble
     'saveToArchive': saveToArchive,
+    'showLoadingChat': showLoadingChat,
 }
