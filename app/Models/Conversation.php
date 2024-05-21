@@ -111,7 +111,9 @@ class Conversation extends Model
      */
     public function createPayload()
     {
-        $globalSystemPrompt = config('prompts.system_prompt');
+        $globalSystemPrompt = new Prompt('prompts.system_prompt');
+        $globalSystemPrompt->replace('username', auth()->user()->name);
+
         $contextualSystemPrompt = $this->loadSystemPrompt(['replacements' => ['username' => auth()->user()->name]]);
 
         $systemPrompt = $globalSystemPrompt . "\n" . $contextualSystemPrompt;
