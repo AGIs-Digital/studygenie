@@ -4,6 +4,9 @@
 <head>
 @include('includes.head')
 @section('title', 'TextInspiration')
+@routes
+@vite(['resources/sass/app.scss', 'resources/js/app.js'])
+<meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 
 
@@ -230,6 +233,57 @@
 		crossorigin="anonymous"></script>
 
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        let conversation_id = null
+
+        function showToast(message) {
+          // Erstelle das Toast-Element
+          var toast = document.createElement('div');
+          toast.textContent = message;
+          toast.style.position = 'fixed';
+          toast.style.bottom = '20px';
+          toast.style.left = '50%';
+          toast.style.transform = 'translateX(-50%)';
+          toast.style.backgroundColor = 'black';
+          toast.style.color = 'white';
+          toast.style.padding = '10px';
+          toast.style.borderRadius = '5px';
+          toast.style.zIndex = '1000';
+          toast.style.opacity = '0';
+          toast.style.transition = 'opacity 0.5s';
+
+          // Füge das Toast-Element hinzu und fade es ein
+          document.body.appendChild(toast);
+          setTimeout(() => toast.style.opacity = '1', 100);
+
+          // Entferne das Toast-Element nach einer gewissen Zeit
+          setTimeout(() => {
+            toast.style.opacity = '0';
+            setTimeout(() => document.body.removeChild(toast), 500); // Warte auf das Ende der Opacity-Transition
+          }, 3000);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const saveForm = document.getElementById('save_data');
+            const saveFormButton = document.getElementById('saveForm');
+
+            // Speichern des Chatverlaufs
+            saveFormButton.addEventListener('click', async () => {
+                await window.fns.saveToArchive(
+                    conversation_id,
+                    $("#save_name").val(),
+                    "TextInspiration",
+                    "Bildung",
+                );
+
+                $("#save_name").val('');
+                $("#saveModal").modal('hide');
+                showToast(document.title + " Gespeichert!");
+            });
+        });
+    </script>
+
 	<script>
         let textToType = "";
         let textarray = [];
@@ -256,13 +310,14 @@
                     beforeSend: function(){
                         $("#submitForm").text("lädt..");
                     },
-        			success: function (data) {
+        			success: function (response) {
+                        conversation_id = response.message.conversation_id
             			// Verarbeite die empfangenen Daten
             			$("#submitForm").text("Senden");
-                        textToType = data.data
+                        textToType = response.message.content
 
                         document.getElementById('typed-text').innerHTML = '';
-                        let checks = data.data.split('\n')
+                        let checks = response.message.content.split('\n')
                         textarray = checks;
 
                         document.getElementById("save_val").value = textToType+" <br> <br> ";
@@ -273,58 +328,9 @@
             			console.error("Ein Fehler ist aufgetreten: " + error);
         			}
     			});
-			});
-
-            $("#saveForm").click(function () {
-                var form = document.getElementById("save_data");
-                var formData = new FormData(form);
-
-                $.ajax({
-                    url: "{{ route('save.data') }}",
-                    type: "POST",
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    success: function (data) {
-                       $("#save_name").val('');
-                       $("#saveModal").modal('hide');
-                       // Zeige eine Toast-Nachricht an
-    				showToast(document.title + " Gespeichert!");
-                    },
-                    error: function (xhr, status, error) {
-                        alert("Ein Fehler ist aufgetreten: " + error);
-                    }
-                });
             });
         });
 
-
-function showToast(message) {
-  // Erstelle das Toast-Element
-  var toast = document.createElement('div');
-  toast.textContent = message;
-  toast.style.position = 'fixed';
-  toast.style.bottom = '20px';
-  toast.style.left = '50%';
-  toast.style.transform = 'translateX(-50%)';
-  toast.style.backgroundColor = 'black';
-  toast.style.color = 'white';
-  toast.style.padding = '10px';
-  toast.style.borderRadius = '5px';
-  toast.style.zIndex = '1000';
-  toast.style.opacity = '0';
-  toast.style.transition = 'opacity 0.5s';
-
-  // Füge das Toast-Element hinzu und fade es ein
-  document.body.appendChild(toast);
-  setTimeout(() => toast.style.opacity = '1', 100);
-
-  // Entferne das Toast-Element nach einer gewissen Zeit
-  setTimeout(() => {
-    toast.style.opacity = '0';
-    setTimeout(() => document.body.removeChild(toast), 500); // Warte auf das Ende der Opacity-Transition
-  }, 3000);
-}
 
 function typeText() {
             if (currentChar < textToType.length) {

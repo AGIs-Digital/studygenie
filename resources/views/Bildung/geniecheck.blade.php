@@ -3,6 +3,9 @@
 <head>
 @include('includes.head')
 @section('title', 'GenieCheck')
+@routes
+@vite(['resources/sass/app.scss', 'resources/js/app.js'])
+<meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 
 <body class="MainContainer backimage">
@@ -142,6 +145,28 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+        let conversation_id = null
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const saveForm = document.getElementById('save_data');
+            const saveFormButton = document.getElementById('saveForm');
+
+            // Speichern des Chatverlaufs
+            saveFormButton.addEventListener('click', async () => {
+                await window.fns.saveToArchive(
+                    conversation_id,
+                    $("#save_name").val(),
+                    "GenieCheck",
+                    "Bildung",
+                );
+
+                $("#save_name").val('');
+                $("#saveModal").modal('hide');
+                showToast(document.title + " Gespeichert!");
+            });
+        });
+    </script>
+    <script>
         let textToType = "";
         let textarray = [];
         const typedTextElement = document.getElementById('typed-text');
@@ -154,6 +179,9 @@
         });
 
         $(document).ready(function () {
+            const saveForm = document.getElementById('save_data');
+            const saveFormButton = document.getElementById('saveForm');
+
             $("#submitForm").on("click", function () {
                 let form = $("#myForm")[0];
                 let formData = new FormData(form);
@@ -169,10 +197,11 @@
                         $("#submitForm").text("Lädt...");
                     },
                     success: function (response) {
+                        conversation_id = response.message.conversation_id;
                         $("#submitForm").text("Senden");
-                        textToType = response.data.replace(/\n/g, " <br> ");
+                        textToType = response.message.content.replace(/\n/g, " <br> ");
                         $('#typed-text').empty();
-                        let checks = response.data.split('\n');
+                        let checks = response.message.content.split('\n');
                         textarray = checks;
                         $("#save_val").val(textToType + " <br> <br> ");
                         typeFun();
@@ -184,26 +213,8 @@
                 });
             });
 
-            $("#saveForm").click(function () {
-                var form = document.getElementById("save_data");
-                var formData = new FormData(form);
 
-                $.ajax({
-                    url: "{{ route('save.data') }}",
-                    type: "POST",
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    success: function (data) {
-                        $("#save_name").val('');
-                        $("#saveModal").modal('hide');
-                        showToast(document.title + " Gespeichert!");
-                    },
-                    error: function (xhr, status, error) {
-                        alert("Ein Fehler ist aufgetreten: " + error);
-                    }
-                });
-            });
+
         });
 
         function showToast(message) {

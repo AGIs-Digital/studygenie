@@ -383,7 +383,7 @@ class FrontController extends Controller
 
             return response()->json([
                 "status" => true,
-                "data" => $message->content
+                "message" => $message->toArray()
             ]);
         } catch (\Exception $e) {
 
@@ -455,7 +455,7 @@ class FrontController extends Controller
 
             return response()->json([
                 "status" => true,
-                "data" => $message->content
+                "message" => $message->toArray()
             ]);
         } catch (\Exception $e) {
 
@@ -505,7 +505,7 @@ class FrontController extends Controller
 
             return response()->json([
                 "status" => true,
-                "data" => $message->content
+                "message" => $message->toArray(),
             ]);
         } catch (\Exception $e) {
 
