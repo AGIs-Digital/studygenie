@@ -13,6 +13,7 @@ use App\Models\Archive;
 
 class ConversationController extends Controller
 {
+
     // GET /conversation/{toolIdentifier}
     public function get($toolIdentifier)
     {
@@ -22,6 +23,7 @@ class ConversationController extends Controller
             ->first();
 
         // If the conversation does not exist, create a new one
+        // Todo: We could redirect to /conversation/init/{toolIdentifier} here
         if (!$conversation) {
             $conversation = new Conversation([
                 'user_id' => auth()->id(),
@@ -30,8 +32,11 @@ class ConversationController extends Controller
             ]);
 
             $conversation->save();
+            $conversation->load('messages');
         }
 
+        // If the conversation exists, but has no messages, we save it to
+        // create the initial conversation message
         if ($conversation->messages->count() === 0) {
             $conversation->save();
         }
