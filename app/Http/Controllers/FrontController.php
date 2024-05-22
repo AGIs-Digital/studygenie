@@ -769,7 +769,7 @@ class FrontController extends Controller
 
             return response()->json([
                 "status" => true,
-                "data" => $message->content
+                "message" => $message->toArray()
             ]);
         } catch (\Exception $e) {
             return $this->handleException($e, "Fehler bei der JobMatch Anfrage");
@@ -819,7 +819,7 @@ class FrontController extends Controller
 
             return response()->json([
                 "status" => true,
-                "data" => $message->content
+                "message" => $message->toArray()
             ]);
         } catch (\Exception $e) {
 

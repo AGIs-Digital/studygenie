@@ -4,6 +4,9 @@
 <head>
 @include('includes.head')
 @section('title', 'JobMatch')
+@routes
+@vite(['resources/sass/app.scss', 'resources/js/app.js'])
+<meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 
 <body class="MainContainer backimage">
@@ -223,6 +226,57 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+        let conversation_id = null
+
+        function showToast(message) {
+          // Erstelle das Toast-Element
+          var toast = document.createElement('div');
+          toast.textContent = message;
+          toast.style.position = 'fixed';
+          toast.style.bottom = '20px';
+          toast.style.left = '50%';
+          toast.style.transform = 'translateX(-50%)';
+          toast.style.backgroundColor = 'black';
+          toast.style.color = 'white';
+          toast.style.padding = '10px';
+          toast.style.borderRadius = '5px';
+          toast.style.zIndex = '1000';
+          toast.style.opacity = '0';
+          toast.style.transition = 'opacity 0.5s';
+
+          // Füge das Toast-Element hinzu und fade es ein
+          document.body.appendChild(toast);
+          setTimeout(() => toast.style.opacity = '1', 100);
+
+          // Entferne das Toast-Element nach einer gewissen Zeit
+          setTimeout(() => {
+            toast.style.opacity = '0';
+            setTimeout(() => document.body.removeChild(toast), 500); // Warte auf das Ende der Opacity-Transition
+          }, 3000);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const saveForm = document.getElementById('save_data');
+            const saveFormButton = document.getElementById('saveForm');
+
+            // Speichern des Chatverlaufs
+            saveFormButton.addEventListener('click', async () => {
+                await window.fns.saveToArchive(
+                    conversation_id,
+                    $("#save_name").val(),
+                    "JobMatch",
+                    "Karriere",
+                );
+
+                $("#save_name").val('');
+                $("#saveModal").modal('hide');
+                showToast(document.title + " Gespeichert!");
+            });
+        });
+    </script>
+
+    <script>
         let textToType = "";
         let textarray = [];
         const typedTextElement = document.getElementById('typed-text');
@@ -250,10 +304,11 @@
                         $("#submitForm").text("Lädt...");
                     },
                     success: function (response) {
+                        conversation_id = response.message.conversation_id
                         $("#submitForm").text("Senden");
-                        textToType = response.data.replace(/\n/g, " <br> ");
+                        textToType = response.message.content.replace(/\n/g, " <br> ");
                         $('#typed-text').empty();
-                        let checks = response.data.split('\n');
+                        let checks = response.message.content.split('\n');
                         textarray = checks;
                         $("#save_val").val(textToType + " <br> <br> ");
                         typeFun();
@@ -264,55 +319,7 @@
                     }
                 });
             });
-
-            $("#saveForm").click(function () {
-                var form = document.getElementById("save_data");
-                var formData = new FormData(form);
-
-                $.ajax({
-                    url: "{{ route('save.data') }}",
-                    type: "POST",
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    success: function (data) {
-                        $("#save_name").val('');
-                        $("#saveModal").modal('hide');
-                        showToast(document.title + " Gespeichert!");
-                    },
-                    error: function (xhr, status, error) {
-                        alert("Ein Fehler ist aufgetreten: " + error);
-                    }
-                });
-            });
         });
-
-        function showToast(message) {
-            // Erstelle das Toast-Element
-            var toast = document.createElement('div');
-            toast.textContent = message;
-            toast.style.position = 'fixed';
-            toast.style.bottom = '20px';
-            toast.style.left = '50%';
-            toast.style.transform = 'translateX(-50%)';
-            toast.style.backgroundColor = 'black';
-            toast.style.color = 'white';
-            toast.style.padding = '10px';
-            toast.style.borderRadius = '5px';
-            toast.style.zIndex = '1000';
-            toast.style.opacity = '0';
-            toast.style.transition = 'opacity 0.5s';
-
-            // Füge das Toast-Element hinzu und fade es ein
-            document.body.appendChild(toast);
-            setTimeout(() => toast.style.opacity = '1', 100);
-
-            // Entferne das Toast-Element nach einer gewissen Zeit
-            setTimeout(() => {
-                toast.style.opacity = '0';
-                setTimeout(() => document.body.removeChild(toast), 500); // Warte auf das Ende der Opacity-Transition
-            }, 3000);
-        }
 
         function typeText() {
             if (currentChar < textToType.length) {
