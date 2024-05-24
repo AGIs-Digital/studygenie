@@ -52,7 +52,7 @@ export function addChatBubble(message, container, params = {typeFun: true})
         userMessage.id = id;
         userMessage.innerHTML = `
             <span class="message_content">${message.content}</span>
-            <span><img src="../asset/images/illustrations/chatuser.png" width="35" height="35" alt="logoContainer"></span>
+            <span><img src="../asset/images/illustrations/chatuser.svg" width="35" height="35" alt="logoContainer"></span>
         `;
         container.appendChild(userMessage);
 
