@@ -83,8 +83,6 @@
 									font-weight="400">Karriere</text>
                         </svg>
 
-
-
                     </g>
                     <defs>
                         <filter id="filter0_d_168_754" x="0" y="0"
@@ -110,9 +108,6 @@
 
 					</a>
 
-
-
-
 				</div>
 			</div>
 		</div>
@@ -133,7 +128,7 @@
 				</div>
 				<div class="third_img wow fadeInRight">
 					<p>Wir haben für dich zwei besondere Bereiche geschaffen, um dich
-						persönlich zu begleiten und zu unterstützen</p>
+						persönlich zu begleiten und zu unterstützen.</p>
 					<div class="svg_box" onclick="changeTime('second')">
 
 						<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
@@ -162,11 +157,7 @@
 					<img src="{{ asset('asset/images/geni.svg') }}" alt="">
 				</div>
 				<div class="third_img wow fadeInRight">
-					<p>Hier findest du alles rund um das Thema Lernen. Ich erkläre dir
-						alle möglichen Themen oder erstelle gemeinsam mit dir
-						Übungsaufgaben oder deinen persönlichen Lernplan. Alles was du
-						brauchst, um in der Schule oder der Uni erfolgreich zu sein,
-						wartet hier auf dich</p>
+					<p>Hier findest du alles rund um das Thema Bildung. Ich erkläre dir verschiedene Themen, erstelle Übungsaufgaben und deinen persönlichen Lernplan. Alles, was du für deinen Erfolg in Schule oder Uni brauchst, wartet hier auf dich.</p>
 					<div class="svg_box" onclick="changeTime('third')">
 
 						<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
@@ -197,12 +188,7 @@
 					<img src="{{ asset('asset/images/geni.svg') }}" alt="">
 				</div>
 				<div class="third_img wow fadeInRight">
-					<p>Der Berufseinstieg kann überwältigend sein. In diesem Bereich
-						schauen wir, welche Berufe wirklich zu deinen Fähigkeiten und
-						Interessen passen. Ich helfe dir bei der Erstellung von
-						Bewerbungsunterlagen und biete dir Tipps, um dich auf
-						Vorstellungsgespräche vorzubereiten und in der Arbeitswelt
-						durchzustarten.</p>
+					<p>Der Berufseinstieg kann überwältigend sein. Hier finden wir Berufe, die zu deinen Fähigkeiten und Interessen passen. Ich helfe dir bei Bewerbungsunterlagen und gebe Tipps für Vorstellungsgespräche und den Start in die Arbeitswelt.</p>
 					<div class="svg_box" onclick="changeTime('four')">
 
 						<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
@@ -232,10 +218,7 @@
 					<img src="{{ asset('asset/images/geni.svg') }}" alt="">
 				</div>
 				<div class="third_img wow fadeInRight">
-					<p>Im Bereich 'Profil' kannst du ganz bequem dein gewünschtes Abo
-						auswählen und bei Bedarf dein Passwort ändern. Gestalte hier
-						StudyGenie so, wie es am besten zu dir und deinen Bedürfnissen
-						passt!
+					<p>Im Bereich 'Profil' kannst du dein Abo auswählen und dein Passwort ändern. Gestalte hier StudyGenie nach deinen Bedürfnissen!
                     </p>
 					<div class="svg_box" onclick="changeTime('five')">
 
@@ -267,11 +250,7 @@
 					<img src="{{ asset('asset/images/geni.svg') }}" alt="">
 				</div>
 				<div class="third_img wow fadeInRight">
-					<p>Im 'Archiv' kannst du wertvolle Antworten und Tipps aus unseren
-						Chats speichern. So hast du jederzeit schnellen Zugriff auf
-						bereits besprochene Inhalte und kannst sicher sein, dass keine
-						wichtige Information verloren geht. Denke daran, es als dein
-						persönliches Wissensschatzkästchen zu nutzen!</p>
+					<p>Im 'Archiv' speicherst du wertvolle Antworten und Tipps aus unseren Chats. So hast du schnellen Zugriff auf besprochene Inhalte und verlierst keine wichtige Information.</p>
 					<div class="svg_box" onclick="changeTime('six')">
 
 						<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
@@ -302,9 +281,7 @@
 					<img src="{{ asset('asset/images/geni.svg') }}" alt="">
 				</div>
 				<div class="third_img wow fadeInRight">
-					<p>Nun weißt du alles, damit wir zusammen durchstarten können.
-						Gemeinsam nehmen wir den Druck aus dem Lernen und deinem
-						Karriereweg. Und nun liegt es an dir, womit möchtest du starten?</p>
+					<p>Nun weißt du alles, damit wir zusammen durchstarten können. Gemeinsam nehmen wir den Druck aus dem Lernen und deinem	Karriereweg. Und nun liegt es an dir, womit möchtest du starten?</p>
 					<img src="{{ asset('asset/images/textimage.svg') }}" alt="">
 				</div>
 			</div>
@@ -382,8 +359,8 @@
             if(varname == 'six'){
                 document.getElementById("five").style.display = 'none';
                 document.querySelectorAll(".archive")[0].classList.remove('active');
-                document.querySelectorAll(".KarriereCloud")[0].classList.add('active');
-                document.querySelectorAll(".BildungCloud")[0].classList.add('active');      
+                document.querySelectorAll(".KarriereCloud")[0].classList.add('active2');
+                document.querySelectorAll(".BildungCloud")[0].classList.add('active2');      
                 var sec =  document.getElementById("six");
                 sec.style.display = 'block';
                 sixPageTime = false;
@@ -423,45 +400,46 @@
                         sec.style.display = 'block';
                     }
                 }
-            }, 10000);
+            }, 15000);
 
             setTimeout(function(){
                 if(checktrue){
                     if(fourPageTime){
                         document.getElementById("third").style.display = 'none';
                         document.querySelectorAll(".KarriereCloud")[0].classList.remove('active');
-                        document.querySelectorAll(".archive")[0].classList.add('active');
+                        document.querySelectorAll(".profile_u")[0].classList.add('active');
                         var sec =  document.getElementById("four");
                         sec.style.display = 'block';
                     }
                 }
-            }, 15000);
+            }, 25000);
 
 
             setTimeout(function(){
                 if(checktrue){
                     if(fivePageTime){
                         document.getElementById("four").style.display = 'none';
-                        document.querySelectorAll(".archive")[0].classList.remove('active');
-
-                        document.querySelectorAll(".profile_u")[0].classList.add('active');
+                        document.querySelectorAll(".profile_u")[0].classList.remove('active');
+                        document.querySelectorAll(".archive")[0].classList.add('active');
                         var sec =  document.getElementById("five");
                         sec.style.display = 'block';
                     }
                 }
-            }, 20000);
+            }, 35000);
 
 
             setTimeout(function(){
                 if(checktrue){
                     if(sixPageTime){
                         document.getElementById("five").style.display = 'none';
-                        document.querySelectorAll(".profile_u")[0].classList.remove('active');
+                        document.querySelectorAll(".archive")[0].classList.remove('active');
+                        document.querySelectorAll(".KarriereCloud")[0].classList.add('active');
+                        document.querySelectorAll(".BildungCloud")[0].classList.add('active');
                         var sec =  document.getElementById("six");
                         sec.style.display = 'block';
                     }
                 }
-            }, 25000);
+            }, 45000);
 
             function crosstut(){
                 checktrue = false;

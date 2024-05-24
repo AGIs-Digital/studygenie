@@ -141,7 +141,7 @@
             icon: 'info',
             html:
                 'Dieses Tool ist noch gesperrt. Hol dir ein Upgrade ' +
-                '<a href="/profile">Profile</a> ' +
+                '<a href="/profile">Profil</a> ' +
                 'zum freischalten.',
 
             });

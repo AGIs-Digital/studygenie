@@ -260,6 +260,16 @@
 	border-radius: 50%;
 }
 
+.BildungCloud.active2 {
+	z-index: 5;
+	border-radius: 50%;
+}
+
+.KarriereCloud.active2 {
+	z-index: 5;
+	border-radius: 50%;
+}
+
 .image_box_first.sec .four_img {
 	position: absolute;
 	top: 258px;

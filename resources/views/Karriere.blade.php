@@ -501,8 +501,8 @@
             title: '<strong>Das musst du erst freischalten</strong>',
             icon: 'info',
             html:
-                'Dazu musst du dein Abo upgraden goto , ' +
-                '<a href="/profile">Profile</a> ' +
+                'Dazu musst du dein Abo upgraden, ' +
+                '<a href="/profile">Profil</a> ' +
                 'zum freischalten.',
 
             });
