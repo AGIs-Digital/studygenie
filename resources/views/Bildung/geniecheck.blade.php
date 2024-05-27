@@ -124,7 +124,7 @@
 								name="name" placeholder="Speichername eingeben">
 						</div>
 						<input type="hidden" name="save_val" id="save_val"> <input
-							type="hidden" name="tooltype" value="GenieCheck"> <input
+							type="hidden" name="tooltype" value="genie_check"> <input
 							type="hidden" name="type" value="Bildung" id="Bildung">
 
 
@@ -156,12 +156,14 @@
                 await window.fns.saveToArchive(
                     conversation_id,
                     $("#save_name").val(),
-                    "GenieCheck",
+                    "genie_check",
                     "Bildung",
                 );
 
                 $("#save_name").val('');
                 $("#saveModal").modal('hide');
+                // Remove class "show" from .modal-backdrop
+                $(".modal-backdrop").removeClass("show");
                 showToast(document.title + " Gespeichert!");
             });
         });

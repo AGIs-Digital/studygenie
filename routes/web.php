@@ -3,7 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\ConversationController;
-
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ArchiveController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -56,8 +57,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/profile', function () {
         return view('profile');
     })->name('profile');
-
-    Route::get('/archive', [FrontController::class, 'getArchive']);
 
     Route::get('/GenieCheck', function () {
         return view('Bildung.GenieCheck');
@@ -114,10 +113,6 @@ Route::group(['middleware' => ['auth']], function () {
         ->name('Motivationsschreibenprocess');
 
     Route::get('genieTutor', [FrontController::class, 'genieTutor']);
-    Route::post('/genieTutor-one', [FrontController::class, 'genieTutorFirst'])
-        ->name('genieTutor');
-    Route::post('genieTutor-user', [FrontController::class, 'genieTutorUser'])
-        ->name('genieTutoruser');
 
     Route::get('/KarriereMentor', [FrontController::class, 'KarriereMentor']);
     Route::post('/KarriereMentor-one', [FrontController::class, 'KarriereMentorFirst'])
@@ -182,7 +177,16 @@ Route::post('change-password', [FrontController::class, 'updateUserPassword'])
     ->name('change.password');
 
 Auth::routes();
-Route::delete('/archive/{id}', [FrontController::class, 'deleteArchive'])
-    ->name('archive.delete');
+
 Route::delete('/user/delete', [FrontController::class, 'delete'])
     ->name('user.delete');
+
+// Archive routes: Route them all to Archive Controller. Make them only available to atuhenticated users
+Route::middleware('auth')->group(function () {
+    Route::get('/archive', [ArchiveController::class, 'index'])->name('archive.index');
+    Route::get('/archive/{archive}', [ArchiveController::class, 'show'])->name('archive.show');
+    Route::get('/archive/{archive}/edit', [ArchiveController::class, 'edit'])->name('archive.edit');
+    Route::put('/archive/{archive}', [ArchiveController::class, 'update'])->name('archive.update');
+    Route::delete('/archive/{archive}', [ArchiveController::class, 'destroy'])->name('archive.destroy');
+});
+

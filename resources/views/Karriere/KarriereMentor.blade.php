@@ -143,7 +143,7 @@
 							<input type="text" class="form-control" id="save_name" name="name" placeholder="Speichername eingeben">
 					    </div>
 						    <input type="hidden" name="save_val" id="save_val">
-                            <input type="hidden" name="tooltype" value="KarriereMentor">
+                            <input type="hidden" name="tooltype" value="karriere_mentor">
                             <input type="hidden" name="type" value="Karriere" id="Bildung">
 					</form>
 				</div>
@@ -247,13 +247,15 @@
                 await window.fns.saveToArchive(
                     conversation.id,
                     $("#save_name").val(),
-                    "KarriereMentor",
+                    "karriere_mentor",
                     "Karriere",
                 );
 
                 document.getElementById('save_val').value = '';
 
                 $("#saveModal").modal('hide');
+                // Remove class "show" from .modal-backdrop
+                $(".modal-backdrop").removeClass("show");
 
 			    showToast(document.title + " Gespeichert!");
             });

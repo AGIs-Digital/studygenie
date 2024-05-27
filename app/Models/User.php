@@ -5,6 +5,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Models\Archive;
+
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -38,4 +41,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'tutorial_shown' => 'boolean', // Fügen Sie dies hinzu
     ];
+
+    // Relation to Archives. User can have multiple archives
+    public function archives()
+    {
+        return $this->hasMany(Archive::class);
+    }
 }

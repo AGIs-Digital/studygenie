@@ -61,6 +61,11 @@ class Conversation extends Model
         // if its a new conversation without any messages, we need to create the first message
         if ($saved && $this->messages->count() === 0)
         {
+            // Check, if the config key exists
+            if (!config('prompts.' . $this->tool_identifier . '.first_message')) {
+                return $saved;
+            }
+
             $message = $this->messages()->create([
                 'user_id' => $this->user_id,
                 'content' => $this->loadFirstMessagePrompt(['replacements' => ['username' => auth()->user()->name]]),
@@ -72,12 +77,39 @@ class Conversation extends Model
     }
 
     /**
-     * Lädt den Systemprompt für die Konversation and hand des Tool Identifiers.
+     * Lädt den BasePrompt für die Konversation and hand des Tool Identifiers.
      */
     public function loadSystemPrompt($params)
     {
-        // load the system prompt for the conversation from config
-        $prompt = new Prompt('prompts.' . $this->tool_identifier . '.system_prompt');
+        // Check, if prompt exists. if not return empty string
+        if (!config('prompts.' . $this->tool_identifier . '.base_prompt')) {
+            return '';
+        }
+
+        // load the base prompt for the conversation from config
+        $prompt = new Prompt('prompts.' . $this->tool_identifier . '.base_prompt');
+
+        if (isset($params['replacements'])) {
+            foreach ($params['replacements'] as $placeholder => $replacement) {
+                $prompt->replace($placeholder, $replacement);
+            }
+        }
+
+        return $prompt->get();
+    }
+
+    /**
+     * Lädt den task prompt für die Konversation and hand des Tool Identifiers und ersetzt die als Parameter übergebene Replacements
+     */
+    public function loadTaskPrompt($params)
+    {
+        // Check, if prompt exists. if not return empty string
+        if (!config('prompts.' . $this->tool_identifier . '.task_prompt')) {
+            return '';
+        }
+
+        // load the task prompt for the conversation from config
+        $prompt = new Prompt('prompts.' . $this->tool_identifier . '.task_prompt');
 
         if (isset($params['replacements'])) {
             foreach ($params['replacements'] as $placeholder => $replacement) {
@@ -94,7 +126,7 @@ class Conversation extends Model
     public function loadFirstMessagePrompt($params)
     {
         // load the system prompt for the conversation from config
-        $prompt = new Prompt(config('prompts.' . $this->tool_identifier . '.first_message'));
+        $prompt = new Prompt('prompts.' . $this->tool_identifier . '.first_message');
 
         if (isset($params['replacements'])) {
             foreach ($params['replacements'] as $placeholder => $replacement) {
@@ -111,12 +143,16 @@ class Conversation extends Model
      */
     public function createPayload()
     {
+        # First, load the global system prompt
         $globalSystemPrompt = new Prompt('prompts.system_prompt');
+
+        # Replace placeholders in the global system prompt
         $globalSystemPrompt->replace('username', auth()->user()->name);
 
+        # Second, load the toll-specific system prompt
         $contextualSystemPrompt = $this->loadSystemPrompt(['replacements' => ['username' => auth()->user()->name]]);
 
-        $systemPrompt = $globalSystemPrompt . "\n" . $contextualSystemPrompt;
+        $systemPrompt = $globalSystemPrompt->get() . "\n" . $contextualSystemPrompt;
 
         $messages = $this->messages()->orderBy('created_at', 'asc')->get();
         $messages = $messages->map(function ($message) {

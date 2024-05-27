@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Redis;
 use OpenAI\Laravel\Facades\OpenAI;
 use App\Models\Message;
 use App\Models\Conversation;
+use App\Custom\Prompt;
 
 class FrontController extends Controller
 {
@@ -41,36 +42,6 @@ class FrontController extends Controller
         $sessionId = bin2hex(random_bytes(16));
         Cache::put("session_user_{$userId}", $sessionId, 3600); // Speichert die Session-ID für 1 Stunde
         return $sessionId;
-    }
-
-    /**
-     * Creates the payload for openAi from a conversation
-     *
-     * @param Conversation $conversation
-     * @return array
-     */
-    private function createPayload($conversation): array
-    {
-        $messages = $conversation->messages()->orderBy('created_at', 'asc')->get();
-        $messages = $messages->map(function ($message) {
-            return [
-                "role" => $message->role,
-                "content" => $message->content
-            ];
-        });
-
-        # add system prompt as last message
-        $messages->push([
-            "role" => "system",
-            "content" => config('prompts.system_prompt')
-        ]);
-
-        $payload = [
-            'model' => config('openai.preferred_model'),
-            'messages' => $messages
-        ];
-
-        return $payload;
     }
 
     // Benutzer erstellen
@@ -140,20 +111,6 @@ class FrontController extends Controller
             'status' => true,
             'redirect' => '/tools'
         ]);
-    }
-
-    public function getArchive()
-    {
-        $userId = auth()->user()->id;
-        $Bildung = Cache::remember("archive_Bildung_{$userId}", 5 * 60, function () use ($userId) {
-            return Archive::where('user_id', $userId)->where('type', 'Bildung')->get();
-        });
-
-        $Karriere = Cache::remember("archive_Karriere_{$userId}", 5 * 60, function () use ($userId) {
-            return Archive::where('user_id', $userId)->where('type', 'Karriere')->get();
-        });
-
-        return view('archive', compact('Bildung', 'Karriere'));
     }
 
     public function updateUserPassword(Request $request)
@@ -354,7 +311,7 @@ class FrontController extends Controller
     public function TextInspirationprocess(Request $request): \Illuminate\Http\JsonResponse
     {
         try {
-            $toolIdentifier = 'textInspiration';
+            $toolIdentifier = 'text_inspiration';
 
             # Create a new conversation
             $conversation = new Conversation();
@@ -364,13 +321,13 @@ class FrontController extends Controller
 
             # Create a new message
             $message = $this->textInspiration_create_message($request);
-            $message->user_id = auth()->user()->id;
-            $message->role = 'user';
 
             # add message to conversation
             $conversation->messages()->save($message);
 
-            $response = OpenAI::chat()->create($this->createPayload($conversation));
+            $payload = $conversation->createPayload();
+
+            $response = OpenAI::chat()->create($payload);
 
             # create new message for response
             $message = new Message();
@@ -394,21 +351,31 @@ class FrontController extends Controller
     /**
      * Creates the prompt for the TextInspiration tool
      */
-    private function textInspiration_create_message($request): Message
+    private function textInspiration_create_message(Request $request): Message
     {
+        // Create the user message
         $message = new Message();
-        $message->content = config('prompts.text_inspiration.base_prompt');
-        $message->replacePlaceholder('task_type', $request->field1, "keine Angabe");
-        $message->replacePlaceholder('task_level', $request->field2, "keine Angabe");
-        $message->replacePlaceholder('task_topic', $request->field3, "keine Angabe");
-        $message->replacePlaceholder('task_requirements', $request->field4, "keine Angabe");
-        $message->replacePlaceholder('task_text_to_create', $request->field5, "keine Angabe");
-        $message->replacePlaceholder('task_previous_text', $request->field6, "keine Angabe");
+        $message->user_id = auth()->user()->id;
+        $message->role = 'user';
+
+        // Load the prompt template and insert the user input
+        $prompt = $conversation->loadTaskPrompt(['replacements' => [
+            'task_type' => $request->field1,
+            'task_level' => $request->field2,
+            'task_topic' => $request->field3,
+            'task_requirements' => $request->field4,
+            'task_text_to_create' => $request->field5,
+            'task_previous_text' => $request->field6
+        ]]);
 
         # If a previous text is set, add a continuation prompt
         if (!empty($request->field6)) {
-            $message->replacePlaceholder('continuation_prompt', config('prompts.text_inspiration.continuation_prompt'), '');
+            $prompt = replace('continuation_prompt', config('prompts.text_inspiration.continuation_prompt'), '');
+        } else {
+            $prompt = replace('continuation_prompt', '');
         }
+
+        $message->content = $prompt;
 
         return $message;
     }
@@ -416,7 +383,7 @@ class FrontController extends Controller
     public function TextAnalyseprocess(Request $request)
     {
         try {
-            $toolIdentifier = 'textAnalysis';
+            $toolIdentifier = 'text_analysis';
 
             # make sure, $request->text1 is set and not empty
             if (!isset($request->text1) || empty($request->text1)) {
@@ -436,13 +403,14 @@ class FrontController extends Controller
             $message = new Message();
             $message->user_id = auth()->user()->id;
             $message->role = 'user';
-            $message->content = config('prompts.text_analysis.base_prompt');
-            $message->replacePlaceholder('text_to_analyze', $request->text1);
+            $message->content = $request->text1;
 
             # add message to conversation
             $conversation->messages()->save($message);
 
-            $response = OpenAI::chat()->create($this->createPayload($conversation));
+            $payload = $conversation->createPayload();
+
+            $response = OpenAI::chat()->create($payload);
 
             # create new message for response
             $message = new Message();
@@ -466,7 +434,7 @@ class FrontController extends Controller
     public function GenieCheckprocess(Request $request)
     {
         try {
-            $toolIdentifier = 'genieCheck';
+            $toolIdentifier = 'genie_check';
 
             # make sure, $request->text1 is set and not empty
             if (!isset($request->text1) || empty($request->text1)) {
@@ -486,13 +454,13 @@ class FrontController extends Controller
             $message = new Message();
             $message->user_id = auth()->user()->id;
             $message->role = 'user';
-            $message->content = config('prompts.genie_check.base_prompt');
-            $message->replacePlaceholder('question', $request->text1);
+            $message->content = $request->text1;
 
             # add message to conversation
             $conversation->messages()->save($message);
+            $payload = $conversation->createPayload($conversation);
 
-            $response = OpenAI::chat()->create($this->createPayload($conversation));
+            $response = OpenAI::chat()->create($payload);
 
             # create new message for response
             $message = new Message();
@@ -508,8 +476,8 @@ class FrontController extends Controller
                 "message" => $message->toArray(),
             ]);
         } catch (\Exception $e) {
-
-            return $this->handleException($e, "Fehler bei der GenieCheck Anfrage");
+            throw $e;
+            // return $this->handleException($e, "Fehler bei der GenieCheck Anfrage");
         }
     }
 
@@ -521,78 +489,6 @@ class FrontController extends Controller
         return abort(404);
     }
 
-    /**
-     * Initiates the Tutor-Conversation with the first message
-     */
-    public function genieTutorFirst(): \Illuminate\Http\JsonResponse
-    {
-        $toolIdentifier = 'genieTutor';
-
-        $conversation = new Conversation();
-        $conversation->user_id = auth()->user()->id;
-        $conversation->tool_identifier = $toolIdentifier;
-        $conversation->save();
-
-        $payload = $conversation->createPayload();
-
-        $result = OpenAI::chat()->create($payload);
-
-        $message = new Message();
-        $message->user_id = auth()->user()->id;
-        $message->content = $result->choices[0]->message->content;
-        $message->role = 'assistant';
-
-        # add message to conversation
-        $conversation->messages()->save($message);
-
-        return response()->json([
-            "status" => true,
-            "data" => $message->content
-        ]);
-    }
-
-    /**
-     * Handles the user input for the Tutor-Conversation
-     *
-     * @param Request $request
-     */
-    public function genieTutorUser(Request $request): \Illuminate\Http\JsonResponse
-    {
-        $toolIdentifier = 'genieTutor';
-
-        # Load conversation to this user and toolIdentifier
-        $conversation = Conversation::where('user_id', auth()->user()->id)
-            ->where('tool_identifier', $toolIdentifier)
-            ->latest()
-            ->first();
-
-        $message = new Message();
-        $message->user_id = auth()->user()->id;
-        $message->content = $request->user;
-        $message->role = 'user';
-
-        # add message to conversation
-        $conversation->messages()->save($message);
-
-        $payload = $this->createPayload($conversation);
-
-        $result = OpenAI::chat()->create($payload);
-
-        # create new message for response
-        $message = new Message();
-        $message->user_id = auth()->user()->id;
-        $message->content = $result->choices[0]->message->content;
-        $message->role = 'assistant';
-
-        # add message to conversation
-        $conversation->messages()->save($message);
-
-        return response()->json([
-            "status" => true,
-            "data" => $message->content
-        ]);
-    }
-
     public function KarriereMentor()
     {
         if ((auth()->user()->subscription_name == 'diamant')) {
@@ -601,91 +497,10 @@ class FrontController extends Controller
         return abort(404);
     }
 
-    public function KarriereMentorFirst()
-    {
-        $toolIdentifier = 'karriereMentor';
-
-        # Start a new Conversation
-        $conversation = new Conversation();
-        $conversation->user_id = auth()->user()->id;
-        $conversation->tool_identifier = $toolIdentifier;
-        $conversation->save();
-
-        # Add the first message
-        $message = new Message();
-        $message->user_id = auth()->user()->id;
-        $message->content = config('prompts.karriere_mentor.first');
-        // $message->replacePlaceholder('username', auth()->user() ? auth()->user()->name : 'Gast');
-        $message->role = 'user';
-
-        # add the message to the conversation
-        $conversation->messages()->save($message);
-
-        # create payload for OpenAI
-        $payload = $this->createPayload($conversation);
-
-        # send the request to OpenAI
-        $result = OpenAI::chat()->create($payload);
-
-        # create a new message for the response
-        $message = new Message();
-        $message->user_id = auth()->user()->id;
-        $message->content = $result->choices[0]->message->content;
-        $message->role = 'assistant';
-
-        # add message to conversation
-        $conversation->messages()->save($message);
-
-        return response()->json([
-            "status" => true,
-            "data" => $message->content
-        ]);
-    }
-
-    public function KarriereMentorUser(Request $request)
-    {
-        $toolIdentifier = 'karriereMentor';
-
-        # Load conversation to this user and toolIdentifier
-        $conversation = Conversation::where('user_id', auth()->user()->id)
-            ->where('tool_identifier', $toolIdentifier)
-            ->latest()
-            ->first();
-
-        # Todo: If no conversation is found, redirect to KarriereMentorFirst
-
-        $message = new Message();
-        $message->user_id = auth()->user()->id;
-        $message->content = $request->user;
-        $message->role = 'user';
-
-        # add message to conversation
-        $conversation->messages()->save($message);
-
-        $payload = $this->createPayload($conversation);
-
-        $result = OpenAI::chat()->create($payload);
-
-        # create new message for response
-        $message = new Message();
-        $message->user_id = auth()->user()->id;
-        $message->content = $result->choices[0]->message->content;
-        $message->role = 'assistant';
-
-        # add message to conversation
-        $conversation->messages()->save($message);
-
-        return response()->json([
-            "status" => true,
-            "data" => $message->content
-        ]);
-    }
-
-
     public function Motivationsschreibenprocess(Request $request)
     {
         try {
-            $toolIdentifier = 'Motivationsschreiben';
+            $toolIdentifier = 'motivational_letter';
 
             # Create a new conversation
             $conversation = new Conversation();
@@ -693,23 +508,27 @@ class FrontController extends Controller
             $conversation->tool_identifier = $toolIdentifier;
             $conversation->save();
 
+            $prompt = new Prompt('prompts.motivational_letter.task_prompt');
+            $prompt->replace('task_job', $request->field1, "keine Angabe");
+            $prompt->replace('task_strengths', $request->field2, "keine Angabe");
+            $prompt->replace('task_academic', $request->field3, "keine Angabe");
+            $prompt->replace('task_experience', $request->field4, "keine Angabe");
+            $prompt->replace('task_motivation', $request->field5, "keine Angabe");
+            $prompt->replace('task_personal', $request->field6, "keine Angabe");
+            $prompt->replace('task_challenges', $request->field7, "keine Angabe");
+
             # Create a new message
             $message = new Message();
             $message->user_id = auth()->user()->id;
             $message->role = 'user';
-            $message->content = config('prompts.motivational_letter.base_prompt');
-            $message->replacePlaceholder('task_job', $request->field1, "keine Angabe");
-            $message->replacePlaceholder('task_strengths', $request->field2, "keine Angabe");
-            $message->replacePlaceholder('task_academic', $request->field3, "keine Angabe");
-            $message->replacePlaceholder('task_experience', $request->field4, "keine Angabe");
-            $message->replacePlaceholder('task_motivation', $request->field5, "keine Angabe");
-            $message->replacePlaceholder('task_personal', $request->field6, "keine Angabe");
-            $message->replacePlaceholder('task_challenges', $request->field7, "keine Angabe");
+            $message->content = $prompt->get();
 
             # add message to conversation
             $conversation->messages()->save($message);
 
-            $response = OpenAI::chat()->create($this->createPayload($conversation));
+            $payload = $conversation->createPayload();
+
+            $response = OpenAI::chat()->create($payload);
 
             # create new message for response
             $message = new Message();
@@ -733,7 +552,7 @@ class FrontController extends Controller
     public function JobMatchprocess(Request $request)
     {
         try {
-            $toolIdentifier = 'jobMatch';
+            $toolIdentifier = 'job_match';
 
             # Create a new conversation
             $conversation = new Conversation();
@@ -741,22 +560,26 @@ class FrontController extends Controller
             $conversation->tool_identifier = $toolIdentifier;
             $conversation->save();
 
+            $prompt = $conversation->loadTaskPrompt(['replacements' => [
+                'task_strengths' => $request->field1,
+                'task_interests' => $request->field2,
+                'task_development' => $request->field3,
+                'task_environment' => $request->field4,
+                'task_control' => $request->field5,
+                'task_personality' => $request->field6
+            ]]);
+
             # Create a new message
             $message = new Message();
             $message->user_id = auth()->user()->id;
             $message->role = 'user';
-            $message->content = config('prompts.job_match.base_prompt');
-            $message->replacePlaceholder('task_strengths', $request->field1, "keine Angabe");
-            $message->replacePlaceholder('task_interests', $request->field2, "keine Angabe");
-            $message->replacePlaceholder('task_development', $request->field3, "keine Angabe");
-            $message->replacePlaceholder('task_environment', $request->field4, "keine Angabe");
-            $message->replacePlaceholder('task_control', $request->field5, "keine Angabe");
-            $message->replacePlaceholder('task_personality', $request->field6, "keine Angabe");
+            $message->content = $prompt;
 
             # add message to conversation
             $conversation->messages()->save($message);
+            $payload = $conversation->createPayload();
 
-            $response = OpenAI::chat()->create($this->createPayload($conversation));
+            $response = OpenAI::chat()->create($payload);
 
             # create new message for response
             $message = new Message();
@@ -780,7 +603,7 @@ class FrontController extends Controller
     public function JobInsiderprocess(Request $request)
     {
         try {
-            $toolIdentifier = 'jobInsider';
+            $toolIdentifier = 'job_insider';
 
             # make sure $request->field1 is set and not empty
             if (!isset($request->field1) || empty($request->field1)) {
@@ -800,13 +623,13 @@ class FrontController extends Controller
             $message = new Message();
             $message->user_id = auth()->user()->id;
             $message->role = 'user';
-            $message->content = config('prompts.job_insider.base_prompt');
-            $message->replacePlaceholder('job_name', $request->field1);
+            $message->content = $conversation->loadTaskPrompt(['replacements' => ['job_name' => $request->field1]]);
 
             # add message to conversation
             $conversation->messages()->save($message);
+            $payload = $conversation->createPayload();
 
-            $response = OpenAI::chat()->create($this->createPayload($conversation));
+            $response = OpenAI::chat()->create($payload);
 
             # create new message for response
             $message = new Message();

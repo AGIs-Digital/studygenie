@@ -138,7 +138,7 @@
 								name="name" placeholder="Speichername eingeben">
 						</div>
 						<input type="hidden" name="save_val" id="save_val"> <input
-							type="hidden" name="tooltype" value="JobInsider"> <input
+							type="hidden" name="tooltype" value="job_insider"> <input
 							type="hidden" name="type" value="Karriere" id="Bildung">
 					</div>
 					<div class="modal-footer">
@@ -194,12 +194,14 @@
                 await window.fns.saveToArchive(
                     conversation_id,
                     $("#save_name").val(),
-                    "JobInsider",
+                    "job_insider",
                     "Karriere",
                 );
 
                 $("#save_name").val('');
                 $("#saveModal").modal('hide');
+                // Remove class "show" from .modal-backdrop
+                $(".modal-backdrop").removeClass("show");
                 showToast(document.title + " Gespeichert!");
             });
         });
@@ -248,27 +250,6 @@
                     }
                 });
             });
-
-            // $("#saveForm").click(function () {
-            //     var form = document.getElementById("save_data");
-            //     var formData = new FormData(form);
-
-            //     $.ajax({
-            //         url: "{{ route('save.data') }}",
-            //         type: "POST",
-            //         data: formData,
-            //         processData: false,
-            //         contentType: false,
-            //         success: function (data) {
-            //             $("#save_name").val('');
-            //             $("#saveModal").modal('hide');
-            //             showToast(document.title + " Gespeichert!");
-            //         },
-            //         error: function (xhr, status, error) {
-            //             alert("Ein Fehler ist aufgetreten: " + error);
-            //         }
-            //     });
-            // });
         });
 
 

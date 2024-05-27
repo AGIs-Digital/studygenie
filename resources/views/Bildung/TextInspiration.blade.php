@@ -210,7 +210,7 @@
 								id="save_name" name="name" placeholder="Speichername">
 						</div>
 						<input type="hidden" name="save_val" id="save_val"> <input
-							type="hidden" name="tooltype" value="TextInspiration"> <input
+							type="hidden" name="tooltype" value="text_inspiration"> <input
 							type="hidden" name="type" value="Bildung" id="Bildung">
 
 
@@ -273,12 +273,14 @@
                 await window.fns.saveToArchive(
                     conversation_id,
                     $("#save_name").val(),
-                    "TextInspiration",
+                    "text_inspiration",
                     "Bildung",
                 );
 
                 $("#save_name").val('');
                 $("#saveModal").modal('hide');
+                // Remove class "show" from .modal-backdrop
+                $(".modal-backdrop").removeClass("show");
                 showToast(document.title + " Gespeichert!");
             });
         });

@@ -4,6 +4,7 @@
 <head>
 @include('includes.head')
 @section('title', Auth::check() ? Auth::user()->name . ' - Archiv' : 'Archiv')
+@routes
 <link rel="stylesheet" href="{{ asset('asset/css/profile.css') }}">
 </head>
 
@@ -28,7 +29,7 @@
 								<div class="accordion-body">
 									<div class="accordion accordion-flush"
 										id="accordionFlushTextInspiration">
-										 <?php createAccordion($Bildung, 'TextInspiration'); ?>
+										 <?php createAccordion($Bildung, 'text_inspiration'); ?>
 									</div>
 								</div>
 							</div>
@@ -46,7 +47,7 @@
 								<div class="accordion-body">
 									<div class="accordion accordion-flush"
 										id="accordionFlushGenieCheck">
-										 <?php createAccordion($Bildung, 'GenieCheck'); ?>
+										 <?php createAccordion($Bildung, 'genie_check'); ?>
 									</div>
 								</div>
 							</div>
@@ -64,7 +65,7 @@
 								<div class="accordion-body">
 									<div class="accordion accordion-flush"
 										id="accordionFlushgenieTutor">
-										 <?php createAccordion($Bildung, 'genieTutor'); ?>
+										 <?php createAccordion($Bildung, 'genie_tutor'); ?>
 									</div>
 								</div>
 							</div>
@@ -86,7 +87,7 @@
 								<div class="accordion-body">
 									<div class="accordion accordion-flush"
 										id="accordionFlushJobInsider">
-										 <?php createAccordion($Karriere, 'JobInsider'); ?>
+										 <?php createAccordion($Karriere, 'job_insider'); ?>
 									</div>
 								</div>
 							</div>
@@ -103,7 +104,7 @@
 								<div class="accordion-body">
 									<div class="accordion accordion-flush"
 										id="accordionFlushKarriereMentor">
-										 <?php createAccordion($Karriere, 'KarriereMentor'); ?>
+										 <?php createAccordion($Karriere, 'karriere_mentor'); ?>
 									</div>
 								</div>
 							</div>
@@ -154,10 +155,9 @@
 				var id = $(this).data('id');
 				if (confirm('Sind Sie sicher, dass Sie diese Antwort löschen möchten?')) {
 					$.ajax({
-						url: '{{ route('archive.delete', '') }}/' + id,
-						type: 'POST',
+						url: route('archive.destroy', id),
+						type: 'DELETE',
 						data: {
-							_method: 'DELETE',
 							_token: '{{ csrf_token() }}'
 						},
 						success: function(response) {
