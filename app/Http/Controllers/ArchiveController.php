@@ -71,10 +71,6 @@ class ArchiveController extends Controller
      */
     public function destroy(Archive $archive)
     {
-        echo '<pre>';
-        print_r($archive->toArray());
-        echo '</pre>';
-
         // If the given archive belongs the the auth user, delete it
         if ($archive->user_id === auth()->id()) {
             $archive->delete();
