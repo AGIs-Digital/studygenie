@@ -348,7 +348,7 @@
 						</div>
 					</div>
 					<div class="text-center" style="display: flex; justify-content: center; align-items: center;">
-						
+
 					<button type="button" class="send_button" style="margin:10px"
 							onclick="writeCv();">Erstellen</button>
 							<img src="{{ asset('asset/images/pdf.svg') }}" width="35" height="40" onclick="generatePDF()" id="save_folder" class="save_folder2">
@@ -357,17 +357,15 @@
 				</div>
 
 				<div class="col-md-7">
-					<div class="cv_box_sec" id="cv_appnd">		
+					<div class="cv_box_sec" id="cv_appnd">
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
 
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	@include('includes.footer')
 
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 	<script

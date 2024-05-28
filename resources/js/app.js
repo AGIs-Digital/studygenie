@@ -1,4 +1,3 @@
-import './bootstrap';
 import { addChatBubble, updateChatBubble } from './typing';  // Importiere typeFun richtig
 
 async function loadConversation(toolIdentifier)
@@ -67,7 +66,6 @@ async function initConversation(toolIdentifier, token)
 // Funktion zum Senden einer Chat-Nachricht des USers an den Chatbot
 async function sendMessage(message, conversationId) {
     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-    console.log('csrfToken:', csrfToken)
 
     try {
         const response = await fetch(route('conversation.askAi', conversationId), {
@@ -84,8 +82,6 @@ async function sendMessage(message, conversationId) {
         });
 
         if (!response.ok) {
-            console.log('response:', response)
-
             throw new Error(`HTTP error! status: ${response.status}`);
         }
 
@@ -141,7 +137,7 @@ window.fns = {
     'loadConversation': loadConversation,
     'sendMessage': sendMessage,
     'addChatBubble': addChatBubble,
-    'updateChatBubble': updateChatBubble, // Alias für addChatBubble
+    'updateChatBubble': updateChatBubble,
     'saveToArchive': saveToArchive,
     'showLoadingChat': showLoadingChat,
 }

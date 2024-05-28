@@ -3,9 +3,6 @@
 <head>
 @include('includes.head')
 @section('title', 'GenieCheck')
-@routes
-@vite(['resources/sass/app.scss', 'resources/js/app.js'])
-<meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 
 <body class="MainContainer backimage">
@@ -69,16 +66,13 @@
 							<div class="content-written left">
                                 <div class="left_scroll">
                                     <div class="group-box">
-                                        <span>Deine Frage: <strong type="button" class=""
-                                            data-bs-toggle="tooltip" data-bs-placement="top"
-                                            title="Worum geht es? Matheaufgaben, Textaufgaben ich kann alles prüfen!"> <img
-                                                src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
+                                        <span>Deine Frage: <strong type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Worum geht es? Matheaufgaben, Textaufgaben ich kann alles prüfen!">
+                                            <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
                                         </strong>
                                         </span>
                                         <textarea name="text1" id="field1" rows="20" style="width:100%;" oninput="this.style.height = '';this.style.height = this.scrollHeight + 'px'"></textarea>
                                     </div>
                                 </div>
-
 							</div>
 
 							<button type="button" class="send_button" id="submitForm">GenieCheck</button>
@@ -93,8 +87,8 @@
 								<div id="typed-text"></div>
 							</div>
 						</div>
-                        <div class="save_folder center" id="save_folder" data-bs-toggle="modal"
-                            data-bs-target="#saveModal">
+
+                        <div class="save_folder center" id="save_folder" data-bs-toggle="modal" data-bs-target="#modal_archive" >
                             <img src="{{ asset('asset/images/savefolder.svg') }}" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Speichern" width="40"
                             height="40" alt="">
                         </div>
@@ -105,34 +99,26 @@
 	</section>
 
 	<!-- Modal -->
-	<div class="modal fade" id="saveModal" tabindex="-1"
-		aria-labelledby="saveModalLabel" aria-hidden="true">
+	<div class="modal fade" id="modal_archive" tabindex="-1" aria-labelledby="saveModalLabel" aria-hidden="true" data-bs-backdrop="static">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<form id="save_data">
 					@csrf
 					<div class="modal-header">
 						<h5 class="modal-title" id="saveModalLabel">Antwort speichern</h5>
-						<button type="button" class="btn-close" data-bs-dismiss="modal"
-							aria-label="Close"></button>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
-
 						<div class="mb-3">
 							<label for="save_name" class="form-label">Name:</label>
-							<input type="text" class="form-control" id="save_name"
-								name="name" placeholder="Speichername eingeben">
+							<input type="text" class="form-control" id="save_name" name="name" placeholder="Speichername eingeben">
 						</div>
-						<input type="hidden" name="save_val" id="save_val"> <input
-							type="hidden" name="tooltype" value="genie_check"> <input
-							type="hidden" name="type" value="Bildung" id="Bildung">
-
-
-
+						<input type="hidden" name="save_val" id="save_val">
+                        <input type="hidden" name="tooltype" value="genie_check">
+                        <input type="hidden" name="type" value="Bildung" id="Bildung">
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary"
-							data-bs-dismiss="modal">Schließen</button>
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Schließen</button>
 						<button type="button" class="btn btn-primary" id="saveForm">Speichern</button>
 					</div>
 				</form>
@@ -141,9 +127,8 @@
 	</div>
 
 <!-- Modal hier -->
+@include('includes.footer')
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         let conversation_id = null
         document.addEventListener('DOMContentLoaded', () => {
@@ -161,9 +146,8 @@
                 );
 
                 $("#save_name").val('');
-                $("#saveModal").modal('hide');
-                // Remove class "show" from .modal-backdrop
-                $(".modal-backdrop").removeClass("show");
+                $("#modal_archive").modal('hide');
+
                 showToast(document.title + " Gespeichert!");
             });
         });
@@ -214,9 +198,6 @@
                     }
                 });
             });
-
-
-
         });
 
         function showToast(message) {
