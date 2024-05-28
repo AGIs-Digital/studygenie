@@ -195,8 +195,7 @@
 
                 $("#save_name").val('');
                 $("#saveModal").modal('hide');
-                // Remove class "show" from .modal-backdrop
-                $(".modal-backdrop").removeClass("show");
+
                 showToast(document.title + " Gespeichert!");
             });
         });

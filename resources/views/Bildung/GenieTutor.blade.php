@@ -262,8 +262,7 @@
 
                 $("#save_name").val('');
                 $("#saveModal").modal('hide');
-                // Remove class "show" from .modal-backdrop
-                $(".modal-backdrop").removeClass("show");
+
 
                 // Zeige eine Toast-Nachricht an
 			    showToast(document.title + " Gespeichert!");

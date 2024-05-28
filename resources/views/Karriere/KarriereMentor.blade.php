@@ -247,8 +247,7 @@
                 document.getElementById('save_val').value = '';
 
                 $("#saveModal").modal('hide');
-                // Remove class "show" from .modal-backdrop
-                $(".modal-backdrop").removeClass("show");
+
 
 			    showToast(document.title + " Gespeichert!");
             });
