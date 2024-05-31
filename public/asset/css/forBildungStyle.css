@@ -16,10 +16,6 @@
 	color: black;
 }
 
-.Cloud_Karriere svg svg path {
-	fill: #2B4053;
-}
-
 .Cloud_Karriere svg svg text {
 	fill: #FFFFFF;
 	font-size: 20.5px;
@@ -40,12 +36,12 @@
 	fill: #2B4053;
 }
 
-.Cloud, .Cloud_Karriere {
-	transition: 0.5s all ease-in-out;
+.Cloud_Karriere.custom-hover:hover svg path {
+	fill: grey;
 }
 
-.Cloud svg svg path {
-	fill: #F3922A;
+.Cloud, .Cloud_Karriere {
+	transition: 0.5s all ease-in-out;
 }
 
 .Cloud svg svg text {
@@ -62,7 +58,11 @@
 }
 
 .Cloud:hover svg path {
-	fill: #F3922A;
+	fill: #E09E50;
+}
+
+.Cloud.custom-hover:hover svg path {
+	fill: grey;
 }
 
 #navigationSpan {

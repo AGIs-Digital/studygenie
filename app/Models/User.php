@@ -20,8 +20,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'tutorial_shown', // Fügen Sie dies hinzu
-        'birthdate',
+        'tutorial_shown',
+        'provider',
+        'provider_id',
     ];
     /**
      * The attributes that should be hidden for serialization.
@@ -39,7 +40,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'tutorial_shown' => 'boolean', // Fügen Sie dies hinzu
+        'tutorial_shown' => 'boolean',
     ];
 
     // Relation to Archives. User can have multiple archives

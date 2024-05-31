@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 
 <head>
+@section('title', Auth::check() ? auth()->user()->name . 's - Profil' : 'Profil')
 @include('includes.head')
-@section('title', Auth::check() ? auth()->user()->name . ' - Profil' : 'Profil')
 <link rel="stylesheet" href="{{ asset('asset/css/profile.css') }}">
 
 </head>
@@ -65,64 +65,47 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-md-12">
-						<br>
-					</div>
-					<div class="col-md-4">
+					<div class="col-md-4 d-flex justify-content-center">
 						<div class="planCard">
-
 							<div class="headerPlanCard">
 								<img class="crownImg"
 									src="{{ asset('asset/images/illustrations/silber2.png') }}"
 									alt="Crown Image">
-
 								<h6 class="secondary-Heading">Silber</h6>
-
 							</div>
 							<div class="contentPlanCard contentPlanCard3">
-
-								<span class="highWeightSpan">0 €<span class="lowWeightSpan">
-										mtl.</span></span>
+								<span class="highWeightSpan">0 €<span class="lowWeightSpan">mtl.</span></span>
 								<p class="planCardParagraph">
-									✓ Korrekturen<br /> ✓ Berufsinformationen<br /> ✘ Inspirationen<br />
-									✘ Bewerbungen<br /> ✘ Lernen<br /> ✘ Bewerbungstrainer
+									✓ Intelligente Soforthilfe<br />✓ Traumberuf finden<br /> ✓ Berufsinformationen<br /> ✘ Textinspirationen<br /> ✘ Textanalyse<br />
+									✘ Bewerbungsunterlagen<br /> ✘ Lerncoach<br /> ✘ Bewerbungstrainer
 								</p>
-
 								@guest
 								<button data-bs-toggle="modal" data-bs-target="#loginModal"
 									class="plancardButton">Kostenlos ausprobieren</button>
 								@else @if(auth()->user()->subscription_name == 'silber')
 								<button class="plancardButton" disabled>Aktueller Status</button>
 								@else
-								<!-- Button für den Wechsel zu Silber mit Bestätigungsabfrage -->
 								<a href="javascript:void(0)"
 									onclick="confirmSilberStatus('{{ route('paypal.payment', 'silber') }}')"
 									class="plancardButton"> Kostenlos </a> @endif @endguest
-
 							</div>
 							<br />
 						</div>
 					</div>
-
-					<div class="col-md-4">
+					<div class="col-md-4 d-flex justify-content-center">
 						<div class="planCard">
 							<div class="headerPlanCard">
 								<img class="crownImg"
 									src="{{ asset('asset/images/illustrations/gold.png') }}"
 									alt="Crown Image">
-
 								<h6 class="secondary-Heading">Gold</h6>
-
 							</div>
-
 							<div class="contentPlanCard contentPlanCard2">
-								<span class="highWeightSpan">10 €<span class="lowWeightSpan">
-										mtl.</span></span>
+								<span class="highWeightSpan">10 €<span class="lowWeightSpan">mtl.</span></span>
 								<p class="planCardParagraph">
-									✓ Korrekturen<br /> ✓ Berufsinformationen<br /> ✓ Inspirationen<br />
-									✓ Bewerbungen<br /> ✘ Lernen<br /> ✘ Bewerbungstrainer
+									✓ Intelligente Soforthilfe<br /> ✓ Traumberuf finden<br />✓ Berufsinformationen<br /> ✓ Textinspirationen<br /> ✓ Textanalyse<br />
+									✓ Bewerbungsunterlagen<br /> ✘ Lerncoach<br /> ✘ Bewerbungstrainer
 								</p>
-
 								@guest
 								<button data-bs-toggle="modal" data-bs-target="#signupModal"
 									class="plancardButton">Hol dir Gold</button>
@@ -131,9 +114,7 @@
 								\Carbon\Carbon::parse($date)->gt(\Carbon\Carbon::now())){ $check
 								= true; } @endphp @if(auth()->user()->subscription_name ==
 								'gold' && $check)
-
 								<button class="plancardButton" disabled>Aktueller Status</button>
-
 								@else
 								<button class="plancardButton"
 									data-paypal-route="{{ route('paypal.payment', 'gold') }}"
@@ -144,36 +125,26 @@
 							<br />
 						</div>
 					</div>
-					<div class="col-md-4">
+					<div class="col-md-4 d-flex justify-content-center">
 						<div class="planCard ">
 							<div class="headerPlanCard">
 								<img class="crownImg"
 									src="{{ asset('asset/images/illustrations/diamant.png') }}"
 									alt="Crown Image">
-
 								<h6 class="secondary-Heading">Diamant</h6>
-
 							</div>
-
-
 							<div class="contentPlanCard contentPlanCard3">
-
-								<span class="highWeightSpan">20 €<span class="lowWeightSpan">
-										mtl.</span></span>
-
+								<span class="highWeightSpan">20 €<span class="lowWeightSpan">mtl.</span></span>
 								<p class="planCardParagraph">
-									✓ Korrekturen<br /> ✓ Berufsinformationen<br /> ✓ Inspirationen<br />
-									✓ Bewerbungen<br /> ✓ Lernen<br /> ✓ Bewerbungstrainer
+									✓ Intelligente Soforthilfe<br /> ✓ Traumberuf finden<br /> ✓ Berufsinformationen<br /> ✓ Textinspirationen<br /> ✓ Textanalyse<br />
+									✓ Bewerbungsunterlagen<br /> ✓ Lerncoach<br /> ✓ Bewerbungstrainer
 								</p>
-
 								@guest
 								<button data-bs-toggle="modal" data-bs-target="#loginModal"
 									class="plancardButton">Hol dir Diamant</button>
 								@else @if(auth()->user()->subscription_name == 'diamant' &&
 								$check)
-
 								<button class="plancardButton" disabled>Aktueller Status</button>
-
 								@else
 								<button class="plancardButton"
 									data-paypal-route="{{ route('paypal.payment', 'diamant') }}"
@@ -185,9 +156,10 @@
 						</div>
 					</div>
 				</div>
+				<br />
 				<div class="row">
 					<div class="col-12 d-flex justify-content-between">
-						<button id="changePasswordButton" type="button" class="btn btn-primary">Account Einstellungen</button>
+						<button id="changePasswordButton" type="button" class="btn btn-primary mx-auto d-block">Account Einstellungen</button>
 						<form method="POST" action="{{ route('user.delete') }}" onsubmit="return confirmDeletion();">
 							@csrf
 							@method('DELETE')
@@ -294,7 +266,7 @@
 
 				<div class="modal-body p-0">
 					<div class="button_payment_box">
-						<a href="#" id="paypal_btn">Bezahlung über<span>Pay</span><span>pal</span></a>
+						<a href="#" id="paypal_btn">Bezahlung über <span>Pay</span><span>pal</span></a>
 						<a href="#" id="stripe_btn">Bezahlung über Stripe</a>
 
 					</div>

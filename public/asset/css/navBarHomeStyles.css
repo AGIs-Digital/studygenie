@@ -15,7 +15,7 @@
 }
 
 .nav-link.active {
-	color: #f3922a;
+	color: #E09E50 !important;
 }
 
 .RightContainer {
@@ -54,7 +54,7 @@
 }
 
 .buttonContainer button:last-child {
-	background-color: rgba(243, 146, 42, 1);
+	background-color: #E09E50;
 	outline: none;
 	border: none;
 }

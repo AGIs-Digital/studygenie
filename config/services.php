@@ -48,6 +48,11 @@ return [
             'gold' => 1000, // Preise in Cent für Stripe
             'diamant' => 2000,
         ]
-    ]
-
+    ],
+    
+    'google' => [
+        'client_id' => env('GOOGLE_CLIENT_ID'),
+        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+        'redirect' => env('GOOGLE_REDIRECT_URL'),
+    ],
 ];

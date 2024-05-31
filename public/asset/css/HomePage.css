@@ -1,5 +1,5 @@
 .headerContainer {
-	background: linear-gradient(261.11deg, #293a4a 0%, #283949 90.84%);
+	background: linear-gradient(261.11deg, #2D3E4E 0%, #283949 90.84%);
 	border-bottom-left-radius: 10rem;
 	position: relative;
 }
@@ -43,12 +43,12 @@
 
 .anchorTagsContainer a:hover {
 	cursor: pointer;
-	color: #f3922a;
+	color: #E09E50;
 	text-decoration: underline;
 }
 
 .anchorTagsContainer a:active {
-	color: #f3922a;
+	color: #E09E50;
 	text-decoration: underline;
 }
 
@@ -70,7 +70,7 @@
 .nav-item button.pop {
 	position: relative;
 	z-index: 999;
-	background: linear-gradient(261.11deg, #293a4a 0%, #283949 90.84%);
+	background: linear-gradient(261.11deg, #2D3E4E 0%, #283949 90.84%);
 }
 
 .nav-link.dropdown-toggle {
@@ -86,13 +86,13 @@
 }
 
 .nav-item .blog:hover {
-	background-color: rgba(243, 146, 42, 1);
+	background-color: #E09E50;
 	border: 1px solid white;
 	font-family: "Milonga", sans-serif;
 }
 
 .nav-item button {
-	background-color: rgba(243, 146, 42, 1);
+	background-color: #E09E50;
 	font-family: "Montserrat", sans-serif;
 	outline: none;
 	border: none;
@@ -166,7 +166,7 @@
 .primary-paragraph {
 	font-weight: 400;
 	font-size: 1rem;
-	color: #f3922a;
+	color: #E09E50;
 	font-family: "Montserrat", sans-serif;
 }
 
@@ -200,7 +200,7 @@
 }
 
 #knowYouMoreBtn, #JoinNowBtn {
-	background-color: #f3922a;
+	background-color: #E09E50;
 	color: white;
 	font-family: "Montserrat", sans-serif;
 	font-weight: 600;
@@ -702,7 +702,7 @@
 }
 
 .JoinNowButton {
-	background-color: #f3922a;
+	background-color: #E09E50;
 	color: white;
 	font-family: "Montserrat", sans-serif;
 	font-weight: 600;
@@ -1160,7 +1160,7 @@ input[type="text"] {
 }
 
 #resetButton {
-	background-color: rgba(243, 146, 42, 1);
+	background-color: #E09E50;
 	font-family: "popins", sans-serif;
 	font-weight: 600;
 	font-size: 14px;
@@ -1265,7 +1265,7 @@ input[type="text"] {
 
 .emailLogin {
 	display: block;
-	padding: 1rem;
+	padding: 0.6rem;
 	border-radius: 10px;
 	margin: 0.5rem auto;
 	width: 90%;
@@ -1323,7 +1323,7 @@ input[type="submit"] {
 	color: white;
 	font-weight: 400;
 	width: 90%;
-	background-color: rgba(243, 146, 42, 1);
+	background-color: #E09E50;
 	font-family: "Montserrat", sans-serif;
 	font-weight: 600;
 	font-size: 14px;
@@ -1351,7 +1351,6 @@ input[type="submit"] {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	opacity: 0.5;
 	margin-block: 0.5rem;
 	width: 100%;
 }
@@ -1404,7 +1403,7 @@ input[type="submit"] {
 }
 
 .buttonCon {
-	background: linear-gradient(261.11deg, #293a4a 0%, #283949 90.84%);
+	background: linear-gradient(261.11deg, #2D3E4E 0%, #283949 90.84%);
 	padding: 0.7rem;
 	position: absolute;
 	z-index: 4;

@@ -2,15 +2,19 @@
 return [
     'mode' => env('PAYPAL_MODE', 'sandbox'),
     'sandbox' => [
-        'client_id' => env('PAYPAL_SANDBOX_CLIENT_ID'),
-        'secret' => env('PAYPAL_SANDBOX_CLIENT_SECRET'),
-        // Weitere Konfigurationen...
+        'client_id' => env('PAYPAL_CLIENT_ID'),
+        'secret' => env('PAYPAL_SECRET'),
+        'app_id' => '',
     ],
     'live' => [
         'client_id' => env('PAYPAL_CLIENT_ID'),
         'secret' => env('PAYPAL_SECRET'),
-        // Weitere Konfigurationen...
+        'app_id' => '',
     ],
-    // Weitere Einstellungen...
+    'payment_action' => 'Sale',
+    'currency' => 'EUR',
+    'notify_url' => '',
+    'locale' => 'de_DE',
+    'validate_ssl' => true,
 ];
 ?>

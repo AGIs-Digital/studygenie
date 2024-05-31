@@ -1,9 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="de">
 <head>
-@include('includes.head')
 @section('title', 'JobMatch')
+@include('includes.head')
+<script>
+    window.MathJax = {
+        tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']]
+        },
+        svg: {
+            fontCache: 'global'
+        }
+    };
+</script>
+<style>
+    .loading-button {
+        position: relative;
+        padding-right: 30px;
+    }
+
+    .loading-button::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        width: 16px;
+        height: 16px;
+        border: 2px solid #fff;
+        border-top: 2px solid transparent;
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+        transform: translateY(-50%);
+    }
+
+    @keyframes spin {
+        0% { transform: translateY(-50%) rotate(0deg); }
+        100% { transform: translateY(-50%) rotate(360deg); }
+    }
+</style>
 </head>
 
 <body class="MainContainer backimage">
@@ -29,7 +64,7 @@
                                 <path
 									d="M169.358 42.2315C168.781 41.9628 168.298 41.5259 167.973 40.978C167.649 40.4302 167.497 39.797 167.538 39.1615C167.542 35.3204 166.738 31.5215 165.178 28.0115C162.524 22.1812 158.554 17.0465 153.578 13.0115C146.948 7.75151 139.508 5.15151 130.978 6.26151C125.298 7.00151 119.978 8.62151 115.718 12.7015C114.988 13.3915 114.468 13.2215 113.838 12.6115C112.988 11.7915 112.108 11.0215 111.208 10.2615C102.958 3.37151 93.6882 -0.438494 82.7182 0.671506C75.2957 1.34277 68.1756 3.93439 62.0582 8.19151C55.4282 12.8215 50.7482 18.8215 48.9982 26.8615C48.8982 27.2948 48.7882 27.7148 48.6682 28.1215C48.2782 29.4915 48.2582 29.4915 46.9082 28.8715L46.4182 28.6215C41.2329 26.2577 35.6161 24.9879 29.9182 24.8915C29.2982 24.8915 28.6782 24.8915 28.0582 24.8915C27.4382 24.8915 26.7182 25.0615 26.0582 25.1415C22.1076 25.5463 18.2931 26.8095 14.8817 28.8425C11.4702 30.8756 8.54417 33.6294 6.30823 36.9115C2.14823 42.6815 0.498228 49.3015 0.308228 56.2815C0.0240566 64.608 2.75469 72.7572 7.99823 79.2315C13.7282 86.4815 20.9382 91.2315 30.4882 91.4715C30.8327 91.4485 31.1759 91.5321 31.4711 91.711C31.7663 91.89 31.9993 92.1555 32.1382 92.4715C33.7782 95.7615 36.4782 98.1215 39.2082 100.472C43.5116 104.24 48.7348 106.803 54.3482 107.902C59.814 108.946 65.4026 109.188 70.9382 108.622C78.7765 107.891 86.3705 105.505 93.2182 101.622C96.477 99.7219 99.5184 97.4719 102.288 94.9115C103.358 93.9115 103.398 93.9815 104.288 95.0515C106.509 97.6491 109.247 99.7553 112.327 101.236C115.408 102.717 118.762 103.539 122.178 103.652C131.868 104.212 139.718 100.362 145.718 92.7315C146.518 91.7315 146.518 91.6615 147.568 92.3715C149.763 93.8095 152.358 94.5102 154.978 94.3715C159.262 94.2134 163.441 93.0046 167.148 90.8515C175.398 86.1615 180.348 79.0115 182.698 70.0115C183.53 66.8929 183.668 63.6297 183.101 60.4522C182.534 57.2747 181.277 54.2602 179.418 51.6215C176.877 47.7215 173.424 44.4987 169.358 42.2315Z"
 									fill="rgba(41,58,74,1)"></path>
-                                <text class="textStyle" x="30" y="65"
+                                <text class="textStyle" x="50%" y="65" text-anchor="middle"
 									font-family: 'Milonga', cursive; font-size="24" fill="#FFFFFF"
 									font-weight="400">JobMatch</text>
                                 </svg>
@@ -98,7 +133,7 @@
                                                 src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
                                         </strong>
                                         </span> <input type="text" id="field_3" name="field3"
-                                            placeholder="" required>
+                                            placeholder="">
                                     </div>
                                     <div class="group-box">
                                         <span class="small_text_font">Bevorzugte Arbeitsumgebung: <strong
@@ -109,7 +144,7 @@
                                                 alt="">
                                         </strong>
                                         </span> <input type="text" id="field_4" name="field4"
-                                            placeholder="" required>
+                                            placeholder="">
                                     </div>
                                     <div class="row radio_button_box">
                                         <div class="col-md-12">
@@ -154,8 +189,8 @@
                                         <br> <br>
                                     </div>
                                 </div>
+                                <button type="button" class="send_button" id="submitForm">Magie</button>
 							</div>
-							<button type="button" class="send_button" id="submitForm">Berufe finden</button>
 						</div>
 					</form>
 				</div>
@@ -165,6 +200,7 @@
 							<div class="written-green-board" id="first_box">
 								<div class="content-written right">
 									<div class="typing-container">
+                                        <!-- Ausgabefenster -->
 										<div id="typed-text"></div>
 									</div>
 								</div>
@@ -291,6 +327,8 @@
                 let form = $("#myForm")[0];
                 let formData = new FormData(form);
                 $("#save_data").val('x');
+                //Ladezeichen anzeigen
+                $("#submitForm").addClass('loading-button').text("Zaubert...");
                 $.ajax({
                     url: "/JobMatchprocess",
                     method: "POST",
@@ -298,12 +336,10 @@
                     contentType: false,
                     cache: false,
                     processData: false,
-                    beforeSend: function(){
-                        $("#submitForm").text("Lädt...");
-                    },
                     success: function (response) {
-                        conversation_id = response.message.conversation_id
-                        $("#submitForm").text("Senden");
+                        conversation_id = response.message.conversation_id;
+                        //Ladezeichen entfernen
+                        $("#submitForm").removeClass('loading-button').text("Magie");
                         textToType = response.message.content.replace(/\n/g, " <br> ");
                         $('#typed-text').empty();
                         let checks = response.message.content.split('\n');
@@ -314,6 +350,8 @@
                     },
                     error: function (xhr, status, error) {
                         console.error("Ein Fehler ist aufgetreten: " + error);
+                        //Ladezeichen entfernen
+                        $("#submitForm").removeClass('loading-button').text("Magie");
                     }
                 });
             });
@@ -321,13 +359,20 @@
 
         function typeText() {
             if (currentChar < textToType.length) {
-                typedTextElement.innerHTML += textToType.charAt(currentChar);
-                currentChar++;
-                setTimeout(typeText, 10); // Adjust the typing speed (in milliseconds)
+                if (textToType.charAt(currentChar) === '<') {
+                    let endTag = textToType.indexOf('>', currentChar);
+                    if (endTag !== -1) {
+                        typedTextElement.innerHTML += textToType.substring(currentChar, endTag + 1);
+                        currentChar = endTag + 1;
+                    }
+                } else {
+                    typedTextElement.innerHTML += textToType.charAt(currentChar);
+                    currentChar++;
+                }
+                setTimeout(typeText, 5); // Adjust the typing speed (in milliseconds)
                 typedTextElement.scrollTop = typedTextElement.scrollHeight;
-
-            }else {
-                alltext +=textToType+" <br> ";
+            } else {
+                alltext += textToType + " <br> ";
                 typedTextElement.innerHTML = alltext;
                 currentChar = 0;
                 curloop++;
@@ -335,48 +380,17 @@
             }
         }
 
-        function typeFun(){
-            if(curloop < textarray.length){
+        function typeFun() {
+            if (curloop < textarray.length) {
                 textToType = textarray[curloop];
                 typeText();
-            }else {
+            } else {
                 alltext = '';
-                textToType= [];
+                textToType = [];
                 curloop = 0;
             }
         }
 
-/**
- * Kopiert den Inhalt eines spezifizierten Div-Elements in die Zwischenablage
- * und zeigt eine Toast-Nachricht an, um den Erfolg zu bestätigen.
- */
-function copyText() {
-  var divElement = document.getElementById('typed-text'); // Dein Div-Element
-
-  // Überprüfe, ob das Div-Element vorhanden ist
-  if (divElement) {
-    var htmlContent = divElement.innerHTML; // Erhalte den HTML-Inhalt
-    var hiddenDiv = document.createElement('div'); // Erstelle ein verstecktes Div
-
-    // Konfiguriere das versteckte Div, sodass es bearbeitet und kopiert werden kann, aber nicht sichtbar ist
-    hiddenDiv.style.position = 'absolute';
-    hiddenDiv.style.left = '-9999px';
-    hiddenDiv.contentEditable = true;
-
-    // Füge das versteckte Div hinzu und kopiere dessen Inhalt
-    document.body.appendChild(hiddenDiv);
-    hiddenDiv.innerHTML = htmlContent; // Setze den HTML-Inhalt in das versteckte Div
-    hiddenDiv.unselectable = "off";
-    hiddenDiv.focus();
-    navigator.clipboard.writeText(htmlContent);
-    document.body.removeChild(hiddenDiv);
-
-    // Zeige eine Toast-Nachricht an
-    showToast("Text kopiert!");
-  } else {
-    console.log('Div-Element nicht gefunden.');
-  }
-}
 </script>
 </body>
 </html>

@@ -1,12 +1,55 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-@include('includes.head')
 @section('title', 'StudyGenie')
+@include('includes.head')
 <link rel="stylesheet" href="{{ asset('asset/css/HomePage.css') }}">
+<link rel="stylesheet" href="{{ asset('asset/css/cookie-consent.css') }}">
 </head>
 
 <body class="MainContainer">
+
+<!-- Cookie Consent Modal -->
+<div id="cookieConsentModal" class="modal fade" tabindex="-1" aria-labelledby="cookieConsentModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="cookieConsentModalLabel">Cookie-Einstellungen</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Wir verwenden Cookies, um Ihre Erfahrung zu verbessern. Sie können wählen, welche Cookies Sie akzeptieren möchten.</p>
+                <form id="cookieConsentForm">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="necessary" id="necessaryCookies" checked disabled>
+                        <label class="form-check-label" for="necessaryCookies">
+                            Notwendige Cookies
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="analytics" id="analyticsCookies">
+                        <label class="form-check-label" for="analyticsCookies">
+                            Analytische Cookies
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="marketing" id="marketingCookies">
+                        <label class="form-check-label" for="marketingCookies">
+                            Marketing Cookies
+                        </label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="declineCookies" data-bs-dismiss="modal">Ablehnen</button>
+                <button type="button" class="btn btn-primary" id="acceptCookies">Akzeptieren</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
     <header class="headerContainer">
         <div class="container">
             <nav class="navbar navbar-expand-lg">
@@ -144,20 +187,17 @@
             <div class="testimonialCard">
                 <img
                     src="{{ asset('asset/images/illustrations/Deine professionelle Bewerbung.png') }}"
-                    alt="Testimonial Card" loading="lazy"> <span class="CardThumbnailSpan">Deine
-                    professionelle Bewerbung</span>
+                    alt="Testimonial Card" loading="lazy"> <span class="CardThumbnailSpan">Karrierecoaching und Bewerbung</span>
             </div>
             <div class="testimonialCard">
                 <img
                     src="{{ asset('asset/images/illustrations/Der perfekte Lernplan für dich.png') }}"
-                    alt="Testimonial Card" loading="lazy"> <span class="CardThumbnailSpan">Der
-                    perfekte Lernplan für dich</span>
+                    alt="Testimonial Card" loading="lazy"> <span class="CardThumbnailSpan">Individuelle Lernhilfe</span>
             </div>
             <div class="testimonialCard">
                 <img
                     src="{{ asset('asset/images/illustrations/Alles wichtige über deine Traumberufe.png') }}"
-                    alt="Testimonial Card" loading="lazy"> <span class="CardThumbnailSpan">Alles
-                    Wichtige über deine Traumberufe</span>
+                    alt="Testimonial Card" loading="lazy"> <span class="CardThumbnailSpan">Deinen Traumberuf finden</span>
             </div>
         </div>
 
@@ -266,7 +306,7 @@
                     <div class="cards">
                         <img src="{{ asset('asset/images/Illustrations/Lernplan.png') }}"
                             width="90" height="90" alt="Lernplan" loading="lazy">
-                        <p class="cardPara">Lernplan</p>
+                        <p class="cardPara">Persönlicher Tutor</p>
                     </div>
                 </div>
                 <div class="parent-card">
@@ -337,8 +377,8 @@
 
                     <span class="highWeightSpan">0 €<span class="lowWeightSpan"> mtl.</span></span>
                     <p class="planCardParagraph">
-                        ✓ Korrekturen<br /> ✓ Berufsinformationen<br /> ✘ Inspirationen<br />
-                        ✘ Bewerbungen<br /> ✘ Lernen<br /> ✘ Bewerbungstrainer
+                        ✓ Intelligente Soforthilfe<br /> ✓ Traumberuf finden<br />✓ Berufsinformationen<br /> ✘ Textinspirationen<br /> ✘ Textanalyse<br />
+                        ✘ Bewerbungsunterlagen<br /> ✘ Lerncoach<br /> ✘ Bewerbungstrainer
                     </p>
 
                     @guest
@@ -365,8 +405,8 @@
                 <div class="contentPlanCard contentPlanCard1">
                     <span class="highWeightSpan">10 €<span class="lowWeightSpan"> mtl.</span></span>
                     <p class="planCardParagraph">
-                        ✓ Korrekturen<br /> ✓ Berufsinformationen<br /> ✓ Inspirationen<br />
-                        ✓ Bewerbungen<br /> ✘ Lernen<br /> ✘ Bewerbungstrainer
+                        ✓ Intelligente Soforthilfe<br />✓ Traumberuf finden<br /> ✓ Berufsinformationen<br /> ✓ Textinspirationen<br /> ✓ Textanalyse<br />
+                        ✓ Bewerbungsunterlagen<br /> ✘ Lerncoach<br /> ✘ Bewerbungstrainer
                     </p>
 
                     @guest
@@ -400,8 +440,8 @@
                     <span class="highWeightSpan">20 € <span class="lowWeightSpan">mtl.</span></span>
 
                     <p class="planCardParagraph">
-                        ✓ Korrekturen<br /> ✓ Berufsinformationen<br /> ✓ Inspirationen<br />
-                        ✓ Bewerbungen<br /> ✓ Lernen<br /> ✓ Bewerbungstrainer
+                        ✓ Intelligente Soforthilfe<br />✓ Traumberuf finden<br /> ✓ Berufsinformationen<br /> ✓ Textinspirationen<br /> ✓ Textanalyse<br />
+                        ✓ Bewerbungsunterlagen<br /> ✓ Lerncoach<br /> ✓ Bewerbungstrainer
                     </p>
                     @guest
                     <button data-bs-toggle="modal" data-bs-target="#signupModal"
@@ -561,28 +601,14 @@
                                             name="password" id="password_login" class="emailLogin" autocomplete="current-password">
                                     </div>
 
-
                                     <input type="submit" value="Login" class="emailLogin">
 
-
                                     <div class="or">
-                                        <p>oder anmelden über</p>
+                                            oder anmelden über
+                                            <a href="{{ url('login/google') }}">
+                                                <img src="{{ asset('asset/images/google.svg') }}" alt="Google" loading="lazy">
+                                            </a>
                                     </div>
-
-
-                                    <div class="sign-up-facebook">
-                                        <img src="{{ asset('asset/images/facebook.svg') }}"
-                                            alt="Facebook" loading="lazy"> <input type="button" value="Facebook"
-                                            class="email">
-                                    </div>
-                                    <br />
-
-                                    <div class="sign-up-google">
-                                        <img src="{{ asset('asset/images/google.svg') }}" alt="Goolge" loading="lazy">
-                                        <input type="button" value="Google" class="email">
-                                    </div>
-
-
                                 </div>
                             </form>
 
@@ -598,7 +624,6 @@
     <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-
                 <div class="modal-body p-0">
                     <div class="login_sec p-4 position-relative">
                         <img class="login_m1" src="{{ asset('asset/images/m1.svg') }}"
@@ -617,18 +642,12 @@
                         <form method="POST" id="registerForm">
                                 @csrf <br />
 
-                                <div class="text-center">
-                                    <span id="haveaccountSpan">Hab nen Account:</span> <a
-                                        id="loginAnchor" class="loginAnchor" href="###">Login</a>
-                                </div>
-
                                 <div class="emailInput">
                                     <div id="errors-list" class="mx-auto"></div>
                                     <div class="emailField">
-                                        <label class="label" for="name"></label> Name: <input type="text"
+                                        <label class="label" for="name">Name:</label> <input type="text"
                                             placeholder="Wie möchtest du genannt werden?" name="name"
                                             id="name_register" class="emailLogin" autocomplete="name">
-
                                     </div>
 
                                     <div class="emailField">
@@ -642,25 +661,15 @@
                                         <input type="password" placeholder="Dein Wunschpasswort"
                                             name="password" id="password_register" class="emailLogin" autocomplete="new-password">
                                     </div>
-                                    <label class="label" for="birthdate">Geburtsdatum:</label>
-                                    <div class="birthdate-field">
-                                        <input type="date" placeholder="Dein Geburtsdatum"
-                                            name="birthdate" id="birthdate_register" class="emailLogin">
-                                    </div>
+                                    
+
                                     <input type="submit" value="Registrieren" class="emailLogin">
-                                    <div class="or">
-                                        <p>oder registrieren mit</p>
-                                    </div>
-                                    <div class="sign-up-facebook">
-                                        <img src="{{ asset('asset/images/facebook.svg') }}"
-                                            alt="Facebook" loading="lazy"> <input type="button" value="Facebook"
-                                            class="email">
-                                    </div>
-                                    <br />
-                                    <div class="sign-up-google">
-                                        <img src="{{ asset('asset/images/google.svg') }}" alt="Goolge" loading="lazy">
-                                        <input type="button" value="Google" class="email">
-                                    </div>
+                                        <div class="or">
+                                            oder registrieren mit
+                                            <a href="{{ url('login/google') }}">
+                                                <img src="{{ asset('asset/images/google.svg') }}" alt="Google" loading="lazy">
+                                            </a>
+                                        </div>
                                 </div>
                             </form>
 
@@ -758,24 +767,21 @@
         </div>
     </footer>
  
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="{{ asset('asset/js/index.js') }}"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
-
-	<script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
         document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("loginForm").addEventListener("submit", function(e) {
         e.preventDefault();
         var formData = new FormData(this);
+        formData.append('_token', document.querySelector('meta[name="csrf-token"]').getAttribute('content')); // Fügt das CSRF-Token zum FormData hinzu
         fetch("/postLogin", {
             method: "POST",
             body: formData,
             headers: {
                 'X-Requested-With': 'XMLHttpRequest', // Wichtig für Laravel, um AJAX-Anfragen zu erkennen
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') // CSRF-Token
             },
         })
         .then(response => response.json())
@@ -816,9 +822,66 @@ document.addEventListener("DOMContentLoaded", function() {
             console.error('Error:', error);
         });
     });
-}); 
+});
+
+document.getElementById('facebook-login').addEventListener('click', function() {
+    window.location.href = "{{ url('login/facebook') }}";
+});
+
+document.getElementById('google-login').addEventListener('click', function() {
+    window.location.href = "{{ url('login/google') }}";
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+    if (!localStorage.getItem('cookieConsent')) {
+        var cookieModal = new bootstrap.Modal(document.getElementById('cookieConsentModal'));
+        cookieModal.show();
+    }
+
+    function showToast(message) {
+        var toast = document.createElement('div');
+        toast.className = 'toast align-items-center text-white bg-primary border-0';
+        toast.role = 'alert';
+        toast.ariaLive = 'assertive';
+        toast.ariaAtomic = 'true';
+        toast.innerHTML = `
+            <div class="d-flex">
+                <div class="toast-body">${message}</div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        `;
+        document.body.appendChild(toast);
+        var bsToast = new bootstrap.Toast(toast, { delay: 3000 });
+        bsToast.show();
+        toast.addEventListener('hidden.bs.toast', function () {
+            toast.remove();
+        });
+    }
+
+    document.getElementById('acceptCookies').addEventListener('click', function() {
+        var consent = {
+            necessary: true,
+            analytics: document.getElementById('analyticsCookies').checked,
+            marketing: document.getElementById('marketingCookies').checked
+        };
+        localStorage.setItem('cookieConsent', JSON.stringify(consent));
+        showToast('Ihre Cookie-Einstellungen wurden gespeichert.');
+        var cookieModal = bootstrap.Modal.getInstance(document.getElementById('cookieConsentModal'));
+        cookieModal.hide();
+    });
+
+    document.getElementById('declineCookies').addEventListener('click', function() {
+        var consent = {
+            necessary: true,
+            analytics: false,
+            marketing: false
+        };
+        localStorage.setItem('cookieConsent', JSON.stringify(consent));
+        showToast('Ihre Cookie-Einstellungen wurden gespeichert.');
+        var cookieModal = bootstrap.Modal.getInstance(document.getElementById('cookieConsentModal'));
+        cookieModal.hide();
+    });
+});
 </script>
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

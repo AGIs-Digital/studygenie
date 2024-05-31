@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
-@include('includes.head')
 @section('title', 'AGBs')
+@include('includes.head')
 <link rel="stylesheet" href="{{ asset('asset/css/homepage.css') }}">
 </head>
 

@@ -5,6 +5,10 @@ use App\Http\Controllers\FrontController;
 use App\Http\Controllers\ConversationController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ArchiveController;
+use Laravel\Socialite\Facades\Socialite;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\MotivationController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -80,13 +84,6 @@ Route::group(['middleware' => ['auth']], function () {
         return abort(404);
     });
 
-    Route::get('/Motivationsschreiben', function () {
-        if((auth()->user()->subscription_name == 'gold' || auth()->user()->subscription_name == 'diamant')){
-            return view('Karriere.Motivationsschreiben');
-        }
-        return abort(404);
-    });
-
     Route::get('/GenieAutor', function () {
         if(auth()->check() && (auth()->user()->subscription_name == 'gold' || auth()->user()->subscription_name == 'diamant')){
             return view('Bildung.GenieAutor');
@@ -109,8 +106,21 @@ Route::group(['middleware' => ['auth']], function () {
         return abort(404);
     });
 
+    Route::post('cv-preview', [App\Http\Controllers\CVController::class, 'cvPreview']);
+    Route::post('download-pdf', [App\Http\Controllers\CVController::class, 'downloadPDF']);
+
+    Route::get('/Motivationsschreiben', function () {
+        if((auth()->user()->subscription_name == 'gold' || auth()->user()->subscription_name == 'diamant')){
+            return view('Karriere.Motivationsschreiben');
+        }
+        return abort(404);
+    });
+
+    Route::post('motivation-preview', [App\Http\Controllers\MotivationController::class, 'motivationPreview']);
+    Route::post('download-motivation-pdf', [MotivationController::class, 'downloadPDF'])->name('download-motivation-pdf');
+
     Route::post('Motivationsschreibenprocess', [FrontController::class, 'Motivationsschreibenprocess'])
-        ->name('Motivationsschreibenprocess');
+        ->name('Motivationsschreibenprocess');   
 
     Route::get('genieTutor', [FrontController::class, 'genieTutor']);
 
@@ -122,8 +132,10 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::post('TextInspirationprocess', [FrontController::class, 'TextInspirationprocess'])
         ->name('TextInspirationprocess');
+
     Route::post('TextAnalyseprocess', [FrontController::class, 'TextAnalyseprocess'])
         ->name('TextAnalyseprocess');
+
     Route::post('JobMatchprocess', [FrontController::class, 'JobMatchprocess'])
         ->name('JobMatchprocess');
 
@@ -173,7 +185,7 @@ Route::get('paypal/payment/success', [FrontController::class, 'paymentSuccess'])
     ->name('paypal.payment.success');
 Route::get('paypal/payment/cancel', [FrontController::class, 'paymentCancel'])
     ->name('paypal.payment/cancel');
-Route::post('change-password', [FrontController::class, 'updateUserPassword'])
+Route::post('change-password', [FrontController::class, 'changePassword'])
     ->name('change.password');
 
 Auth::routes();
@@ -190,3 +202,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/archive/{archive}', [ArchiveController::class, 'destroy'])->name('archive.destroy');
 });
 
+// Weiterleitung zur Anmeldeseite des Anbieters fr Google und Facebook
+Route::get('login/{provider}', [LoginController::class, 'redirectToProvider']);
+Route::get('auth/callback/{provider}', [LoginController::class, 'handleProviderCallback']);
+
+Route::post('/update-tutorial-status', function () {
+    $user = Auth::user();
+    $user->tutorial_shown = 1;
+    $user->save();
+
+    return response()->json(['status' => 'success']);
+});

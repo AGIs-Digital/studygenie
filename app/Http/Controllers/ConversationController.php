@@ -10,6 +10,7 @@ use OpenAI\Laravel\Facades\OpenAI;
 use App\Models\Message;
 use App\Http\Resources\Message as MessageResource;
 use App\Models\Archive;
+use Carbon\Carbon;
 
 class ConversationController extends Controller
 {

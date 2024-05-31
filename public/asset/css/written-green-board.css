@@ -16,12 +16,77 @@
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
-	object-fit: cover;
+
 	height: 100%;
 }
+
+/* Input fields styling --> Anpassen nur für Steuerungsfelder */
+.form-group input[type="text"] { /* "text" ändern"*/
+    width: calc(100% - 10px);
+    padding: 7px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: #ffffff;
+    color: #000000;
+    margin-bottom: 15px;
+}
+
+.steuerungcontainer {
+    margin-bottom: 25px;
+}
+.steuerungcontainer:last-child {
+    margin-bottom: 0; /* Entferne den unteren Abstand vom letzten Container */
+}
+
+.legende .steuerung {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: calc(100% - 10px);
+    height: 40px;
+    background-color: #ffffff;
+    color: #000000;
+    cursor: pointer;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 6px 30px -10px grey;
+    transition: all 0.3s;
+    position: relative;
+    text-align: center;
+    overflow: hidden;
+}
+
+.legende label {
+	font-family: 'Milonga';
+	font-size: 20px;
+}
+
+.legende .steuerung:last-child {
+    margin-bottom: 0; /* Entferne den unteren Abstand vom letzten Button */
+}
+
+
+.legende .steuerung:hover {
+    background-color: #cccccc;
+    transform: translateX(5px) translateY(-7px);
+}
+
+.legende .steuerung::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 30px;
+    background-size: contain;
+}
+
 .legende {
 	text-align: block;
-	font-size: 0.8rem;
+	font-size: 0.9rem;
 }
 
 .legende h3 {
@@ -40,7 +105,7 @@
 	width: 100%;
 	height: calc(100vh - 159px);
 	background-color: #fff;
-	border: 11px solid #293a4a;
+	border: 11px solid #2D3E4E;
 	border-radius: 12px;
 	position: relative;
 }
@@ -97,6 +162,15 @@
 	background-position: top;
     padding: 79px 8% 25px 17%;
 	margin-top: 0;
+}
+
+.written-green-board {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	gap: 1.3rem;
+	position: relative;
+
 }
 
 .content-written.right {
@@ -158,7 +232,6 @@
 
 .content-written button {
 	border-radius: 10px;
-	background: #F3922A;
 	color: #FFF;
 	font-size: 16px;
 	font-style: normal;
@@ -166,8 +239,7 @@
 	line-height: normal;
 	letter-spacing: -0.014px;
 	border: none;
-	padding: 9px 0px;
-	margin-top: 1rem;
+	margin-top: 2rem;
 }
 
 .group-box span {
@@ -216,14 +288,6 @@
 
 #Bildung-text {
 	opacity: 0.5;
-}
-
-.written-green-board {
-	display: flex;
-	align-items: center;
-	flex-direction: column;
-	gap: 1.3rem;
-	position: relative;
 }
 
 .written-green-board>img {
@@ -419,8 +483,6 @@
 }
 
 .left_scroll {
-	/* overflow: auto; */
-	/* margin-top: 0rem; */
 	height: 77%;
 	overflow-y: auto;
 	overflow-x: hidden;
@@ -554,11 +616,11 @@ input[type="text"]:disabled {
 	overflow: hidden;
 }
 
-.personal_info {
+.section {
 	display: block;
 }
 
-.personal_info .form-group {
+.section .form-group {
 	display: inline-block;
 	width: 123px;
 	margin: 5px;
@@ -566,7 +628,7 @@ input[type="text"]:disabled {
 	position: relative;
 }
 
-.personal_info .form-group span {
+.section .form-group span {
 	position: absolute;
 	top: 14px;
 	right: -6px;
@@ -582,7 +644,7 @@ input[type="text"]:disabled {
 	cursor: pointer;
 }
 
-.personal_info .form-group label {
+.section .form-group label {
 	display: inline-block;
 	text-decoration: none;
 	font-family: 'Milonga', cursive;
@@ -591,7 +653,7 @@ input[type="text"]:disabled {
 	font-size: 1rem;
 }
 
-.personal_info .form-group input {
+.section .form-group input {
 	width: 100%;
 	border: 1px solid #eee;
 	height: 34px;
@@ -602,17 +664,17 @@ input[type="text"]:disabled {
 	padding: 1rem 0.25rem;
 }
 
-.personal_info .button {
+.section .button {
 	text-align: right;
 }
 
-.personal_info .button button {
+.section .button button {
 	width: 156px;
 	font-size: 12px;
 	padding: 8px 7px;
 	border: none;
 	color: #fff;
-	background: #f3922a;
+	background: #E09E50;
 	border-radius: 7px;
 	margin-top: 10px;
 }
@@ -623,11 +685,15 @@ input[type="text"]:disabled {
 	border: 1px solid gray;
 }
 
-.all_box .box {
+.page-break {
+	page-break-before: always;
+}
+
+.all_box .entry {
 	position: relative;
 }
 
-.all_box .box span {
+.all_box .entry span {
 	position: absolute;
 	top: -16px;
 	right: 0;
@@ -643,14 +709,14 @@ input[type="text"]:disabled {
 	cursor: pointer;
 }
 
-.cv_box .box {
+.cv_box .entry {
 	display: flex;
 	justify-content: left;
 	align-items: flex-start;
 	gap: 1rem;
 }
 
-.cv_box .box .img {
+.cv_box .entry .img {
 	width: 25px;
 	height: 25px;
 	background: rgba(41, 58, 74, 1);
@@ -666,7 +732,7 @@ input[type="text"]:disabled {
 	text-transform: capitalize;
 }
 
-.cv_box .box .content span {
+.cv_box .entry .content span {
 	display: block;
 	font-size: 11px;
 	font-weight: 400;
@@ -723,7 +789,7 @@ input[type="text"]:disabled {
 
 .accordion-body .right_box span:first-child {
 	margin-right: 10px;
-	background: #f3922a;
+	background: #E09E50;
 	height: 35px;
 	width: 58px;
 	border-radius: 50%;
@@ -788,9 +854,7 @@ input[type="text"]:disabled {
 	.user_input_form button {
 		width: 22.5% !important;
 	}
-	/* .user_input_form button {
-		width: 26%;
-	} */
+
 	.content-written.message .ab1, .content-written.message .ab2,
 		.content-written.message .ab3, .content-written.message .ab4 {
 		display: none;
@@ -799,8 +863,8 @@ input[type="text"]:disabled {
 
 .btn-primary {
 	color: #fff;
-	background-color: #F3922A;
-	border-color: #F3922A;
+	background-color: #E09E50;
+	border-color: #E09E50;
 }
 
 .motivation_box {

@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 36 36">
   <g id="Group_66" data-name="Group 66" transform="translate(-5662 -7212)">
-    <path id="Path_301" data-name="Path 301" d="M36,38a2,2,0,0,1,2-2H54a1.99,1.99,0,0,1,1.5.678,2,2,0,1,0,3-2.647A5.99,5.99,0,0,0,54,32H38a6,6,0,0,0-6,6V54a5.99,5.99,0,0,0,2.031,4.5,2,2,0,1,0,2.647-3A1.99,1.99,0,0,1,36,54Z" transform="translate(5630 7180)" fill="#293a4a"/>
-    <path id="Path_302" data-name="Path 302" d="M46,40a6,6,0,0,0-6,6V62a6,6,0,0,0,6,6H62a6,6,0,0,0,6-6V46a6,6,0,0,0-6-6Zm-2,6a2,2,0,0,1,2-2H62a2,2,0,0,1,2,2V62a2,2,0,0,1-2,2H46a2,2,0,0,1-2-2Z" transform="translate(5630 7180)" fill="#293a4a" fill-rule="evenodd"/>
+    <path id="Path_301" data-name="Path 301" d="M36,38a2,2,0,0,1,2-2H54a1.99,1.99,0,0,1,1.5.678,2,2,0,1,0,3-2.647A5.99,5.99,0,0,0,54,32H38a6,6,0,0,0-6,6V54a5.99,5.99,0,0,0,2.031,4.5,2,2,0,1,0,2.647-3A1.99,1.99,0,0,1,36,54Z" transform="translate(5630 7180)" fill="#2D3E4E"/>
+    <path id="Path_302" data-name="Path 302" d="M46,40a6,6,0,0,0-6,6V62a6,6,0,0,0,6,6H62a6,6,0,0,0,6-6V46a6,6,0,0,0-6-6Zm-2,6a2,2,0,0,1,2-2H62a2,2,0,0,1,2,2V62a2,2,0,0,1-2,2H46a2,2,0,0,1-2-2Z" transform="translate(5630 7180)" fill="#2D3E4E" fill-rule="evenodd"/>
   </g>
 </svg>

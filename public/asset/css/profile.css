@@ -28,7 +28,7 @@ h1 img {
 
 h2 {
 	text-align: center;
-	color: #F3922A;
+	color: #E09E50;
 	font-size: 32px;
 	font-style: normal;
 	font-weight: 400;
@@ -109,7 +109,7 @@ h3 {
 }
 
 .sup_plan .sub_head {
-	color: #E88128;
+	color: #E09E50;
 	text-align: center;
 	font-family: Montserrat;
 	font-size: 16px;
@@ -311,7 +311,7 @@ h3 {
 
 .submit_button {
 	border-radius: 10px;
-	background: #F3922A;
+	background: #E09E50;
 	color: #FFF;
 	font-size: 16px;
 	font-style: normal;

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+@section('title', 'Paypal')
 @include('includes.head')
-@section('title', 'Bildung')
 <link rel="stylesheet" href="{{ asset('asset/css/forBildungStyle.css') }}">
 </head>
 <body>

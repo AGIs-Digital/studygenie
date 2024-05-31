@@ -68,7 +68,7 @@
 }
 
 .Cloud svg svg path {
-	fill: #F3922A;
+	fill: #E09E50;
 }
 
 .Cloud svg svg text {
@@ -85,7 +85,7 @@
 }
 
 .Cloud:hover svg path {
-	fill: #F3922A;
+	fill: #E09E50;
 }
 
 #navigationSpan {
@@ -263,11 +263,13 @@
 .BildungCloud.active2 {
 	z-index: 5;
 	border-radius: 50%;
+	border: 3px solid red;
 }
 
 .KarriereCloud.active2 {
 	z-index: 5;
 	border-radius: 50%;
+	border: 3px solid red;
 }
 
 .image_box_first.sec .four_img {

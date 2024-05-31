@@ -3,18 +3,14 @@
 	border-bottom-left-radius: 5rem;
 }
 
-.nav-link.active {
-	color: #f3922a;
-}
-
 .CenterAnchorTagsContainer {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 }
 
-.nav-link:focus, .nav-link:hover {
-	color: #F3922A !important;
+.nav-link:focus, .nav-link:hover, .nav-link:active, .CenterAnchorTagsContainer a:nth-child(2) {
+	color: #E09E50 !important;
 }
 
 .CenterAnchorTagsContainer a {
@@ -24,10 +20,6 @@
 	color: white;
 	font-weight: 400;
 	font-size: 1.25rem;
-}
-
-.CenterAnchorTagsContainer a:nth-child(2) {
-	color: #F3922A;
 }
 
 .barIconContainer {

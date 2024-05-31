@@ -1,9 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="de">
 <head>
-@include('includes.head')
 @section('title', 'Motivationsschreiben')
+@include('includes.head')
+
+<script>
+    window.MathJax = {
+        tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']]
+        },
+        svg: {
+            fontCache: 'global'
+        }
+    };
+</script>
+<style>
+    .loading-button {
+        position: relative;
+        padding-right: 30px;
+    }
+
+    .loading-button::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        width: 16px;
+        height: 16px;
+        border: 2px solid #fff;
+        border-top: 2px solid transparent;
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+        transform: translateY(-50%);
+    }
+
+    @keyframes spin {
+        0% { transform: translateY(-50%) rotate(0deg); }
+        100% { transform: translateY(-50%) rotate(360deg); }
+    }
+</style>
 </head>
 
 <body class="MainContainer backimage">
@@ -28,8 +64,8 @@
 									fill="none"></rect>
                                 <path
 									d="M169.358 42.2315C168.781 41.9628 168.298 41.5259 167.973 40.978C167.649 40.4302 167.497 39.797 167.538 39.1615C167.542 35.3204 166.738 31.5215 165.178 28.0115C162.524 22.1812 158.554 17.0465 153.578 13.0115C146.948 7.75151 139.508 5.15151 130.978 6.26151C125.298 7.00151 119.978 8.62151 115.718 12.7015C114.988 13.3915 114.468 13.2215 113.838 12.6115C112.988 11.7915 112.108 11.0215 111.208 10.2615C102.958 3.37151 93.6882 -0.438494 82.7182 0.671506C75.2957 1.34277 68.1756 3.93439 62.0582 8.19151C55.4282 12.8215 50.7482 18.8215 48.9982 26.8615C48.8982 27.2948 48.7882 27.7148 48.6682 28.1215C48.2782 29.4915 48.2582 29.4915 46.9082 28.8715L46.4182 28.6215C41.2329 26.2577 35.6161 24.9879 29.9182 24.8915C29.2982 24.8915 28.6782 24.8915 28.0582 24.8915C27.4382 24.8915 26.7182 25.0615 26.0582 25.1415C22.1076 25.5463 18.2931 26.8095 14.8817 28.8425C11.4702 30.8756 8.54417 33.6294 6.30823 36.9115C2.14823 42.6815 0.498228 49.3015 0.308228 56.2815C0.0240566 64.608 2.75469 72.7572 7.99823 79.2315C13.7282 86.4815 20.9382 91.2315 30.4882 91.4715C30.8327 91.4485 31.1759 91.5321 31.4711 91.711C31.7663 91.89 31.9993 92.1555 32.1382 92.4715C33.7782 95.7615 36.4782 98.1215 39.2082 100.472C43.5116 104.24 48.7348 106.803 54.3482 107.902C59.814 108.946 65.4026 109.188 70.9382 108.622C78.7765 107.891 86.3705 105.505 93.2182 101.622C96.477 99.7219 99.5184 97.4719 102.288 94.9115C103.358 93.9115 103.398 93.9815 104.288 95.0515C106.509 97.6491 109.247 99.7553 112.327 101.236C115.408 102.717 118.762 103.539 122.178 103.652C131.868 104.212 139.718 100.362 145.718 92.7315C146.518 91.7315 146.518 91.6615 147.568 92.3715C149.763 93.8095 152.358 94.5102 154.978 94.3715C159.262 94.2134 163.441 93.0046 167.148 90.8515C175.398 86.1615 180.348 79.0115 182.698 70.0115C183.53 66.8929 183.668 63.6297 183.101 60.4522C182.534 57.2747 181.277 54.2602 179.418 51.6215C176.877 47.7215 173.424 44.4987 169.358 42.2315Z"
-									fill="rgba(41,58,74,1)"></path>
-                                <text class="textStyle" x="4" y="65"
+								fill="rgba(41,58,74,1)"></path>
+                                <text class="textStyle" x="50%" y="65" text-anchor="middle"
 									font-family: 'Milonga', cursive; font-size="18" fill="#FFFFFF"
 									font-weight="400">Motivationsschreiben</text>
                                 </svg>
@@ -116,7 +152,7 @@
                                                 src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
                                         </strong>
                                         </span> <input type="text" id="field_5" name="field5"
-                                            placeholder="" required>
+                                            placeholder="">
                                     </div>
 
                                     <div class="group-box">
@@ -126,24 +162,21 @@
                                                 src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
                                         </strong>
                                         </span> <input type="text" id="field_6" name="field6"
-                                            placeholder="" required>
+                                            placeholder="">
                                     </div>
 
                                     <div class="group-box">
-                                        <span class="small_text_font">Nice to know <strong type="button"
+                                        <span class="small_text_font">Stellenbeschreibung <strong type="button"
                                             class="" data-bs-toggle="tooltip" data-bs-placement="top"
                                             title="Alle anderen Infos, die in die Bewerbung einfließen sollen"> <img
                                                 src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
                                         </strong>
-                                        </span> <input type="text" id="field_7" name="field7"
-                                            placeholder="" required>
+                                        </span> <textarea id="field_7" name="field7" rows="20" style="width:100%;" oninput="this.style.height = '';this.style.height = this.scrollHeight + 'px'"></textarea>
                                     </div>
                                     <br >
                                 </div>
-
+                                <button type="button" class="send_button" id="submitForm">Magie</button>
 							</div>
-							<button type="button" class="send_button" id="submitForm">Erstellen</button>
-
 						</div>
 					</form>
 				</div>
@@ -151,12 +184,15 @@
 					<div class="written-green-board">
 
 						<div class="content-written right" id="getpdf">
-							<div class="typing-container" id="typing-container">
-							</div>
+							<div class="typing-container" id="typing-container" name="motivational_letter">
+                                <!-- Hier wird das Motivationsschreiben angezeigt -->
+                            </div>
 						</div>
-
 					</div>
 				</div>
+
+
+            
 				<div class="col-md-12">
 					<div class="mt-5" style="display: none">
 						<div class="motivation_box" id="div_design_layout">
@@ -194,6 +230,8 @@
 						</div>
 					</div>
 				</div>
+            
+
 			</div>
 		</div>
 	</section>
@@ -220,8 +258,6 @@
 						<input type="hidden" name="save_val" id="save_val"> <input
 							type="hidden" name="type" value="Bildung" id="Bildung">
 
-
-
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary"
@@ -233,10 +269,15 @@
 		</div>
 	</div>
 
-	<div class="save_folder" id="save_folder" onclick="generatePDF()">
-		<img src="{{ asset('asset/images/pdf.svg') }}" width="30" height="30"
-			alt="">
-	</div>
+    <!-- Neuer Download Button -->
+    <form action="{{ route('download-motivation-pdf') }}" method="POST" id="downloadForm">
+        @csrf
+        <input type="hidden" name="pdf_content" id="pdf_content">
+        <button type="submit" class="save_folder" onclick="updatePdfContent()">
+            <img src="{{ asset('asset/images/pdf.svg') }}" width="30" height="30" alt="">
+        </button>
+    </form>
+
 
 	<div class="save_folder copy_path_box" id="copy_box"
 		style="bottom: 80px" onclick="copyText()">
@@ -246,10 +287,10 @@
 				transform="translate(-5662 -7212)">
               <path id="Path_301" data-name="Path 301"
 				d="M36,38a2,2,0,0,1,2-2H54a1.99,1.99,0,0,1,1.5.678,2,2,0,1,0,3-2.647A5.99,5.99,0,0,0,54,32H38a6,6,0,0,0-6,6V54a5.99,5.99,0,0,0,2.031,4.5,2,2,0,1,0,2.647-3A1.99,1.99,0,0,1,36,54Z"
-				transform="translate(5630 7180)" fill="#293a4a" />
+				transform="translate(5630 7180)" fill="#2D3E4E" />
               <path id="Path_302" data-name="Path 302"
 				d="M46,40a6,6,0,0,0-6,6V62a6,6,0,0,0,6,6H62a6,6,0,0,0,6-6V46a6,6,0,0,0-6-6Zm-2,6a2,2,0,0,1,2-2H62a2,2,0,0,1,2,2V62a2,2,0,0,1-2,2H46a2,2,0,0,1-2-2Z"
-				transform="translate(5630 7180)" fill="#293a4a" fill-rule="evenodd" />
+				transform="translate(5630 7180)" fill="#2D3E4E" fill-rule="evenodd" />
             </g>
           </svg>
 	</div>
@@ -285,148 +326,139 @@
                 var form = document.getElementById("myForm");
                 var formData = new FormData(form);
                 document.getElementById('save_val').value = document.getElementById('typing-container').innerHTML;
+                //Ladezeichen anzeigen
+                $("#submitForm").addClass('loading-button').text("Zaubert...");
                 $.ajax({
                     url: "{{ route('Motivationsschreibenprocess') }}",
                     type: "POST",
                     data: formData,
                     processData: false,
                     contentType: false,
-                    beforeSend: function(){
-                        $("#submitForm").text("lädt...");
-                    },
                     success: function (data) {
-                        // Verarbeite die empfangenen Daten
-                        $("#submitForm").text("Senden");
+                        //Ladezeichen entfernen
+                        $("#submitForm").removeClass('loading-button').text("Magie");
 
-                        document.getElementById('pdf_style').innerHTML = textToType+" <br> <br> ";
-                        document.getElementById('template_add').innerHTML = textToType+" <br> <br> ";
+                        document.getElementById('pdf_style').innerHTML = textToType + " <br> <br> ";
+                        document.getElementById('template_add').innerHTML = textToType + " <br> <br> ";
 
-                        document.getElementById('typing-container').innerHTML = data.data;
-                        // let checks = data.data.split('\n')
-                        // textarray = checks;
-                        // typeFun();
-                        $(".save_folder").css('display','block');
-                       console.log(data.data);
+                        let checks = data.data.split('\n');
+                        textarray = checks;
+                        typeFun();
+                        $(".save_folder").css('display', 'block');
+                        console.log(data.data);
                     },
                     error: function (xhr, status, error) {
-                        // Handle errors
+                        console.error("Ein Fehler ist aufgetreten: " + error);
+                        //Ladezeichen entfernen
+                        $("#submitForm").removeClass('loading-button').text("Magie");
                     }
                 });
             });
-
-
         });
-
-        function generatePDF() {
-                var doc = new jsPDF();
-
-                var elementHTML = document.querySelector("#div_design_layout");
-
-                doc.html(elementHTML, {
-                    callback: function(doc) {
-                        doc.save('Motivationsschreiben.pdf');
-                    },
-                    margin: [10, 10, 10, 10],
-                    autoPaging: 'text',
-                    x: 0,
-                    y: 0,
-                    width: 190, //target width in the PDF document
-                    windowWidth: 900 //window width in CSS pixels
-                });
-		}
-
-
 
         function typeText() {
             if (currentChar < textToType.length) {
-                typedTextElement.innerHTML += textToType.charAt(currentChar);
-                currentChar++;
-                setTimeout(typeText, 10); // Adjust the typing speed (in milliseconds)
-                typedTextElement.scrollTop = typedTextElement.scrollHeight;
+                // Füge das nächste Zeichen hinzu
+                let nextChar = textToType.charAt(currentChar);
+                
+                // Überprüfe, ob das nächste Zeichen ein HTML-Tag ist
+                if (nextChar === '<') {
+                    let endTagIndex = textToType.indexOf('>', currentChar);
+                    if (endTagIndex !== -1) {
+                        // Füge den gesamten HTML-Tag hinzu
+                        typedTextElement.innerHTML += textToType.substring(currentChar, endTagIndex + 1);
+                        currentChar = endTagIndex + 1;
+                    } else {
+                        // Füge das Zeichen hinzu, wenn kein schließendes Tag gefunden wird
+                        typedTextElement.innerHTML += nextChar;
+                        currentChar++;
+                    }
+                } else {
+                    // Füge das Zeichen hinzu, wenn es kein HTML-Tag ist
+                    typedTextElement.innerHTML += nextChar;
+                    currentChar++;
+                }
 
-            }else {
-                alltext +=textToType+" <br> ";
+                setTimeout(typeText, 5); // Adjust the typing speed (in milliseconds)
+                typedTextElement.scrollTop = typedTextElement.scrollHeight;
+            } else {
+                // Füge den gesamten Text hinzu und formatiere ihn
+                alltext += textToType + " ";
                 typedTextElement.innerHTML = alltext;
                 currentChar = 0;
                 curloop++;
+                typedTextElement.scrollTop = typedTextElement.scrollHeight;
                 typeFun();
             }
         }
 
-        function typeFun(){
-            if(curloop < textarray.length){
+        function typeFun() {
+            if (curloop < textarray.length) {
                 textToType = textarray[curloop];
                 typeText();
-            }else {
+            } else {
                 alltext = '';
-                textToType= [];
+                textToType = [];
                 curloop = 0;
+                typedTextElement.scrollTop = typedTextElement.scrollHeight;
             }
         }
 
-/**
- * Kopiert den Inhalt eines spezifizierten Div-Elements in die Zwischenablage
- * und zeigt eine Toast-Nachricht an, um den Erfolg zu bestätigen.
- */
-function copyText() {
-  var divElement = document.getElementById('pdf_style'); // Dein Div-Element
+        function copyText() {
+            var typingContainer = document.getElementById('typing-container'); // Dein Div-Element
 
-  // Überprüfe, ob das Div-Element vorhanden ist
-  if (divElement) {
-    var htmlContent = divElement.innerHTML; // Erhalte den HTML-Inhalt
-    var hiddenDiv = document.createElement('div'); // Erstelle ein verstecktes Div
+            // Überprüfe, ob das Div-Element vorhanden ist
+            if (typingContainer) {
+                var textContent = typingContainer.innerText; // Erhalte den Text-Inhalt ohne HTML-Tags
+                navigator.clipboard.writeText(textContent).then(function() {
+                    // Zeige eine Toast-Nachricht an
+                    showToast("Motivationsschreiben kopiert");
+                }, function(err) {
+                    console.error('Fehler beim Kopieren: ', err);
+                });
+            } else {
+                console.log('Div-Element nicht gefunden.');
+            }
+        }
 
-    // Konfiguriere das versteckte Div, sodass es bearbeitet und kopiert werden kann, aber nicht sichtbar ist
-    hiddenDiv.style.position = 'absolute';
-    hiddenDiv.style.left = '-9999px';
-    hiddenDiv.contentEditable = true;
+        function showToast(message) {
+          // Erstelle das Toast-Element
+          var toast = document.createElement('div');
+          toast.textContent = message;
+          toast.style.position = 'fixed';
+          toast.style.bottom = '20px';
+          toast.style.left = '50%';
+          toast.style.transform = 'translateX(-50%)';
+          toast.style.backgroundColor = 'black';
+          toast.style.color = 'white';
+          toast.style.padding = '10px';
+          toast.style.borderRadius = '5px';
+          toast.style.zIndex = '1000';
+          toast.style.opacity = '0';
+          toast.style.transition = 'opacity 0.5s';
 
-    // Füge das versteckte Div hinzu und kopiere dessen Inhalt
-    document.body.appendChild(hiddenDiv);
-    hiddenDiv.innerHTML = htmlContent; // Setze den HTML-Inhalt in das versteckte Div
-    hiddenDiv.unselectable = "off";
-    hiddenDiv.focus();
-    navigator.clipboard.writeText(htmlContent);
-    document.body.removeChild(hiddenDiv);
+          // Füge das Toast-Element hinzu und fade es ein
+          document.body.appendChild(toast);
+          setTimeout(() => toast.style.opacity = '1', 100);
 
-    // Zeige eine Toast-Nachricht an
-    showToast("Motivationsschreiben kopiert");
-  } else {
-    console.log('Div-Element nicht gefunden.');
-  }
-}
+          // Entferne das Toast-Element nach einer gewissen Zeit
+          setTimeout(() => {
+            toast.style.opacity = '0';
+            setTimeout(() => document.body.removeChild(toast), 500); // Warte auf das Ende der Opacity-Transition
+          }, 3000);
+        }
 
-/**
- * Erstellt und zeigt eine Toast-Nachricht mit einer gegebenen Nachricht an.
- * @param {string} message - Die Nachricht, die im Toast angezeigt werden soll.
- */
-function showToast(message) {
-  // Erstelle das Toast-Element
-  var toast = document.createElement('div');
-  toast.textContent = message;
-  toast.style.position = 'fixed';
-  toast.style.bottom = '20px';
-  toast.style.left = '50%';
-  toast.style.transform = 'translateX(-50%)';
-  toast.style.backgroundColor = 'black';
-  toast.style.color = 'white';
-  toast.style.padding = '10px';
-  toast.style.borderRadius = '5px';
-  toast.style.zIndex = '1000';
-  toast.style.opacity = '0';
-  toast.style.transition = 'opacity 0.5s';
+        function updatePdfContent() {
+            var typingContainerContent = document.getElementById('typing-container').innerHTML;
+            document.getElementById('pdf_content').value = typingContainerContent;
+        }
 
-  // Füge das Toast-Element hinzu und fade es ein
-  document.body.appendChild(toast);
-  setTimeout(() => toast.style.opacity = '1', 100);
+        document.addEventListener('DOMContentLoaded', () => {
+            // Bestehende Funktionen und Event-Listener hier
 
-  // Entferne das Toast-Element nach einer gewissen Zeit
-  setTimeout(() => {
-    toast.style.opacity = '0';
-    setTimeout(() => document.body.removeChild(toast), 500); // Warte auf das Ende der Opacity-Transition
-  }, 3000);
-}
-
+            // Event-Listener für den neuen Download-Button
+            document.querySelector('.save_folder').addEventListener('click', updatePdfContent);
+        });
 </script>
 </body>
 </html>

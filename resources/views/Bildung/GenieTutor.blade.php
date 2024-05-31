@@ -1,10 +1,22 @@
 <!DOCTYPE html>
 <html lang="de">
-
 <head>
-@include('includes.head')
 @section('title', 'genieTutor')
+@include('includes.head')
 <meta name="csrf-token" content="{{ csrf_token() }}">
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script>
+    window.MathJax = {
+        tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']]
+        },
+        svg: {
+            fontCache: 'global'
+        }
+    };
+</script>
 </head>
 
 <body class="MainContainer">
@@ -29,8 +41,8 @@
                                         fill="none"></rect>
                                     <path
                                         d="M169.358 42.2315C168.781 41.9628 168.298 41.5259 167.973 40.978C167.649 40.4302 167.497 39.797 167.538 39.1615C167.542 35.3204 166.738 31.5215 165.178 28.0115C162.524 22.1812 158.554 17.0465 153.578 13.0115C146.948 7.75151 139.508 5.15151 130.978 6.26151C125.298 7.00151 119.978 8.62151 115.718 12.7015C114.988 13.3915 114.468 13.2215 113.838 12.6115C112.988 11.7915 112.108 11.0215 111.208 10.2615C102.958 3.37151 93.6882 -0.438494 82.7182 0.671506C75.2957 1.34277 68.1756 3.93439 62.0582 8.19151C55.4282 12.8215 50.7482 18.8215 48.9982 26.8615C48.8982 27.2948 48.7882 27.7148 48.6682 28.1215C48.2782 29.4915 48.2582 29.4915 46.9082 28.8715L46.4182 28.6215C41.2329 26.2577 35.6161 24.9879 29.9182 24.8915C29.2982 24.8915 28.6782 24.8915 28.0582 24.8915C27.4382 24.8915 26.7182 25.0615 26.0582 25.1415C22.1076 25.5463 18.2931 26.8095 14.8817 28.8425C11.4702 30.8756 8.54417 33.6294 6.30823 36.9115C2.14823 42.6815 0.498228 49.3015 0.308228 56.2815C0.0240566 64.608 2.75469 72.7572 7.99823 79.2315C13.7282 86.4815 20.9382 91.2315 30.4882 91.4715C30.8327 91.4485 31.1759 91.5321 31.4711 91.711C31.7663 91.89 31.9993 92.1555 32.1382 92.4715C33.7782 95.7615 36.4782 98.1215 39.2082 100.472C43.5116 104.24 48.7348 106.803 54.3482 107.902C59.814 108.946 65.4026 109.188 70.9382 108.622C78.7765 107.891 86.3705 105.505 93.2182 101.622C96.477 99.7219 99.5184 97.4719 102.288 94.9115C103.358 93.9115 103.398 93.9815 104.288 95.0515C106.509 97.6491 109.247 99.7553 112.327 101.236C115.408 102.717 118.762 103.539 122.178 103.652C131.868 104.212 139.718 100.362 145.718 92.7315C146.518 91.7315 146.518 91.6615 147.568 92.3715C149.763 93.8095 152.358 94.5102 154.978 94.3715C159.262 94.2134 163.441 93.0046 167.148 90.8515C175.398 86.1615 180.348 79.0115 182.698 70.0115C183.53 66.8929 183.668 63.6297 183.101 60.4522C182.534 57.2747 181.277 54.2602 179.418 51.6215C176.877 47.7215 173.424 44.4987 169.358 42.2315Z"
-                                        fill="#F3922A"></path>
-                                    <text class="textStyle" x="28" y="65"
+                                        fill="#E09E50"></path>
+                                    <text class="textStyle" x="92" y="65" dominant-baseline="middle" text-anchor="middle"
                                         font-size="24" fill="#FFFFFF"
                                         font-weight="400">genieTutor</text>
                                 </g>
@@ -57,30 +69,59 @@
 								result="shape"></feBlend>
                                 </filter>
                             </defs>
-                            </svg>
+                        </svg>
 					</div>
 					<div class="legende">
-					<h3>Steuerung</h3>
-					<b>Beispiel:</b> /tutor --thema: Geometrie --level: 7. Klasse Gymnasium<br />
-					<hr>
-					<b>/tutor</b><br />
-					Tutor-Modus für gezielte Themenhilfe<br />
-					<br />
-					<b>/sokrates</b><br />
-					Eigenständiges Denken durch Fragen<br />
-					<br />
-					<b>/mc</b><br />
-					Multiple-Choice Fragen erstellen lassen<br />
-					<br />
-					<b>/test</b><br />
-					Probeklausur starten<br />
-					<br />
-					<b>/neustart</b><br />
-					Neuen Modus starten
-					<hr>
-					<b>--thema:</b> Lernthema auswählen<br />
-					<b>--level:</b> Bildungsgrad auswählen
-					</div>
+					<h3>Steuerung<button type="button" class="btn" data-bs-toggle="tooltip"
+					data-bs-placement="top" title="Gib zuerst dein Bildungslevel und das Thema ein, wähle anschließend einen Modus">
+					<img src="{{ asset('asset/images/info-tools.svg') }}" width="25" alt="">
+				</button></h3>
+                    <br />
+                <div class="form-group">
+                    <label for="level">Level:</label>
+                    <input type="text" id="level_input" name="level" placeholder="z.B. 9. Klasse Gymnasium">
+                </div>
+
+                <div class="form-group">
+                    <label for="thema">Thema:</label>
+                    <input type="text" id="thema_input" name="thema" placeholder="z.B. Satz des Pythagoras">
+                </div>
+            <br /> <br />
+            
+    <div class="steuerungcontainer">
+        <div onclick="setInputValue('/tutor')" class="steuerung">
+        <div class="shop-now">Tutor</div>
+            <button type="button" class="btn" data-bs-toggle="tooltip" data-bs-placement="top" title="Lerne einfach und effektiv">
+				<img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
+			</button>
+        </div>
+    </div>
+    <div class="steuerungcontainer">
+        <div onclick="setInputValue('/Sokrates')" class="steuerung">
+        <div class="shop-now">Sokrates</div>
+        <button type="button" class="btn" data-bs-toggle="tooltip" data-bs-placement="top" title="Denke selbstständig">
+				<img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
+			</button>
+        </div>
+    </div>
+    <div class="steuerungcontainer">
+        <div onclick="setInputValue('/mc')" class="steuerung">
+        <div class="shop-now">Multiple Choice</div>
+        <button type="button" class="btn" data-bs-toggle="tooltip" data-bs-placement="top" title="Schnelle Wissensabfrage">
+				<img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
+			</button>
+        </div>
+    </div>
+    <div class="steuerungcontainer">
+        <div onclick="setInputValue('/test')" class="steuerung">
+        <div class="shop-now">Probeklausur</div>
+        <button type="button" class="btn" data-bs-toggle="tooltip" data-bs-placement="top" title="Teste deinen Lernstand">
+				<img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
+			</button>
+        </div>
+    </div>
+
+                </div>
 				</div>
 
 				<div class="col-md-9">
@@ -95,24 +136,7 @@
 			src="{{ asset('asset/images/ToolsImage.png') }}" class="ab5" alt="">
 							<div class="typing-container d-block">
 								<div class="all_content" id="all_content">
-									<!-- <div class="right_box" id="chat_loading_indicator">
-										<span> <img src="../asset/images/chatgeni.svg" width="25"
-											height="35" alt="logoContainer"></span>
-                                        <span id="first_box">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-												<circle cx="18" cy="12" r="0" fill="white">
-												    <animate attributeName="r" begin=".67" calcMode="spline" dur="1.5s" keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8" repeatCount="indefinite" values="0;2;0;0" />
-                                                </circle>
-												<circle cx="12" cy="12" r="0" fill="white">
-												    <animate attributeName="r" begin=".33" calcMode="spline" dur="1.5s" keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8" repeatCount="indefinite" values="0;2;0;0" />
-                                                </circle>
-												<circle cx="6" cy="12" r="0" fill="white">
-												    <animate attributeName="r" begin="0" calcMode="spline" dur="1.5s" keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8" repeatCount="indefinite" values="0;2;0;0" />
-                                                </circle>
-                                            </svg>
-                                        </span>
-
-									</div> -->
+									
 								</div>
 
 							</div>
@@ -125,7 +149,7 @@
                                         height="40" alt="">
                                     </div>
                                     <input type="text" id="user_input" name="user" required>
-									<button type="submit" id="button_submit">Senden</button>
+									<button type="submit" id="button_submit" style="background-color:#E09E50;">Senden</button>
 								</form>
 							</div>
 						</div>
@@ -155,7 +179,7 @@
 								name="name" placeholder="Speichername eingeben">
 						</div>
 						<input type="hidden" name="save_val" id="save_val"> <input
-							type="hidden" name="tooltype" value="genie_tutor"> <input
+							type="hidden" name="tooltype" value="genieTutor"> <input
 							type="hidden" name="type" value="Bildung" id="text">
 
 					</form>
@@ -175,7 +199,7 @@
 	<script>
         // Initialisierung bei DOMContentLoaded
         document.addEventListener('DOMContentLoaded', () => {
-            const toolIdentifier = 'tutor';
+            const toolIdentifier = 'genieTutor';
 
             const userInput = document.getElementById('user_input');
             const formSubmitButton = document.getElementById('button_submit');
@@ -199,6 +223,9 @@
 
                 messageContainer.scrollTop = messageContainer.scrollHeight;
                 userInput.focus();
+
+                // MathJax-Formatierung auf alle Nachrichten anwenden
+                MathJax.typesetPromise([messageContainer]);
             })();
 
             conversationForm.addEventListener('submit', async (event) => {
@@ -241,10 +268,14 @@
 
                     userInput.value = '';
                     userInput.disabled = false;
-                    conversationForm.classList.remove('disabled');
                     userInput.focus();
+                    conversationForm.classList.remove('disabled');
+
 
                     document.getElementById('save_val').value = messageContainer.innerHTML;
+
+                    // Render MathJax content
+                    MathJax.typesetPromise([messageContainer]);
                 } catch (error) {
                     console.log(error)
                     formSubmitButton.textContent = 'Senden';
@@ -256,19 +287,18 @@
                 await window.fns.saveToArchive(
                     conversation.id,
                     $("#save_name").val(),
-                    "genie_tutor",
+                    "genieTutor",
                     "Bildung",
                 );
 
-                $("#save_name").val('');
+                document.getElementById('save_val').value = '';
+
                 $("#saveModal").modal('hide');
 
 
-                // Zeige eine Toast-Nachricht an
-			    showToast(document.title + " Gespeichert!");
+                showToast(document.title + " Gespeichert!");
             });
         });
-
 
         /**
          * Erstellt und zeigt eine Toast-Nachricht mit einer gegebenen Nachricht an.
@@ -297,7 +327,7 @@
             // Entferne das Toast-Element nach einer gewissen Zeit
             setTimeout(() => {
                 toast.style.opacity = '0';
-                setTimeout(() => document.body.removeChild(toast), 500);
+                setTimeout(() => document.body.removeChild(toast), 500); // Warte auf das Ende der Opacity-Transition
             }, 3000);
         }
 
@@ -305,6 +335,46 @@
         var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
             return new bootstrap.Tooltip(tooltipTriggerEl)
         });
-        </script>
-    </body>
+
+        /**
+         * Setzt den Wert des Eingabefeldes und löst das Absenden des Formulars aus.
+         * @param {string} value - Der Wert, der gesetzt werden soll.
+         */
+        function setInputValue(value) {
+            const userInput = document.getElementById('user_input');
+            const levelInput = document.getElementById('level_input').value.trim();
+            const themaInput = document.getElementById('thema_input').value.trim();
+
+            if (levelInput) {
+                userInput.value = `${value} Level: ${levelInput} Thema: ${themaInput}`;
+            } else {
+                userInput.value = value;
+            }
+
+            // Trigger the submit event programmatically
+            const event = new Event('submit', {
+                'bubbles': true,
+                'cancelable': true
+            });
+            document.getElementById('form_user_input').dispatchEvent(event);
+        }
+
+        /**
+         * Sendet den Wert an den Server.
+         * @param {string} value - Der Wert, der gesendet werden soll.
+         */
+        function sendInput(value) {
+            fetch('/submit-input', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({ input: value })
+            })
+            .then(response => response.json());
+        }
+
+    </script>
+</body>
 </html>

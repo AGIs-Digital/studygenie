@@ -113,7 +113,7 @@ class FrontController extends Controller
         ]);
     }
 
-    public function updateUserPassword(Request $request)
+    public function changePassword(Request $request)
     {
         $validationResult = $this->validatePasswordUpdate($request);
         if ($validationResult !== true) {
@@ -146,29 +146,28 @@ class FrontController extends Controller
     }
 
     public function delete()
-{
-    $user = Auth::user();
+    {
+        $user = Auth::user();
 
-    if (is_null($user)) {
-        return redirect('/')->withErrors('Kein authentifizierter Benutzer gefunden.');
+        if (is_null($user)) {
+            return redirect('/')->withErrors('Kein authentifizierter Benutzer gefunden.');
+        }
+
+        DB::beginTransaction(); // Startet eine Datenbanktransaktion
+
+        try {
+            Archive::where('user_id', $user->id)->delete();
+            Cache::forget("session_user_{$user->id}");
+            $user->delete();
+
+            DB::commit(); // Bestätigt die Transaktion und speichert die Änderungen
+
+            return redirect('/')->with('success', 'Ihr Account wurde erfolgreich gelöscht.');
+        } catch (\Exception $e) {
+            DB::rollBack(); // Macht die Transaktion rückgängig, falls ein Fehler auftritt
+            return $this->handleException($e, "Fehler beim Löschen des Benutzerkontos");
+        }
     }
-
-    DB::beginTransaction(); // Startet eine Datenbanktransaktion
-
-    try {
-        Archive::where('user_id', $user->id)->delete();
-        AIResponse::where('user_id', $user->id)->delete();
-        Cache::forget("session_user_{$user->id}");
-        $user->delete();
-
-        DB::commit(); // Bestätigt die Transaktion und speichert die Änderungen
-
-        return redirect('/')->with('success', 'Ihr Account wurde erfolgreich gelöscht.');
-    } catch (\Exception $e) {
-        DB::rollBack(); // Macht die Transaktion rückgängig, falls ein Fehler auftritt
-        return $this->handleException($e, "Fehler beim Löschen des Benutzerkontos");
-    }
-}
 
     /*
      * HIER ALLES ZU BEZAHLUNG UND ABO PLÄNEN
@@ -181,7 +180,7 @@ class FrontController extends Controller
     // Gemeinsame Methode zur Preisfestlegung
     private function determinePrice($name)
     {
-        return $name === 'gold' ? 7 : 10;
+        return $name === 'gold' ? 10 : 20;
     }
 
     public function payment(Request $request, $name)
@@ -320,7 +319,7 @@ class FrontController extends Controller
             $conversation->save();
 
             # Create a new message
-            $message = $this->textInspiration_create_message($request);
+            $message = $this->textInspiration_create_message($request, $conversation);
 
             # add message to conversation
             $conversation->messages()->save($message);
@@ -351,7 +350,7 @@ class FrontController extends Controller
     /**
      * Creates the prompt for the TextInspiration tool
      */
-    private function textInspiration_create_message(Request $request): Message
+    private function textInspiration_create_message(Request $request, Conversation $conversation): Message
     {
         // Create the user message
         $message = new Message();
@@ -370,9 +369,9 @@ class FrontController extends Controller
 
         # If a previous text is set, add a continuation prompt
         if (!empty($request->field6)) {
-            $prompt = replace('continuation_prompt', config('prompts.text_inspiration.continuation_prompt'), '');
+            $prompt = str_replace('continuation_prompt', config('prompts.text_inspiration.continuation_prompt'), $prompt);
         } else {
-            $prompt = replace('continuation_prompt', '');
+            $prompt = str_replace('continuation_prompt', '', $prompt);
         }
 
         $message->content = $prompt;
@@ -458,7 +457,7 @@ class FrontController extends Controller
 
             # add message to conversation
             $conversation->messages()->save($message);
-            $payload = $conversation->createPayload($conversation);
+            $payload = $conversation->createPayload();
 
             $response = OpenAI::chat()->create($payload);
 
@@ -515,7 +514,7 @@ class FrontController extends Controller
             $prompt->replace('task_experience', $request->field4, "keine Angabe");
             $prompt->replace('task_motivation', $request->field5, "keine Angabe");
             $prompt->replace('task_personal', $request->field6, "keine Angabe");
-            $prompt->replace('task_challenges', $request->field7, "keine Angabe");
+            $prompt->replace('task_description', $request->field7, "keine Angabe");
 
             # Create a new message
             $message = new Message();
@@ -545,7 +544,7 @@ class FrontController extends Controller
             ]);
         } catch (\Exception $e) {
 
-            return $this->handleException($e, "Fehler bei der GenieCheck Anfrage");
+            return $this->handleException($e, "Fehler beim Motivationsschreiben");
         }
     }
 
