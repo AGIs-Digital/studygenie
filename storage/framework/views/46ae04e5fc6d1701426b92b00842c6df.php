@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="de">
-
 <head>
-<?php echo $__env->make('includes.head', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 <?php $__env->startSection('title', 'JobInsider'); ?>
+<?php echo $__env->make('includes.head', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 <script>
     window.MathJax = {
         tex: {

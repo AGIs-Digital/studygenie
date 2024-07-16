@@ -3,7 +3,7 @@
 <head>
 <?php $__env->startSection('title', 'GenieCheck'); ?>
 <?php echo $__env->make('includes.head', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
 <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 <script>
     window.MathJax = {
@@ -223,7 +223,7 @@
                 //Ladezeichen anzeigen
                 $("#submitForm").addClass('loading-button').text("Zaubert...");
                 $.ajax({
-                    url: "/GenieCheckprocess",
+                    url: "<?php echo e(route('GenieCheckprocess')); ?>", // Verwende die benannte Route
                     method: "POST",
                     data: formData,
                     contentType: false,
@@ -321,43 +321,6 @@
                 typedTextElement.scrollTop = typedTextElement.scrollHeight; // Ensure final scroll to the bottom
             }
         }
-
-        // Rekursion stoppen, wenn textarray leer ist
-        if (textarray.length === 0) {
-            return;
-        }
-
-/**
- * Kopiert den Inhalt eines spezifizierten Div-Elements in die Zwischenablage
- * und zeigt eine Toast-Nachricht an, um den Erfolg zu bestätigen.
- */
-function copyText() {
-  var divElement = document.getElementById('typed-text'); // Dein Div-Element
-
-  // Überprüfe, ob das Div-Element vorhanden ist
-  if (divElement) {
-    var htmlContent = divElement.innerHTML; // Erhalte den HTML-Inhalt
-    var hiddenDiv = document.createElement('div'); // Erstelle ein verstecktes Div
-
-    // Konfiguriere das versteckte Div, sodass es bearbeitet und kopiert werden kann, aber nicht sichtbar ist
-    hiddenDiv.style.position = 'absolute';
-    hiddenDiv.style.left = '-9999px';
-    hiddenDiv.contentEditable = true;
-
-    // Füge das versteckte Div hinzu und kopiere dessen Inhalt
-    document.body.appendChild(hiddenDiv);
-    hiddenDiv.innerHTML = htmlContent; // Setze den HTML-Inhalt in das versteckte Div
-    hiddenDiv.unselectable = "off";
-    hiddenDiv.focus();
-    navigator.clipboard.writeText(htmlContent);
-    document.body.removeChild(hiddenDiv);
-
-    // Zeige eine Toast-Nachricht an
-    showToast("Text kopiert!");
-  } else {
-    console.log('Div-Element nicht gefunden.');
-  }
-}
 </script>
 </body>
 </html>

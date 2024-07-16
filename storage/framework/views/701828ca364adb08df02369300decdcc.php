@@ -39,7 +39,7 @@
     }
 
     .toast {
-        opacity: 0.9;
+        opacity: 0.7;
     }
 </style>
 </head>
@@ -242,7 +242,7 @@
 								$(this).remove();
 							});
 							var deleteToast = new bootstrap.Toast(document.getElementById('deleteToast'), {
-								delay: 2500
+								delay: 1500
 							});
 							deleteToast.show();
 						} else {

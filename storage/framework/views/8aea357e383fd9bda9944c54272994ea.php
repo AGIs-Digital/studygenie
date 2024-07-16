@@ -4,7 +4,7 @@
 <?php $__env->startSection('title', 'genieTutor'); ?>
 <?php echo $__env->make('includes.head', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
-<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
 <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 <script>
     window.MathJax = {
