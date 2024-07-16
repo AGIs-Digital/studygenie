@@ -23,6 +23,8 @@ class User extends Authenticatable
         'tutorial_shown',
         'provider',
         'provider_id',
+        'subscription_name',
+        'expire_date',
     ];
     /**
      * The attributes that should be hidden for serialization.

@@ -422,7 +422,7 @@
 
                     <?php else: ?>
                     <button
-                        onclick="setModel('<?php echo e(route('paypal.payment','gold')); ?>','<?php echo e(route('stripe.payment','gold')); ?>')"
+                        onclick="setModel('<?php echo e(route('paypal.payment','gold')); ?>'/* ,'<?php echo e(route('stripe.payment','gold')); ?>' */)"
                         class="plancardButton">Hol dir Gold</button>
                     <?php endif; ?> <?php endif; ?>
                 </div>
@@ -452,7 +452,7 @@
 
                     <?php else: ?>
                     <button
-                        onclick="setModel('<?php echo e(route('paypal.payment','diamant')); ?>','<?php echo e(route('stripe.payment','diamant')); ?>')"
+                        onclick="setModel('<?php echo e(route('paypal.payment','diamant')); ?>'/* ,'<?php echo e(route('stripe.payment','diamant')); ?>' */)"
                         class="plancardButton">Hol dir Diamant</button>
                     <?php endif; ?> <?php endif; ?>
 
@@ -690,7 +690,7 @@
                 <div class="modal-body p-0">
                     <div class="button_payment_box">
                         <a href="#" id="paypal_btn">Bezahlen mit <span>Pay</span><span>pal</span></a>
-                        <a href="#" id="stripe_btn">Bezahlen mit Stripe</a>
+                        <!-- <a href="#" id="stripe_btn">Bezahlen mit Stripe</a> -->
 
                     </div>
                 </div>

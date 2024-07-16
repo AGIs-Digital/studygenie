@@ -422,7 +422,7 @@
 
                     @else
                     <button
-                        onclick="setModel('{{ route('paypal.payment','gold') }}','{{ route('stripe.payment','gold') }}')"
+                        onclick="setModel('{{ route('paypal.payment','gold') }}'/* ,'{{ route('stripe.payment','gold') }}' */)"
                         class="plancardButton">Hol dir Gold</button>
                     @endif @endguest
                 </div>
@@ -452,7 +452,7 @@
 
                     @else
                     <button
-                        onclick="setModel('{{ route('paypal.payment','diamant') }}','{{ route('stripe.payment','diamant') }}')"
+                        onclick="setModel('{{ route('paypal.payment','diamant') }}'/* ,'{{ route('stripe.payment','diamant') }}' */)"
                         class="plancardButton">Hol dir Diamant</button>
                     @endif @endguest
 
@@ -690,7 +690,7 @@
                 <div class="modal-body p-0">
                     <div class="button_payment_box">
                         <a href="#" id="paypal_btn">Bezahlen mit <span>Pay</span><span>pal</span></a>
-                        <a href="#" id="stripe_btn">Bezahlen mit Stripe</a>
+                        <!-- <a href="#" id="stripe_btn">Bezahlen mit Stripe</a> -->
 
                     </div>
                 </div>

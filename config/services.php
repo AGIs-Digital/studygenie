@@ -43,12 +43,12 @@ return [
         ],
     ],
     
-    'stripe' => [
+/*     'stripe' => [
         'prices' => [
             'gold' => 1000, // Preise in Cent für Stripe
             'diamant' => 2000,
         ]
-    ],
+    ], */
     
     'google' => [
         'client_id' => env('GOOGLE_CLIENT_ID'),

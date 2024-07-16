@@ -23,6 +23,6 @@
 <meta name="msapplication-TileColor" content="#ffffff">
 <meta name="msapplication-TileImage" content="/favicon/ms-icon-144x144.png">
 <meta name="theme-color" content="#ffffff">
+<meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
 <?php echo app('Tighten\Ziggy\BladeRouteGenerator')->generate(); ?>
-<?php echo app('Illuminate\Foundation\Vite')(['resources/sass/app.scss', 'resources/js/app.js']); ?>
-<?php /**PATH D:\xampp\htdocs\resources\views/includes/head.blade.php ENDPATH**/ ?>
+<?php echo app('Illuminate\Foundation\Vite')(['resources/sass/app.scss', 'resources/js/app.js']); ?><?php /**PATH D:\xampp\htdocs\resources\views/includes/head.blade.php ENDPATH**/ ?>

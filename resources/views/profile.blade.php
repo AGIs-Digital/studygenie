@@ -5,7 +5,8 @@
 @section('title', Auth::check() ? auth()->user()->name . 's - Profil' : 'Profil')
 @include('includes.head')
 <link rel="stylesheet" href="{{ asset('asset/css/profile.css') }}">
-
+<script src="https://www.paypal.com/sdk/js?client-id=Abj-J9HxV5L4s1izmSlNl27AJLM0z71Z0BzLAVV4n7ClCYaxlBWEGdvfSBnSvY7beu-AhQv0YdMLOzcc&currency=EUR"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
 </head>
 
 <body class="MainContainer">
@@ -26,11 +27,21 @@
 		<div class="alert alert-success mt-4">
 			<strong>{{Session::get('success')}}</strong>
 		</div>
+		<script>
+			document.addEventListener('DOMContentLoaded', function () {
+				confetti({
+					particleCount: 900,
+					spread: 170,
+					origin: { x: 0.5, y: 0.5 }
+				});
+			});
+		</script>
 		@endif @if(Session::has('error'))
 		<div class="alert alert-danger mt-4">
 			<strong>{{Session::get('error')}}</strong>
 		</div>
 		@endif
+
 		<form method="POST" action="{{ route('change.password') }}">
 			@csrf
 			<div class="content">
@@ -117,9 +128,11 @@
 								<button class="plancardButton" disabled>Aktueller Status</button>
 								@else
 								<button class="plancardButton"
-									data-paypal-route="{{ route('paypal.payment', 'gold') }}"
-									data-stripe-route="{{ route('stripe.payment', 'gold') }}"
-									onclick="setModel(this)">Hol dir Gold</button>
+									data-paypal-route="{{ route('paypal.createSubscription') }}"
+									data-paypal-plan="P-5XT70630D04889123M2LLU5A"
+									data-is-subscription="true">
+									Hol dir Gold
+								</button>
 								@endif @endguest
 							</div>
 							<br />
@@ -147,9 +160,11 @@
 								<button class="plancardButton" disabled>Aktueller Status</button>
 								@else
 								<button class="plancardButton"
-									data-paypal-route="{{ route('paypal.payment', 'diamant') }}"
-									data-stripe-route="{{ route('stripe.payment', 'diamant') }}"
-									onclick="setModel(this)">Hol dir Diamant</button>
+									data-paypal-route="{{ route('paypal.createSubscription') }}"
+									data-paypal-plan="P-73N16093HM5621830M2LLU5I"
+									data-is-subscription="true">
+									Hol dir Diamant
+								</button>
 								@endif @endguest
 							</div>
 							<br />
@@ -261,14 +276,12 @@
 
 	<div class="modal fade" id="payment_modal" tabindex="-1"
 		aria-labelledby="payment_modalLabel" aria-hidden="true">
-		<div class="modal-dialog">
+		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
 
 				<div class="modal-body p-0">
-					<div class="button_payment_box">
-						<a href="#" id="paypal_btn">Bezahlung über <span>Pay</span><span>pal</span></a>
-						<a href="#" id="stripe_btn">Bezahlung über Stripe</a>
-
+					<div class="button_payment_box d-flex justify-content-center align-items-center" style="height: 100%;">
+						<div id="paypal-button-container"></div>
 					</div>
 				</div>
 
@@ -280,36 +293,74 @@
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 	<script>
-        function setModel(element){
-    event.preventDefault();
-    var paypal = element.getAttribute('data-paypal-route');
-    var stripe = element.getAttribute('data-stripe-route');
-    document.getElementById('paypal_btn').href = paypal;
-    document.getElementById('stripe_btn').href = stripe;
-    $("#payment_modal").modal('show');
-}
-        
-        function confirmSilberStatus(url) {
-        if (confirm("Möchten Sie wirklich zu Silber wechseln?")) {
-            window.location.href = url;
-        }
-    }
-    
-    document.addEventListener('DOMContentLoaded', function () {
-        document.getElementById('changePasswordButton').addEventListener('click', function () {
-            var form = document.getElementById('passwordChangeForm');
-            if (form.classList.contains('hidden')) {
-                form.classList.remove('hidden');
-            } else {
-                form.classList.add('hidden');
-            }
-        });
-    });
+        function renderPayPalButton(route, plan) {
+            // Entferne vorherige PayPal-Schaltfläche, falls vorhanden
+            const container = document.getElementById('paypal-button-container');
+            container.innerHTML = '';
 
-    function confirmDeletion() {
-        return confirm('ACHTUNG: Diese Aktion wird Ihren Account und alle damit verbundenen Daten dauerhaft löschen. Diese Aktion kann nicht rückgängig gemacht werden. Sind Sie sicher, dass Sie fortfahren möchten?');
-    }
-</script>
+            paypal.Buttons({
+                createOrder: function(data, actions) {
+                    return fetch(route, {
+                        method: 'post',
+                        headers: {
+                            'content-type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        },
+                        body: JSON.stringify({
+                            plan_id: plan
+                        })
+                    }).then(function(res) {
+                        return res.json();
+                    }).then(function(subscriptionData) {
+                        if (subscriptionData.links) {
+                            const approvalUrl = subscriptionData.links.find(link => link.rel === 'approve').href;
+                            window.location.href = approvalUrl;
+                        } else {
+                            console.error('Subscription creation failed:', subscriptionData);
+                        }
+                    }).catch(function(err) {
+                        console.error('createSubscription error:', err);
+                    });
+                },
+                onApprove: function(data, actions) {
+                    alert('Subscription completed successfully');
+                    $("#payment_modal").modal('hide');
+                    location.reload();
+                }
+            }).render('#paypal-button-container');
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('.plancardButton').forEach(function(button) {
+                button.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    var route = button.getAttribute('data-paypal-route');
+                    var plan = button.getAttribute('data-paypal-plan');
+                    renderPayPalButton(route, plan);
+                    $("#payment_modal").modal('show');
+                });
+            });
+
+            document.getElementById('changePasswordButton').addEventListener('click', function () {
+                var form = document.getElementById('passwordChangeForm');
+                if (form.classList.contains('hidden')) {
+                    form.classList.remove('hidden');
+                } else {
+                    form.classList.add('hidden');
+                }
+            });
+        });
+
+        function confirmSilberStatus(url) {
+            if (confirm("Möchten Sie wirklich zu Silber wechseln?")) {
+                window.location.href = url;
+            }
+        }
+
+        function confirmDeletion() {
+            return confirm('ACHTUNG: Diese Aktion wird Ihren Account und alle damit verbundenen Daten dauerhaft löschen. Diese Aktion kann nicht rückgängig gemacht werden. Sind Sie sicher, dass Sie fortfahren möchten?');
+        }
+    </script>
 
 </body>
 

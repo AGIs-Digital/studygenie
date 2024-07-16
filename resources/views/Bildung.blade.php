@@ -64,13 +64,14 @@
                 </svg>
             </a>
 
-            @php
-                $check = false;
-                $date = auth()->user()->expire_date;
-                if ($date != null && \Carbon\Carbon::parse($date)->gt(\Carbon\Carbon::now())) {
-                    $check = true;
-                }
-            @endphp
+			@php
+    		$check = false;
+    		$date = auth()->user()->expire_date;
+    		$subscriptionName = auth()->user()->subscription_name;
+    		if ($subscriptionName == 'diamant' || ($date != null && \Carbon\Carbon::parse($date)->gt(\Carbon\Carbon::now()))) {
+        		$check = true;
+    		}
+			@endphp
 
             @if ((auth()->user()->subscription_name == 'gold' || auth()->user()->subscription_name == 'diamant') && $check)
             <a href="/GenieAutor" class="Cloud">

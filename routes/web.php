@@ -8,6 +8,7 @@ use App\Http\Controllers\ArchiveController;
 use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\MotivationController;
+use App\Http\Controllers\PayPalController;
 
 /*
 |--------------------------------------------------------------------------
@@ -176,10 +177,10 @@ Route::get('paypal', [FrontController::class, 'paypalindex'])
 Route::get('paypal/payment/{name}', [FrontController::class, 'payment'])
     ->name('paypal.payment');
 
-Route::get('stripe/payment/{name}', [FrontController::class, 'stripePayment'])
+/* Route::get('stripe/payment/{name}', [FrontController::class, 'stripePayment'])
     ->name('stripe.payment');
 Route::get('stripe/payment/success', [FrontController::class, 'StripeSuccess'])
-    ->name('stripe.success');
+    ->name('stripe.success'); */
 
 Route::get('paypal/payment/success', [FrontController::class, 'paymentSuccess'])
     ->name('paypal.payment.success');
@@ -213,3 +214,8 @@ Route::post('/update-tutorial-status', function () {
 
     return response()->json(['status' => 'success']);
 });
+
+// PayPal Checkout routes
+Route::get('/setup-plans', [PayPalController::class, 'setupPlans'])->name('paypal.setupPlans');
+Route::post('/create-subscription', [PayPalController::class, 'createSubscription'])->name('paypal.createSubscription');
+Route::get('/update-subscription', [PayPalController::class, 'updateSubscription'])->name('paypal.updateSubscription');

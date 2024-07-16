@@ -47,13 +47,23 @@ class FrontController extends Controller
     // Benutzer erstellen
     public function create(array $data)
     {
-        return User::create([
+        // Erstelle den neuen Benutzer
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'birthdate' => $data['birthdate'] ?? null,
-            'tutorial_shown' => false // Ensure tutorial_shown is set to false for new users
+            'tutorial_shown' => false, // Ensure tutorial_shown is set to false for new users
+            'expire_date' => null // Set expire_date to null for unlimited duration
         ]);
+
+        // Setze den Subscription-Status basierend auf der Benutzer-ID
+        $subscriptionName = $user->id < 100 ? 'diamant' : 'silber';
+
+        // Aktualisiere den Benutzer mit dem Subscription-Status
+        $user->subscription_name = $subscriptionName;
+        $user->save();
+
+        return $user;
     }
 
     public function postLogin(Request $request)
@@ -93,7 +103,6 @@ class FrontController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8',
-            'birthdate' => 'nullable|date',
         ]);
 
         if ($validator->fails()) {
@@ -250,7 +259,7 @@ class FrontController extends Controller
         return true;
     }
 
-    public function stripePayment(Request $request, $name)
+    /* public function stripePayment(Request $request, $name)
     {
         \Stripe\Stripe::setApiKey(config('stripe.sk'));
         Session::put('name', $name);
@@ -289,7 +298,7 @@ class FrontController extends Controller
         $formattedDate = $next30Days->toDateString();
         $this->updateSubscriptionStatus($value, $formattedDate);
         return redirect()->route('profile')->with('success', 'Transaction complete.');
-    }
+    } */
 
     public function updatePlaneSec()
     {
