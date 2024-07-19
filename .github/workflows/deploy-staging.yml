@@ -46,6 +46,6 @@ jobs:
           username: ${{ secrets.STAGING_FTP_USERNAME }}
           password: ${{ secrets.STAGING_FTP_PASSWORD }}
           port: 22
-          protocol: ftps
+          protocol: sftp
           local-dir: ./ # Project root directory
           server-dir: /
