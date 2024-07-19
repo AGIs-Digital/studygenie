@@ -57,4 +57,4 @@ jobs:
           username: ${{ secrets.STAGING_FTP_USERNAME }}
           password: ${{ secrets.STAGING_FTP_PASSWORD }}
           uploads: |
-          ./ => ./
+            ./ => ./
