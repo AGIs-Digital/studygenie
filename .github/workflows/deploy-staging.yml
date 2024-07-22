@@ -13,6 +13,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install dependencies
+        run: npm install
+
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
@@ -41,41 +49,9 @@ jobs:
           php artisan route:cache
           php artisan view:cache
 
-      - name: 📂 Sync files
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ secrets.STAGING_FTP_SERVER }}
-          username: ${{ secrets.STAGING_FTP_USERNAME }}
-          password: ${{ secrets.STAGING_FTP_PASSWORD }}
-          port: 22
-          dry-run: true
-          exclude: |
-            *.git
-            .github
-            */**/*git*
-            .gitignore
-            .project
-            README.md
-            .env.example
-            .vite.config.js
-            .webpack.mix.js
-
-      # - name: Upload to Staging Server
-      #   uses: Dylan700/sftp-upload-action@latest
-      #   with:
-      #     server: ${{ secrets.STAGING_FTP_SERVER }}
-      #     username: ${{ secrets.STAGING_FTP_USERNAME }}
-      #     password: ${{ secrets.STAGING_FTP_PASSWORD }}
-      #     uploads: |
-      #       ./ => ./
-      #     ignore: |
-      #       *.git
-      #       .github
-      #       */**/*git*
-      #       .gitignore
-      #       .project
-      #       README.md
-      #       .env.example
-      #       .vite.config.js
-      #       .webpack.mix.js
-
+      - name: Deploy to Staging Server via SFTP
+        env:
+          FTP_USERNAME: ${{ secrets.STAGING_FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.STAGING_FTP_PASSWORD }}
+          FTP_SERVER: ${{ secrets.STAGING_FTP_SERVER }}
+        run: node deploy.js
