@@ -27,10 +27,12 @@ jobs:
       - name: Replace environment variables in .env
         run: |
           sed -i 's/^APP_ENV=.*$/APP_ENV=staging/' .env
+          sed -i 's/^APP_URL=.*$/APP_URL=${{ secrets.STAGING_APP_URL }}/' .env
           sed -i 's/^DB_HOST=.*$/DB_HOST=${{ secrets.STAGING_DB_HOSTNAME }}/' .env
           sed -i 's/^DB_DATABASE=.*$/DB_DATABASE=${{ secrets.STAGING_DB_DBNAME }}/' .env
           sed -i 's/^DB_USERNAME=.*$/DB_USERNAME=${{ secrets.STAGING_DB_USERNAME }}/' .env
           sed -i 's/^DB_PASSWORD=.*$/DB_PASSWORD=${{ secrets.STAGING_DB_PASSWORD }}/' .env
+          sed -i 's/^OPENAI_API_KEY=.*$/OPENAI_API_KEY="${{ secrets.OPENAI_APIKEY }}"/' .env
 
       - name: Run Laravel specific commands
         run: |
@@ -38,17 +40,6 @@ jobs:
           php artisan config:cache
           php artisan route:cache
           php artisan view:cache
-
-      # - name: Upload to Staging Server
-      #   uses: SamKirkland/FTP-Deploy-Action@4.3.3
-      #   with:
-      #     server: ${{ secrets.STAGING_FTP_SERVER }}
-      #     username: ${{ secrets.STAGING_FTP_USERNAME }}
-      #     password: ${{ secrets.STAGING_FTP_PASSWORD }}
-      #     protocol: ftp
-      #     port: 990
-      #     local-dir: ./ # Project root directory
-      #     server-dir: /
 
       - name: Upload to Staging Server
         uses: Dylan700/sftp-upload-action@latest
@@ -58,3 +49,14 @@ jobs:
           password: ${{ secrets.STAGING_FTP_PASSWORD }}
           uploads: |
             ./ => ./
+          ignore: |
+            *.git
+            .github
+            */**/*git*
+            .gitignore
+            .project
+            README.md
+            .env.example
+            .vite.config.js
+            .webpack.mix.js
+
