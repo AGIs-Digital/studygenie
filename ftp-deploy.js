@@ -10,7 +10,7 @@ const config = {
   remoteRoot: "/",
   include: ["*", "**/*"],      // this would upload everything except dot files
   exclude: [
-    "*.map",
+    "dist/**/*.map",
     "node_modules/**",
     "node_modules/**/.*",
     ".git/**",
@@ -34,7 +34,7 @@ const config = {
 // });
 
 ftpDeploy.on("uploaded", function (data) {
-    console.log("✅ " + data.filename + " (total files: " + data.totalFilesCount + ")"); // same data as uploading event
+    console.log("✅ " + data.filename + " (" + data.transferredFileCount + " / " + data.totalFilesCount + ")");
 });
 
 ftpDeploy.on("upload-error", function (data) {

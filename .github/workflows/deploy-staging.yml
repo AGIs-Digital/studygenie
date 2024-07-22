@@ -21,6 +21,9 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Compile Frontend stuff
+        run: npm run build
+
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
@@ -40,7 +43,7 @@ jobs:
           sed -i 's#^DB_DATABASE=.*#DB_DATABASE=${{ secrets.STAGING_DB_DBNAME }}#' .env
           sed -i 's#^DB_USERNAME=.*#DB_USERNAME=${{ secrets.STAGING_DB_USERNAME }}#' .env
           sed -i 's#^DB_PASSWORD=.*#DB_PASSWORD=${{ secrets.STAGING_DB_PASSWORD }}#' .env
-          sed -i 's#^OPENAI_API_KEY=.*#OPENAI_API_KEY=${{ secrets.OPENAI_APIKEY }}#' .env
+          sed -i 's#^OPENAI_API_KEY=.*#OPENAI_API_KEY="${{ secrets.OPENAI_APIKEY }}"#' .env
 
       - name: Run Laravel specific commands
         run: |
