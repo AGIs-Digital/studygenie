@@ -27,18 +27,18 @@ const config = {
   sftp: true,
 };
 
-ftpDeploy.on("uploading", function (data) {
-    console.log(data.totalFilesCount); // total file count being transferred
-    console.log(data.transferredFileCount); // number of files transferred
-    console.log(data.filename); // partial path with filename being uploaded
-});
+// ftpDeploy.on("uploading", function (data) {
+//     console.log(data.totalFilesCount); // total file count being transferred
+//     console.log(data.transferredFileCount); // number of files transferred
+//     console.log(data.filename); // partial path with filename being uploaded
+// });
 
 ftpDeploy.on("uploaded", function (data) {
-    console.log("- " + data.filename + " (total files: " + data.totalFilesCount + ")"); // same data as uploading event
+    console.log("✅ " + data.filename + " (total files: " + data.totalFilesCount + ")"); // same data as uploading event
 });
 
 ftpDeploy.on("upload-error", function (data) {
-    console.log(data.err); // data will also include filename, relativePath, and other goodies
+    console.log("❌ " . data.err); // data will also include filename, relativePath, and other goodies
 });
 
 ftpDeploy.deploy(config, function(err) {
