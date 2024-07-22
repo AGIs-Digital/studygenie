@@ -54,4 +54,4 @@ jobs:
           FTP_USERNAME: ${{ secrets.STAGING_FTP_USERNAME }}
           FTP_PASSWORD: ${{ secrets.STAGING_FTP_PASSWORD }}
           FTP_SERVER: ${{ secrets.STAGING_FTP_SERVER }}
-        run: node deploy.js
+        run: node ftp-deploy.js
