@@ -20,6 +20,10 @@
 	height: 100%;
 }
 
+input[type="radio"] {
+    cursor: pointer;
+}
+
 /* Input fields styling --> Anpassen nur für Steuerungsfelder */
 .form-group input[type="text"] { /* "text" ändern"*/
     width: calc(100% - 10px);

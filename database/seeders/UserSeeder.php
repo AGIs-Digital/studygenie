@@ -24,8 +24,7 @@ class UserSeeder extends Seeder
             'email_verified_at' => Carbon::now(),
             'password' => Hash::make('admin'),
             'subscription_name' => 'diamant',
-            'expire_date' => Carbon::now()->addDays(100),
-            'birthdate' => '2010-01-01',
+            'expire_date' => null,
             'tutorial_shown' => true,
         ]);
     }

@@ -72,6 +72,7 @@ class LoginController extends Controller
                 'provider_id' => $socialUser->getId(),
                 'password' => Hash::make(Str::random(16)), // Generate a random password
                 'tutorial_shown' => 0,
+                'subscription_name' => 'silber'
             ]);
         }
 

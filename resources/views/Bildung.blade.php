@@ -29,7 +29,7 @@
         </div>
 
         <div class="categoryClouds">
-            <a href="/GenieCheck" class="Cloud">
+            <a href="/geniecheck" class="Cloud">
                 <button type="button" class="btn" data-bs-toggle="tooltip" data-bs-placement="top" title="Soforthilfe für alle deine Fragen">
                     <img src="{{ asset('asset/images/info.svg') }}" width="20" alt="">
                 </button>
@@ -74,7 +74,7 @@
 			@endphp
 
             @if ((auth()->user()->subscription_name == 'gold' || auth()->user()->subscription_name == 'diamant') && $check)
-            <a href="/GenieAutor" class="Cloud">
+            <a href="/genieautor" class="Cloud">
 				<button type="button" class="btn" data-bs-toggle="tooltip"
 					data-bs-placement="top"
 					title="Textkorrekturen und -inspiration für Grammatik, Stil und mehr">

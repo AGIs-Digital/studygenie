@@ -40,7 +40,7 @@
 		</div>
 
 		<div class="categoryClouds">
-			<a href="/jobmatch" class="Cloud_Karriere">
+			<a href="/job_match" class="Cloud_Karriere">
 			    <button type="button" class="btn" data-bs-toggle="tooltip" data-bs-placement="top" title="Finde Berufe die wirklich zu dir passen">
                     <img src="{{ asset('asset/images/info.svg') }}" width="20" alt="Info">
                 </button>

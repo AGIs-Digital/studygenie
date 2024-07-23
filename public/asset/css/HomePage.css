@@ -4,6 +4,10 @@
 	position: relative;
 }
 
+a {
+    cursor: pointer;
+}
+
 .headerDesign {
 	position: absolute;
 	left: -2%;
@@ -135,16 +139,16 @@
 }
 
 .imageContainer {
-	position: relative;
-	top: -3rem;
-	width: 600px;
-	display: inline-block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: auto;
 }
 
 .imageContainer img {
-	width: 100%;
-	object-fit: cover;
-	padding-top: 10%;
+    max-width: 100%;
+    height: auto;
 }
 
 .contentContainer {
@@ -553,17 +557,6 @@
 	color: white;
 }
 
-#mathrixrecomendsSpan {
-	font-family: "Montserrat", sans-serif;
-	font-weight: 600;
-	font-size: 12px;
-	text-align: center;
-	color: rgba(255, 61, 0, 1);
-	background-color: rgba(255, 235, 228, 1);
-	padding: 0.2rem 0.4rem;
-	border-radius: 10px;
-}
-
 .highWeightSpan {
 	font-family: "Milonga";
 	font-weight: 400;
@@ -591,7 +584,7 @@
 	width: 200px;
 	height: 35px;
 	border-radius: 6px;
-	background-color: rgba(232, 129, 40, 1);
+	background-color: #E09E50;
 	color: white !important;
 	font-family: "Montserrat", sans-serif;
 	font-weight: 600;
@@ -605,8 +598,11 @@
 }
 
 .plancardButton:hover {
-	cursor: url("../images/G.png"), auto;
-	border: 2px solid black;
+	cursor: pointer;
+	border: 2px solid #E09E50;
+	box-shadow: 0 4px 8px rgba(224, 158, 80, 0.3), 0 6px 20px rgba(224, 158, 80, 0.19);
+	transform: scale(1.05);
+	transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .contentPlanCard {
@@ -1124,6 +1120,7 @@
 	position: absolute;
 	top: 8.5%;
 	right: 7%;
+	cursor: pointer;
 }
 
 .emailInput {

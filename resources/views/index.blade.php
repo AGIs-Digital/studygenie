@@ -5,9 +5,112 @@
 @include('includes.head')
 <link rel="stylesheet" href="{{ asset('asset/css/HomePage.css') }}">
 <link rel="stylesheet" href="{{ asset('asset/css/cookie-consent.css') }}">
+<style>
+        .hidden {
+            display: none;
+        }
+
+        .visible {
+            display: block;
+        }
+
+        .text-success {
+            color: green;
+        }
+
+        .text-danger {
+            color: red;
+        }
+
+        .password-field {
+            position: relative;
+        }
+
+        .toggle-password {
+            position: absolute;
+            top: 50%;
+            right: 1.5rem;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+
+        .toggle-password img {
+            width: 23px;
+            height: 23px;
+        }
+
+        .criteria-container {
+            width: 100%; /* Ensure the container takes the full width of the input field */
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .criteria-row {
+            justify-content: space-between;
+            margin-bottom: 10px; /* Add some space between rows */
+        }
+
+        .criteria-row p {
+            margin: 0;
+            white-space: nowrap;
+            width: 100%; /* Ensure each criterion takes the full width of its container */
+        }
+
+        .text-success .checkmark {
+            color: green;
+            animation: highlight 3.5s ease-in-out;
+        }
+
+        .text-danger .checkmark {
+            color: red;
+        }
+
+        @keyframes highlight {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .arrow-up {
+            position: fixed;
+            bottom: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 50px;
+            background-color: #212529;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+            z-index: 1000;
+        }
+
+        .arrow-up.hidden {
+            display: none;
+        }
+
+        .arrow-up:hover {
+            opacity: 1;
+        }
+
+        .arrow-up img {
+            width: 30px;
+            height: 30px;
+        }
+    </style>
 </head>
 
 <body class="MainContainer">
+
+    <!-- Arrow Up Button -->
+    <div class="arrow-up hidden" id="arrowUpContainer">
+        <img src="{{ asset('asset/images/arrow-up.svg') }}" id="arrowUp" class="hidden" alt="Nach oben">
+    </div>
 
 <!-- Cookie Consent Modal -->
 <div id="cookieConsentModal" class="modal fade" tabindex="-1" aria-labelledby="cookieConsentModalLabel" aria-hidden="true">
@@ -82,8 +185,8 @@
                             <!-- Authentication Links -->
                             @guest
 
-                            <li class="nav-item"><a class="nav-link blog primary-button"
-                                href="#">{{ __('Blog') }}</a></li>
+                            <!-- <li class="nav-item"><a class="nav-link blog primary-button"
+                                href="#">{{ __('Blog') }}</a></li> -->
 
 
 
@@ -92,8 +195,8 @@
                                     data-bs-target="#loginModal" id="loginButton">Log In</button>
 
                             </li> @else
-                            <li class="nav-item"><a class="nav-link blog primary-button"
-                                href="#">{{ __('Blog') }}</a></li>
+                            <!-- <li class="nav-item"><a class="nav-link blog primary-button"
+                                href="#">{{ __('Blog') }}</a></li> -->
                             <li class="nav-item dropdown"><a id="navbarDropdown"
                                 class="nav-link dropdown-toggle" href="#" role="button"
                                 data-bs-toggle="dropdown" aria-haspopup="true"
@@ -153,9 +256,8 @@
             Studium und im Berufsstart.</p>
 
         <div class="video_sec">
-            <video controls id="home_video" loading="lazy">
-                <source src="{{ asset('asset/Videos/video.mp4') }}" type="video/mp4">
-                <source src="{{ asset('asset/Videos/video.mp4') }}" type="video/ogg">
+            <video controls id="home_video" loading="lazy" preload="metadata">
+                <source src="{{ asset('asset/Videos/video_klein.mp4') }}" type="video/mp4">
                 Ihr Browser unterstützt das Video-Tag nicht.
             </video>
             <script>
@@ -191,12 +293,12 @@
             </div>
             <div class="testimonialCard">
                 <img
-                    src="{{ asset('asset/images/illustrations/Der perfekte Lernplan für dich.png') }}"
+                    src="{{ asset('asset/images/illustrations/Der_perfekte_Lernplan_fur_dich.png') }}"
                     alt="Testimonial Card" loading="lazy"> <span class="CardThumbnailSpan">Individuelle Lernhilfe</span>
             </div>
             <div class="testimonialCard">
                 <img
-                    src="{{ asset('asset/images/Alles_wichtige_uber_deine_Traumberufe.png') }}"
+                    src="{{ asset('asset/images/illustrations/Alles_wichtige_uber_deine_Traumberufe.png') }}"
                     alt="Testimonial Card" loading="lazy"> <span class="CardThumbnailSpan">Deinen Traumberuf finden</span>
             </div>
         </div>
@@ -605,7 +707,7 @@
 
                                     <div class="or">
                                             oder anmelden über
-                                            <a href="{{ url('login/google') }}">
+                                            <a href="{{ url('login/google') }}" id="google-login">
                                                 <img src="{{ asset('asset/images/google.svg') }}" alt="Google" loading="lazy">
                                             </a>
                                     </div>
@@ -639,14 +741,14 @@
                                 height="77" alt="Logo" loading="lazy">
                         </div>
                         <div class="main">
-                        <form method="POST" id="registerForm">
+                            <form method="POST" id="registerForm">
                                 @csrf <br />
 
                                 <div class="emailInput">
                                     <div id="errors-list" class="mx-auto"></div>
                                     <div class="emailField">
                                         <label class="label" for="name">Name:</label> <input type="text"
-                                            placeholder="Wie möchtest du genannt werden?" name="name"
+                                            placeholder="Wie heißt du?" name="name"
                                             id="name_register" class="emailLogin" autocomplete="name">
                                     </div>
 
@@ -658,10 +760,21 @@
                                     </div>
                                     <label class="label" for="password">Passwort:</label>
                                     <div class="password-field">
-                                        <input type="password" placeholder="Dein Wunschpasswort"
-                                            name="password" id="password_register" class="emailLogin" autocomplete="new-password">
+                                        <input type="password" id="password_register" name="password" placeholder="Dein Wunschpasswort"  class="emailLogin">
+                                        <span class="toggle-password" onclick="togglePasswordVisibility()">
+                                            <img src="{{ asset('asset/images/eye.svg') }}" alt="Toggle Password Visibility" width="25" height="25">
+                                        </span>
                                     </div>
-
+                                    <div id="passwordCriteria" class="criteria-container mt-2">
+                                        <div class="criteria-row">
+                                            <p id="lengthCriteria" class="text-danger"><span class="checkmark">✔</span> 8 Zeichen</p>
+                                            <p id="uppercaseCriteria" class="text-danger"><span class="checkmark">✔</span> 1 Großbuchstabe</p>
+                                        </div>
+                                        <div class="criteria-row">
+                                            <p id="numberCriteria" class="text-danger"><span class="checkmark">✔</span> 1 Zahl</p>
+                                            <p id="specialCharCriteria" class="text-danger"><span class="checkmark">✔</span> 1 Sonderzeichen</p>
+                                        </div>
+                                    </div>
 
                                     <input type="submit" value="Registrieren" class="emailLogin">
                                         <div class="or">
@@ -771,117 +884,209 @@
 	<script src="{{ asset('asset/js/index.js') }}"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-    document.getElementById("loginForm").addEventListener("submit", function(e) {
-        e.preventDefault();
-        var formData = new FormData(this);
-        formData.append('_token', document.querySelector('meta[name="csrf-token"]').getAttribute('content')); // Fügt das CSRF-Token zum FormData hinzu
-        fetch("/postLogin", {
-            method: "POST",
-            body: formData,
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest', // Wichtig für Laravel, um AJAX-Anfragen zu erkennen
-            },
-        })
-        .then(response => response.json())
-        .then(data => {
-            if(data.status === true) {
-                window.location.href = data.redirect;
-            } else {
-                alert("Fehler beim Login.");
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
+    document.addEventListener("DOMContentLoaded", function() {
+        // Login Form Submission
+        document.getElementById("loginForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+            var formData = new FormData(this);
+            formData.append('_token', document.querySelector('meta[name="csrf-token"]').getAttribute('content')); // Fügt das CSRF-Token zum FormData hinzu
+            fetch("/postLogin", {
+                method: "POST",
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest', // Wichtig für Laravel, um AJAX-Anfragen zu erkennen
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.status === true) {
+                    window.location.href = data.redirect;
+                } else {
+                    alert("Fehler beim Login.");
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
         });
-    });
-});
 
-document.addEventListener("DOMContentLoaded", function() {
-    document.getElementById("registerForm").addEventListener("submit", function(e) {
-        e.preventDefault();
-        var formData = new FormData(this);
-        fetch("/postRegistration", {
-            method: "POST",
-            body: formData,
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest', // Wichtig für Laravel, um AJAX-Anfragen zu erkennen
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') // CSRF-Token
-            },
-        })
-        .then(response => response.json())
-        .then(data => {
-            if(data.status === true) {
-                window.location.href = data.redirect;
-            } else {
-                alert("Fehler beim Login.");
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
+        // Register Form Submission
+        document.getElementById("registerForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+            var formData = new FormData(this);
+            fetch("/postRegistration", {
+                method: "POST",
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest', // Wichtig für Laravel, um AJAX-Anfragen zu erkennen
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') // CSRF-Token
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.status === true) {
+                    if (data.subscription_updated) {
+                        localStorage.setItem('subscription_updated', 'true');
+                    }
+                    window.location.href = data.redirect;
+                } else {
+                    alert("Fehler beim Login.");
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
         });
+
+        // Google Login
+        document.getElementById('google-login').addEventListener('click', function() {
+            window.location.href = "{{ url('login/google') }}";
+        });
+
+        // Cookie Consent Modal
+        if (!localStorage.getItem('cookieConsent')) {
+            var cookieModal = new bootstrap.Modal(document.getElementById('cookieConsentModal'));
+            cookieModal.show();
+        }
+
+        // Show Toast Message
+        function showToast(message) {
+            var toast = document.createElement('div');
+            toast.className = 'toast align-items-center text-white bg-primary border-0';
+            toast.role = 'alert';
+            toast.ariaLive = 'assertive';
+            toast.ariaAtomic = 'true';
+            toast.innerHTML = `
+                <div class="d-flex">
+                    <div class="toast-body">${message}</div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            `;
+            document.body.appendChild(toast);
+            var bsToast = new bootstrap.Toast(toast, { delay: 3000 });
+            bsToast.show();
+            toast.addEventListener('hidden.bs.toast', function () {
+                toast.remove();
+            });
+        }
+
+        // Accept Cookies
+        document.getElementById('acceptCookies').addEventListener('click', function() {
+            var consent = {
+                necessary: true,
+                analytics: document.getElementById('analyticsCookies').checked,
+                marketing: document.getElementById('marketingCookies').checked
+            };
+            localStorage.setItem('cookieConsent', JSON.stringify(consent));
+            showToast('Ihre Cookie-Einstellungen wurden gespeichert.');
+            var cookieModal = bootstrap.Modal.getInstance(document.getElementById('cookieConsentModal'));
+            cookieModal.hide();
+        });
+
+        // Decline Cookies
+        document.getElementById('declineCookies').addEventListener('click', function() {
+            var consent = {
+                necessary: true,
+                analytics: false,
+                marketing: false
+            };
+            localStorage.setItem('cookieConsent', JSON.stringify(consent));
+            showToast('Ihre Cookie-Einstellungen wurden gespeichert.');
+            var cookieModal = bootstrap.Modal.getInstance(document.getElementById('cookieConsentModal'));
+            cookieModal.hide();
+        });
+
+        // Arrow Up Button
+        var arrowUp = document.getElementById('arrowUp');
+        var arrowUpContainer = document.getElementById('arrowUpContainer');
+
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > window.innerHeight) {
+                arrowUp.classList.add('visible');
+                arrowUp.classList.remove('hidden');
+                arrowUpContainer.classList.add('visible');
+                arrowUpContainer.classList.remove('hidden');
+            } else {
+                arrowUp.classList.add('hidden');
+                arrowUp.classList.remove('visible');
+                arrowUpContainer.classList.add('hidden');
+                arrowUpContainer.classList.remove('visible');
+            }
+        });
+
+        arrowUp.addEventListener('click', function() {
+            smoothScrollToTop();
+        });
+
+        // Hide Arrow Up Button after scrolling to top
+        window.addEventListener('scroll', function() {
+            if (window.scrollY === 0) {
+                arrowUp.classList.add('hidden');
+                arrowUp.classList.remove('visible');
+                arrowUpContainer.classList.add('hidden');
+                arrowUpContainer.classList.remove('visible');
+            }
+        });
+
+        // Check for subscription update
+        if (localStorage.getItem('subscription_updated') === 'true') {
+            showConfetti();
+            showSuccessMessage();
+            localStorage.removeItem('subscription_updated');
+        }
     });
-});
 
-document.getElementById('facebook-login').addEventListener('click', function() {
-    window.location.href = "{{ url('login/facebook') }}";
-});
-
-document.getElementById('google-login').addEventListener('click', function() {
-    window.location.href = "{{ url('login/google') }}";
-});
-
-document.addEventListener("DOMContentLoaded", function() {
-    if (!localStorage.getItem('cookieConsent')) {
-        var cookieModal = new bootstrap.Modal(document.getElementById('cookieConsentModal'));
-        cookieModal.show();
+    // Smooth scroll to top function
+    function smoothScrollToTop() {
+        const scrollDuration = 300; // Duration in ms
+        const scrollStep = -window.scrollY / (scrollDuration / 15);
+        const scrollInterval = setInterval(function() {
+            if (window.scrollY !== 0) {
+                window.scrollBy(0, scrollStep);
+            } else {
+                clearInterval(scrollInterval);
+            }
+        }, 15);
     }
 
-    function showToast(message) {
-        var toast = document.createElement('div');
-        toast.className = 'toast align-items-center text-white bg-primary border-0';
-        toast.role = 'alert';
-        toast.ariaLive = 'assertive';
-        toast.ariaAtomic = 'true';
-        toast.innerHTML = `
-            <div class="d-flex">
-                <div class="toast-body">${message}</div>
-                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
-        `;
-        document.body.appendChild(toast);
-        var bsToast = new bootstrap.Toast(toast, { delay: 3000 });
-        bsToast.show();
-        toast.addEventListener('hidden.bs.toast', function () {
-            toast.remove();
-        });
+    // Toggle Password Visibility
+    function togglePasswordVisibility() {
+        const passwordInput = document.getElementById('password_register');
+        const toggleIcon = document.querySelector('.toggle-password img');
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        toggleIcon.src = type === 'password' ? "{{ asset('asset/images/eye.svg') }}" : "{{ asset('asset/images/eye-off.svg') }}";
     }
+</script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const passwordInput = document.getElementById('password_register');
+        if (passwordInput) {
+            const passwordCriteria = document.getElementById('passwordCriteria');
+            const criteria = {
+                length: document.getElementById('lengthCriteria'),
+                uppercase: document.getElementById('uppercaseCriteria'),
+                number: document.getElementById('numberCriteria'),
+                specialChar: document.getElementById('specialCharCriteria')
+            };
 
-    document.getElementById('acceptCookies').addEventListener('click', function() {
-        var consent = {
-            necessary: true,
-            analytics: document.getElementById('analyticsCookies').checked,
-            marketing: document.getElementById('marketingCookies').checked
-        };
-        localStorage.setItem('cookieConsent', JSON.stringify(consent));
-        showToast('Ihre Cookie-Einstellungen wurden gespeichert.');
-        var cookieModal = bootstrap.Modal.getInstance(document.getElementById('cookieConsentModal'));
-        cookieModal.hide();
+            passwordInput.addEventListener('focus', () => passwordCriteria.classList.remove('hidden'));
+            passwordInput.addEventListener('blur', () => { if (passwordInput.value === '') passwordCriteria.classList.add('hidden'); });
+            passwordInput.addEventListener('input', function () {
+                const password = passwordInput.value;
+                criteria.length.classList.toggle('text-success', password.length >= 8);
+                criteria.length.classList.toggle('text-danger', password.length < 8);
+                criteria.uppercase.classList.toggle('text-success', /[A-Z]/.test(password));
+                criteria.uppercase.classList.toggle('text-danger', !/[A-Z]/.test(password));
+                criteria.number.classList.toggle('text-success', /\d/.test(password));
+                criteria.number.classList.toggle('text-danger', !/\d/.test(password));
+                criteria.specialChar.classList.toggle('text-success', /[!@#$%^&*(),.?":{}|<>]/.test(password));
+                criteria.specialChar.classList.toggle('text-danger', !/[!@#$%^&*(),.?":{}|<>]/.test(password));
+            });
+        }
     });
-
-    document.getElementById('declineCookies').addEventListener('click', function() {
-        var consent = {
-            necessary: true,
-            analytics: false,
-            marketing: false
-        };
-        localStorage.setItem('cookieConsent', JSON.stringify(consent));
-        showToast('Ihre Cookie-Einstellungen wurden gespeichert.');
-        var cookieModal = bootstrap.Modal.getInstance(document.getElementById('cookieConsentModal'));
-        cookieModal.hide();
-    });
-});
 </script>
 </body>
 </html>

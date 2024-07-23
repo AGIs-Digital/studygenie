@@ -293,7 +293,7 @@
                 //Ladezeichen anzeigen
                 $("#submitForm").addClass('loading-button').text("Zaubert...");
                 $.ajax({
-                    url: "/textInspirationprocess",
+                    url: "/TextInspirationprocess",
                     method: "POST",
                     data: formData,
                     contentType: false,

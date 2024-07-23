@@ -1,229 +1,122 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
-@section('title', 'Datenschutz')
-@include('includes.head')
-<link rel="stylesheet" href="{{ asset('asset/css/homepage.css') }}">
+    @section('title', 'Datenschutz')
+    @include('includes.head')
+    <link rel="stylesheet" href="{{ asset('asset/css/homepage.css') }}">
 </head>
 
 <body class="MainContainer">
-	@include('includes.header')
+    @include('includes.header')
 
-	<section class="blog_sec">
-		<div class="container">
-			<div class="row justify-content-center">
-				<div class="col-md-8">
-					<h1>Datenschutz</h1>
-
-					<h2>Verwendung von Cookies</h2>
-					<p class="mb-2">Um die Nutzung unseres Webangebots insgesamt
-						nutzerfreundlicher und effektiver zu gestalten, speichert
-						StudyGenie selbst oder durch von StudyGenie beauftragte Dritte auf
-						der Festplatte des Nutzers so genannte Cookies. Rechtsgrundlage
-						ist Art. 6 Abs. 1 lit. f) DSGVO.</p>
-					<p class="mb-2">Ein Cookie ist eine kleine Textdatei, die unter
-						anderem zur Erfassung von Informationen bezüglich der Nutzung
-						einer Webseite dient. Diese Cookies können weder Programme
-						ausführen, noch Viren auf Deinen Computer übertragen. Sie
-						enthalten keine persönlichen Daten, können bestimmten Personen
-						nicht zugeordnet werden und werden, sofern nicht anders
-						beschrieben, spätestens nach einem Jahr automatisch gelöscht. Eine
-						Zusammenführung dieser Daten mit anderen Datenquellen wird nicht
-						vorgenommen.</p>
-					<p class="mb-2">Die Nutzung unserer Webseiten ist auch ohne Cookies
-						möglich. Du kannst in deinem jeweiligen Browser das Speichern von
-						Cookies deaktivieren, auf bestimmte Websites beschränken oder
-						deinen Browser so einstellen, dass er dich benachrichtigt, sobald
-						ein Cookie gesendet wird. Du kannst Cookies auch jederzeit von der
-						Festplatte deines Computers löschen.</p>
-					<h5>Umfang der Verarbeitung personenbezogener Daten</h5>
-					<p>Wir verarbeiten personenbezogene Daten unserer Nutzer
-						grundsätzlich nur, soweit dies zur Bereitstellung einer
-						funktionsfähigen Webseite sowie unserer Inhalte und Leistungen
-						erforderlich ist. Die Verarbeitung personenbezogener Daten unserer
-						Nutzer erfolgt regelmäßig nur nach Einwilligung des Nutzers. Eine
-						Ausnahme gilt in solchen Fällen, in denen eine vorherige Einholung
-						einer Einwilligung aus tatsächlichen Gründen nicht möglich ist und
-						die Verarbeitung der Daten durch gesetzliche Vorschriften
-						erforderlich ist.</p>
-					<h5>Rechtsgrundlage für die Verarbeitung personenbezogener Daten</h5>
-					<p class="mb-2">Soweit wir für Verarbeitungsvorgänge
-						personenbezogener Daten eine Einwilligung der betroffenen Person
-						einholen, dient Art. 6 Abs. 1 S. 1 lit. a DSGVO als
-						Rechtsgrundlage.</p>
-					<p class="mb-2">Bei der Verarbeitung von personenbezogenen Daten,
-						die zur Erfüllung eines Vertrages, dessen Vertragspartei die
-						betroffene Person ist, erforderlich ist, dient Art. 6 Abs. 1 S. 1
-						lit. b DSGVO als Rechtsgrundlage. Dies gilt auch für
-						Verarbeitungsvorgänge, die zur Durchführung vorvertraglicher
-						Maßnahmen erforderlich sind.</p>
-					<p clasa="mb-2">Soweit eine Verarbeitung personenbezogener Daten
-						zur Erfüllung einer rechtlichen Verpflichtung erforderlich ist,
-						der unser Unternehmen unterliegt, dient Art. 6 Abs. 1 S. 1 lit. c
-						DSGVO als Rechtsgrundlage.</p>
-					<p clasa="mb-2">Für den Fall, dass lebenswichtige Interessen der
-						betroffenen Person oder einer anderen natürlichen Person eine
-						Verarbeitung personenbezogener Daten erforderlich machen, dient
-						Art. 6 Abs. 1 S. 1 lit. d DSGVO als Rechtsgrundlage.</p>
-					<p clasa="mb-2">Ist die Verarbeitung zur Wahrung eines berechtigten
-						Interesses unseres Unternehmens oder eines Dritten erforderlich
-						und überwiegen die Interessen, Grundrechte und Grundfreiheiten des
-						Betroffenen das erstgenannte Interesse nicht, so dient Art. 6 Abs.
-						1 S. 1 lit. f DSGVO als Rechtsgrundlage für die Verarbeitung.</p>
-					<h5>Datenlöschung und Speicherdauer</h5>
-					<p>Die personenbezogenen Daten der betroffenen Person werden
-						gelöscht oder gesperrt, sobald der Zweck der Speicherung entfällt.
-						Eine Speicherung kann darüber hinaus erfolgen, wenn dies durch den
-						europäischen oder nationalen Gesetzgeber in unionsrechtlichen
-						Verordnungen, Gesetzen oder sonstigen Vorschriften, denen der
-						Verantwortliche unterliegt, vorgesehen wurde. Eine Sperrung oder
-						Löschung der Daten erfolgt auch dann, wenn eine durch die
-						genannten Normen vorgeschriebene Speicherfrist abläuft, es sei
-						denn, dass eine Erforderlichkeit zur weiteren Speicherung der
-						Daten für einen Vertragsabschluss oder eine Vertragserfüllung
-						besteht.</p>
-					<h5>Rechte der betroffenen Person</h5>
-					<p>Werden personenbezogene Daten von Ihnen verarbeitet, sind Sie
-						Betroffener i.S.d. DSGVO und es stehen Ihnen folgende Rechte
-						gegenüber dem Verantwortlichen zu:</p>
-					<h5>Das Recht auf Auskunft (Art. 15 DSGVO)</h5>
-					<p>Sie haben das Recht, von uns eine Bestätigung darüber zu
-						verlangen, ob sie betreffende personenbezogene Daten verarbeitet
-						werden.</p>
-					<p>Ist dies der Fall, haben Sie ein Recht auf Auskunft über diese
-						Daten und auf folgende Informationen:</p>
-					<ul>
-						<li>Verarbeitungszwecke</li>
-						<li>Kategorien der personenbezogenen Daten</li>
-						<li>Empfänger oder Kategorien von Empfängern</li>
-						<li>Geplante Speicherdauer bzw. die Kriterien für die Festlegung
-							dieser Dauer</li>
-						<li>das Bestehen der Rechte auf Berichtigung, Löschung oder
-							Einschränkung oder Widerspruch</li>
-						<li>Beschwerderecht bei der zuständigen Aufsichtsbehörde</li>
-						<li>Ggf. Herkunft der Daten (falls bei einem Dritten erhoben)</li>
-						<li>Ggf. Bestehen einer automatisierten Entscheidungsfindung
-							einschließlich Profiling mit aussagekräftigen Informationen über
-							die involvierte Logik, die Tragweite und die zu erwartenden
-							Auswirkungen</li>
-						<li>Ggf. Übermittlung personenbezogener Daten an ein Drittland
-							oder internationale Organisation</li>
-					</ul>
-					<h5>Recht auf Berichtigung (Art. 16 DSGVO)</h5>
-					<p>Sollten Ihre personenbezogenen Daten unrichtig oder
-						unvollständig sein, steht Ihnen das Recht zu, eine unverzügliche
-						Korrektur oder Ergänzung der personenbezogenen Daten anzufordern.</p>
-					<h5>Recht auf Einschränkung der Verarbeitung (Art. 18 DSGVO)</h5>
-					<p>Sofern eine der folgenden Voraussetzungen erfüllt ist, steht
-						Ihnen das Recht zu, eine Einschränkung der Verarbeitung Ihrer
-						personenbezogenen Daten zu verlangen:</p>
-					<ul>
-						<li>Sie bestreiten die Richtigkeit Ihrer personenbezogenen Daten,
-							und zwar für eine Dauer, die es uns ermöglicht, die Richtigkeit
-							der personenbezogenen Daten zu überprüfen.</li>
-						<li>Im Rahmen einer unrechtmäßigen Verarbeitung lehnen Sie die
-							Löschung der personenbezogenen Daten ab und verlangen stattdessen
-							die Einschränkung der Nutzung der personenbezogenen Daten.</li>
-						<li>Wir benötigen Ihre personenbezogenen Daten für die Zwecke der
-							Verarbeitung nicht länger, Sie benötigen Ihre personenbezogenen
-							Daten jedoch zur Geltendmachung, Ausübung oder Verteidigung Ihrer
-							Rechtsansprüche oder</li>
-						<li>nachdem Sie Widerspruch gegen die Verarbeitung eingelegt
-							haben, für die Dauer der Prüfung, ob unsere berechtigten Gründe
-							gegenüber Ihren Gründen überwiegen.</li>
-					</ul>
-					<h5>Recht auf Löschung ("Recht auf Vergessenwerden") (Art. 17
-						DSGVO)</h5>
-					<p>Sofern einer der folgenden Gründe vorliegt, steht Ihnen das
-						Recht zu, eine unverzügliche Löschung ihrer personenbezogenen
-						Daten zu verlangen:</p>
-					<ul>
-						<li>Ihre Daten sind für die Verarbeitungszwecke, für die sie
-							ursprünglich erhoben wurden, nicht mehr notwendig.</li>
-						<li>Sie Ihre Einwilligung widerrufen und es fehlt an einer
-							anderweitigen Rechtsgrundlage für die Verarbeitung.</li>
-						<li>Sie legen Widerspruch gegen die Verarbeitung ein und es liegen
-							keine vorrangigen berechtigten Gründe für die Verarbeitung vor
-							oder Sie legen Widerspruch gem. Art. 21 Abs. 2 DSGVO ein.</li>
-						<li>Ihre personenbezogenen Daten werden unrechtmäßig verarbeitet.</li>
-						<li>Die Löschung ist zur Erfüllung einer rechtlichen Verpflichtung
-							nach dem Unionsrecht oder dem Recht des Mitgliedsstaats, dem wir
-							unterliegen, erforderlich.</li>
-						<li>Die personenbezogenen Daten wurden in Bezug auf angebotene
-							Dienste der Informationsgesellschaft gemäß Artikel 8 Abs. 1 DSGVO
-							erhoben.</li>
-					</ul>
-					<p>Bitte beachten Sie, dass die o.g. Gründe nicht gelten, soweit
-						die Verarbeitung erforderlich ist:</p>
-					<ul>
-						<li>Zur Ausübung des Rechts auf freie Meinungsäußerung und
-							Information;</li>
-						<li>Zur Erfüllung einer Rechtlichen Verpflichtung oder zur
-							Wahrnehmung einer Aufgabe, die im öffentlichen Interesse liegt
-							und der wir unterliegen.</li>
-						<li>Aus Gründen des öffentlichen Interesses im Bereich der
-							öffentlichen Gesundheit.</li>
-						<li>Für im öffentlichen Interesse liegende Archivzwecke,
-							wissenschaftliche oder historische Forschungszwecke oder für
-							statistische Zwecke.</li>
-						<li>zur Geltendmachung, Ausübung oder Verteidigung von
-							Rechtsansprüchen.</li>
-					</ul>
-					<h5>Recht auf Datenübertragbarkeit (Art. 20 DSGVO)</h5>
-					<p>Ihnen steht das Recht zu, Ihre personenbezogenen Daten, in einem
-						strukturierten, gängigen und maschinenlesbaren Format zu erhalten
-						oder die Übermittlung an einen anderen Verantwortlichen zu
-						verlangen.</p>
-					<h5>Recht auf Widerspruch gegen bestimmte Datenverarbeitung (Art.
-						21 DSGVO)</h5>
-					<p class="mb-3">Sie haben das Recht, aus Gründen, die sich aus
-						Ihrer besonderen Situation ergeben, jederzeit gegen die
-						Verarbeitung der Sie betreffenden personenbezogenen Daten, die
-						aufgrund von Art. 6 Abs. 1 S. 1 lit. e oder f DSGVO erfolgt,
-						Widerspruch einzulegen. Dies gilt auch für ein auf diese
-						Bestimmungen gestütztes Profiling.</p>
-					<p>Werden die Sie betreffenden personenbezogenen Daten verarbeitet,
-						um Direktwerbung zu betreiben, haben Sie das Recht, jederzeit
-						Widerspruch gegen die Verarbeitung der Sie betreffenden
-						personenbezogenen Daten zum Zwecke derartiger Werbung einzulegen;
-						dies gilt auch für das Profiling, soweit es mit solcher
-						Direktwerbung in Verbindung steht.</p>
-
-					<h5>Recht auf Beschwerde bei einer Aufsichtsbehörde</h5>
-					<p>Unbeschadet eines anderweitigen verwaltungsrechtlichen oder
-						gerichtlichen Rechtsbehelfs steht Ihnen das Recht auf Beschwerde
-						bei einer Aufsichtsbehörde zu, wenn Sie der Ansicht sind, dass die
-						Verarbeitung der Sie betreffenden personenbezogenen Daten gegen
-						die DSGVO verstößt. Die Aufsichtsbehörde, bei der die Beschwerde
-						eingereicht wurde, unterrichtet den Beschwerdeführer über den
-						Stand und die Ergebnisse der Beschwerde einschließlich der
-						Möglichkeit eines gerichtlichen Rechtsbehelfs nach Art. 78 DSGVO.
-						Eine Liste, der in Deutschland örtlich zuständigen
-						Aufsichtsbehörden können Sie auf der Website der
-						Bundesbeauftragten für Datenschutz unter folgendem Link abrufen:
-						https://www.bfdi.bund.de/DE/Service/Anschriften/Laender/Laender-node.html</p>
+    <section class="blog_sec">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <h1>Datenschutzerklärung</h1>
+                    <h2>1. Datenschutz auf einen Blick</h2>
+                    <h3>Allgemeine Hinweise</h3>
+                    <p>Die folgenden Hinweise geben einen einfachen Überblick darüber, was mit Ihren personenbezogenen Daten passiert, wenn Sie diese Website besuchen. Personenbezogene Daten sind alle Daten, mit denen Sie persönlich identifiziert werden können. Ausführliche Informationen zum Thema Datenschutz entnehmen Sie unserer unter diesem Text aufgeführten Datenschutzerklärung.</p>
+                    <h3>Datenerfassung auf dieser Website</h3>
+                    <h4>Wer ist verantwortlich für die Datenerfassung auf dieser Website?</h4>
+                    <p>Die Datenverarbeitung auf dieser Website erfolgt durch den Websitebetreiber. Dessen Kontaktdaten können Sie dem Abschnitt „Hinweis zur Verantwortlichen Stelle“ in dieser Datenschutzerklärung entnehmen.</p>
+                    <h4>Wie erfassen wir Ihre Daten?</h4>
+                    <p>Ihre Daten werden zum einen dadurch erhoben, dass Sie uns diese mitteilen. Hierbei kann es sich z. B. um Daten handeln, die Sie in ein Kontaktformular eingeben.</p>
+                    <p>Andere Daten werden automatisch oder nach Ihrer Einwilligung beim Besuch der Website durch unsere IT-Systeme erfasst. Das sind vor allem technische Daten (z. B. Internetbrowser, Betriebssystem oder Uhrzeit des Seitenaufrufs). Die Erfassung dieser Daten erfolgt automatisch, sobald Sie diese Website betreten.</p>
+                    <h4>Wofür nutzen wir Ihre Daten?</h4>
+                    <p>Ein Teil der Daten wird erhoben, um eine fehlerfreie Bereitstellung der Website zu gewährleisten. Andere Daten können zur Analyse Ihres Nutzerverhaltens verwendet werden.</p>
+                    <h4>Welche Rechte haben Sie bezüglich Ihrer Daten?</h4>
+                    <p>Sie haben jederzeit das Recht, unentgeltlich Auskunft über Herkunft, Empfänger und Zweck Ihrer gespeicherten personenbezogenen Daten zu erhalten. Sie haben außerdem ein Recht, die Berichtigung oder Löschung dieser Daten zu verlangen. Wenn Sie eine Einwilligung zur Datenverarbeitung erteilt haben, können Sie diese Einwilligung jederzeit für die Zukunft widerrufen. Außerdem haben Sie das Recht, unter bestimmten Umständen die Einschränkung der Verarbeitung Ihrer personenbezogenen Daten zu verlangen. Des Weiteren steht Ihnen ein Beschwerderecht bei der zuständigen Aufsichtsbehörde zu.</p>
+                    <p>Hierzu sowie zu weiteren Fragen zum Thema Datenschutz können Sie sich jederzeit an uns wenden.</p>
+                    <h3>Analyse-Tools und Tools von Drittanbietern</h3>
+                    <p>Beim Besuch dieser Website kann Ihr Surf-Verhalten statistisch ausgewertet werden. Das geschieht vor allem mit sogenannten Analyseprogrammen.</p>
+                    <p>Detaillierte Informationen zu diesen Analyseprogrammen finden Sie in der folgenden Datenschutzerklärung.</p>
+                    <h2>2. Hosting</h2>
+                    <p>Wir hosten die Inhalte unserer Website bei folgendem Anbieter:</p>
+                    <h3>IONOS</h3>
+                    <p>Anbieter ist die IONOS SE, Elgendorfer Str. 57, 56410 Montabaur (nachfolgend IONOS). Wenn Sie unsere Website besuchen, erfasst IONOS verschiedene Logfiles inklusive Ihrer IP-Adressen. Details entnehmen Sie der Datenschutzerklärung von IONOS: <a href="https://www.ionos.de/terms-gtc/terms-privacy" target="_blank" rel="noopener noreferrer">https://www.ionos.de/terms-gtc/terms-privacy</a>.</p>
+                    <p>Die Verwendung von IONOS erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO. Wir haben ein berechtigtes Interesse an einer möglichst zuverlässigen Darstellung unserer Website. Sofern eine entsprechende Einwilligung abgefragt wurde, erfolgt die Verarbeitung ausschließlich auf Grundlage von Art. 6 Abs. 1 lit. a DSGVO und § 25 Abs. 1 TDDG, soweit die Einwilligung die Speicherung von Cookies oder den Zugriff auf Informationen im Endgerät des Nutzers (z. B. Device-Fingerprinting) im Sinne des TDDG umfasst. Die Einwilligung ist jederzeit widerrufbar.</p>
+                    <h4>Auftragsverarbeitung</h4>
+                    <p>Wir haben einen Vertrag über Auftragsverarbeitung (AVV) zur Nutzung des oben genannten Dienstes geschlossen. Hierbei handelt es sich um einen datenschutzrechtlich vorgeschriebenen Vertrag, der gewährleistet, dass dieser die personenbezogenen Daten unserer Websitebesucher nur nach unseren Weisungen und unter Einhaltung der DSGVO verarbeitet.</p>
+                    <h2>3. Allgemeine Hinweise und Pflichtinformationen</h2>
+                    <h3>Datenschutz</h3>
+                    <p>Die Betreiber dieser Seiten nehmen den Schutz Ihrer persönlichen Daten sehr ernst. Wir behandeln Ihre personenbezogenen Daten vertraulich und entsprechend den gesetzlichen Datenschutzvorschriften sowie dieser Datenschutzerklärung.</p>
+                    <p>Wenn Sie diese Website benutzen, werden verschiedene personenbezogene Daten erhoben. Personenbezogene Daten sind Daten, mit denen Sie persönlich identifiziert werden können. Die vorliegende Datenschutzerklärung erläutert, welche Daten wir erheben und wofür wir sie nutzen. Sie erläutert auch, wie und zu welchem Zweck das geschieht.</p>
+                    <p>Wir weisen darauf hin, dass die Datenübertragung im Internet (z. B. bei der Kommunikation per E-Mail) Sicherheitslücken aufweisen kann. Ein lückenloser Schutz der Daten vor dem Zugriff durch Dritte ist nicht möglich.</p>
+                    <h3>Hinweis zur verantwortlichen Stelle</h3>
+                    <p>Die verantwortliche Stelle für die Datenverarbeitung auf dieser Website ist:</p>
+                    <p>Abeln Goltz GbR<br />Adalbert-Stifter-Straße 14<br />30655 Hannover</p>
+                    <p>Telefon: +49 155 60106486<br />E-Mail: info@agis.digital</p>
+                    <p>Verantwortliche Stelle ist die natürliche oder juristische Person, die allein oder gemeinsam mit anderen über die Zwecke und Mittel der Verarbeitung von personenbezogenen Daten (z. B. Namen, E-Mail-Adressen o. Ä.) entscheidet.</p>
+                    <h3>Speicherdauer</h3>
+                    <p>Soweit innerhalb dieser Datenschutzerklärung keine speziellere Speicherdauer genannt wurde, verbleiben Ihre personenbezogenen Daten bei uns, bis der Zweck für die Datenverarbeitung entfällt. Wenn Sie ein berechtigtes Löschersuchen geltend machen oder eine Einwilligung zur Datenverarbeitung widerrufen, werden Ihre Daten gelöscht, sofern wir keine anderen rechtlich zulässigen Gründe für die Speicherung Ihrer personenbezogenen Daten haben (z. B. steuer- oder handelsrechtliche Aufbewahrungsfristen); im letztgenannten Fall erfolgt die Löschung nach Fortfall dieser Gründe.</p>
+                    <h3>Allgemeine Hinweise zu den Rechtsgrundlagen der Datenverarbeitung auf dieser Website</h3>
+                    <p>Sofern Sie in die Datenverarbeitung eingewilligt haben, verarbeiten wir Ihre personenbezogenen Daten auf Grundlage von Art. 6 Abs. 1 lit. a DSGVO bzw. Art. 9 Abs. 2 lit. a DSGVO, sofern besondere Datenkategorien nach Art. 9 Abs. 1 DSGVO verarbeitet werden. Im Falle einer ausdrücklichen Einwilligung in die Übertragung personenbezogener Daten in Drittstaaten erfolgt die Datenverarbeitung außerdem auf Grundlage von Art. 49 Abs. 1 lit. a DSGVO. Sofern Sie in die Speicherung von Cookies oder in den Zugriff auf Informationen in Ihr Endgerät (z. B. via Device-Fingerprinting) eingewilligt haben, erfolgt die Datenverarbeitung zusätzlich auf Grundlage von § 25 Abs. 1 TDDG. Die Einwilligung ist jederzeit widerrufbar. Sind Ihre Daten zur Vertragserfüllung oder zur Durchführung vorvertraglicher Maßnahmen erforderlich, verarbeiten wir Ihre Daten auf Grundlage des Art. 6 Abs. 1 lit. b DSGVO. Des Weiteren verarbeiten wir Ihre Daten, sofern diese zur Erfüllung einer rechtlichen Verpflichtung erforderlich sind auf Grundlage von Art. 6 Abs. 1 lit. c DSGVO. Die Datenverarbeitung kann ferner auf Grundlage unseres berechtigten Interesses nach Art. 6 Abs. 1 lit. f DSGVO erfolgen. Über die jeweils im Einzelfall einschlägigen Rechtsgrundlagen wird in den folgenden Absätzen dieser Datenschutzerklärung informiert.</p>
+                    <h3>Hinweis zur Datenweitergabe in datenschutzrechtlich nicht sichere Drittstaaten sowie die Weitergabe an US-Unternehmen, die nicht DPF-zertifiziert sind</h3>
+                    <p>Wir verwenden unter anderem Tools von Unternehmen mit Sitz in datenschutzrechtlich nicht sicheren Drittstaaten sowie US-Tools, deren Anbieter nicht nach dem EU-US-Data Privacy Framework (DPF) zertifiziert sind. Wenn diese Tools aktiv sind, können Ihre personenbezogene Daten in diese Staaten übertragen und dort verarbeitet werden. Wir weisen darauf hin, dass in datenschutzrechtlich unsicheren Drittstaaten kein mit der EU vergleichbares Datenschutzniveau garantiert werden kann.</p>
+                    <p>Wir weisen darauf hin, dass die USA als sicherer Drittstaat grundsätzlich ein mit der EU vergleichbares Datenschutzniveau aufweisen. Eine Datenübertragung in die USA ist danach zulässig, wenn der Empfänger eine Zertifizierung unter dem „EU-US Data Privacy Framework“ (DPF) besitzt oder über geeignete zusätzliche Garantien verfügt. Informationen zu Übermittlungen an Drittstaaten einschließlich der Datenempfänger finden Sie in dieser Datenschutzerklärung.</p>
+                    <h3>Empfänger von personenbezogenen Daten</h3>
+                    <p>Im Rahmen unserer Geschäftstätigkeit arbeiten wir mit verschiedenen externen Stellen zusammen. Dabei ist teilweise auch eine Übermittlung von personenbezogenen Daten an diese externen Stellen erforderlich. Wir geben personenbezogene Daten nur dann an externe Stellen weiter, wenn dies im Rahmen einer Vertragserfüllung erforderlich ist, wenn wir gesetzlich hierzu verpflichtet sind (z. B. Weitergabe von Daten an Steuerbehörden), wenn wir ein berechtigtes Interesse nach Art. 6 Abs. 1 lit. f DSGVO an der Weitergabe haben oder wenn eine sonstige Rechtsgrundlage die Datenweitergabe erlaubt. Beim Einsatz von Auftragsverarbeitern geben wir personenbezogene Daten unserer Kunden nur auf Grundlage eines gültigen Vertrags über Auftragsverarbeitung weiter. Im Falle einer gemeinsamen Verarbeitung wird ein Vertrag über gemeinsame Verarbeitung geschlossen.</p>
+                    <h3>Widerruf Ihrer Einwilligung zur Datenverarbeitung</h3>
+                    <p>Viele Datenverarbeitungsvorgänge sind nur mit Ihrer ausdrücklichen Einwilligung möglich. Sie können eine bereits erteilte Einwilligung jederzeit widerrufen. Die Rechtmäßigkeit der bis zum Widerruf erfolgten Datenverarbeitung bleibt vom Widerruf unberührt.</p>
+                    <h3>Widerspruchsrecht gegen die Datenerhebung in besonderen Fällen sowie gegen Direktwerbung (Art. 21 DSGVO)</h3>
+                    <p>WENN DIE DATENVERARBEITUNG AUF GRUNDLAGE VON ART. 6 ABS. 1 LIT. E ODER F DSGVO ERFOLGT, HABEN SIE JEDERZEIT DAS RECHT, AUS GRÜNDEN, DIE SICH AUS IHRER BESONDEREN SITUATION ERGEBEN, GEGEN DIE VERARBEITUNG IHRER PERSONENBEZOGENEN DATEN WIDERSPRUCH EINZULEGEN; DIES GILT AUCH FÜR EIN AUF DIESE BESTIMMUNGEN GESTÜTZTES PROFILING. DIE JEWEILIGE RECHTSGRUNDLAGE, AUF DENEN EINE VERARBEITUNG BERUHT, ENTNEHMEN SIE DIESER DATENSCHUTZERKLÄRUNG. WENN SIE WIDERSPRUCH EINLEGEN, WERDEN WIR IHRE BETROFFENEN PERSONENBEZOGENEN DATEN NICHT MEHR VERARBEITEN, ES SEI DENN, WIR KÖNNEN ZWINGENDE SCHUTZWÜRDIGE GRÜNDE FÜR DIE VERARBEITUNG NACHWEISEN, DIE IHRE INTERESSEN, RECHTE UND FREIHEITEN ÜBERWIEGEN ODER DIE VERARBEITUNG DIENT DER GELTENDMACHUNG, AUSÜBUNG ODER VERTEIDIGUNG VON RECHTSANSPRÜCHEN (WIDERSPRUCH NACH ART. 21 ABS. 1 DSGVO).</p>
+                    <p>WERDEN IHRE PERSONENBEZOGENEN DATEN VERARBEITET, UM DIREKTWERBUNG ZU BETREIBEN, SO HABEN SIE DAS RECHT, JEDERZEIT WIDERSPRUCH GEGEN DIE VERARBEITUNG SIE BETREFFENDER PERSONENBEZOGENER DATEN ZUM ZWECKE DERARTIGER WERBUNG EINZULEGEN; DIES GILT AUCH FÜR DAS PROFILING, SOWEIT ES MIT SOLCHER DIREKTWERBUNG IN VERBINDUNG STEHT. WENN SIE WIDERSPRECHEN, WERDEN IHRE PERSONENBEZOGENEN DATEN ANSCHLIESSEND NICHT MEHR ZUM ZWECKE DER DIREKTWERBUNG VERWENDET (WIDERSPRUCH NACH ART. 21 ABS. 2 DSGVO).</p>
+                    <h3>Beschwerderecht bei der zuständigen Aufsichtsbehörde</h3>
+                    <p>Im Falle von Verstößen gegen die DSGVO steht den Betroffenen ein Beschwerderecht bei einer Aufsichtsbehörde, insbesondere in dem Mitgliedstaat ihres gewöhnlichen Aufenthalts, ihres Arbeitsplatzes oder des Orts des mutmaßlichen Verstoßes zu. Das Beschwerderecht besteht unbeschadet anderweitiger verwaltungsrechtlicher oder gerichtlicher Rechtsbehelfe.</p>
+                    <h3>Recht auf Datenübertragbarkeit</h3>
+                    <p>Sie haben das Recht, Daten, die wir auf Grundlage Ihrer Einwilligung oder in Erfüllung eines Vertrags automatisiert verarbeiten, an sich oder an einen Dritten in einem gängigen, maschinenlesbaren Format aushändigen zu lassen. Sofern Sie die direkte Übertragung der Daten an einen anderen Verantwortlichen verlangen, erfolgt dies nur, soweit es technisch machbar ist.</p>
+                    <h3>Auskunft, Berichtigung und Löschung</h3>
+                    <p>Sie haben im Rahmen der geltenden gesetzlichen Bestimmungen jederzeit das Recht auf unentgeltliche Auskunft über Ihre gespeicherten personenbezogenen Daten, deren Herkunft und Empfänger und den Zweck der Datenverarbeitung und ggf. ein Recht auf Berichtigung oder Löschung dieser Daten. Hierzu sowie zu weiteren Fragen zum Thema personenbezogene Daten können Sie sich jederzeit an uns wenden.</p>
+                    <h3>Recht auf Einschränkung der Verarbeitung</h3>
+                    <p>Sie haben das Recht, die Einschränkung der Verarbeitung Ihrer personenbezogenen Daten zu verlangen. Hierzu können Sie sich jederzeit an uns wenden. Das Recht auf Einschränkung der Verarbeitung besteht in folgenden Fällen:</p>
+                    <ul>
+                        <li>Wenn Sie die Richtigkeit Ihrer bei uns gespeicherten personenbezogenen Daten bestreiten, benötigen wir in der Regel Zeit, um dies zu überprüfen. Für die Dauer der Prüfung haben Sie das Recht, die Einschränkung der Verarbeitung Ihrer personenbezogenen Daten zu verlangen.</li>
+                        <li>Wenn die Verarbeitung Ihrer personenbezogenen Daten unrechtmäßig geschah/geschieht, können Sie statt der Löschung die Einschränkung der Datenverarbeitung verlangen.</li>
+                        <li>Wenn wir Ihre personenbezogenen Daten nicht mehr benötigen, Sie sie jedoch zur Ausübung, Verteidigung oder Geltendmachung von Rechtsansprüchen benötigen, haben Sie das Recht, statt der Löschung die Einschränkung der Verarbeitung Ihrer personenbezogenen Daten zu verlangen.</li>
+                        <li>Wenn Sie einen Widerspruch nach Art. 21 Abs. 1 DSGVO eingelegt haben, muss eine Abwägung zwischen Ihren und unseren Interessen vorgenommen werden. Solange noch nicht feststeht, wessen Interessen überwiegen, haben Sie das Recht, die Einschränkung der Verarbeitung Ihrer personenbezogenen Daten zu verlangen.</li>
+                    </ul>
+                    <p>Wenn Sie die Verarbeitung Ihrer personenbezogenen Daten eingeschränkt haben, dürfen diese Daten – von ihrer Speicherung abgesehen – nur mit Ihrer Einwilligung oder zur Geltendmachung, Ausübung oder Verteidigung von Rechtsansprüchen oder zum Schutz der Rechte einer anderen natürlichen oder juristischen Person oder aus Gründen eines wichtigen öffentlichen Interesses der Europäischen Union oder eines Mitgliedstaats verarbeitet werden.</p>
+                    <h3>SSL- bzw. TLS-Verschlüsselung</h3>
+                    <p>Diese Seite nutzt aus Sicherheitsgründen und zum Schutz der Übertragung vertraulicher Inhalte, wie zum Beispiel Bestellungen oder Anfragen, die Sie an uns als Seitenbetreiber senden, eine SSL- bzw. TLS-Verschlüsselung. Eine verschlüsselte Verbindung erkennen Sie daran, dass die Adresszeile des Browsers von „http://“ auf „https://“ wechselt und an dem Schloss-Symbol in Ihrer Browserzeile.</p>
+                    <p>Wenn die SSL- bzw. TLS-Verschlüsselung aktiviert ist, können die Daten, die Sie an uns übermitteln, nicht von Dritten mitgelesen werden.</p>
+                    <h3>Verschlüsselter Zahlungsverkehr auf dieser Website</h3>
+                    <p>Besteht nach dem Abschluss eines kostenpflichtigen Vertrags eine Verpflichtung, uns Ihre Zahlungsdaten (z. B. Kontonummer bei Einzugsermächtigung) zu übermitteln, werden diese Daten zur Zahlungsabwicklung benötigt.</p>
+                    <p>Der Zahlungsverkehr über die gängigen Zahlungsmittel (Visa/MasterCard, Lastschriftverfahren) erfolgt ausschließlich über eine verschlüsselte SSL- bzw. TLS-Verbindung. Eine verschlüsselte Verbindung erkennen Sie daran, dass die Adresszeile des Browsers von „http://“ auf „https://“ wechselt und an dem Schloss-Symbol in Ihrer Browserzeile.</p>
+                    <p>Bei verschlüsselter Kommunikation können Ihre Zahlungsdaten, die Sie an uns übermitteln, nicht von Dritten mitgelesen werden.</p>
+                    <h2>4. Datenerfassung auf dieser Website</h2>
+                    <h3>Cookies</h3>
+                    <p>Unsere Internetseiten verwenden so genannte „Cookies“. Cookies sind kleine Datenpakete und richten auf Ihrem Endgerät keinen Schaden an. Sie werden entweder vorübergehend für die Dauer einer Sitzung (Session-Cookies) oder dauerhaft (permanente Cookies) auf Ihrem Endgerät gespeichert. Session-Cookies werden nach Ende Ihres Besuchs automatisch gelöscht. Permanente Cookies bleiben auf Ihrem Endgerät gespeichert, bis Sie diese selbst löschen oder eine automatische Löschung durch Ihren Webbrowser erfolgt.</p>
+                    <p>Cookies können von uns (First-Party-Cookies) oder von Drittunternehmen stammen (sog. Third-Party-Cookies). Third-Party-Cookies ermöglichen die Einbindung bestimmter Dienstleistungen von Drittunternehmen innerhalb von Webseiten (z. B. Cookies zur Abwicklung von Zahlungsdienstleistungen).</p>
+                    <p>Cookies haben verschiedene Funktionen. Zahlreiche Cookies sind technisch notwendig, da bestimmte Webseitenfunktionen ohne diese nicht funktionieren würden (z. B. die Warenkorbfunktion oder die Anzeige von Videos). Andere Cookies können zur Auswertung des Nutzerverhaltens oder zu Werbezwecken verwendet werden.</p>
+                    <p>Cookies, die zur Durchführung des elektronischen Kommunikationsvorgangs, zur Bereitstellung bestimmter, von Ihnen erwünschter Funktionen (z. B. für die Warenkorbfunktion) oder zur Optimierung der Website (z. B. Cookies zur Messung des Webpublikums) erforderlich sind (notwendige Cookies), werden auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO gespeichert, sofern keine andere Rechtsgrundlage angegeben wird. Der Websitebetreiber hat ein berechtigtes Interesse an der Speicherung von notwendigen Cookies zur technisch fehlerfreien und optimierten Bereitstellung seiner Dienste. Sofern eine Einwilligung zur Speicherung von Cookies und vergleichbaren Wiedererkennungstechnologien abgefragt wurde, erfolgt die Verarbeitung ausschließlich auf Grundlage dieser Einwilligung (Art. 6 Abs. 1 lit. a DSGVO und § 25 Abs. 1 TDDG); die Einwilligung ist jederzeit widerrufbar.</p>
+                    <p>Sie können Ihren Browser so einstellen, dass Sie über das Setzen von Cookies informiert werden und Cookies nur im Einzelfall erlauben, die Annahme von Cookies für bestimmte Fälle oder generell ausschließen sowie das automatische Löschen der Cookies beim Schließen des Browsers aktivieren. Bei der Deaktivierung von Cookies kann die Funktionalität dieser Website eingeschränkt sein.</p>
+                    <p>Welche Cookies und Dienste auf dieser Website eingesetzt werden, können Sie dieser Datenschutzerklärung entnehmen.</p>
+                    <h3>Anfrage per E-Mail, Telefon oder Telefax</h3>
+                    <p>Wenn Sie uns per E-Mail, Telefon oder Telefax kontaktieren, wird Ihre Anfrage inklusive aller daraus hervorgehenden personenbezogenen Daten (Name, Anfrage) zum Zwecke der Bearbeitung Ihres Anliegens bei uns gespeichert und verarbeitet. Diese Daten geben wir nicht ohne Ihre Einwilligung weiter.</p>
+                    <p>Die Verarbeitung dieser Daten erfolgt auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO, sofern Ihre Anfrage mit der Erfüllung eines Vertrags zusammenhängt oder zur Durchführung vorvertraglicher Maßnahmen erforderlich ist. In allen übrigen Fällen beruht die Verarbeitung auf unserem berechtigten Interesse an der effektiven Bearbeitung der an uns gerichteten Anfragen (Art. 6 Abs. 1 lit. f DSGVO) oder auf Ihrer Einwilligung (Art. 6 Abs. 1 lit. a DSGVO) sofern diese abgefragt wurde; die Einwilligung ist jederzeit widerrufbar.</p>
+                    <p>Die von Ihnen an uns per Kontaktanfragen übersandten Daten verbleiben bei uns, bis Sie uns zur Löschung auffordern, Ihre Einwilligung zur Speicherung widerrufen oder der Zweck für die Datenspeicherung entfällt (z. B. nach abgeschlossener Bearbeitung Ihres Anliegens). Zwingende gesetzliche Bestimmungen – insbesondere gesetzliche Aufbewahrungsfristen – bleiben unberührt.</p>
+                    <h3>Registrierung auf dieser Website</h3>
 				</div>
 			</div>
 		</div>
-
 	</section>
 
     <footer class="mainFooterContainer">
         <div class="footerContainer">
             <img id="footerLogo" src="{{ asset('asset/images/Logo (2).png') }}"
-                width="133" height="77" alt="Logo " loading="lazy">
+                width="133" height="77" alt="Logo" loading="lazy">
             <div class="CenterContainer">
                 <div class="anchorTagsFooterContainer">
                     <a href="/impressum" class="footerHeading"> Impressum </a>
                 </div>
                 <div class="anchorTagsFooterContainer">
                     <a href="/agb" class="footerHeading"> AGBs </a>
-
                 </div>
                 <div class="anchorTagsFooterContainer">
                     <a href="/datenschutz" class="footerHeading"> Datenschutz </a>
                 </div>
-
             </div>
 
             <div class="rightContainer" style="gap: 0rem;">
@@ -231,19 +124,19 @@
                     <a href=""><img id="instagram"
                         src="{{ asset('asset/images/instagram.svg') }}" alt="Instagram" loading="lazy"></a>
                     <a href=""><img id="tiktok"
-                        src="{{ asset('asset/images/tiktok.svg') }}" alt="TikTok" loading="lazy"></a> <a
-                        href=""><img id="linkedin"
+                        src="{{ asset('asset/images/tiktok.svg') }}" alt="TikTok" loading="lazy"></a>
+                    <a href=""><img id="linkedin"
                         src="{{ asset('asset/images/linkedin.svg') }}" alt="LinkedIn" loading="lazy"></a>
                 </div>
             </div>
         </div>
     </footer>
 
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-		crossorigin="anonymous">
-	</script>
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous">
+    </script>
 
 </body>
 

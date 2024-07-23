@@ -53,14 +53,11 @@ class FrontController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'tutorial_shown' => false, // Ensure tutorial_shown is set to false for new users
-            'expire_date' => null // Set expire_date to null for unlimited duration
+            'expire_date' => null, // Set expire_date to null for unlimited duration
+            'subscription_name' => 'silber'
         ]);
 
-        // Setze den Subscription-Status basierend auf der Benutzer-ID
-        $subscriptionName = $user->id < 100 ? 'diamant' : 'silber';
-
         // Aktualisiere den Benutzer mit dem Subscription-Status
-        $user->subscription_name = $subscriptionName;
         $user->save();
 
         return $user;
@@ -102,20 +99,42 @@ class FrontController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8',
+            'password' => [
+                'required',
+                'string',
+                'min:8',
+                'regex:/[0-9]/', // Mindestens eine Zahl
+                'regex:/[A-Z]/', // Mindestens ein Großbuchstabe
+                'regex:/[@$!%*?&#]/' // Mindestens ein Sonderzeichen
+            ],
         ]);
-
+    
         if ($validator->fails()) {
             return response()->json([
                 "status" => false,
                 "errors" => $validator->errors()
             ]);
         }
-
-        $user = $this->create($request->all());
-
+    
+        // Korrigiere den Passwort-Parameter
+        $data = $request->all();
+    
+        $user = $this->create($data);
+    
+        // Überprüfe die ID des Benutzers und aktualisiere den subscription_name
+        if ($user->id <= 100) {
+            $user->subscription_name = 'diamant';
+            $user->save();
+            Auth::login($user);
+            return response()->json([
+                'status' => true,
+                'redirect' => '/tools',
+                'subscription_updated' => true
+            ]);
+        }
+    
         Auth::login($user);
-
+    
         return response()->json([
             'status' => true,
             'redirect' => '/tools'
@@ -256,59 +275,6 @@ class FrontController extends Controller
         $user->subscription_name = $name;
         $user->expire_date = $expire;
         $user->update();
-        return true;
-    }
-
-    /* public function stripePayment(Request $request, $name)
-    {
-        \Stripe\Stripe::setApiKey(config('stripe.sk'));
-        Session::put('name', $name);
-        $price = config("services.stripe.prices.$name", 1000); // Standardpreis ist 10 Euro in Cent
-
-        $session = $this->createStripeSession($name, $price);
-        return redirect()->away($session->url);
-    }
-
-    private function createStripeSession($name, $price)
-    {
-        return \Stripe\Checkout\Session::create([
-            'line_items' => [
-                [
-                    'price_data' => [
-                        'currency' => 'EUR',
-                        'product_data' => [
-                            "name" => $name
-                        ],
-                        'unit_amount' => $price
-                    ],
-                    'quantity' => 1
-                ]
-            ],
-            'mode' => 'payment',
-            'success_url' => "http://127.0.0.1:8000/stripe/payment/success",
-            "cancel_url" => "http://127.0.0.1:8000/paypal/payment/cancel"
-        ]);
-    }
-
-    public function StripeSuccess(Request $request)
-    {
-        $value = Session::get('name');
-        $currentDate = Carbon::now();
-        $next30Days = $currentDate->addDays(30);
-        $formattedDate = $next30Days->toDateString();
-        $this->updateSubscriptionStatus($value, $formattedDate);
-        return redirect()->route('profile')->with('success', 'Transaction complete.');
-    } */
-
-    public function updatePlaneSec()
-    {
-        $newDateTime = Carbon::create(auth()->user()->expire_date)->format('m/d/Y H:i:s');
-        $date1 = Carbon::createFromFormat('m/d/Y H:i:s', $newDateTime);
-        $date2 = Carbon::createFromFormat('m/d/Y H:i:s', Carbon::create(\Carbon\Carbon::now())->format('m/d/Y H:i:s'));
-        $result = $date1->gt($date2);
-        if (! $result) {
-            $this->updateSubscriptionStatus('silber', NULL);
-        }
         return true;
     }
 
@@ -517,13 +483,15 @@ class FrontController extends Controller
             $conversation->save();
 
             $prompt = new Prompt('prompts.motivational_letter.task_prompt');
-            $prompt->replace('task_job', $request->field1, "keine Angabe");
-            $prompt->replace('task_strengths', $request->field2, "keine Angabe");
-            $prompt->replace('task_academic', $request->field3, "keine Angabe");
-            $prompt->replace('task_experience', $request->field4, "keine Angabe");
-            $prompt->replace('task_motivation', $request->field5, "keine Angabe");
-            $prompt->replace('task_personal', $request->field6, "keine Angabe");
-            $prompt->replace('task_description', $request->field7, "keine Angabe");
+            $prompt->replace('task_job', $request->stellenbezeichnung_job, "keine Angabe");
+            $prompt->replace('task_skills', $request->qualification_skills, "keine Angabe");
+            $prompt->replace('task_academic', $request->qualification_grade, "keine Angabe");
+            $prompt->replace('task_experience', $request->qualification_jobs, "keine Angabe");
+            $prompt->replace('task_motivation', $request->motivationen_level, "keine Angabe");
+            $prompt->replace('task_personal', $request->motivationen_freitext, "keine Angabe");
+            $prompt->replace('task_description', $request->stellenbezeichnung_stellenbeschreibung, "keine Angabe");
+            $prompt->replace('task_goals', $request->motivationen_type, "keine Angabe");
+
 
             # Create a new message
             $message = new Message();
@@ -659,11 +627,11 @@ class FrontController extends Controller
     }
 
 
-    public function toolsPage()
+/*     public function toolsPage()
     {
         $this->updatePlaneSec();
         return view('Tools');
-    }
+    } */
 
     private function handleException(\Exception $e, $context = 'Allgemeiner Fehler')
     {
