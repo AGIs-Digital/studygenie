@@ -64,6 +64,7 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           port: 22
           script: |
+            ls -al
             php8.2-cli artisan config:clear
             php8.2-cli artisan route:cache
             php8.2-cli artisan view:cache
