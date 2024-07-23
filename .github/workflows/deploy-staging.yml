@@ -48,13 +48,24 @@ jobs:
       - name: Run Laravel specific commands
         run: |
           php artisan key:generate
-          php artisan config:cache
-          php artisan route:cache
-          php artisan view:cache
 
-      - name: Deploy to Staging Server via SFTP
-        env:
-          FTP_USERNAME: ${{ secrets.STAGING_FTP_USERNAME }}
-          FTP_PASSWORD: ${{ secrets.STAGING_FTP_PASSWORD }}
-          FTP_SERVER: ${{ secrets.STAGING_FTP_SERVER }}
-        run: node ftp-deploy.js
+      # - name: Deploy to Staging Server via SFTP
+      #   env:
+      #     FTP_USERNAME: ${{ secrets.STAGING_FTP_USERNAME }}
+      #     FTP_PASSWORD: ${{ secrets.STAGING_FTP_PASSWORD }}
+      #     FTP_SERVER: ${{ secrets.STAGING_FTP_SERVER }}
+      #   run: node ftp-deploy.js
+
+      - name: executing remote ssh commands
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          port: 22
+          script: |
+            cd /staging.studygenie.de
+            php8.2-cli artisan config:clear
+            php8.2-cli artisan route:cache
+            php8.2-cli artisan view:cache
+            php8.2-cli artisan migrate:fresh --seed --force
