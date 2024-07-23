@@ -5,106 +5,109 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lebenslauf PDF</title>
     <style>
-@page {
-    size: A4;
-}
-html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    display: flex;
-    justify-content: center;
-}
-.container {
-    display: flex;
-    width: 100%;
-    height: 100%;
-    padding: 20px;
-    box-sizing: border-box;
-    background-color: #ffffff;
-    margin: 0 auto;
-    max-width: 800px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-.main-content {
-    flex: 1;
-    padding-right: 20px;
-    padding-bottom: 50px;
-    display: flex;
-    flex-direction: column;
-    margin: 20px 250px 40px 20px;
-}
-.header {
-    width: calc(100% - 230px);
-    padding-bottom: 20px;
-}
-.header h1 {
-    font-size: 30px;
-    color: #2D3E4E;
-}
-.section {
-    margin-bottom: 20px;
-}
-.section h2 {
-    font-size: 18px;
-    color: #2D3E4E;
-    border-bottom: 1px solid #e0e0e0;
-    padding-bottom: 5px;
-    margin-bottom: 10px;
-}
-.section p {
-    margin: 0;
-    padding: 5px 0;
-    color: #555555;
-}
-.entry {
-    margin-bottom: 10px;
-}
-.entry h3 {
-    font-size: 16px;
-    margin-bottom: 5px;
-    color: #333333;
-}
-.entry p {
-    margin: 0;
-    color: #777777;
-}
-.side-panel {
-    width: 230px;
-    background-color: #E09E50;
-    color: #ffffff;
-    padding: 55px 30px 50px 30px;
-    box-sizing: border-box;
-    border-bottom-left-radius: 200px; /* Nur unten links abgerundet */
-    height: 100%; /* Höhe von 100% der Seite */
-    position: fixed; /* Fixiert auf der rechten Seite */
-    right: 0;
-    top: 0;
-    bottom: 0;
-    display: flex;
-    flex-direction: column;
-}
-.side-panel h2 {
-    font-size: 18px;
-    border-bottom: 1px solid #ffffff;
-    padding-bottom: 5px;
-    margin-bottom: 10px;
-}
-.side-panel p {
-    margin: 0;
-    padding: 5px 0;
-}
-.skill {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 5px;
-}
-.page-break {
-    page-break-before: auto;
-}
+        @page {
+            size: A4;
+            margin: 20mm; /* Erhöhen Sie die Margen */
+        }
+        html, body {
+            height: auto; /* Ändern Sie die Höhe auf auto */
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            display: flex;
+            width: 100%;
+            height: auto; /* Ändern Sie die Höhe auf auto */
+            padding: 20px;
+            box-sizing: border-box;
+            background-color: #f4f4f4;
+            margin: 0 auto;
+            max-width: 800px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        .main-content {
+            flex: 1;
+            padding-right: 20px;
+            padding-bottom: 50px;
+            display: flex;
+            flex-direction: column;
+            margin: 20px 250px 40px 20px;
+        }
+        .header {
+            width: calc(100% - 230px);
+            padding-bottom: 20px;
+        }
+        .header h1 {
+            font-size: 30px;
+            color: #2D3E4E;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        .section h2 {
+            font-size: 18px;
+            color: #2D3E4E;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+        }
+        .section p {
+            margin: 0;
+            padding: 5px 0;
+            color: #555555;
+        }
+        .entry {
+            margin-bottom: 10px;
+        }
+        .entry h3 {
+            font-size: 16px;
+            margin-bottom: 5px;
+            color: #333333;
+        }
+        .entry p {
+            margin: 0;
+            color: #777777;
+        }
+        .side-panel {
+            width: 230px;
+            background-color: #E09E50;
+            color: #ffffff;
+            padding: 55px 30px 50px 30px;
+            box-sizing: border-box;
+            border-bottom-left-radius: 200px; /* Nur unten links abgerundet */
+            height: 100%; /* Höhe von 100% der Seite */
+            position: absolute; /* Fixiert auf der rechten Seite */
+            right: 0;
+            top: 0;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+            page-break-inside: avoid;
+        }
+        .side-panel h2 {
+            font-size: 18px;
+            border-bottom: 1px solid #ffffff;
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+        }
+        .side-panel p {
+            margin: 0;
+            padding: 5px 0;
+        }
+        .skill {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        .page-break {
+            page-break-before: auto;
+        }
     </style>
 </head>
 <body>
@@ -147,8 +150,6 @@ html, body {
                     <p>{{ $signature_town }}, {{ \Carbon\Carbon::parse($signature_date)->format('d.m.Y') }}</p>
                 @endif
             </div>
-
-
         </div>
         <div class="side-panel">
             @if(!empty($name) || !empty($city) || !empty($street) || !empty($phone) || !empty($email) || !empty($birthdate))
@@ -158,7 +159,6 @@ html, body {
             @if(!empty($street)) <p><strong>Adresse</strong><br />{{ $street }}<br />{{ $postal_city }} {{ $city }}</p><br /> @endif
             @if(!empty($phone)) <p><strong>Telefon</strong><br />{{ $phone }}</p><br /> @endif
             @if(!empty($email)) <p><strong>E-Mail</strong><br />{{ $email }}</p><br /> @endif 
-            
             @endif
             
             @if(!empty($skill_type) && array_filter($skill_type))
@@ -192,6 +192,5 @@ html, body {
             @endif
         </div>
     </div>
-    
 </body>
 </html>

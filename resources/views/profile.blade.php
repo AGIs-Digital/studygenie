@@ -45,7 +45,7 @@
 		<form method="POST" action="{{ route('change.password') }}">
 			@csrf
 			<div class="content">
-				<div class="col-md-12">
+				<!-- <div class="col-md-12">
 					<div class="sup_plan">
 						<img src="{{ asset('asset/images/p1.svg') }}" class="p1" alt=""> <img
 							src="{{ asset('asset/images/p2.svg') }}" class="p2" alt=""> {{--
@@ -74,7 +74,7 @@
 
 						</div>
 					</div>
-				</div>
+				</div> -->
 				<div class="row">
 					<div class="col-md-4 d-flex justify-content-center">
 						<div class="planCard">
@@ -85,7 +85,7 @@
 								<h6 class="secondary-Heading">Silber</h6>
 							</div>
 							<div class="contentPlanCard contentPlanCard3">
-								<span class="highWeightSpan">0 €<span class="lowWeightSpan">mtl.</span></span>
+								<span class="highWeightSpan">0 €<span class="lowWeightSpan"> mtl.</span></span>
 								<p class="planCardParagraph">
 									✓ Intelligente Soforthilfe<br />✓ Traumberuf finden<br /> ✓ Berufsinformationen<br /> ✘ Textinspirationen<br /> ✘ Textanalyse<br />
 									✘ Bewerbungsunterlagen<br /> ✘ Lerncoach<br /> ✘ Bewerbungstrainer
@@ -112,7 +112,7 @@
 								<h6 class="secondary-Heading">Gold</h6>
 							</div>
 							<div class="contentPlanCard contentPlanCard2">
-								<span class="highWeightSpan">10 €<span class="lowWeightSpan">mtl.</span></span>
+								<span class="highWeightSpan">10 €<span class="lowWeightSpan"> mtl.</span></span>
 								<p class="planCardParagraph">
 									✓ Intelligente Soforthilfe<br /> ✓ Traumberuf finden<br />✓ Berufsinformationen<br /> ✓ Textinspirationen<br /> ✓ Textanalyse<br />
 									✓ Bewerbungsunterlagen<br /> ✘ Lerncoach<br /> ✘ Bewerbungstrainer
@@ -147,7 +147,7 @@
 								<h6 class="secondary-Heading">Diamant</h6>
 							</div>
 							<div class="contentPlanCard contentPlanCard3">
-								<span class="highWeightSpan">20 €<span class="lowWeightSpan">mtl.</span></span>
+								<span class="highWeightSpan">20 €<span class="lowWeightSpan"> mtl.</span></span>
 								<p class="planCardParagraph">
 									✓ Intelligente Soforthilfe<br /> ✓ Traumberuf finden<br /> ✓ Berufsinformationen<br /> ✓ Textinspirationen<br /> ✓ Textanalyse<br />
 									✓ Bewerbungsunterlagen<br /> ✓ Lerncoach<br /> ✓ Bewerbungstrainer

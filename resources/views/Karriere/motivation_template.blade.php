@@ -7,59 +7,78 @@
     <style>
         @page {
             size: A4;
+            margin: 2cm;
         }
-        html, body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
+        body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            display: flex;
-            justify-content: center;
+            line-height: 1.5;
+            color: #000;
         }
         .container {
-            display: flex;
             width: 100%;
-            height: 100%;
-            padding: 20px;
-            box-sizing: border-box;
-            background-color: #ffffff;
+            max-width: 21cm;
             margin: 0 auto;
-            max-width: 800px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .main-content {
-            flex: 1;
-            padding-right: 20px;
-            padding-bottom: 50px;
-            display: flex;
-            flex-direction: column;
-            margin: 20px 250px 40px 20px;
+            padding: 0;
+            box-sizing: border-box;
         }
         .header {
-            width: calc(100% - 230px);
-            padding-bottom: 20px;
+            margin-bottom: 2cm;
         }
         .header h1 {
-            font-size: 30px;
+            font-size: 24px;
             color: #2D3E4E;
+            margin-bottom: 0.5cm;
         }
-        .page-break {
-            page-break-before: auto;
+        .address {
+            margin-bottom: 1cm;
+        }
+        .date {
+            text-align: right;
+            margin-bottom: 1cm;
+        }
+        .subject {
+            font-weight: bold;
+            margin-bottom: 1cm;
+        }
+        .content {
+            margin-bottom: 2cm;
+        }
+        .signature {
+            margin-top: 2cm;
+        }
+        .footer {
+            position: fixed;
+            bottom: 1cm;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 12px;
+            color: #666;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="main-content">
-            <div class="header">
-                <div>
-                    <h1>Profilpräsentation</h1>
-                </div>
-            </div>
-            <div class="main">
-                {!! $motivational_letter !!} <!-- Interpretiert den Inhalt als HTML -->
-            </div>
+        <div class="address">
+            <!-- Absenderadresse -->
+            <p>Max Mustermann<br>Musterstraße 1<br>12345 Musterstadt</p>
+            <!-- Empfängeradresse -->
+            <p>Firma XYZ<br>z.Hd. Frau/Herrn Beispiel<br>Beispielstraße 2<br>54321 Beispielstadt</p>
+        </div>
+        <div class="date">
+            <p>{{ date('d.m.Y') }}</p>
+        </div>
+        <div class="subject">
+            <p>Bewerbung als [Position/Studiengang]</p>
+        </div>
+        <div class="content">
+            {!! $motivational_letter !!} <!-- Interpretiert den Inhalt als HTML -->
+        </div>
+        <div class="signature">
+            <p>Mit freundlichen Grüßen,<br><br>Max Mustermann</p>
+        </div>
+        <div class="footer">
+            <p>Max Mustermann - Musterstraße 1 - 12345 Musterstadt - max.mustermann@example.com - 01234/567890</p>
         </div>
     </div>
 </body>

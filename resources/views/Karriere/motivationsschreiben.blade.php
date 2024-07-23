@@ -39,6 +39,20 @@
         0% { transform: translateY(-50%) rotate(0deg); }
         100% { transform: translateY(-50%) rotate(360deg); }
     }
+
+    .toast-message {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #28a745; /* Positive Hintergrundfarbe */
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        z-index: 1000;
+        opacity: 0;
+        transition: opacity 0.5s;
+    }
 </style>
 </head>
 
@@ -193,83 +207,11 @@
 
 
             
-				<div class="col-md-12">
-					<div class="mt-5" style="display: none">
-						<div class="motivation_box" id="div_design_layout">
-							<div class="top_two">
-								<input type="text"> <input type="text">
-							</div>
-
-							<div class="input_four">
-								<input type="text"> <input type="text"> <input type="text"> <input
-									type="text">
-							</div>
-
-							<div class="input_three">
-								<div class="input_g">
-									<label for="">E–Mail</label> <input type="text">
-								</div>
-								<div class="input_g">
-									<label for="">Telefon</label> <input type="text">
-								</div>
-								<div class="input_g">
-									<label for="">Datum</label> <input type="text">
-								</div>
-							</div>
-
-							<h2>Meine Profilpräsentation</h2>
-
-							<p class="f_p">Sehr geehrte Damen und Herren,</p>
-							<div class="c_box" id="template_add"></div>
-							<p class="s_p">Freundlicher Gruß</p>
-							<div class="last_input">
-								<div class="input_b">
-									<label for="">------------------</label> <input type="text">
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-            
-
 			</div>
 		</div>
 	</section>
 
-	<!-- Modal -->
-	<div class="modal fade" id="saveModal" tabindex="-1"
-		aria-labelledby="saveModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<form id="save_data">
-					@csrf
-					<div class="modal-header">
-						<h5 class="modal-title" id="saveModalLabel">Speichern</h5>
-						<button type="button" class="btn-close" data-bs-dismiss="modal"
-							aria-label="Close"></button>
-					</div>
-					<div class="modal-body">
-
-						<div class="mb-3">
-							<label for="save_name" class="form-label">Name:</label>
-							<input type="text" class="form-control" id="save_name2"
-								name="name" placeholder="Speichername">
-						</div>
-						<input type="hidden" name="save_val" id="save_val"> <input
-							type="hidden" name="type" value="Bildung" id="Bildung">
-
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary"
-							data-bs-dismiss="modal">Schließen</button>
-						<button type="button" class="btn btn-primary" id="saveForm">Speichern</button>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-
-    <!-- Neuer Download Button -->
+    <!-- Download Button -->
     <form action="{{ route('download-motivation-pdf') }}" method="POST" id="downloadForm">
         @csrf
         <input type="hidden" name="pdf_content" id="pdf_content">
@@ -325,8 +267,7 @@
             $("#submitForm").click(function () {
                 var form = document.getElementById("myForm");
                 var formData = new FormData(form);
-                document.getElementById('save_val').value = document.getElementById('typing-container').innerHTML;
-                //Ladezeichen anzeigen
+                // Ladezeichen anzeigen
                 $("#submitForm").addClass('loading-button').text("Zaubert...");
                 $.ajax({
                     url: "{{ route('Motivationsschreibenprocess') }}",
@@ -335,11 +276,10 @@
                     processData: false,
                     contentType: false,
                     success: function (data) {
-                        //Ladezeichen entfernen
+                        // Ladezeichen entfernen
                         $("#submitForm").removeClass('loading-button').text("Magie");
 
                         document.getElementById('pdf_style').innerHTML = textToType + " <br> <br> ";
-                        document.getElementById('template_add').innerHTML = textToType + " <br> <br> ";
 
                         let checks = data.data.split('\n');
                         textarray = checks;
@@ -349,7 +289,7 @@
                     },
                     error: function (xhr, status, error) {
                         console.error("Ein Fehler ist aufgetreten: " + error);
-                        //Ladezeichen entfernen
+                        // Ladezeichen entfernen
                         $("#submitForm").removeClass('loading-button').text("Magie");
                     }
                 });
@@ -422,30 +362,20 @@
         }
 
         function showToast(message) {
-          // Erstelle das Toast-Element
-          var toast = document.createElement('div');
-          toast.textContent = message;
-          toast.style.position = 'fixed';
-          toast.style.bottom = '20px';
-          toast.style.left = '50%';
-          toast.style.transform = 'translateX(-50%)';
-          toast.style.backgroundColor = 'black';
-          toast.style.color = 'white';
-          toast.style.padding = '10px';
-          toast.style.borderRadius = '5px';
-          toast.style.zIndex = '1000';
-          toast.style.opacity = '0';
-          toast.style.transition = 'opacity 0.5s';
+            // Erstelle das Toast-Element
+            var toast = document.createElement('div');
+            toast.textContent = message;
+            toast.className = 'toast-message'; // Füge eine Klasse hinzu
+            document.body.appendChild(toast);
 
-          // Füge das Toast-Element hinzu und fade es ein
-          document.body.appendChild(toast);
-          setTimeout(() => toast.style.opacity = '1', 100);
+            // Füge das Toast-Element hinzu und fade es ein
+            setTimeout(() => toast.style.opacity = '1', 100);
 
-          // Entferne das Toast-Element nach einer gewissen Zeit
-          setTimeout(() => {
-            toast.style.opacity = '0';
-            setTimeout(() => document.body.removeChild(toast), 500); // Warte auf das Ende der Opacity-Transition
-          }, 3000);
+            // Entferne das Toast-Element nach einer gewissen Zeit
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                setTimeout(() => document.body.removeChild(toast), 500); // Warte auf das Ende der Opacity-Transition
+            }, 3000);
         }
 
         function updatePdfContent() {

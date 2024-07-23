@@ -41,6 +41,7 @@
         border-radius: 12px;
         padding: 1rem;
         margin-top: 6rem;
+        margin-right: 3rem;
         background-color: #f8f8f8;
         height: 100%; /* Höhe auf 100% der Ansichtshöhe setzen */
         overflow-y: auto; /* Scrollen ermöglichen, falls Inhalt zu groß ist */
@@ -103,7 +104,7 @@
 				</div>
 
 				<div class="col-md-3">
-                <form action="download-pdf" method="POST">
+                <form id="cv-form">
 					@csrf
 					<h2
 						style="color: #2D3E4E; font-family: Milonga; font-size: 32px; font-style: normal; font-weight: 400; line-height: 38px; position: relative; margin-top: 3rem;">Lebenslauf</h2>
@@ -307,7 +308,7 @@
             function checkFields() {
                 const accordionItems = document.querySelectorAll('.accordion-item');
                 accordionItems.forEach(item => {
-                    const Fields = item.querySelectorAll('input[], textarea[]');
+                    const Fields = item.querySelectorAll('input, textarea');
                     let hasEmptyField = false;
                     Fields.forEach(field => {
                         if (!field.value.trim()) {
@@ -389,7 +390,7 @@
 
             // Vorschau-Funktionalität
             document.getElementById('preview-button').addEventListener('click', () => {
-                const form = document.querySelector('form');
+                const form = document.getElementById('cv-form');
                 const formData = new FormData(form);
                 const previewContainer = document.getElementById('cv_appnd');
 
@@ -397,26 +398,56 @@
                 previewContainer.innerHTML = '';
 
                 // Sende die Formulardaten per AJAX an den Server
-        fetch('/cv-preview', {
-            method: 'POST',
-            body: formData,
-            headers: {
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-            }
-        })
-        .then(response => response.text())
-        .then(data => {
-            console.log('Server Response:', data); // Debugging-Ausgabe
+                fetch('/cv-preview', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Server Response:', data); // Debugging-Ausgabe
 
-            // Extrahiere den Inhalt des <body>-Tags aus der Antwort
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(data, 'text/html');
-            const bodyContent = doc.body.innerHTML;
+                    // Erstelle ein eingebettetes PDF-Element
+                    const pdfEmbed = document.createElement('iframe');
+                    pdfEmbed.src = `data:application/pdf;base64,${data.pdf}`;
+                    pdfEmbed.type = 'application/pdf';
+                    pdfEmbed.width = '100%';
+                    pdfEmbed.height = '100%';
+                    pdfEmbed.style.border = 'none';
 
-            // Füge den extrahierten Inhalt in den Vorschau-Container ein
-            previewContainer.innerHTML = bodyContent;
-        })
-        .catch(error => console.error('Error:', error));
+                    // Füge das eingebettete PDF-Element in den Vorschau-Container ein
+                    previewContainer.appendChild(pdfEmbed);
+                })
+                .catch(error => console.error('Error:', error));
+            });
+
+            // Download-Funktionalität
+            document.getElementById('cv-form').addEventListener('submit', (event) => {
+                event.preventDefault();
+                const form = document.getElementById('cv-form');
+                const formData = new FormData(form);
+
+                // Sende die Formulardaten per AJAX an den Server
+                fetch('/download-pdf', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    }
+                })
+                .then(response => response.blob())
+                .then(blob => {
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'lebenslauf.pdf';
+                    document.body.appendChild(a);
+                    a.click();
+                    a.remove();
+                })
+                .catch(error => console.error('Error:', error));
             });
         });
     </script>

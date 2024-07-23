@@ -9,6 +9,7 @@ use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\MotivationController;
 use App\Http\Controllers\PayPalController;
+use App\Http\Controllers\CVController;
 
 /*
 |--------------------------------------------------------------------------
@@ -107,8 +108,8 @@ Route::group(['middleware' => ['auth']], function () {
         return abort(404);
     });
 
-    Route::post('cv-preview', [App\Http\Controllers\CVController::class, 'cvPreview']);
-    Route::post('download-pdf', [App\Http\Controllers\CVController::class, 'downloadPDF']);
+    Route::post('cv-preview', [CVController::class, 'cvPreview']);
+    Route::post('download-pdf', [CVController::class, 'downloadPDF']);
 
     Route::get('/motivationsschreiben', function () {
         if((auth()->user()->subscription_name == 'gold' || auth()->user()->subscription_name == 'diamant')){
