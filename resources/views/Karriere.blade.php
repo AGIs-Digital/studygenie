@@ -29,7 +29,7 @@
 		</div>
 
 		<div class="categoryClouds">
-			<a href="/KarriereGenie" class="Cloud_Karriere">
+			<a href="/karrieregenie" class="Cloud_Karriere">
 				<button type="button" class="btn" data-bs-toggle="tooltip" data-bs-placement="top" title="Entdecke deine idealen Berufe und erfahre alles Wichtige!">
 					<img src="{{ asset('asset/images/info.svg') }}" width="20" alt="">
 				</button>
@@ -62,7 +62,7 @@
                     </defs>
                 </svg>
 			</a>
-            
+
 			@php
     		$check = false;
     		$date = auth()->user()->expire_date;
@@ -73,7 +73,7 @@
 			@endphp
 
             @if ((auth()->user()->subscription_name == 'gold' || auth()->user()->subscription_name == 'diamant') && $check)
-                <a href="/BewerbeGenie" class="Cloud_Karriere">
+                <a href="/bewerbegenie" class="Cloud_Karriere">
 				    <button type="button" class="btn" data-bs-toggle="tooltip"
 					    data-bs-placement="top"
 					    title="Erstelle blitzschnell individuelle Bewerbungsunterlagen">
@@ -116,7 +116,7 @@
                         </defs>
                     </svg>
 			    </a>
-            
+
             @else
             <a onclick="showDialog();" class="Cloud_Karriere custom-hover">
 				<button type="button" class="btn" data-bs-toggle="tooltip"
@@ -161,12 +161,12 @@
                     </defs>
                 </svg>
 			</a>
-            
+
             @endif
-            
+
             @if((auth()->user()->subscription_name == 'diamant') && $check)
-            
-            <a href="/KarriereMentor" class="Cloud_Karriere">
+
+            <a href="/karrierementor" class="Cloud_Karriere">
 				<button type="button" class="btn" data-bs-toggle="tooltip"
 					data-bs-placement="top"
 					title="Trainiere für Vorstellungsgespräche mit Tipps und Übungen für mehr Selbstsicherheit.">
@@ -209,9 +209,9 @@
                     </defs>
                 </svg>
 			</a>
-            
+
             @else
-            
+
             <a onclick="showDialog();" class="Cloud_Karriere custom-hover">
 				<button type="button" class="btn" data-bs-toggle="tooltip"
 					data-bs-placement="top"
@@ -255,8 +255,8 @@
                     </defs>
                 </svg>
 			</a>
-            
-            @endif 
+
+            @endif
 
 		</div>
 	</main>

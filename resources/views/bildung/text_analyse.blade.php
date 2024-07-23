@@ -117,7 +117,7 @@
                                 </div>
                                 <button type="button" class="send_button" id="submitForm">Magie</button>
 							</div>
-							
+
 						</div>
 					</form>
 				</div>
@@ -225,7 +225,7 @@
                 //Ladezeichen anzeigen
                 $("#submitForm").addClass('loading-button').text("Zaubert...");
                 $.ajax({
-                    url: "/TextAnalyseprocess",
+                    url: "/textanalyseprocess",
                     method: "POST",
                     data: formData,
                     contentType: false,
