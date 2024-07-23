@@ -180,7 +180,7 @@
                                     <br >
                                 </div>
                                 <button type="button" class="send_button" id="submitForm">Magie</button>
-							</div>     
+							</div>
 						</div>
 					</form>
 				</div>
@@ -293,7 +293,7 @@
                 //Ladezeichen anzeigen
                 $("#submitForm").addClass('loading-button').text("Zaubert...");
                 $.ajax({
-                    url: "/TextInspirationprocess",
+                    url: "/textInspirationprocess",
                     method: "POST",
                     data: formData,
                     contentType: false,
