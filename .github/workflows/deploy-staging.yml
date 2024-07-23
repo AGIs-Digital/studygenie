@@ -38,6 +38,8 @@ jobs:
       - name: Replace environment variables in .env
         run: |
           sed -i 's#^APP_ENV=.*#APP_ENV=staging#' .env
+          sed -i 's#^APP_DEBUG=.*#APP_DEBUG=true#' .env
+          sed -i 's#^APP_NAME=.*#APP_NAME="StudyGenie - Staging"#' .env
           sed -i 's#^APP_URL=.*#APP_URL=${{ secrets.STAGING_APP_URL }}#' .env
           sed -i 's#^DB_HOST=.*#DB_HOST=${{ secrets.STAGING_DB_HOSTNAME }}#' .env
           sed -i 's#^DB_DATABASE=.*#DB_DATABASE=${{ secrets.STAGING_DB_DBNAME }}#' .env
@@ -49,14 +51,7 @@ jobs:
         run: |
           php artisan key:generate
 
-      - name: Deploy to Staging Server via SFTP
-        env:
-          FTP_USERNAME: ${{ secrets.STAGING_FTP_USERNAME }}
-          FTP_PASSWORD: ${{ secrets.STAGING_FTP_PASSWORD }}
-          FTP_SERVER: ${{ secrets.STAGING_FTP_SERVER }}
-        run: node ftp-deploy.js
-
-      - name: executing remote ssh commands
+      - name: Empty remote directory
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.SSH_HOST }}
@@ -65,7 +60,30 @@ jobs:
           port: 22
           script: |
             cd staging.studygenie.de/
+            rm -rf * .env
+
+      - name: Deploy to Staging Server via SFTP
+        env:
+          FTP_USERNAME: ${{ secrets.STAGING_FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.STAGING_FTP_PASSWORD }}
+          FTP_SERVER: ${{ secrets.STAGING_FTP_SERVER }}
+        run: node ftp-deploy.js
+
+      - name: Executing remote ssh commands
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          port: 22
+          script: |
+            cd staging.studygenie.de/
+            php8.2-cli -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+            php8.2-cli composer-setup.php
+            php8.2-cli -r "unlink('composer-setup.php');"
+
             php8.2-cli composer.phar install
+            php8.2-cli artisan key:generate
             php8.2-cli artisan config:clear
             php8.2-cli artisan route:cache
             php8.2-cli artisan view:cache
