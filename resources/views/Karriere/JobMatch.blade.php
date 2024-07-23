@@ -330,7 +330,7 @@
                 //Ladezeichen anzeigen
                 $("#submitForm").addClass('loading-button').text("Zaubert...");
                 $.ajax({
-                    url: "/jobmatchprocess",
+                    url: "/JobMatchprocess",
                     method: "POST",
                     data: formData,
                     contentType: false,

@@ -57,7 +57,7 @@
                     alt="StudyGenieImage">
 
                 <div class="categoryClouds">
-                    <a href="/bildung" class="Cloud"> <svg
+                    <a href="/Bildung" class="Cloud"> <svg
                             xmlns="http://www.w3.org/2000/svg" width="245" height="167"
                             viewBox="0 0 245 167" fill="none">
                     <g filter="url(#filter0_d_168_754)">
@@ -222,7 +222,7 @@
                 updateTutorialStatus();
                 // Enable links
                 document.querySelectorAll('a').forEach(link => link.classList.remove('disabled-link'));
-
+                
                 const cloudElement = document.querySelector('.Cloud svg');
                 const karriereElement = document.querySelector('.Cloud_Karriere svg');
                 cloudElement.classList.add('highlight');

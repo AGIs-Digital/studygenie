@@ -51,8 +51,8 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/tools', [FrontController::class, 'toolsPage']);
 
-    Route::get('/bildung', function () {
-        return view('bildung');
+    Route::get('/Bildung', function () {
+        return view('Bildung');
     });
 
     Route::get('/Karriere', function () {
@@ -63,46 +63,46 @@ Route::group(['middleware' => ['auth']], function () {
         return view('profile');
     })->name('profile');
 
-    Route::get('/geniecheck', function () {
-        return view('bildung.genie_check');
+    Route::get('/GenieCheck', function () {
+        return view('Bildung.GenieCheck');
     });
 
-    Route::get('/textanalyse', function () {
-        return view('bildung.text_analyse');
+    Route::get('/TextAnalyse', function () {
+        return view('Bildung.TextAnalyse');
     });
 
-    Route::get('/textinspiration', function () {
+    Route::get('/TextInspiration', function () {
         if(auth()->check() && (auth()->user()->subscription_name == 'gold' || auth()->user()->subscription_name == 'diamant')){
-            return view('bildung.text_inspiration');
+            return view('Bildung.TextInspiration');
         }
         return abort(404);
     })->middleware('auth');
 
-    Route::get('/bewerbegenie', function () {
+    Route::get('/BewerbeGenie', function () {
         if((auth()->user()->subscription_name == 'gold' || auth()->user()->subscription_name == 'diamant')){
-            return view('karriere.bewerbe_genie');
+            return view('Karriere.BewerbeGenie');
         }
         return abort(404);
     });
 
-    Route::get('/genieautor', function () {
+    Route::get('/GenieAutor', function () {
         if(auth()->check() && (auth()->user()->subscription_name == 'gold' || auth()->user()->subscription_name == 'diamant')){
-            return view('bildung.genie_autor');
+            return view('Bildung.GenieAutor');
         }
         return abort(404);
     });
 
-    Route::get('/job_match', function () {
-        return view('karriere.job_match');
+    Route::get('/JobMatch', function () {
+        return view('Karriere.JobMatch');
     });
 
-    Route::get('/jobinsider', function () {
-        return view('karriere.job_insider');
+    Route::get('/JobInsider', function () {
+        return view('Karriere.JobInsider');
     });
 
-    Route::get('/lebenslauf', function () {
+    Route::get('/Lebenslauf', function () {
         if((auth()->user()->subscription_name == 'gold' || auth()->user()->subscription_name == 'diamant')){
-            return view('karriere.lebenslauf');
+            return view('Karriere.Lebenslauf');
         }
         return abort(404);
     });
@@ -110,9 +110,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('cv-preview', [App\Http\Controllers\CVController::class, 'cvPreview']);
     Route::post('download-pdf', [App\Http\Controllers\CVController::class, 'downloadPDF']);
 
-    Route::get('/motivationsschreiben', function () {
+    Route::get('/Motivationsschreiben', function () {
         if((auth()->user()->subscription_name == 'gold' || auth()->user()->subscription_name == 'diamant')){
-            return view('karriere.motivationsschreiben');
+            return view('Karriere.Motivationsschreiben');
         }
         return abort(404);
     });
@@ -120,37 +120,37 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('motivation-preview', [App\Http\Controllers\MotivationController::class, 'motivationPreview']);
     Route::post('download-motivation-pdf', [MotivationController::class, 'downloadPDF'])->name('download-motivation-pdf');
 
-    Route::post('motivationsschreibenprocess', [FrontController::class, 'Motivationsschreibenprocess'])
-        ->name('Motivationsschreibenprocess');
+    Route::post('Motivationsschreibenprocess', [FrontController::class, 'Motivationsschreibenprocess'])
+        ->name('Motivationsschreibenprocess');   
 
-    Route::get('genietutor', [FrontController::class, 'genieTutor']);
+    Route::get('genieTutor', [FrontController::class, 'genieTutor']);
 
-    Route::get('/karrierementor', [FrontController::class, 'KarriereMentor']);
-    Route::post('/karrierementor-one', [FrontController::class, 'KarriereMentorFirst'])
-        ->name('karrierementor');
-    Route::post('karrierementor-user', [FrontController::class, 'KarriereMentorUser'])
-        ->name('karrierementoruser');
+    Route::get('/KarriereMentor', [FrontController::class, 'KarriereMentor']);
+    Route::post('/KarriereMentor-one', [FrontController::class, 'KarriereMentorFirst'])
+        ->name('KarriereMentor');
+    Route::post('KarriereMentor-user', [FrontController::class, 'KarriereMentorUser'])
+        ->name('KarriereMentoruser');
 
-    Route::post('textinspirationprocess', [FrontController::class, 'TextInspirationprocess'])
+    Route::post('TextInspirationprocess', [FrontController::class, 'TextInspirationprocess'])
         ->name('TextInspirationprocess');
 
-    Route::post('textanalyseprocess', [FrontController::class, 'TextAnalyseprocess'])
-        ->name('textanalyseprocess');
+    Route::post('TextAnalyseprocess', [FrontController::class, 'TextAnalyseprocess'])
+        ->name('TextAnalyseprocess');
 
-    Route::post('jobmatchprocess', [FrontController::class, 'JobMatchprocess'])
+    Route::post('JobMatchprocess', [FrontController::class, 'JobMatchprocess'])
         ->name('JobMatchprocess');
 
-    Route::post('jobinsiderprocess', [FrontController::class, 'JobInsiderprocess'])
+    Route::post('JobInsiderprocess', [FrontController::class, 'JobInsiderprocess'])
         ->name('JobInsiderprocess');
 
     Route::post('savedata', [FrontController::class, 'saveData'])
         ->name('save.data');
 
-    Route::post('geniecheckprocess', [FrontController::class, 'GenieCheckprocess'])
+    Route::post('GenieCheckprocess', [FrontController::class, 'GenieCheckprocess'])
         ->name('GenieCheckprocess');
 
-    Route::get('/karrieregenie', function () {
-        return view('karriere.karriere_genie');
+    Route::get('/KarriereGenie', function () {
+        return view('Karriere.KarriereGenie');
     });
 
 });
@@ -177,10 +177,10 @@ Route::get('paypal', [FrontController::class, 'paypalindex'])
 Route::get('paypal/payment/{name}', [FrontController::class, 'payment'])
     ->name('paypal.payment');
 
-Route::get('stripe/payment/{name}', [FrontController::class, 'stripePayment'])
+/* Route::get('stripe/payment/{name}', [FrontController::class, 'stripePayment'])
     ->name('stripe.payment');
 Route::get('stripe/payment/success', [FrontController::class, 'StripeSuccess'])
-    ->name('stripe.success');
+    ->name('stripe.success'); */
 
 Route::get('paypal/payment/success', [FrontController::class, 'paymentSuccess'])
     ->name('paypal.payment.success');

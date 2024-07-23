@@ -281,7 +281,7 @@
                 <div class="parent-card">
                     <div class="cards">
                         <img
-                            src="<?php echo e(asset('asset/images/illustrations/Berufsinformationen.png')); ?>"
+                            src="<?php echo e(asset('asset/images/Illustrations/Berufsinformationen.png')); ?>"
                             width="90" height="90" alt="Berufsinformationen " loading="lazy">
                         <p class="cardPara">Berufsinformationen</p>
                     </div>
@@ -289,7 +289,7 @@
                 <div class="parent-card">
                     <div class="cards">
                         <img
-                            src="<?php echo e(asset('asset/images/illustrations/Bewerbungscoach.png')); ?>"
+                            src="<?php echo e(asset('asset/images/Illustrations/Bewerbungscoach.png')); ?>"
                             width="90" height="90" alt="Bewerbungscoach " loading="lazy">
                         <p class="cardPara">Bewerbungscoach</p>
                     </div>
@@ -297,14 +297,14 @@
                 <div class="parent-card">
                     <div class="cards">
                         <img
-                            src="<?php echo e(asset('asset/images/illustrations/Lebenslauf.png')); ?>"
+                            src="<?php echo e(asset('asset/images/Illustrations/Lebenslauf.png')); ?>"
                             width="90" height="90" alt="Lebenslauf" loading="lazy">
                         <p class="cardPara">Lebenslauf</p>
                     </div>
                 </div>
                 <div class="parent-card">
                     <div class="cards">
-                        <img src="<?php echo e(asset('asset/images/illustrations/Lernplan.png')); ?>"
+                        <img src="<?php echo e(asset('asset/images/Illustrations/Lernplan.png')); ?>"
                             width="90" height="90" alt="Lernplan" loading="lazy">
                         <p class="cardPara">Persönlicher Tutor</p>
                     </div>
@@ -312,7 +312,7 @@
                 <div class="parent-card">
                     <div class="cards">
                         <img
-                            src="<?php echo e(asset('asset/images/illustrations/Motivationsschreiben.png')); ?>"
+                            src="<?php echo e(asset('asset/images/Illustrations/Motivationsschreiben.png')); ?>"
                             width="90" height="90" alt="Motivationsschreiben " loading="lazy">
                         <p class="cardPara">Motivationsschreiben</p>
                     </div>
@@ -321,7 +321,7 @@
                 <div class="parent-card">
                     <div class="cards">
                         <img
-                            src="<?php echo e(asset('asset/images/illustrations/Textinspiration.png')); ?>"
+                            src="<?php echo e(asset('asset/images/Illustrations/Textinspiration.png')); ?>"
                             width="90" height="90" alt="Textinspiration" loading="lazy">
                         <p class="cardPara">Textinspiration</p>
                     </div>
@@ -330,7 +330,7 @@
                 <div class="parent-card">
                     <div class="cards">
                         <img
-                            src="<?php echo e(asset('asset/images/illustrations/Textkorrekturen.png')); ?>"
+                            src="<?php echo e(asset('asset/images/Illustrations/Textkorrekturen.png')); ?>"
                             width="90" height="90" alt="Textkorrekturen" loading="lazy">
                         <p class="cardPara">Textkorrekturen</p>
                     </div>
@@ -339,7 +339,7 @@
                 <div class="parent-card">
                     <div class="cards">
                         <img
-                            src="<?php echo e(asset('asset/images/illustrations/Übungsklausur.png')); ?>"
+                            src="<?php echo e(asset('asset/images/Illustrations/Übungsklausur.png')); ?>"
                             width="90" height="90" alt="Übungsklausur" loading="lazy">
                         <p class="cardPara">Übungsklausur</p>
                     </div>
@@ -661,7 +661,7 @@
                                         <input type="password" placeholder="Dein Wunschpasswort"
                                             name="password" id="password_register" class="emailLogin" autocomplete="new-password">
                                     </div>
-
+                                    
 
                                     <input type="submit" value="Registrieren" class="emailLogin">
                                         <div class="or">
@@ -766,7 +766,7 @@
             </div>
         </div>
     </footer>
-
+ 
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="<?php echo e(asset('asset/js/index.js')); ?>"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>

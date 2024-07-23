@@ -492,7 +492,7 @@ class FrontController extends Controller
     public function genieTutor()
     {
         if (auth()->check() && auth()->user()->subscription_name == 'diamant') {
-            return view('bildung.genie_tutor');
+            return view('Bildung.genieTutor');
         }
         return abort(404);
     }
@@ -500,7 +500,7 @@ class FrontController extends Controller
     public function KarriereMentor()
     {
         if ((auth()->user()->subscription_name == 'diamant')) {
-            return view('karriere.karriere_mentor');
+            return view('Karriere.KarriereMentor');
         }
         return abort(404);
     }
