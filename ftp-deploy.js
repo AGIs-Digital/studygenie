@@ -8,7 +8,7 @@ const config = {
   port: 22, // Standard SFTP Port
   localRoot: __dirname,
   remoteRoot: "/",
-  include: ["*", "**/*"],      // this would upload everything except dot files
+//   include: ["*", "**/*"],      // this would upload everything except dot files
   exclude: [
     "dist/**/*.map",
     "node_modules/**",
@@ -23,6 +23,7 @@ const config = {
     ".env.example",
     ".vite.config.js",
     ".webpack.mix.js",
+    "vendor/**",
 ],
   sftp: true,
 };

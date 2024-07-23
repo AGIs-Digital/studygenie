@@ -49,12 +49,12 @@ jobs:
         run: |
           php artisan key:generate
 
-      # - name: Deploy to Staging Server via SFTP
-      #   env:
-      #     FTP_USERNAME: ${{ secrets.STAGING_FTP_USERNAME }}
-      #     FTP_PASSWORD: ${{ secrets.STAGING_FTP_PASSWORD }}
-      #     FTP_SERVER: ${{ secrets.STAGING_FTP_SERVER }}
-      #   run: node ftp-deploy.js
+      - name: Deploy to Staging Server via SFTP
+        env:
+          FTP_USERNAME: ${{ secrets.STAGING_FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.STAGING_FTP_PASSWORD }}
+          FTP_SERVER: ${{ secrets.STAGING_FTP_SERVER }}
+        run: node ftp-deploy.js
 
       - name: executing remote ssh commands
         uses: appleboy/ssh-action@v1.0.3
@@ -65,7 +65,7 @@ jobs:
           port: 22
           script: |
             cd staging.studygenie.de/
-            ls -al
+            php8.2-cli composer.phar install
             php8.2-cli artisan config:clear
             php8.2-cli artisan route:cache
             php8.2-cli artisan view:cache
