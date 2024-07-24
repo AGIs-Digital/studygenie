@@ -9,6 +9,10 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
+    concurrency:
+      group: deploy-${{ github.ref }}
+      cancel-in-progress: true
+
     steps:
       - name: 🛠️ Checkout code
         uses: actions/checkout@v3
