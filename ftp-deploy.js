@@ -1,4 +1,4 @@
-const FtpDeploy = require("ftp-deploy");
+const FtpDeploy = require('ftp-deploy');
 const ftpDeploy = new FtpDeploy();
 
 const config = {
@@ -7,38 +7,43 @@ const config = {
   host: process.env.FTP_SERVER,
   port: 22, // Standard SFTP Port
   localRoot: __dirname,
-  remoteRoot: "/",
+  remoteRoot: '/',
   deleteRemote: false,
   include: [
-    ".env",
-    "app/**",
-    "artisan",
-    "bootstrap/**",
-    "composer.json",
-    "composer.lock",
-    "config/**",
-    "database/**",
-    "lang/**",
-    "public/**",
-    "public/.htaccess",
-    "resources/**",
-    "routes/**",
-    "storage/**",
+    '.env',
+    'app/**',
+    'artisan',
+    'bootstrap/**',
+    'composer.json',
+    'composer.lock',
+    'config/**',
+    'database/**',
+    'lang/**',
+    'public/**',
+    'public/.htaccess',
+    'resources/**',
+    'routes/**',
+    'storage/**',
+    'storage/framework/cache/**',
+    'storage/framework/sessions/**',
+    'storage/framework/testing/**',
+    'storage/framework/views/**',
+    'storage/logs/**'
   ],
   exclude: [
-    ".env.example",
-    ".git/**",
-    ".github/**",
-    ".vite.config.js",
-    ".webpack.mix.js",
-    "*.git",
-    "dist/**/*.map",
-    "node_modules/**",
-    "README.md",
-    "tests/**",
-    "vendor/**",
+    '.env.example',
+    '.git/**',
+    '.github/**',
+    '.vite.config.js',
+    '.webpack.mix.js',
+    '*.git',
+    'dist/**/*.map',
+    'node_modules/**',
+    'README.md',
+    'tests/**',
+    'vendor/**'
   ],
-  sftp: true,
+  sftp: true
 };
 
 // ftpDeploy.on("uploading", function (data) {
@@ -47,16 +52,17 @@ const config = {
 //     console.log(data.filename); // partial path with filename being uploaded
 // });
 
-ftpDeploy.on("uploaded", function (data) {
-    console.log("✅ " + data.filename + " (" + data.transferredFileCount + " / " + data.totalFilesCount + ")");
+ftpDeploy.on('uploaded', function (data) {
+  console.log(
+    '✅ ' + data.filename + ' (' + data.transferredFileCount + ' / ' + data.totalFilesCount + ')'
+  );
 });
 
-ftpDeploy.on("upload-error", function (data) {
-    console.log("❌ " . data.err); // data will also include filename, relativePath, and other goodies
+ftpDeploy.on('upload-error', function (data) {
+  console.log('❌ '.data.err); // data will also include filename, relativePath, and other goodies
 });
 
-ftpDeploy.deploy(config, function(err) {
+ftpDeploy.deploy(config, function (err) {
   if (err) console.log(err);
-  else console.log("finished");
+  else console.log('finished');
 });
-
