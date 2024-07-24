@@ -25,11 +25,6 @@ class RenameAssets extends Command
     {
         $this->renameFiles($this->assetPath);
 
-        echo '<pre>';
-        print_r($this->renamedFiles);
-        echo '</pre>';
-        exit();
-
         $this->updateReferences($this->resourcesPath);
         $this->generateReport();
         $this->info('Assets renaming and references updating completed.');
@@ -62,9 +57,18 @@ class RenameAssets extends Command
             $content = File::get($file->getPathname());
             $updated = false;
             foreach ($this->renamedFiles as $original => $new) {
+                // Make sure $new is treated as a string when outputting
+                $newName = is_array($new) ? $new[0] : $new;
                 if (strpos($content, $original) !== false) {
-                    $content = str_replace($original, $new, $content);
-                    $this->info("Updated reference: $original -> $new in " . $file->getPathname());
+                    $this->info("Found reference: $original in " . $file->getPathname() . "; Replacing with " . $newName);
+                    $content = str_replace($original, $newName, $content);
+                    $this->info("Updated reference: $original -> $newName in " . $file->getPathname());
+
+                    // Initialize the array if it doesn't exist
+                    if (!is_array($this->renamedFiles[$original])) {
+                        $this->renamedFiles[$original] = [$new];
+                    }
+
                     $this->renamedFiles[$original][] = $file->getPathname();
                     $updated = true;
                 }
@@ -74,6 +78,7 @@ class RenameAssets extends Command
             }
         }
     }
+
 
     protected function generateReport()
     {
