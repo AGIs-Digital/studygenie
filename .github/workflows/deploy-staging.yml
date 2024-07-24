@@ -84,6 +84,7 @@ jobs:
 
             php8.2-cli composer.phar install
             php8.2-cli artisan key:generate
+            php8.2-cli artisan cache:clear
             php8.2-cli artisan config:clear
             php8.2-cli artisan route:cache
             php8.2-cli artisan view:cache
