@@ -44,6 +44,11 @@ return [
             'throw' => false,
         ],
 
+        'backups' => [
+            'driver' => 'local',
+            'root' => base_path('../backups'),
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),
