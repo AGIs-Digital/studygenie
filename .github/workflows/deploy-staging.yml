@@ -62,16 +62,16 @@ jobs:
             cd staging.studygenie.de/
             php8.2-cli artisan down
 
-      # - name: 🗄️ Backup Application
-      #   uses: appleboy/ssh-action@v1.0.3
-      #   with:
-      #     host: ${{ secrets.SSH_HOST }}
-      #     username: ${{ secrets.SSH_USER }}
-      #     password: ${{ secrets.SSH_PASSWORD }}
-      #     port: 22
-      #     script: |
-      #       cd staging.studygenie.de/
-      #       php8.2-cli artisan backup:run
+      - name: 🗄️ Backup Application
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          port: 22
+          script: |
+            cd staging.studygenie.de/
+            php8.2-cli artisan backup:run
 
       - name: 🧹 Empty remote directory
         uses: appleboy/ssh-action@v1.0.3
