@@ -662,7 +662,7 @@ class FrontController extends Controller
     public function toolsPage()
     {
         $this->updatePlaneSec();
-        return view('Tools');
+        return view('tools');
     }
 
     private function handleException(\Exception $e, $context = 'Allgemeiner Fehler')
