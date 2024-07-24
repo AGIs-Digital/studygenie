@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,11 +10,13 @@
             size: A4;
             margin: 2cm;
         }
+
         body {
             font-family: Arial, sans-serif;
             line-height: 1.5;
             color: #000;
         }
+
         .container {
             width: 100%;
             max-width: 21cm;
@@ -21,31 +24,39 @@
             padding: 0;
             box-sizing: border-box;
         }
+
         .header {
             margin-bottom: 2cm;
         }
+
         .header h1 {
             font-size: 24px;
             color: #2D3E4E;
             margin-bottom: 0.5cm;
         }
+
         .address {
             margin-bottom: 1cm;
         }
+
         .date {
             text-align: right;
             margin-bottom: 1cm;
         }
+
         .subject {
             font-weight: bold;
             margin-bottom: 1cm;
         }
+
         .content {
             margin-bottom: 2cm;
         }
+
         .signature {
             margin-top: 2cm;
         }
+
         .footer {
             position: fixed;
             bottom: 1cm;
@@ -57,6 +68,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="address">
@@ -82,4 +94,5 @@
         </div>
     </div>
 </body>
+
 </html>

@@ -62,7 +62,7 @@
 										$ablaufdatum = \Carbon\Carbon::parse(auth()->user()->expire_date);
 										$tageUebrig = $heute->diffInDays($ablaufdatum, false);
 									@endphp
-									{{ (int)$tageUebrig }} 
+									{{ (int)$tageUebrig }}
 									</span>
 									@if($tageUebrig > 0)
 										<span class="last">Tage übrig</span>
@@ -178,7 +178,7 @@
 						<form method="POST" action="{{ route('user.delete') }}" onsubmit="return confirmDeletion();">
 							@csrf
 							@method('DELETE')
-							
+
 						</form>
 					</div>
 				</div>

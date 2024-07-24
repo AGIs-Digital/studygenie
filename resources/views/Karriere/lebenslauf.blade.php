@@ -148,10 +148,10 @@
 								<div class="accordion-body">
 									<div class="section" id="experience">
 										<div class="entry">
-                                            <p>Unternehmen: <input type="text" name="experience_company[]"></p>    
+                                            <p>Unternehmen: <input type="text" name="experience_company[]"></p>
                                             <p>Position: <input type="text" name="experience_position[]"></p>
                                             <p>Zeitraum: <input type="text" name="experience_period[]"></p>
-                                            <p>Beschreibung: <textarea name="experience_description[]"></textarea></p> 
+                                            <p>Beschreibung: <textarea name="experience_description[]"></textarea></p>
 										</div>
                                         <div class="button">
                                             <button type="button" id="add-experience">Weiterer Eintrag</button>
@@ -177,7 +177,7 @@
                                             <p>Einrichtung: <input type="text" name="school_form[]" ></p>
                                             <p>Abschluss: <input type="text" name="school_grade[]" ></p>
                                             <p>Start: <input type="date" name="school_start[]" ></p>
-                                            <p>Ende: <input type="date" name="school_end[]"></p> 
+                                            <p>Ende: <input type="date" name="school_end[]"></p>
 										</div>
                                         <div class="button">
                                             <button type="button" id="add-school">Weiterer Eintrag</button>
@@ -201,7 +201,7 @@
 									<div class="section" id="language">
 										<div class="entry">
                                             <p>Sprache: <input type="text" name="language_type[]" ></p>
-                                            <p>Level: <input type="text" name="language_level[]" ></p> 
+                                            <p>Level: <input type="text" name="language_level[]" ></p>
 										</div>
                                         <div class="button">
                                             <button type="button" id="add-language">Weiterer Eintrag</button>
@@ -249,7 +249,7 @@
 										<div class="entry">
                                             <p>Einrichtung: <input type="text" name="volunteer_company[]"></p>
                                             <p>Tätigkeit: <input type="text" name="volunteer_task[]"></p>
-                                            <p>Zeitraum: <input type="text" name="volunteer_period[]"></p> 
+                                            <p>Zeitraum: <input type="text" name="volunteer_period[]"></p>
                                         </div>
                                         <div class="button">
                                             <button type="button" id="add-volunteer">Weiterer Eintrag</button>
@@ -278,7 +278,7 @@
 									</div>
 								</div>
 							</div>
-						</div>	
+						</div>
 					</div>
                     <br />
 					<div class="text-center" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
@@ -351,7 +351,7 @@
 
             document.getElementById('add-experience').addEventListener('click', () => {
                 addNewEntry('experience', `
-                    <p>Unternehmen: <input type="text" name="experience_company[]"></p>    
+                    <p>Unternehmen: <input type="text" name="experience_company[]"></p>
                     <p>Position: <input type="text" name="experience_position[]"></p>
                     <p>Zeitraum: <input type="text" name="experience_period[]"></p>
                     <p>Beschreibung: <textarea name="experience_description[]"></textarea></p>

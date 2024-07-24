@@ -78,7 +78,7 @@
                     <input type="text" id="unternehmen_input" name="unternehmen" placeholder="z.B. Dieter GmbH">
                 </div>
             <br /> <br />
-            
+
     <div class="steuerungcontainer">
         <div onclick="setInputValue('/motivation')" class="steuerung">
         <div class="shop-now">Motivation</div>
