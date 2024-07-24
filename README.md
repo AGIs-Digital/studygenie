@@ -1,9 +1,7 @@
 # Genie
 
-[![Deploy to Staging](https://github.com/AGIs-Digital/studygenie/actions/workflows/deploy-staging.yml/badge.svg?branch=master)](https://github.com/AGIs-Digital/studygenie/actions/workflows/deploy-staging.yml)
 [![Latest Deploy to Staging](https://github.com/AGIs-Digital/studygenie/actions/workflows/deploy-staging.yml/badge.svg?branch=master&event=push)](https://github.com/AGIs-Digital/studygenie/actions/workflows/deploy-staging.yml)
 
-[![Deploy to Live](https://github.com/AGIs-Digital/studygenie/actions/workflows/deploy-live.yml/badge.svg)](https://github.com/AGIs-Digital/studygenie/actions/workflows/deploy-live.yml)
 [![Latest Deploy to Live](https://github.com/AGIs-Digital/studygenie/actions/workflows/deploy-live.yml/badge.svg?event=push)](https://github.com/AGIs-Digital/studygenie/actions/workflows/deploy-live.yml)
 
 Make sure to have a running Webserver & MySQL.
