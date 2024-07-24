@@ -58,6 +58,7 @@ jobs:
 
       - name: 🚧 Maintenance Mode ON
         uses: appleboy/ssh-action@v1.0.3
+        continue-on-error: true
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
@@ -69,6 +70,7 @@ jobs:
 
       - name: 🗄️ Backup Application
         uses: appleboy/ssh-action@v1.0.3
+        continue-on-error: true
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
