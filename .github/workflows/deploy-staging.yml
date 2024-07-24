@@ -107,6 +107,12 @@ jobs:
           port: 22
           script: |
             cd staging.studygenie.de/
+
+            mkdir -p storage/framework/cache/data
+            mkdir -p storage/framework/sessions
+            mkdir -p storage/framework/views
+            mkdir -p storage/logs
+
             php8.2-cli -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
             php8.2-cli composer-setup.php
             php8.2-cli -r "unlink('composer-setup.php');"

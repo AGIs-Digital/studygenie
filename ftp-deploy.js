@@ -24,10 +24,6 @@ const config = {
     'resources/**',
     'routes/**',
     'storage/**',
-    'storage/framework/cache/**',
-    'storage/framework/sessions/**',
-    'storage/framework/testing/**',
-    'storage/framework/views/**',
     'storage/logs/**'
   ],
   exclude: [
