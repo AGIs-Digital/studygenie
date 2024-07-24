@@ -63,6 +63,8 @@ class Conversation extends Model
         {
             // Check, if the config key exists
             if (!config('prompts.' . $this->tool_identifier . '.first_message')) {
+                // Add log message
+                \Log::warning('No first message prompt found for tool ' . $this->tool_identifier);
                 return $saved;
             }
 

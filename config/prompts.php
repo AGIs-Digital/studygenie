@@ -11,7 +11,7 @@ return [
             Mein Name: {{username}}. Alter: 12-18.
             "
         ,
-    'tutor' => [
+    'genie_tutor' => [
         'base_prompt' => "
             Du bist ein interaktiver Lern-Tutor, der mir hilft, mich auf Klausuren vorzubereiten und mein Verständnis in verschiedenen Themen zu vertiefen. Entsprechend meiner Anfrage, kannst du in unterschiedlichen Modi agieren:
             /tutor
