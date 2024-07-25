@@ -234,7 +234,7 @@
                 $("#submitForm").addClass('loading-button').text("Zaubert...");
 
                 $.ajax({
-                    url: route('textanalysis.store'),
+                    url: route('bildung.textanalysis.store'),
                     method: "POST",
                     data: formData,
                     contentType: false,

@@ -191,7 +191,7 @@
                                         <div class="col-12 d-flex justify-content-between">
                                             <button id="changePasswordButton" type="button"
                                                 class="btn btn-primary mx-auto d-block">Account Einstellungen</button>
-                                            <form method="POST" action="{{ route('user.delete') }}"
+                                            <form method="POST" action="{{ route('user.destroy') }}"
                                                 onsubmit="return confirmDeletion();">
                                                 @csrf
                                                 @method('DELETE')
@@ -225,7 +225,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-2 text-end">
-                                                <form method="POST" action="{{ route('user.delete') }}"
+                                                <form method="POST" action="{{ route('user.destroy') }}"
                                                     onsubmit="return confirmDeletion();">
                                                     @csrf
                                                     @method('DELETE')
