@@ -37,7 +37,7 @@
         </div>
 
         <div class="categoryClouds">
-            <a href="/jobmatch" class="Cloud_Karriere">
+            <a href="{{ route('karriere.jobmatch') }}" class="Cloud_Karriere">
                 <button type="button" class="btn" data-bs-toggle="tooltip" data-bs-placement="top"
                     title="Finde Berufe die wirklich zu dir passen">
                     <img src="{{ asset('asset/images/info.svg') }}" width="20" alt="Info">
@@ -75,7 +75,7 @@
                 </svg>
             </a>
 
-            <a href="/jobinsider" class="Cloud_Karriere" id="textInspirationCloud2">
+            <a href="{{ route('karriere.jobinsider') }}" class="Cloud_Karriere" id="textInspirationCloud2">
                 <button type="button" class="btn" data-bs-toggle="tooltip" data-bs-placement="top"
                     title="Erfahre alles Wichtige über alle Berufe!">
                     <img src="{{ asset('asset/images/info.svg') }}" width="20" alt="Info">

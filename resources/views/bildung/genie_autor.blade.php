@@ -38,7 +38,7 @@
 
         <div class="categoryClouds">
 
-            <a href="/textinspiration" class="Cloud" id="textInspirationCloud">
+            <a href="{{ route('bildung.textinspiration') }}" class="Cloud" id="textInspirationCloud">
                 <button type="button" class="btn" data-bs-toggle="tooltip" data-bs-placement="top"
                     title="Knüpfe an deinen Text an und lass dich inspirieren.">
                     <img src="{{ asset('asset/images/info.svg') }}" width="20" alt="Info">
@@ -77,8 +77,8 @@
                         </filter>
                     </defs>
                 </svg>
-            </a> <a href="/textanalyse" class="Cloud" id="textInspirationCloud2"><button type="button" class="btn"
-                    data-bs-toggle="tooltip" data-bs-placement="top"
+            </a> <a href="{{ route('bildung.textanalysis') }}" class="Cloud" id="textInspirationCloud2"><button
+                    type="button" class="btn" data-bs-toggle="tooltip" data-bs-placement="top"
                     title="Schnelle Textkorrektur für Grammatik, Stil und mehr.">
                     <img src="{{ asset('asset/images/info.svg') }}" width="20" alt="Info">
                 </button> <svg xmlns="http://www.w3.org/2000/svg" width="245" height="167" viewBox="0 0 245 167"

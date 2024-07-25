@@ -232,7 +232,7 @@
                 //Ladezeichen anzeigen
                 $("#submitForm").addClass('loading-button').text("Zaubert...");
                 $.ajax({
-                    url: "{{ route('GenieCheckprocess') }}", // Verwende die benannte Route
+                    url: route('bildung.geniecheck.store'),
                     method: "POST",
                     data: formData,
                     contentType: false,

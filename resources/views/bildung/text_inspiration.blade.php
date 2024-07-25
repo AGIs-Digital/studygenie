@@ -304,8 +304,10 @@
                 $("#save_data").val('x');
                 //Ladezeichen anzeigen
                 $("#submitForm").addClass('loading-button').text("Zaubert...");
+
+
                 $.ajax({
-                    url: "/textinspirationprocess",
+                    url: route('textinspiration.store'),
                     method: "POST",
                     data: formData,
                     contentType: false,
@@ -356,7 +358,7 @@
             setTimeout(() => {
                 toast.style.opacity = '0';
                 setTimeout(() => document.body.removeChild(toast),
-                500); // Warte auf das Ende der Opacity-Transition
+                    500); // Warte auf das Ende der Opacity-Transition
             }, 3000);
         }
 

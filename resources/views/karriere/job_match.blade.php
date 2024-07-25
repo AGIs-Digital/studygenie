@@ -289,7 +289,7 @@
             setTimeout(() => {
                 toast.style.opacity = '0';
                 setTimeout(() => document.body.removeChild(toast),
-                500); // Warte auf das Ende der Opacity-Transition
+                    500); // Warte auf das Ende der Opacity-Transition
             }, 3000);
         }
 
@@ -328,6 +328,7 @@
         });
 
         $(document).ready(function() {
+
             $("#submitForm").on("click", function() {
                 let form = $("#myForm")[0];
                 let formData = new FormData(form);
@@ -335,7 +336,7 @@
                 //Ladezeichen anzeigen
                 $("#submitForm").addClass('loading-button').text("Zaubert...");
                 $.ajax({
-                    url: "/jobmatchprocess",
+                    url: route('karriere.jobmatch.store'),
                     method: "POST",
                     data: formData,
                     contentType: false,

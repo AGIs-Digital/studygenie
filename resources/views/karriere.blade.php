@@ -26,7 +26,7 @@
         </div>
 
         <div class="categoryClouds">
-            <a href="/karrieregenie" class="Cloud_Karriere">
+            <a href="{{ route('karriere.karrieregenie') }}" class="Cloud_Karriere">
                 <button type="button" class="btn" data-bs-toggle="tooltip" data-bs-placement="top"
                     title="Entdecke deine idealen Berufe und erfahre alles Wichtige!">
                     <img src="{{ asset('asset/images/info.svg') }}" width="20" alt="">
@@ -77,7 +77,7 @@
             @endphp
 
             @if ((auth()->user()->subscription_name == 'gold' || auth()->user()->subscription_name == 'diamant') && $check)
-                <a href="/bewerbegenie" class="Cloud_Karriere">
+                <a href="{{ route('karriere.bewerbegenie') }}" class="Cloud_Karriere">
                     <button type="button" class="btn" data-bs-toggle="tooltip" data-bs-placement="top"
                         title="Erstelle blitzschnell individuelle Bewerbungsunterlagen">
                         <img src="{{ asset('asset/images/info.svg') }}" width="20" alt="">
@@ -158,7 +158,7 @@
             @endif
 
             @if (auth()->user()->subscription_name == 'diamant' && $check)
-                <a href="/karrierementor" class="Cloud_Karriere">
+                <a href="{{ route('karriere.mentor') }}" class="Cloud_Karriere">
                     <button type="button" class="btn" data-bs-toggle="tooltip" data-bs-placement="top"
                         title="Trainiere für Vorstellungsgespräche mit Tipps und Übungen für mehr Selbstsicherheit.">
                         <img src="{{ asset('asset/images/info.svg') }}" width="20" alt="">

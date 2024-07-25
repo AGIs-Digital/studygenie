@@ -414,9 +414,8 @@
                             } @endphp @if (auth()->user()->subscription_name == 'gold' && $check)
                                 <button class="plancardButton" disabled>Hol dir Gold</button>
                             @else
-                                <button
-                                    onclick="setModel('{{ route('paypal.payment', 'gold') }}'/* ,'{{ route('stripe.payment', 'gold') }}' */)"
-                                    class="plancardButton">Hol dir Gold</button>
+                                <button onclick="setModel('{{ route('paypal.payment', 'gold') }}'" class="plancardButton">Hol
+                                    dir Gold</button>
                             @endif @endguest
                         </div>
                         <br />
@@ -443,8 +442,7 @@
                                 @if (auth()->user()->subscription_name == 'diamant' && $check)
                                     <button class="plancardButton" disabled>Hol dir Diamant</button>
                                 @else
-                                    <button
-                                        onclick="setModel('{{ route('paypal.payment', 'diamant') }}'/* ,'{{ route('stripe.payment', 'diamant') }}' */)"
+                                    <button onclick="setModel('{{ route('paypal.payment', 'diamant') }}')"
                                         class="plancardButton">Hol dir Diamant</button>
                                 @endif @endguest
 
