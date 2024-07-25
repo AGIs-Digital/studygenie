@@ -11,6 +11,8 @@ use App\Http\Controllers\MotivationController;
 use App\Http\Controllers\PayPalController;
 use App\Http\Controllers\CVController;
 use App\Http\Controllers\TextInspirationController;
+use App\Http\Controllers\TextAnalysisController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -47,7 +49,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::view('karriere', 'karriere')->name('karriere');
     Route::view('profile', 'profile')->name('profil');
     Route::view('geniecheck', 'bildung.genie_check');
-    Route::view('textanalyse', 'bildung.text_analyse');
+    // Route::view('textanalyse', 'bildung.text_analyse');
     Route::view('karrieregenie', 'karriere.karriere_genie');
     Route::view('job_match', 'karriere.job_match');
     Route::view('jobinsider', 'karriere.job_insider');
@@ -66,9 +68,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('download-pdf', [MotivationController::class, 'downloadPDF'])->name('download-pdf');
     });
 
-    Route::resource('textinspiration', TextInspirationController::class);
+    Route::resource('textanalysis', TextAnalysisController::class)->except(['index', 'show', 'edit', 'update', 'destroy']);
 
-    Route::post('textanalyseprocess', [FrontController::class, 'TextAnalyseprocess'])->name('textanalyseprocess');
     Route::post('jobmatchprocess', [FrontController::class, 'JobMatchprocess'])->name('JobMatchprocess');
     Route::post('jobinsiderprocess', [FrontController::class, 'JobInsiderprocess'])->name('JobInsiderprocess');
     Route::post('geniecheckprocess', [FrontController::class, 'GenieCheckprocess'])->name('GenieCheckprocess');
@@ -85,7 +86,9 @@ Route::middleware(['auth', 'check.subscription.expiry', 'check.subscription:diam
 // Routes which require gold or diamant subscription
 Route::middleware(['auth', 'check.subscription.expiry', 'check.subscription:gold,diamant'])->group(function () {
     Route::view('motivationsschreiben', 'karriere.motivationsschreiben');
-    Route::view('textinspiration', 'bildung.text_inspiration');
+
+    Route::resource('textinspiration', TextInspirationController::class)->except(['index', 'show', 'edit', 'update', 'destroy']);
+
     Route::view('bewerbegenie', 'karriere.bewerbe_genie');
     Route::view('genieautor', 'bildung.genie_autor');
     Route::view('lebenslauf', 'karriere.lebenslauf');

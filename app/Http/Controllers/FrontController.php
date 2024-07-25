@@ -282,56 +282,7 @@ class FrontController extends Controller
 
 
 
-    public function TextAnalyseprocess(Request $request)
-    {
-        try {
-            $toolIdentifier = 'text_analysis';
 
-            # make sure, $request->text1 is set and not empty
-            if (!isset($request->text1) || empty($request->text1)) {
-                return response()->json([
-                    "status" => false,
-                    "error" => "Bitte geben Sie einen Text ein"
-                ]);
-            }
-
-            # Create a new conversation
-            $conversation = new Conversation();
-            $conversation->user_id = auth()->user()->id;
-            $conversation->tool_identifier = $toolIdentifier;
-            $conversation->save();
-
-            # Create a new message
-            $message = new Message();
-            $message->user_id = auth()->user()->id;
-            $message->role = 'user';
-            $message->content = $request->text1;
-
-            # add message to conversation
-            $conversation->messages()->save($message);
-
-            $payload = $conversation->createPayload();
-
-            $response = OpenAI::chat()->create($payload);
-
-            # create new message for response
-            $message = new Message();
-            $message->user_id = auth()->user()->id;
-            $message->content = $response->choices[0]->message->content;
-            $message->role = 'assistant';
-
-            # add message to conversation
-            $conversation->messages()->save($message);
-
-            return response()->json([
-                "status" => true,
-                "message" => $message->toArray()
-            ]);
-        } catch (\Exception $e) {
-
-            return $this->handleException($e, "Fehler bei der TextInspiration Anfrage");
-        }
-    }
 
     public function GenieCheckprocess(Request $request)
     {

@@ -122,7 +122,7 @@
                                             oninput="this.style.height = '';this.style.height = this.scrollHeight + 'px'"></textarea>
                                     </div>
                                 </div>
-                                <button type="button" class="send_button" id="submitForm">Magie</button>
+                                <button type="submit" class="send_button" id="submitForm">Magie</button>
                             </div>
 
                         </div>
@@ -224,14 +224,17 @@
             const saveForm = document.getElementById('save_data');
             const saveFormButton = document.getElementById('saveForm');
 
-            $("#submitForm").on("click", function() {
+            $("#myForm").submit(function(e) {
+                e.preventDefault();
+
                 let form = $("#myForm")[0];
                 let formData = new FormData(form);
                 $("#save_data").val('x');
                 //Ladezeichen anzeigen
                 $("#submitForm").addClass('loading-button').text("Zaubert...");
+
                 $.ajax({
-                    url: "/textanalyseprocess",
+                    url: route('textanalysis.store'),
                     method: "POST",
                     data: formData,
                     contentType: false,
@@ -282,7 +285,7 @@
             setTimeout(() => {
                 toast.style.opacity = '0';
                 setTimeout(() => document.body.removeChild(toast),
-                500); // Warte auf das Ende der Opacity-Transition
+                    500); // Warte auf das Ende der Opacity-Transition
             }, 3000);
         }
 
@@ -329,11 +332,6 @@
                 await MathJax.typesetPromise([typedTextElement]); // Ensure final MathJax rendering
                 typedTextElement.scrollTop = typedTextElement.scrollHeight; // Ensure final scroll to the bottom
             }
-        }
-
-        // Rekursion stoppen, wenn textarray leer ist
-        if (textarray.length === 0) {
-            return;
         }
     </script>
 </body>
