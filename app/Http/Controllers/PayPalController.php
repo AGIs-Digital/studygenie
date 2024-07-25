@@ -179,4 +179,76 @@ class PayPalController extends Controller
 
         return redirect()->route('profile')->with('success', "Herzlichen Glückwunsch, {$user->name}! Du hast jetzt das {$planName}.");
     }
+
+    /**
+     * Method to init the paypal order
+     *
+     * @param Request $request
+     * @param string $name
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function payment(Request $request, $name): \Illuminate\Http\RedirectResponse
+    {
+        $user = Auth::user();
+
+        if ($name == 'silber') {
+            $user->updateSubscriptionStatus($name, null);
+            return redirect()->route('profile')->with('success', 'Transaction complete.');
+        }
+
+        $price = config("services.paypal.prices.$name", 10); // Standardpreis ist 10
+        Session::put('name', $name);
+        $response = $this->createPayPalOrder($name, $price);
+
+        return $this->handlePayPalResponse($response);
+    }
+
+    /**
+     * Method to handle the success response from PayPal
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     *
+     */
+    private function createPayPalOrder($name, $price): array
+    {
+        $provider = new PayPalClient();
+        $provider->setApiCredentials(config('paypal.credentials'));
+
+        return $provider->createOrder([
+            "intent" => "CAPTURE",
+            "application_context" => [
+                "return_url" => route('paypal.payment.success'),
+                "cancel_url" => route('paypal.payment.cancel')
+            ],
+            "purchase_units" => [
+                0 => [
+                    "amount" => [
+                        "currency_code" => "EUR",
+                        "value" => $price
+                    ]
+                ]
+            ]
+        ]);
+    }
+
+    /**
+     * Method to handle the success response from PayPal
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    private function handlePayPalResponse($response): \Illuminate\Http\RedirectResponse
+    {
+        if (isset($response['id']) && $response['id'] != null) {
+            foreach ($response['links'] as $links) {
+                if ($links['rel'] == 'approve') {
+                    return redirect()->away($links['href']);
+                }
+            }
+            return redirect()->route('cancel.payment')->with('error', 'Etwas ist schief gelaufen');
+        } else {
+            return redirect()->route('create.payment')->with('error', $response['message'] ?? 'Etwas ist schief gelaufen');
+        }
+    }
 }

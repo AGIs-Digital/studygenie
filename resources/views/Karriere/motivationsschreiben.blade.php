@@ -225,7 +225,7 @@
     </section>
 
     <!-- Download Button -->
-    <form action="{{ route('download-motivation-pdf') }}" method="POST" id="downloadForm">
+    <form action="{{ route('motivation.download-pdf') }}" method="POST" id="downloadForm">
         @csrf
         <input type="hidden" name="pdf_content" id="pdf_content">
         <button type="submit" class="save_folder" onclick="updatePdfContent()">
@@ -277,7 +277,7 @@
                 // Ladezeichen anzeigen
                 $("#submitForm").addClass('loading-button').text("Zaubert...");
                 $.ajax({
-                    url: "{{ route('Motivationsschreibenprocess') }}",
+                    url: "{{ route('motivation.generate') }}",
                     type: "POST",
                     data: formData,
                     processData: false,
@@ -383,7 +383,7 @@
             setTimeout(() => {
                 toast.style.opacity = '0';
                 setTimeout(() => document.body.removeChild(toast),
-                500); // Warte auf das Ende der Opacity-Transition
+                    500); // Warte auf das Ende der Opacity-Transition
             }, 3000);
         }
 

@@ -304,6 +304,8 @@
                 $("#save_data").val('x');
                 //Ladezeichen anzeigen
                 $("#submitForm").addClass('loading-button').text("Zaubert...");
+
+
                 $.ajax({
                     url: route('bildung.textinspiration.store'),
                     method: "POST",

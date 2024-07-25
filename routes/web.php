@@ -9,7 +9,15 @@ use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\MotivationController;
 use App\Http\Controllers\PayPalController;
-use App\Http\Controllers\CVController;
+
+use App\Http\Controllers\Karriere\MentorController;
+use App\Http\Controllers\Karriere\LebenslaufController;
+use App\Http\Controllers\Karriere\JobInsiderController;
+use App\Http\Controllers\Karriere\JobMatchController;
+
+use App\Http\Controllers\Bildung\GenieCheckController;
+use App\Http\Controllers\Bildung\TextInspirationController;
+use App\Http\Controllers\Bildung\TextAnalysisController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,201 +30,134 @@ use App\Http\Controllers\CVController;
 |
 */
 
-Route::post('/processOpenAIRequest/{toolIdentifier}', [FrontController::class, 'processOpenAIRequest'])
-    ->name('processOpenAIRequest');
-
-Route::middleware('auth:sanctum')->group(function () {
-    Route::prefix('conversation')->group(function () {
-        // The /create route is a POST request to create a new conversation
-        Route::post('/create', [ConversationController::class, 'create']);
-
-        // The /{toolIdentifier} route is a GET request to get a conversation by its tool identifier
-        Route::get('/init/{toolIdentifier}', [ConversationController::class, 'get'])->name('conversation.get');
-
-        // The /{id}/message route is a POST request to add a message to a conversation
-        Route::post('/{id}/message', [ConversationController::class, 'askAi'])->name('conversation.askAi');
-
-        Route::post('/{conversation}/archive', [ConversationController::class, 'archive'])->name('conversation.archive');
-    });
-});
-
+### PUBLIC VIEW ROUTES ###
+Route::view('impressum', 'impressum');
+Route::view('agb', 'agb');
+Route::view('datenschutz', 'datenschutz');
 
 Route::get('/', function () {
     return view('index');
-})->name('home')->middleware('check.tutorial');
+})->name('home')->middleware('check.tutorial'); // not sure what the check.tutorial does here on a public route... (FL)
 
-Route::get('/get-latest-ai-response', [FrontController::class, 'getLatestAIResponse'])
-    ->name('getLatestAIResponse');
+### CONVERSATION ROUTES ###
+Route::middleware('auth:sanctum')->prefix('conversation')->group(function () {
+    Route::post('/create', [ConversationController::class, 'create']);
+    Route::get('/init/{toolIdentifier}', [ConversationController::class, 'get'])->name('conversation.get');
+    Route::post('/{id}/message', [ConversationController::class, 'askAi'])->name('conversation.askAi');
+    Route::post('/{conversation}/archive', [ConversationController::class, 'archive'])->name('conversation.archive');
+});
 
+### AUTHENTICATED ROUTES ###
 Route::group(['middleware' => ['auth']], function () {
+    // View routes
+    Route::view('tools', 'tools');
+    Route::view('profile', 'profile')->name('profil');
 
-    Route::get('/tools', [FrontController::class, 'toolsPage']);
+    // Resources
+    Route::resource('user', UserController::class);
+    Route::resource('archive', ArchiveController::class)->except(['create', 'store']);
 
-    Route::get('/bildung', function () {
-        return view('bildung');
+    ### SINGLE OPERATION ROUTES ###
+    Route::post('/update-tutorial-status', function () { // What does this route do? (FL)
+        $user = Auth::user();
+        $user->tutorial_shown = 1;
+        $user->save();
+
+        return response()->json(['status' => 'success']);
     });
 
-    Route::get('/Karriere', function () {
-        return view('Karriere');
+    ### BILDUNG ROUTES
+    Route::view('bildung', 'bildung')->name('bildung');
+    Route::prefix('bildung')->name('bildung.')->group(function () {
+
+        Route::get('geniecheck', [GenieCheckController::class, 'create'])->name('geniecheck.create');
+        Route::resource('geniecheck', GenieCheckController::class)->except(['index', 'create', 'show', 'edit', 'update', 'destroy']);
+
+        // Bildung Routes which require diamant subscription
+        Route::middleware(['check.subscription.expiry', 'check.subscription:diamant'])->group(function () {
+            Route::view('genietutor', 'bildung.genie_tutor')->name('genietutor.create');
+        });
+
+        // Bildung Routes which require gold or diamant subscription
+        Route::middleware(['auth', 'check.subscription.expiry', 'check.subscription:gold,diamant'])->group(function () {
+
+            Route::view('genieautor', 'bildung.genie_autor')->name('genieautor');
+
+            Route::get('textinspiration', [TextInspirationController::class, 'create'])->name('textinspiration');
+            Route::resource('textinspiration', TextInspirationController::class)->except(['index', 'create', 'show', 'edit', 'update', 'destroy']);
+
+            Route::get('textanalyse', [TextAnalysisController::class, 'create'])->name('textanalysis');
+            Route::resource('textanalysis', TextAnalysisController::class)->except(['index', 'create', 'show', 'edit', 'update', 'destroy']);
+        });
     });
 
-    Route::get('/profile', function () {
-        return view('profile');
-    })->name('profile');
+    ### KARRIERE ROUTES
+    Route::prefix('karriere')->name('karriere.')->group(function () {
+        Route::view('/', 'karriere')->name('index');
 
-    Route::get('/geniecheck', function () {
-        return view('bildung.genie_check');
+        // Karriere-Mentor routes - only available to users with a diamant subscription
+        Route::middleware(['check.subscription.expiry', 'check.subscription:diamant'])->group(function () {
+            Route::get('mentor', [MentorController::class, 'create'])->name('mentor');
+            Route::resource('mentor', MentorController::class)->except(['index', 'create', 'show', 'edit', 'update', 'destroy']);
+        });
+
+        // Routes which require gold or diamant subscription
+        Route::middleware(['check.subscription.expiry', 'check.subscription:gold,diamant'])->group(function () {
+            // BewerbeGenie routes - only available to users with a gold or diamant subscription
+            Route::view('bewerbegenie', 'karriere.bewerbe_genie')->name('bewerbegenie');
+
+            // Lebenslauf routes
+            Route::get('lebenslauf', [LebenslaufController::class, 'create'])->name('lebenslauf');
+            Route::prefix('lebenslauf')->name('lebenslauf.')->group(function () {
+                Route::post('preview', [LebenslaufController::class, 'preview'])->name('preview');
+                Route::post('download', [LebenslaufController::class, 'download'])->name('download');
+            });
+
+            // Motivational letter routes
+            Route::prefix('motivation')->name('motivation.')->group(function () {
+                Route::post('preview', [MotivationController::class, 'preview']);
+                Route::post('generate', [MotivationController::class, 'generate'])->name('generate');
+                Route::post('download-pdf', [MotivationController::class, 'downloadPDF'])->name('download-pdf');
+            });
+        });
+
+        Route::view('karrieregenie', 'karriere.karriere_genie')->name('karrieregenie');
+
+        ### JOB MATCH ROUTES
+        Route::get('jobmatch', [JobMatchController::class, 'create'])->name('jobmatch');
+        Route::resource('jobmatch', JobMatchController::class)->except(['index', 'create', 'show', 'edit', 'update', 'destroy']);
+
+        ### JOB INSIDER ROUTES
+        Route::get('jobinsider', [JobInsiderController::class, 'create'])->name('jobinsider');
+        Route::resource('jobinsider', JobInsiderController::class)->except(['index', 'create', 'show', 'edit', 'update', 'destroy']);
     });
-
-    Route::get('/textanalyse', function () {
-        return view('bildung.text_analyse');
-    });
-
-    Route::get('/textinspiration', function () {
-        if(auth()->check() && (auth()->user()->subscription_name == 'gold' || auth()->user()->subscription_name == 'diamant')){
-            return view('bildung.text_inspiration');
-        }
-        return abort(404);
-    })->middleware('auth');
-
-    Route::get('/bewerbegenie', function () {
-        if((auth()->user()->subscription_name == 'gold' || auth()->user()->subscription_name == 'diamant')){
-            return view('karriere.bewerbe_genie');
-        }
-        return abort(404);
-    });
-
-    Route::get('/genieautor', function () {
-        if(auth()->check() && (auth()->user()->subscription_name == 'gold' || auth()->user()->subscription_name == 'diamant')){
-            return view('bildung.genie_autor');
-        }
-        return abort(404);
-    });
-
-    Route::get('/job_match', function () {
-        return view('karriere.job_match');
-    });
-
-    Route::get('/jobinsider', function () {
-        return view('karriere.job_insider');
-    });
-
-    Route::get('/lebenslauf', function () {
-        if((auth()->user()->subscription_name == 'gold' || auth()->user()->subscription_name == 'diamant')){
-            return view('karriere.lebenslauf');
-        }
-        return abort(404);
-    });
-
-    Route::post('cv-preview', [CVController::class, 'cvPreview']);
-    Route::post('download-pdf', [CVController::class, 'downloadPDF']);
-
-    Route::get('/motivationsschreiben', function () {
-        if((auth()->user()->subscription_name == 'gold' || auth()->user()->subscription_name == 'diamant')){
-            return view('karriere.motivationsschreiben');
-        }
-        return abort(404);
-    });
-
-    Route::post('motivation-preview', [App\Http\Controllers\MotivationController::class, 'motivationPreview']);
-    Route::post('download-motivation-pdf', [MotivationController::class, 'downloadPDF'])->name('download-motivation-pdf');
-
-    Route::post('motivationsschreibenprocess', [FrontController::class, 'Motivationsschreibenprocess'])
-        ->name('Motivationsschreibenprocess');
-
-    Route::get('genietutor', [FrontController::class, 'genieTutor']);
-
-    Route::get('/karrierementor', [FrontController::class, 'KarriereMentor']);
-    Route::post('/karrierementor-one', [FrontController::class, 'KarriereMentorFirst'])
-        ->name('karrierementor');
-    Route::post('karrierementor-user', [FrontController::class, 'KarriereMentorUser'])
-        ->name('karrierementoruser');
-
-    Route::post('textinspirationprocess', [FrontController::class, 'TextInspirationprocess'])
-        ->name('TextInspirationprocess');
-
-    Route::post('textanalyseprocess', [FrontController::class, 'TextAnalyseprocess'])
-        ->name('textanalyseprocess');
-
-    Route::post('jobmatchprocess', [FrontController::class, 'JobMatchprocess'])
-        ->name('JobMatchprocess');
-
-    Route::post('jobinsiderprocess', [FrontController::class, 'JobInsiderprocess'])
-        ->name('JobInsiderprocess');
-
-    Route::post('savedata', [FrontController::class, 'saveData'])
-        ->name('save.data');
-
-    Route::post('geniecheckprocess', [FrontController::class, 'GenieCheckprocess'])
-        ->name('GenieCheckprocess');
-
-    Route::get('/karrieregenie', function () {
-        return view('karriere.karriere_genie');
-    });
-
 });
 
-Route::post('/postLogin', [FrontController::class, 'postLogin']);
-Route::post('/postRegistration', [FrontController::class, 'postRegistration']);
-Route::post('/register', [UserController::class, 'register'])
-    ->name('register.post');
+### PAYPAL ROUTES ###
+Route::prefix('paypal')->name('paypal.')->group(function () {
+    Route::view('/', 'paypal')->name('paypal');
 
-Route::get('/impressum', function () {
-    return view('impressum');
-});
+    Route::get('payment/{name}', [PayPalController::class, 'payment'])->name('payment');
 
-Route::get('/agb', function () {
-    return view('agb');
-});
-
-Route::get('/datenschutz', function () {
-    return view('datenschutz');
-});
-
-Route::get('paypal', [FrontController::class, 'paypalindex'])
-    ->name('paypal');
-Route::get('paypal/payment/{name}', [FrontController::class, 'payment'])
-    ->name('paypal.payment');
-
-Route::get('stripe/payment/{name}', [FrontController::class, 'stripePayment'])
-    ->name('stripe.payment');
-Route::get('stripe/payment/success', [FrontController::class, 'StripeSuccess'])
-    ->name('stripe.success');
-
-Route::get('paypal/payment/success', [FrontController::class, 'paymentSuccess'])
-    ->name('paypal.payment.success');
-Route::get('paypal/payment/cancel', [FrontController::class, 'paymentCancel'])
-    ->name('paypal.payment/cancel');
-Route::post('change-password', [FrontController::class, 'changePassword'])
-    ->name('change.password');
-
-Auth::routes();
-
-Route::delete('/user/delete', [FrontController::class, 'delete'])
-    ->name('user.delete');
-
-// Archive routes: Route them all to Archive Controller. Make them only available to atuhenticated users
-Route::middleware('auth')->group(function () {
-    Route::get('/archive', [ArchiveController::class, 'index'])->name('archive.index');
-    Route::get('/archive/{archive}', [ArchiveController::class, 'show'])->name('archive.show');
-    Route::get('/archive/{archive}/edit', [ArchiveController::class, 'edit'])->name('archive.edit');
-    Route::put('/archive/{archive}', [ArchiveController::class, 'update'])->name('archive.update');
-    Route::delete('/archive/{archive}', [ArchiveController::class, 'destroy'])->name('archive.destroy');
-});
-
-// Weiterleitung zur Anmeldeseite des Anbieters fr Google und Facebook
-Route::get('login/{provider}', [LoginController::class, 'redirectToProvider']);
-Route::get('auth/callback/{provider}', [LoginController::class, 'handleProviderCallback']);
-
-Route::post('/update-tutorial-status', function () {
-    $user = Auth::user();
-    $user->tutorial_shown = 1;
-    $user->save();
-
-    return response()->json(['status' => 'success']);
+    Route::prefix('payment')->name('payment.')->group(function () {
+        Route::get('success', [PayPalController::class, 'paymentSuccess'])->name('success');
+        Route::get('cancel', [PayPalController::class, 'paymentCancel'])->name('cancel');
+    });
 });
 
 // PayPal Checkout routes
 Route::get('/setup-plans', [PayPalController::class, 'setupPlans'])->name('paypal.setupPlans');
 Route::post('/create-subscription', [PayPalController::class, 'createSubscription'])->name('paypal.createSubscription');
 Route::get('/update-subscription', [PayPalController::class, 'updateSubscription'])->name('paypal.updateSubscription');
+
+### USER ROUTES ###
+Route::post('/postLogin', [FrontController::class, 'postLogin']);
+Route::post('/postRegistration', [FrontController::class, 'postRegistration']);
+Route::post('/register', [UserController::class, 'register'])->name('register.post');
+Route::post('change-password', [FrontController::class, 'changePassword'])->name('change.password');
+
+Auth::routes();
+
+### SOCIALITE ROUTES ###
+Route::get('login/{provider}', [LoginController::class, 'redirectToProvider']);
+Route::get('auth/callback/{provider}', [LoginController::class, 'handleProviderCallback']);

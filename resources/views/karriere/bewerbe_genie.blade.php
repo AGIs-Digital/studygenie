@@ -38,7 +38,7 @@
 
         <div class="categoryClouds">
 
-            <a href="/lebenslauf" class="Cloud_Karriere" id="textInspirationCloud">
+            <a href="{{ route('karriere.lebenslauf') }}" class="Cloud_Karriere" id="textInspirationCloud">
                 <svg xmlns="http://www.w3.org/2000/svg" width="245" height="167" viewBox="0 0 245 167"
                     fill="none">
                     <g filter="url(#filter0_d_168_754)">

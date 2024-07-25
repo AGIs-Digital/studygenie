@@ -7,6 +7,8 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Models\Archive;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
 
 class User extends Authenticatable
 {
@@ -49,5 +51,41 @@ class User extends Authenticatable
     public function archives()
     {
         return $this->hasMany(Archive::class);
+    }
+
+    /**
+     * Update the subscription status of the user
+     */
+    public function updateSubscriptionStatus($status, $expire_date)
+    {
+        $this->subscription_name = $status;
+        $this->expire_date = $expire_date;
+        $this->save();
+    }
+
+    /**
+     * Delete the user and all related archives
+     */
+    public function deleteAccount(): bool
+    {
+        DB::beginTransaction();
+
+        try {
+            // Löschen aller zugehörigen Archive
+            $this->archives()->delete();
+
+            // Cache-Eintrag vergessen
+            Cache::forget("session_user_{$this->id}");
+
+            // Benutzer löschen
+            parent::delete();
+
+            DB::commit();
+
+            return true;
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
     }
 }
