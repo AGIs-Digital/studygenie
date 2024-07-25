@@ -21,6 +21,7 @@ auth.json
 /storage/framework/testing/*
 !/storage/framework/testing/.gitkeep
 /storage/logs/*
+/bootstrap/cache/*.php
 
 # Ignoring build artifacts and logs
 npm-debug.log
