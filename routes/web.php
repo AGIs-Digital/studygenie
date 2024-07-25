@@ -22,156 +22,75 @@ use App\Http\Controllers\CVController;
 |
 */
 
-Route::post('/processOpenAIRequest/{toolIdentifier}', [FrontController::class, 'processOpenAIRequest'])
-    ->name('processOpenAIRequest');
-
-Route::middleware('auth:sanctum')->group(function () {
-    Route::prefix('conversation')->group(function () {
-        // The /create route is a POST request to create a new conversation
-        Route::post('/create', [ConversationController::class, 'create']);
-
-        // The /{toolIdentifier} route is a GET request to get a conversation by its tool identifier
-        Route::get('/init/{toolIdentifier}', [ConversationController::class, 'get'])->name('conversation.get');
-
-        // The /{id}/message route is a POST request to add a message to a conversation
-        Route::post('/{id}/message', [ConversationController::class, 'askAi'])->name('conversation.askAi');
-
-        Route::post('/{conversation}/archive', [ConversationController::class, 'archive'])->name('conversation.archive');
-    });
-});
-
+// Public view routes
+Route::view('impressum', 'impressum');
+Route::view('agb', 'agb');
+Route::view('datenschutz', 'datenschutz');
 
 Route::get('/', function () {
     return view('index');
 })->name('home')->middleware('check.tutorial');
 
-Route::get('/get-latest-ai-response', [FrontController::class, 'getLatestAIResponse'])
-    ->name('getLatestAIResponse');
+// Routes for AI Conversations
+    Route::middleware('auth:sanctum')->prefix('conversation')->group(function () {
+    Route::post('/create', [ConversationController::class, 'create']);
+    Route::get('/init/{toolIdentifier}', [ConversationController::class, 'get'])->name('conversation.get');
+    Route::post('/{id}/message', [ConversationController::class, 'askAi'])->name('conversation.askAi');
+    Route::post('/{conversation}/archive', [ConversationController::class, 'archive'])->name('conversation.archive');
+});
 
+// Routes which require authentication
 Route::group(['middleware' => ['auth']], function () {
+    // View Routes
+    Route::view('tools', 'tools');
+    Route::view('bildung', 'bildung');
+    Route::view('karriere', 'karriere');
+    Route::view('profile', 'profile')->name('profil');
+    Route::view('geniecheck', 'bildung.genie_check');
+    Route::view('textanalyse', 'bildung.text_analyse');
+    Route::view('karrieregenie', 'karriere.karriere_genie');
+    Route::view('job_match', 'karriere.job_match');
+    Route::view('jobinsider', 'karriere.job_insider');
 
-    Route::get('/tools', [FrontController::class, 'toolsPage']);
+    // Archive routes: Route them all to Archive Controller. Make them only available to atuhenticated users
+    Route::resource('archive', ArchiveController::class)->except(['create', 'store']);
 
-    Route::get('/bildung', function () {
-        return view('bildung');
-    });
-
-    Route::get('/Karriere', function () {
-        return view('Karriere');
-    });
-
-    Route::get('/profile', function () {
-        return view('profile');
-    })->name('profile');
-
-    Route::get('/geniecheck', function () {
-        return view('bildung.genie_check');
-    });
-
-    Route::get('/textanalyse', function () {
-        return view('bildung.text_analyse');
-    });
-
-    Route::get('/textinspiration', function () {
-        if(auth()->check() && (auth()->user()->subscription_name == 'gold' || auth()->user()->subscription_name == 'diamant')){
-            return view('bildung.text_inspiration');
-        }
-        return abort(404);
-    })->middleware('auth');
-
-    Route::get('/bewerbegenie', function () {
-        if((auth()->user()->subscription_name == 'gold' || auth()->user()->subscription_name == 'diamant')){
-            return view('karriere.bewerbe_genie');
-        }
-        return abort(404);
-    });
-
-    Route::get('/genieautor', function () {
-        if(auth()->check() && (auth()->user()->subscription_name == 'gold' || auth()->user()->subscription_name == 'diamant')){
-            return view('bildung.genie_autor');
-        }
-        return abort(404);
-    });
-
-    Route::get('/job_match', function () {
-        return view('karriere.job_match');
-    });
-
-    Route::get('/jobinsider', function () {
-        return view('karriere.job_insider');
-    });
-
-    Route::get('/lebenslauf', function () {
-        if((auth()->user()->subscription_name == 'gold' || auth()->user()->subscription_name == 'diamant')){
-            return view('karriere.lebenslauf');
-        }
-        return abort(404);
-    });
-
+    // Post routes
     Route::post('cv-preview', [CVController::class, 'cvPreview']);
     Route::post('download-pdf', [CVController::class, 'downloadPDF']);
-
-    Route::get('/motivationsschreiben', function () {
-        if((auth()->user()->subscription_name == 'gold' || auth()->user()->subscription_name == 'diamant')){
-            return view('karriere.motivationsschreiben');
-        }
-        return abort(404);
-    });
-
     Route::post('motivation-preview', [App\Http\Controllers\MotivationController::class, 'motivationPreview']);
     Route::post('download-motivation-pdf', [MotivationController::class, 'downloadPDF'])->name('download-motivation-pdf');
-
     Route::post('motivationsschreibenprocess', [FrontController::class, 'Motivationsschreibenprocess'])
         ->name('Motivationsschreibenprocess');
 
-    Route::get('genietutor', [FrontController::class, 'genieTutor']);
+    Route::post('textinspirationprocess', [FrontController::class, 'TextInspirationprocess'])->name('TextInspirationprocess');
+    Route::post('textanalyseprocess', [FrontController::class, 'TextAnalyseprocess'])->name('textanalyseprocess');
+    Route::post('jobmatchprocess', [FrontController::class, 'JobMatchprocess'])->name('JobMatchprocess');
+    Route::post('jobinsiderprocess', [FrontController::class, 'JobInsiderprocess'])->name('JobInsiderprocess');
+    Route::post('geniecheckprocess', [FrontController::class, 'GenieCheckprocess'])->name('GenieCheckprocess');
 
-    Route::get('/karrierementor', [FrontController::class, 'KarriereMentor']);
-    Route::post('/karrierementor-one', [FrontController::class, 'KarriereMentorFirst'])
-        ->name('karrierementor');
-    Route::post('karrierementor-user', [FrontController::class, 'KarriereMentorUser'])
-        ->name('karrierementoruser');
+    Route::delete('user/delete', [UserController::class, 'destroy'])->name('user.delete');
+});
 
-    Route::post('textinspirationprocess', [FrontController::class, 'TextInspirationprocess'])
-        ->name('TextInspirationprocess');
+// Routes which require diamant subscription
+Route::middleware(['auth', 'check.subscription.expiry', 'check.subscription:diamant'])->group(function () {
+    Route::view('karrierementor', 'karriere.karriere_mentor');
+    Route::view('genietutor', 'bildung.genie_tutor');
+});
 
-    Route::post('textanalyseprocess', [FrontController::class, 'TextAnalyseprocess'])
-        ->name('textanalyseprocess');
-
-    Route::post('jobmatchprocess', [FrontController::class, 'JobMatchprocess'])
-        ->name('JobMatchprocess');
-
-    Route::post('jobinsiderprocess', [FrontController::class, 'JobInsiderprocess'])
-        ->name('JobInsiderprocess');
-
-    Route::post('savedata', [FrontController::class, 'saveData'])
-        ->name('save.data');
-
-    Route::post('geniecheckprocess', [FrontController::class, 'GenieCheckprocess'])
-        ->name('GenieCheckprocess');
-
-    Route::get('/karrieregenie', function () {
-        return view('karriere.karriere_genie');
-    });
-
+// Routes which require gold or diamant subscription
+Route::middleware(['auth', 'check.subscription.expiry', 'check.subscription:gold,diamant'])->group(function () {
+    Route::view('motivationsschreiben', 'karriere.motivationsschreiben');
+    Route::view('textinspiration', 'bildung.text_inspiration');
+    Route::view('bewerbegenie', 'karriere.bewerbe_genie');
+    Route::view('genieautor', 'bildung.genie_autor');
+    Route::view('lebenslauf', 'karriere.lebenslauf');
 });
 
 Route::post('/postLogin', [FrontController::class, 'postLogin']);
 Route::post('/postRegistration', [FrontController::class, 'postRegistration']);
 Route::post('/register', [UserController::class, 'register'])
     ->name('register.post');
-
-Route::get('/impressum', function () {
-    return view('impressum');
-});
-
-Route::get('/agb', function () {
-    return view('agb');
-});
-
-Route::get('/datenschutz', function () {
-    return view('datenschutz');
-});
 
 Route::get('paypal', [FrontController::class, 'paypalindex'])
     ->name('paypal');
@@ -191,18 +110,6 @@ Route::post('change-password', [FrontController::class, 'changePassword'])
     ->name('change.password');
 
 Auth::routes();
-
-Route::delete('/user/delete', [FrontController::class, 'delete'])
-    ->name('user.delete');
-
-// Archive routes: Route them all to Archive Controller. Make them only available to atuhenticated users
-Route::middleware('auth')->group(function () {
-    Route::get('/archive', [ArchiveController::class, 'index'])->name('archive.index');
-    Route::get('/archive/{archive}', [ArchiveController::class, 'show'])->name('archive.show');
-    Route::get('/archive/{archive}/edit', [ArchiveController::class, 'edit'])->name('archive.edit');
-    Route::put('/archive/{archive}', [ArchiveController::class, 'update'])->name('archive.update');
-    Route::delete('/archive/{archive}', [ArchiveController::class, 'destroy'])->name('archive.destroy');
-});
 
 // Weiterleitung zur Anmeldeseite des Anbieters fr Google und Facebook
 Route::get('login/{provider}', [LoginController::class, 'redirectToProvider']);

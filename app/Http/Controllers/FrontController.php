@@ -154,30 +154,6 @@ class FrontController extends Controller
         return true;
     }
 
-    public function delete()
-    {
-        $user = Auth::user();
-
-        if (is_null($user)) {
-            return redirect('/')->withErrors('Kein authentifizierter Benutzer gefunden.');
-        }
-
-        DB::beginTransaction(); // Startet eine Datenbanktransaktion
-
-        try {
-            Archive::where('user_id', $user->id)->delete();
-            Cache::forget("session_user_{$user->id}");
-            $user->delete();
-
-            DB::commit(); // Bestätigt die Transaktion und speichert die Änderungen
-
-            return redirect('/')->with('success', 'Ihr Account wurde erfolgreich gelöscht.');
-        } catch (\Exception $e) {
-            DB::rollBack(); // Macht die Transaktion rückgängig, falls ein Fehler auftritt
-            return $this->handleException($e, "Fehler beim Löschen des Benutzerkontos");
-        }
-    }
-
     /*
      * HIER ALLES ZU BEZAHLUNG UND ABO PLÄNEN
      */
@@ -299,18 +275,6 @@ class FrontController extends Controller
         $this->updateSubscriptionStatus($value, $formattedDate);
         return redirect()->route('profile')->with('success', 'Transaction complete.');
     } */
-
-    public function updatePlaneSec()
-    {
-        $newDateTime = Carbon::create(auth()->user()->expire_date)->format('m/d/Y H:i:s');
-        $date1 = Carbon::createFromFormat('m/d/Y H:i:s', $newDateTime);
-        $date2 = Carbon::createFromFormat('m/d/Y H:i:s', Carbon::create(\Carbon\Carbon::now())->format('m/d/Y H:i:s'));
-        $result = $date1->gt($date2);
-        if (! $result) {
-            $this->updateSubscriptionStatus('silber', NULL);
-        }
-        return true;
-    }
 
     /*
      * HIER BEGINNEN DIE PROMPTS FÜR DIE TOOLS
@@ -489,22 +453,6 @@ class FrontController extends Controller
         }
     }
 
-    public function genieTutor()
-    {
-        if (auth()->check() && auth()->user()->subscription_name == 'diamant') {
-            return view('bildung.genie_tutor');
-        }
-        return abort(404);
-    }
-
-    public function KarriereMentor()
-    {
-        if ((auth()->user()->subscription_name == 'diamant')) {
-            return view('karriere.karriere_mentor');
-        }
-        return abort(404);
-    }
-
     public function Motivationsschreibenprocess(Request $request)
     {
         try {
@@ -656,13 +604,6 @@ class FrontController extends Controller
 
             return $this->handleException($e, "Fehler bei der JobMatch Anfrage");
         }
-    }
-
-
-    public function toolsPage()
-    {
-        $this->updatePlaneSec();
-        return view('tools');
     }
 
     private function handleException(\Exception $e, $context = 'Allgemeiner Fehler')
