@@ -10,6 +10,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\MotivationController;
 use App\Http\Controllers\PayPalController;
 use App\Http\Controllers\CVController;
+use App\Http\Controllers\TextInspirationController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -65,8 +66,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('download-pdf', [MotivationController::class, 'downloadPDF'])->name('download-pdf');
     });
 
+    Route::resource('textinspiration', TextInspirationController::class);
 
-    Route::post('textinspirationprocess', [FrontController::class, 'TextInspirationprocess'])->name('TextInspirationprocess');
     Route::post('textanalyseprocess', [FrontController::class, 'TextAnalyseprocess'])->name('textanalyseprocess');
     Route::post('jobmatchprocess', [FrontController::class, 'JobMatchprocess'])->name('JobMatchprocess');
     Route::post('jobinsiderprocess', [FrontController::class, 'JobInsiderprocess'])->name('JobInsiderprocess');

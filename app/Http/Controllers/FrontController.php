@@ -280,77 +280,7 @@ class FrontController extends Controller
      * HIER BEGINNEN DIE PROMPTS FÜR DIE TOOLS
      */
 
-    public function TextInspirationprocess(Request $request): \Illuminate\Http\JsonResponse
-    {
-        try {
-            $toolIdentifier = 'text_inspiration';
 
-            # Create a new conversation
-            $conversation = new Conversation();
-            $conversation->user_id = auth()->user()->id;
-            $conversation->tool_identifier = $toolIdentifier;
-            $conversation->save();
-
-            # Create a new message
-            $message = $this->textInspiration_create_message($request, $conversation);
-
-            # add message to conversation
-            $conversation->messages()->save($message);
-
-            $payload = $conversation->createPayload();
-
-            $response = OpenAI::chat()->create($payload);
-
-            # create new message for response
-            $message = new Message();
-            $message->user_id = auth()->user()->id;
-            $message->content = $response->choices[0]->message->content;
-            $message->role = 'assistant';
-
-            # add message to conversation
-            $conversation->messages()->save($message);
-
-            return response()->json([
-                "status" => true,
-                "message" => $message->toArray()
-            ]);
-        } catch (\Exception $e) {
-
-            return $this->handleException($e, "Fehler bei der TextInspiration Anfrage");
-        }
-    }
-
-    /**
-     * Creates the prompt for the TextInspiration tool
-     */
-    private function textInspiration_create_message(Request $request, Conversation $conversation): Message
-    {
-        // Create the user message
-        $message = new Message();
-        $message->user_id = auth()->user()->id;
-        $message->role = 'user';
-
-        // Load the prompt template and insert the user input
-        $prompt = $conversation->loadTaskPrompt(['replacements' => [
-            'task_type' => $request->field1,
-            'task_level' => $request->field2,
-            'task_topic' => $request->field3,
-            'task_requirements' => $request->field4,
-            'task_text_to_create' => $request->field5,
-            'task_previous_text' => $request->field6
-        ]]);
-
-        # If a previous text is set, add a continuation prompt
-        if (!empty($request->field6)) {
-            $prompt = str_replace('continuation_prompt', config('prompts.text_inspiration.continuation_prompt'), $prompt);
-        } else {
-            $prompt = str_replace('continuation_prompt', '', $prompt);
-        }
-
-        $message->content = $prompt;
-
-        return $message;
-    }
 
     public function TextAnalyseprocess(Request $request)
     {
