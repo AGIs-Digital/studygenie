@@ -10,7 +10,6 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\MotivationController;
 use App\Http\Controllers\PayPalController;
 use App\Http\Controllers\CVController;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -44,7 +43,7 @@ Route::group(['middleware' => ['auth']], function () {
     // View Routes
     Route::view('tools', 'tools');
     Route::view('bildung', 'bildung');
-    Route::view('karriere', 'karriere');
+    Route::view('karriere', 'karriere')->name('karriere');
     Route::view('profile', 'profile')->name('profil');
     Route::view('geniecheck', 'bildung.genie_check');
     Route::view('textanalyse', 'bildung.text_analyse');
@@ -58,10 +57,14 @@ Route::group(['middleware' => ['auth']], function () {
     // Post routes
     Route::post('cv-preview', [CVController::class, 'cvPreview']);
     Route::post('download-pdf', [CVController::class, 'downloadPDF']);
-    Route::post('motivation-preview', [App\Http\Controllers\MotivationController::class, 'motivationPreview']);
-    Route::post('download-motivation-pdf', [MotivationController::class, 'downloadPDF'])->name('download-motivation-pdf');
-    Route::post('motivationsschreibenprocess', [FrontController::class, 'Motivationsschreibenprocess'])
-        ->name('Motivationsschreibenprocess');
+
+    // Motivational letter routes
+    Route::prefix('motivation')->name('motivation.')->group(function () {
+        Route::post('preview', [MotivationController::class, 'preview']);
+        Route::post('generate', [MotivationController::class, 'generate'])->name('generate');
+        Route::post('download-pdf', [MotivationController::class, 'downloadPDF'])->name('download-pdf');
+    });
+
 
     Route::post('textinspirationprocess', [FrontController::class, 'TextInspirationprocess'])->name('TextInspirationprocess');
     Route::post('textanalyseprocess', [FrontController::class, 'TextAnalyseprocess'])->name('textanalyseprocess');
