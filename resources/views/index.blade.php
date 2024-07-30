@@ -6,9 +6,123 @@
     @include('includes.head')
     <link rel="stylesheet" href="{{ asset('asset/css/HomePage.css') }}">
     <link rel="stylesheet" href="{{ asset('asset/css/cookie-consent.css') }}">
+    <style>
+        .hidden {
+            display: none;
+        }
+
+        .visible {
+            display: block;
+        }
+
+        .text-success {
+            color: green;
+        }
+
+        .text-danger {
+            color: red;
+        }
+
+        .password-field {
+            position: relative;
+        }
+
+        .toggle-password {
+            position: absolute;
+            top: 50%;
+            right: 1.5rem;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+
+        .toggle-password img {
+            width: 23px;
+            height: 23px;
+        }
+
+        .criteria-container {
+            width: 100%;
+            /* Ensure the container takes the full width of the input field */
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .criteria-row {
+            justify-content: space-between;
+            margin-bottom: 10px;
+            /* Add some space between rows */
+        }
+
+        .criteria-row p {
+            margin: 0;
+            white-space: nowrap;
+            width: 100%;
+            /* Ensure each criterion takes the full width of its container */
+        }
+
+        .text-success .checkmark {
+            color: green;
+            animation: highlight 3.5s ease-in-out;
+        }
+
+        .text-danger .checkmark {
+            color: red;
+        }
+
+        @keyframes highlight {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .arrow-up {
+            position: fixed;
+            bottom: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 50px;
+            background-color: #212529;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+            z-index: 1000;
+        }
+
+        .arrow-up.hidden {
+            display: none;
+        }
+
+        .arrow-up:hover {
+            opacity: 1;
+        }
+
+        .arrow-up img {
+            width: 30px;
+            height: 30px;
+        }
+    </style>
 </head>
 
 <body class="MainContainer">
+
+    <!-- Arrow Up Button -->
+    <div class="arrow-up hidden" id="arrowUpContainer">
+        <img src="{{ asset('asset/images/arrow-up.svg') }}" id="arrowUp" class="hidden" alt="Nach oben">
+    </div>
 
     <!-- Cookie Consent Modal -->
     <div id="cookieConsentModal" class="modal fade" tabindex="-1" aria-labelledby="cookieConsentModalLabel"
@@ -86,8 +200,8 @@
                             <!-- Authentication Links -->
                             @guest
 
-                                <li class="nav-item"><a class="nav-link blog primary-button"
-                                        href="#">{{ __('Blog') }}</a></li>
+                                <!-- <li class="nav-item"><a class="nav-link blog primary-button"
+                                        href="#">{{ __('Blog') }}</a></li> -->
 
 
 
@@ -97,8 +211,8 @@
 
                                 </li>
                             @else
-                                <li class="nav-item"><a class="nav-link blog primary-button"
-                                        href="#">{{ __('Blog') }}</a></li>
+                                <!-- <li class="nav-item"><a class="nav-link blog primary-button"
+                                        href="#">{{ __('Blog') }}</a></li> -->
                                 <li class="nav-item dropdown"><a id="navbarDropdown" class="nav-link dropdown-toggle"
                                         href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true"
                                         aria-expanded="false" v-pre> {{ Auth::user()->name }} </a>
@@ -143,12 +257,12 @@
         </div>
 
         <div class="headerDesign">
-            <img src="{{ asset('asset/images/Group_391.png') }}" alt="Haupt Hintergrundbild" loading="lazy">
+            <img src="{{ asset('asset/images/Group 391.png') }}" alt="Haupt Hintergrundbild" loading="lazy">
         </div>
     </header>
 
     <section class="learnAnythingSection">
-        <img class="crownImg" src="{{ asset('asset/images/Fill_7.png') }}" alt="Kronenbild" loading="lazy">
+        <img class="crownImg" src="{{ asset('asset/images/Fill 7.png') }}" alt="Kronenbild" loading="lazy">
 
         <h1 class="secondary-Heading">Gemeinsam schaffen wir das</h1>
 
@@ -156,9 +270,8 @@
             Studium und im Berufsstart.</p>
 
         <div class="video_sec">
-            <video controls id="home_video" loading="lazy">
-                <source src="{{ asset('asset/Videos/video.mp4') }}" type="video/mp4">
-                <source src="{{ asset('asset/Videos/video.mp4') }}" type="video/ogg">
+            <video controls id="home_video" loading="lazy" preload="metadata">
+                <source src="{{ asset('asset/Videos/video_klein.mp4') }}" type="video/mp4">
                 Ihr Browser unterstützt das Video-Tag nicht.
             </video>
             <script>
@@ -193,12 +306,12 @@
                     Bewerbung</span>
             </div>
             <div class="testimonialCard">
-                <img src="{{ asset('asset/images/illustrations/Der_perfekte_Lernplan_fuer_dich.png') }}"
+                <img src="{{ asset('asset/images/illustrations/Der_perfekte_Lernplan_fur_dich.png') }}"
                     alt="Testimonial Card" loading="lazy"> <span class="CardThumbnailSpan">Individuelle
                     Lernhilfe</span>
             </div>
             <div class="testimonialCard">
-                <img src="{{ asset('asset/images/illustrations/Alles_wichtige_ueber_deine_Traumberufe.png') }}"
+                <img src="{{ asset('asset/images/illustrations/Alles_wichtige_uber_deine_Traumberufe.png') }}"
                     alt="Testimonial Card" loading="lazy"> <span class="CardThumbnailSpan">Deinen Traumberuf
                     finden</span>
             </div>
@@ -216,14 +329,14 @@
 
     <section class="witnessSection">
         <div class="container">
-            <img class="crownImg mb-2" src="{{ asset('asset/images/Fill_7.png') }}" alt="Kronenbild"
+            <img class="crownImg mb-2" src="{{ asset('asset/images/Fill 7.png') }}" alt="Kronenbild"
                 loading="lazy">
 
             <h1 class="secondary-Heading mb-2">Sie liebens!</h1>
 
             <div class="MainCardsContainer">
                 <div class="CardDiv">
-                    <img class="shadowOfCard" src="{{ asset('asset/images/Vector_2.png') }}"
+                    <img class="shadowOfCard" src="{{ asset('asset/images/Vector 2.png') }}"
                         alt="Karte 1 Hintergrund" loading="lazy">
                     <div class="card">
                         <img class="quoteMarks" src="{{ asset('asset/images/ic.png') }}" alt="Zitatzeichen"
@@ -238,7 +351,7 @@
                     </div>
                 </div>
                 <div class="CardDiv">
-                    <img class="shadowOfCard2" src="{{ asset('asset/images/2nd_Card_bg.png') }}"
+                    <img class="shadowOfCard2" src="{{ asset('asset/images/2nd Card bg.png') }}"
                         alt="2nd Card Hintergrund" loading="lazy">
                     <div class="card card2">
                         <div class="thumbnail-Content-Container">
@@ -255,7 +368,7 @@
                 </div>
 
                 <div class="CardDiv">
-                    <img class="shadowOfCard3" src="{{ asset('asset/images/3rd_Card_bg.png') }}"
+                    <img class="shadowOfCard3" src="{{ asset('asset/images/3rd Card bg.png') }}"
                         alt="3rd Card Hintergrund" loading="lazy">
                     <div class="card">
                         <div class="thumbnail-Content-Container">
@@ -273,7 +386,7 @@
 
     <section class="tutorialSection">
         <div class="container">
-            <img class="crownImg mb-2" src="{{ asset('asset/images/Fill_7.png') }}" alt="Kronenbild"
+            <img class="crownImg mb-2" src="{{ asset('asset/images/Fill 7.png') }}" alt="Kronenbild"
                 loading="lazy">
 
             <h1 class="secondary-Heading mb-2">Wünsch dir was</h1>
@@ -354,7 +467,7 @@
                 loading="lazy">
             <div class="planCard">
                 <div class="discountSticekr">
-                    <img src="{{ asset('asset/images/Star_2.png') }}" alt="Rabattsticker" id="discountStickerImg"
+                    <img src="{{ asset('asset/images/Star 2.png') }}" alt="Rabattsticker" id="discountStickerImg"
                         loading="lazy"> <span id="discountPercent">FREE</span>
                 </div>
                 <div class="headerPlanCard">
@@ -406,16 +519,16 @@
                             <button data-bs-toggle="modal" data-bs-target="#signupModal" class="plancardButton">Hol dir
                                 Gold</button>
                         @else
-                            @php
-                                $check = false;
-                                $date = auth()->user()->expire_date;
-                                if ($date != null && \Carbon\Carbon::parse($date)->gt(\Carbon\Carbon::now())) {
-                                    $check = true;
-                            } @endphp @if (auth()->user()->subscription_name == 'gold' && $check)
+                            @php$check = false;
+                                                                $date = auth()->user()->expire_date;
+                                                                if ($date != null && \Carbon\Carbon::parse($date)->gt(\Carbon\Carbon::now())) {
+                                                                    $check = true;
+                                                        } @endphp ?> @if (auth()->user()->subscription_name == 'gold' && $check)
                                 <button class="plancardButton" disabled>Hol dir Gold</button>
                             @else
-                                <button onclick="setModel('{{ route('paypal.payment', 'gold') }}'" class="plancardButton">Hol
-                                    dir Gold</button>
+                                <button
+                                    onclick="setModel('{{ route('paypal.payment', 'gold') }}'/* ,'{{ route('stripe.payment', 'gold') }}' */)"
+                                    class="plancardButton">Hol dir Gold</button>
                             @endif @endguest
                         </div>
                         <br />
@@ -442,7 +555,8 @@
                                 @if (auth()->user()->subscription_name == 'diamant' && $check)
                                     <button class="plancardButton" disabled>Hol dir Diamant</button>
                                 @else
-                                    <button onclick="setModel('{{ route('paypal.payment', 'diamant') }}')"
+                                    <button
+                                        onclick="setModel('{{ route('paypal.payment', 'diamant') }}'/* ,'{{ route('stripe.payment', 'diamant') }}' */)"
                                         class="plancardButton">Hol dir Diamant</button>
                                 @endif @endguest
 
@@ -454,7 +568,7 @@
                 </section>
 
                 <section class="joinNowSection">
-                    <img src="{{ asset('asset/images/Fill_7.png') }}" alt="Kronenbild" loading="lazy">
+                    <img src="{{ asset('asset/images/Fill 7.png') }}" alt="Kronenbild" loading="lazy">
 
                     <h1 class="secondary-Heading">Worauf wartest du?</h1>
                     <p class="secondary-Paragraph">Starte jetzt kostenlos und mach dir das
@@ -559,7 +673,7 @@
                                         loading="lazy"> <img class="close-icon" data-bs-dismiss="modal" aria-label="Close"
                                         src="{{ asset('asset/images/ic_close1.png') }}" alt="Close" loading="lazy">
                                     <div class="text-center">
-                                        <img src="{{ asset('asset/images/Logo_(2).png') }}" width="133" height="77"
+                                        <img src="{{ asset('asset/images/Logo (2).png') }}" width="133" height="77"
                                             alt="Logo" loading="lazy">
                                     </div>
                                     <br />
@@ -595,7 +709,7 @@
 
                                                 <div class="or">
                                                     oder anmelden über
-                                                    <a href="{{ url('login/google') }}">
+                                                    <a href="{{ url('login/google') }}" id="google-login">
                                                         <img src="{{ asset('asset/images/google.svg') }}" alt="Google"
                                                             loading="lazy">
                                                     </a>
@@ -625,7 +739,7 @@
                                         loading="lazy"> <img class="close-icon" data-bs-dismiss="modal" aria-label="Close"
                                         src="{{ asset('asset/images/ic_close1.png') }}" alt="Close" loading="lazy">
                                     <div class="text-center">
-                                        <img src="{{ asset('asset/images/Logo_(2).png') }}" width="133" height="77"
+                                        <img src="{{ asset('asset/images/Logo (2).png') }}" width="133" height="77"
                                             alt="Logo" loading="lazy">
                                     </div>
                                     <div class="main">
@@ -636,8 +750,8 @@
                                                 <div id="errors-list" class="mx-auto"></div>
                                                 <div class="emailField">
                                                     <label class="label" for="name">Name:</label> <input type="text"
-                                                        placeholder="Wie möchtest du genannt werden?" name="name"
-                                                        id="name_register" class="emailLogin" autocomplete="name">
+                                                        placeholder="Wie heißt du?" name="name" id="name_register"
+                                                        class="emailLogin" autocomplete="name">
                                                 </div>
 
                                                 <div class="emailField">
@@ -648,10 +762,27 @@
                                                 </div>
                                                 <label class="label" for="password">Passwort:</label>
                                                 <div class="password-field">
-                                                    <input type="password" placeholder="Dein Wunschpasswort" name="password"
-                                                        id="password_register" class="emailLogin" autocomplete="new-password">
+                                                    <input type="password" id="password_register" name="password"
+                                                        placeholder="Dein Wunschpasswort" class="emailLogin">
+                                                    <span class="toggle-password" onclick="togglePasswordVisibility()">
+                                                        <img src="{{ asset('asset/images/eye.svg') }}"
+                                                            alt="Toggle Password Visibility" width="25" height="25">
+                                                    </span>
                                                 </div>
-
+                                                <div id="passwordCriteria" class="criteria-container mt-2">
+                                                    <div class="criteria-row">
+                                                        <p id="lengthCriteria" class="text-danger"><span
+                                                                class="checkmark">✔</span> 8 Zeichen</p>
+                                                        <p id="uppercaseCriteria" class="text-danger"><span
+                                                                class="checkmark">✔</span> 1 Großbuchstabe</p>
+                                                    </div>
+                                                    <div class="criteria-row">
+                                                        <p id="numberCriteria" class="text-danger"><span
+                                                                class="checkmark">✔</span> 1 Zahl</p>
+                                                        <p id="specialCharCriteria" class="text-danger"><span
+                                                                class="checkmark">✔</span> 1 Sonderzeichen</p>
+                                                    </div>
+                                                </div>
 
                                                 <input type="submit" value="Registrieren" class="emailLogin">
                                                 <div class="or">
@@ -706,7 +837,7 @@
                                         loading="lazy"> <img class="close-icon" data-bs-dismiss="modal" aria-label="Close"
                                         src="{{ asset('asset/images/ic_close1.png') }}" alt="Close" loading="lazy">
                                     <div class="text-center">
-                                        <img src="{{ asset('asset/images/Logo_(2).png') }}" width="133" height="77"
+                                        <img src="{{ asset('asset/images/Logo (2).png') }}" width="133" height="77"
                                             alt="Logo" loading="lazy">
                                         <h2 class="primary-heading-forget">Passwort vergessen?</h2>
                                     </div>
@@ -728,7 +859,7 @@
 
                 <footer class="mainFooterContainer"> <!-- Klasse nicht definiert-->
                     <div class="footerContainer">
-                        <img id="footerLogo" src="{{ asset('asset/images/Logo_(2).png') }}" width="133" height="77"
+                        <img id="footerLogo" src="{{ asset('asset/images/Logo (2).png') }}" width="133" height="77"
                             alt="Logo " loading="lazy">
                         <div class="CenterContainer">
                             <div class="anchorTagsFooterContainer">
@@ -760,8 +891,10 @@
                 <script src="{{ asset('asset/js/index.js') }}"></script>
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
                 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
                 <script>
                     document.addEventListener("DOMContentLoaded", function() {
+                        // Login Form Submission
                         document.getElementById("loginForm").addEventListener("submit", function(e) {
                             e.preventDefault();
                             var formData = new FormData(this);
@@ -786,9 +919,8 @@
                                     console.error('Error:', error);
                                 });
                         });
-                    });
 
-                    document.addEventListener("DOMContentLoaded", function() {
+                        // Register Form Submission
                         document.getElementById("registerForm").addEventListener("submit", function(e) {
                             e.preventDefault();
                             var formData = new FormData(this);
@@ -804,6 +936,9 @@
                                 .then(response => response.json())
                                 .then(data => {
                                     if (data.status === true) {
+                                        if (data.subscription_updated) {
+                                            localStorage.setItem('subscription_updated', 'true');
+                                        }
                                         window.location.href = data.redirect;
                                     } else {
                                         alert("Fehler beim Login.");
@@ -813,22 +948,19 @@
                                     console.error('Error:', error);
                                 });
                         });
-                    });
 
-                    document.getElementById('facebook-login').addEventListener('click', function() {
-                        window.location.href = "{{ url('login/facebook') }}";
-                    });
+                        // Google Login
+                        document.getElementById('google-login').addEventListener('click', function() {
+                            window.location.href = "{{ url('login/google') }}";
+                        });
 
-                    document.getElementById('google-login').addEventListener('click', function() {
-                        window.location.href = "{{ url('login/google') }}";
-                    });
-
-                    document.addEventListener("DOMContentLoaded", function() {
+                        // Cookie Consent Modal
                         if (!localStorage.getItem('cookieConsent')) {
                             var cookieModal = new bootstrap.Modal(document.getElementById('cookieConsentModal'));
                             cookieModal.show();
                         }
 
+                        // Show Toast Message
                         function showToast(message) {
                             var toast = document.createElement('div');
                             toast.className = 'toast align-items-center text-white bg-primary border-0';
@@ -836,11 +968,11 @@
                             toast.ariaLive = 'assertive';
                             toast.ariaAtomic = 'true';
                             toast.innerHTML = `
-            <div class="d-flex">
-                <div class="toast-body">${message}</div>
-                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
-        `;
+                <div class="d-flex">
+                    <div class="toast-body">${message}</div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            `;
                             document.body.appendChild(toast);
                             var bsToast = new bootstrap.Toast(toast, {
                                 delay: 3000
@@ -851,6 +983,7 @@
                             });
                         }
 
+                        // Accept Cookies
                         document.getElementById('acceptCookies').addEventListener('click', function() {
                             var consent = {
                                 necessary: true,
@@ -864,6 +997,7 @@
                             cookieModal.hide();
                         });
 
+                        // Decline Cookies
                         document.getElementById('declineCookies').addEventListener('click', function() {
                             var consent = {
                                 necessary: true,
@@ -876,6 +1010,100 @@
                                 'cookieConsentModal'));
                             cookieModal.hide();
                         });
+
+                        // Arrow Up Button
+                        var arrowUp = document.getElementById('arrowUp');
+                        var arrowUpContainer = document.getElementById('arrowUpContainer');
+
+                        window.addEventListener('scroll', function() {
+                            if (window.scrollY > window.innerHeight) {
+                                arrowUp.classList.add('visible');
+                                arrowUp.classList.remove('hidden');
+                                arrowUpContainer.classList.add('visible');
+                                arrowUpContainer.classList.remove('hidden');
+                            } else {
+                                arrowUp.classList.add('hidden');
+                                arrowUp.classList.remove('visible');
+                                arrowUpContainer.classList.add('hidden');
+                                arrowUpContainer.classList.remove('visible');
+                            }
+                        });
+
+                        arrowUp.addEventListener('click', function() {
+                            smoothScrollToTop();
+                        });
+
+                        // Hide Arrow Up Button after scrolling to top
+                        window.addEventListener('scroll', function() {
+                            if (window.scrollY === 0) {
+                                arrowUp.classList.add('hidden');
+                                arrowUp.classList.remove('visible');
+                                arrowUpContainer.classList.add('hidden');
+                                arrowUpContainer.classList.remove('visible');
+                            }
+                        });
+
+                        // Check for subscription update
+                        if (localStorage.getItem('subscription_updated') === 'true') {
+                            showConfetti();
+                            showSuccessMessage();
+                            localStorage.removeItem('subscription_updated');
+                        }
+                    });
+
+                    // Smooth scroll to top function
+                    function smoothScrollToTop() {
+                        const scrollDuration = 300; // Duration in ms
+                        const scrollStep = -window.scrollY / (scrollDuration / 15);
+                        const scrollInterval = setInterval(function() {
+                            if (window.scrollY !== 0) {
+                                window.scrollBy(0, scrollStep);
+                            } else {
+                                clearInterval(scrollInterval);
+                            }
+                        }, 15);
+                    }
+
+                    // Toggle Password Visibility
+                    function togglePasswordVisibility() {
+                        const passwordInput = document.getElementById('password_register');
+                        const toggleIcon = document.querySelector('.toggle-password img');
+                        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                        passwordInput.setAttribute('type', type);
+                        toggleIcon.src = type === 'password' ? "{{ asset('asset/images/eye.svg') }}" :
+                            "{{ asset('asset/images/eye-off.svg') }}";
+                    }
+                </script>
+                <script>
+                    document.addEventListener("DOMContentLoaded", function() {
+                        const passwordInput = document.getElementById('password_register');
+                        if (passwordInput) {
+                            const passwordCriteria = document.getElementById('passwordCriteria');
+                            const criteria = {
+                                length: document.getElementById('lengthCriteria'),
+                                uppercase: document.getElementById('uppercaseCriteria'),
+                                number: document.getElementById('numberCriteria'),
+                                specialChar: document.getElementById('specialCharCriteria')
+                            };
+
+                            passwordInput.addEventListener('focus', () => passwordCriteria.classList.remove('hidden'));
+                            passwordInput.addEventListener('blur', () => {
+                                if (passwordInput.value === '') passwordCriteria.classList.add('hidden');
+                            });
+                            passwordInput.addEventListener('input', function() {
+                                const password = passwordInput.value;
+                                criteria.length.classList.toggle('text-success', password.length >= 8);
+                                criteria.length.classList.toggle('text-danger', password.length < 8);
+                                criteria.uppercase.classList.toggle('text-success', /[A-Z]/.test(password));
+                                criteria.uppercase.classList.toggle('text-danger', !/[A-Z]/.test(password));
+                                criteria.number.classList.toggle('text-success', /\d/.test(password));
+                                criteria.number.classList.toggle('text-danger', !/\d/.test(password));
+                                criteria.specialChar.classList.toggle('text-success', /[!@#$%^&*(),.?":{}|<>]/.test(
+                                    password));
+                                criteria.specialChar.classList.toggle('text-danger', !/[!@#$%^&*(),.?":{}|<>]/.test(
+                                    password));
+                            });
+                        }
                     });
                 </script>
             </body>

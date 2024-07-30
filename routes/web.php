@@ -31,9 +31,9 @@ use App\Http\Controllers\Bildung\TextAnalysisController;
 */
 
 ### PUBLIC VIEW ROUTES ###
-Route::view('impressum', 'impressum');
-Route::view('agb', 'agb');
-Route::view('datenschutz', 'datenschutz');
+Route::view('impressum', 'impressum')->name('impressum');
+Route::view('agb', 'agb')->name('agb');
+Route::view('datenschutz', 'datenschutz')->name('datenschutz');
 
 Route::get('/', function () {
     return view('index');
