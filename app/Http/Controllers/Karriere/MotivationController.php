@@ -30,7 +30,24 @@ class MotivationController extends Controller
      */
     public function preview(Request $request): \Illuminate\Http\JsonResponse
     {
-        return response()->json($request->all());
+        try {
+            $data = $request->all();
+            $openAIResponse = $this->getOpenAIResponse($data);
+
+            // Füge die OpenAI-Antwort zu den Daten hinzu
+            $data['motivational_letter'] = $openAIResponse;
+
+            // Generiere das PDF nur mit den gefilterten Daten
+            $pdf = PDF::loadView('karriere.motivation_template', $data)
+                          ->setPaper('a4', 'portrait')
+                          ->setOptions(['isHtml5ParserEnabled' => true, 'isPhpEnabled' => true]);
+
+            // Rückgabe der PDF-Daten als Base64
+            return response()->json(['pdf' => base64_encode($pdf->output())]);
+        } catch (\Exception $e) {
+            // Fehlerbehandlung und Debugging-Informationen
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
 
     /**
@@ -41,18 +58,22 @@ class MotivationController extends Controller
      */
     public function downloadPDF(Request $request): \Illuminate\Http\Response
     {
-        $data = $request->all();
+        try {
+            $data = $request->all();
 
-        // Filtere leere Felder heraus
-        $filteredData = array_filter($data, function($value) {
-            return !empty($value);
-        });
+            // Füge die OpenAI-Antwort zu den Daten hinzu
+            $data['motivational_letter'] = $this->getOpenAIResponse($data);
 
-        // Generiere das PDF nur mit den gefilterten Daten
-        $pdf = PDF::loadView('karriere.motivation_template', ['motivational_letter' => $filteredData['pdf_content']])
-                      ->setPaper('a4', 'portrait')
-                      ->setOptions(['isHtml5ParserEnabled' => true, 'isPhpEnabled' => true]);
-        return $pdf->download('motivationsschreiben.pdf');
+            // Generiere das PDF nur mit den gefilterten Daten
+            $pdf = PDF::loadView('karriere.motivation_template', $data)
+                          ->setPaper('a4', 'portrait')
+                          ->setOptions(['isHtml5ParserEnabled' => true, 'isPhpEnabled' => true]);
+
+            return $pdf->download('motivationsschreiben.pdf');
+        } catch (\Exception $e) {
+            // Fehlerbehandlung und Debugging-Informationen
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
 
     /**
@@ -70,13 +91,14 @@ class MotivationController extends Controller
             $conversation->save();
 
             $prompt = new Prompt('prompts.motivational_letter.task_prompt');
-            $prompt->replace('task_job', $request->field1, "keine Angabe");
-            $prompt->replace('task_strengths', $request->field2, "keine Angabe");
-            $prompt->replace('task_academic', $request->field3, "keine Angabe");
-            $prompt->replace('task_experience', $request->field4, "keine Angabe");
-            $prompt->replace('task_motivation', $request->field5, "keine Angabe");
-            $prompt->replace('task_personal', $request->field6, "keine Angabe");
-            $prompt->replace('task_description', $request->field7, "keine Angabe");
+            $prompt->replace('task_job', $request->stellenbezeichnung_job, "keine Angabe");
+            $prompt->replace('task_skills', $request->qualification_skills, "keine Angabe");
+            $prompt->replace('task_academic', $request->qualification_grade, "keine Angabe");
+            $prompt->replace('task_experience', $request->qualification_jobs, "keine Angabe");
+            $prompt->replace('task_motivation', $request->motivationen_level, "keine Angabe");
+            $prompt->replace('task_personal', $request->motivationen_freitext, "keine Angabe");
+            $prompt->replace('task_description', $request->stellenbezeichnung_stellenbeschreibung, "keine Angabe");
+            $prompt->replace('task_goals', $request->motivationen_type, "keine Angabe");
 
             # Create a new message
             $message = new Message();

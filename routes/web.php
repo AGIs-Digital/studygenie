@@ -7,7 +7,6 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ArchiveController;
 use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\Auth\LoginController;
-
 use App\Http\Controllers\PayPalController;
 
 use App\Http\Controllers\Karriere\MentorController;
