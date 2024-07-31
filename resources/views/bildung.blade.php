@@ -78,7 +78,7 @@
             @endphp
 
             @if ((auth()->user()->subscription_name == 'gold' || auth()->user()->subscription_name == 'diamant') && $check)
-                <a href="{{ route('bildung.genieautor') }}" class="Cloud">
+                <a href="{{ route('bildung.genie_autor') }}" class="Cloud">
                     <button type="button" class="btn" data-bs-toggle="tooltip" data-bs-placement="top"
                         title="Textkorrekturen und -inspiration für Grammatik, Stil und mehr">
                         <img src="{{ asset('asset/images/info.svg') }}" width="20" alt="">
@@ -160,7 +160,7 @@
             @endif
 
             @if (auth()->user()->subscription_name == 'diamant' && $check)
-                <a href="{{ route('bildung.genietutor.create') }}" class="Cloud">
+                <a href="{{ route('bildung.genie_tutor.create') }}" class="Cloud">
                     <button type="button" class="btn" data-bs-toggle="tooltip" data-bs-placement="top"
                         title="Dein Lerncoach für deine Fragen, Übungen und Lernpläne.">
                         <img src="{{ asset('asset/images/info.svg') }}" width="20" alt="">

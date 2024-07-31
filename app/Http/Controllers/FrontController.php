@@ -161,7 +161,14 @@ class FrontController extends Controller
                 'required',
                 new MatchOldPassword()
             ],
-            'new_password' => 'required',
+            'new_password' => [
+                'required',
+                'string',
+                'min:8',
+                'regex:/[0-9]/', // Mindestens eine Zahl
+                'regex:/[A-Z]/', // Mindestens ein Großbuchstabe
+                'regex:/[@$!%*?&#]/' // Mindestens ein Sonderzeichen
+            ],
             'new_confirm_password' => 'same:new_password'
         ]);
 
@@ -170,15 +177,5 @@ class FrontController extends Controller
         }
 
         return true;
-    }
-
-    /*
-     * HIER ALLES ZU BEZAHLUNG UND ABO PLÄNEN
-     */
-
-    // Gemeinsame Methode zur Preisfestlegung
-    private function determinePrice($name)
-    {
-        return $name === 'gold' ? 10 : 20;
     }
 }

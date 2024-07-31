@@ -17,6 +17,7 @@
                     <p>für die Erbringung von Dienstleistungen von Abeln Goltz GbR, Adalbert-Stifter-Straße 14, 30655
                         Hannover, E-Mail: info@agis.digital (nachfolgend „Auftragnehmer“) gegenüber seinen Kunden
                         (nachfolgend „Auftraggeber“)</p>
+                        <br />
                     <h2>1. Allgemeines</h2>
                     <p>1.1 Diese Allgemeinen Geschäftsbedingungen (AGB) für die Erbringung von Dienstleistungen gelten
                         für Verträge, die zwischen dem Auftraggeber und dem Auftragnehmer unter Einbeziehung dieser AGB
@@ -31,7 +32,8 @@
                         Vertragsdokumente im Widerspruchsfalle den vorliegenden AGB vor.</p>
                     <p>1.4 Von diesen Geschäftsbedingungen abweichende AGB, die durch den Auftraggeber verwendet werden,
                         erkennt Auftragnehmer – vorbehaltlich einer ausdrücklichen Zustimmung – nicht an.</p>
-                    <h2>2. Vertragsgegenstand und Leistungsumfang</h2>
+                        <br />
+                        <h2>2. Vertragsgegenstand und Leistungsumfang</h2>
                     <p>2.1 Der Auftragnehmer erbringt als selbständiger Unternehmer folgende Leistungen gegenüber dem
                         Auftraggeber:</p>
                     <p>Innovative und softwarebasierte Lösungen im Bereich der Künstlichen Intelligenz</p>
@@ -47,14 +49,16 @@
                         Effizienz bei seiner Tätigkeit und bei der Realisierung des Vertragsgegenstandes erzielt wird.
                         Die Leistungserbringung durch den Auftragnehmer erfolgt lediglich in Abstimmung und in
                         Koordination mit dem Auftraggeber.</p>
-                    <h2>3. Mitwirkungspflichten des Auftraggebers</h2>
+                        <br />
+                        <h2>3. Mitwirkungspflichten des Auftraggebers</h2>
                     <p>Es obliegt dem Auftraggeber, die von ihm zum Zwecke der Leistungserfüllung zur Verfügung zu
                         stellenden Informationen, Daten und sonstigen Inhalte vollständig und korrekt mitzuteilen. Für
                         Verzögerungen und Verspätungen bei der Leistungserbringung, die durch eine verspätete und
                         notwendige Mit- bzw. Zuarbeit des Kunden entstehen, ist der Auftragnehmer gegenüber dem Kunden
                         in keinerlei Hinsicht verantwortlich; die Vorschriften unter der Überschrift
                         „Haftung/Freistellung“ bleiben hiervon unberührt.</p>
-                    <h2>4. Vergütung</h2>
+                        <br />
+                        <h2>4. Vergütung</h2>
                     <p>4.1 Die Vergütung wird individualvertraglich vereinbart.</p>
                     <p>4.2 Die Vergütung ist nach der Leistung der Dienste zu entrichten. Ist die Vergütung nach
                         Zeitabschnitten bemessen, so ist sie nach dem Ablauf der einzelnen Zeitabschnitte zu entrichten
@@ -63,7 +67,8 @@
                     <p>4.3 Der Auftragnehmer stellt dem Auftraggeber nach Erbringung der Leistungen eine Rechnung per
                         Post oder per E-Mail (z.B. als PDF). Die Vergütung ist innerhalb von 14 Tagen nach Zugang der
                         Rechnung zur Zahlung fällig.</p>
-                    <h2>5. Haftung / Freistellung</h2>
+                        <br />
+                        <h2>5. Haftung / Freistellung</h2>
                     <p>5.1 Der Auftragnehmer haftet aus jedem Rechtsgrund uneingeschränkt bei Vorsatz oder grober
                         Fahrlässigkeit, bei vorsätzlicher oder fahrlässiger Verletzung des Lebens, des Körpers oder der
                         Gesundheit, aufgrund eines Garantieversprechens, soweit diesbezüglich nichts anderes geregelt
@@ -79,7 +84,8 @@
                     <p>5.2 Der Auftraggeber stellt den Auftragnehmer von jeglichen Ansprüchen Dritter frei, die gegen
                         den Auftragnehmer aufgrund von Verstößen des Kunden gegen diese Vertragsbedingungen oder gegen
                         geltendes Recht geltend gemacht werden.</p>
-                    <h2>6. Vertragsdauer und Kündigung</h2>
+                        <br />
+                        <h2>6. Vertragsdauer und Kündigung</h2>
                     <p>6.1 Die Vertragsdauer und die Fristen zur ordentlichen Kündigung vereinbaren die Parteien
                         individuell.</p>
                     <p>6.2 Das Recht beider Parteien zur fristlosen Kündigung aus wichtigem Grund bleibt unberührt.</p>
@@ -90,7 +96,8 @@
                         längere gesetzliche Aufbewahrungspflicht besteht, jedoch nur bis zum Ende der jeweiligen
                         Aufbewahrungsfrist. Der Auftragnehmer hat dem Unternehmen auf dessen Verlangen die Löschung
                         schriftlich zu bestätigen.</p>
-                    <h2>7. Vertraulichkeit und Datenschutz</h2>
+                        <br />
+                        <h2>7. Vertraulichkeit und Datenschutz</h2>
                     <p>7.1 Der Auftragnehmer wird alle ihm im Zusammenhang mit dem Auftrag zur Kenntnis gelangenden
                         Vorgänge streng vertraulich behandeln. Der Auftragnehmer verpflichtet sich, die
                         Geheimhaltungspflicht sämtlichen Angestellten und / oder Dritten, die Zugang zu den
@@ -99,7 +106,8 @@
                     <p>7.2 Der Auftragnehmer verpflichtet sich, bei der Durchführung des Auftrags sämtliche
                         datenschutzrechtlichen Vorschriften – insbesondere die Vorschriften der
                         Datenschutzgrundverordnung und des Bundesdatenschutzgesetzes – einzuhalten.</p>
-                    <h2>8. Schlussbestimmungen</h2>
+                        <br />
+                        <h2>8. Schlussbestimmungen</h2>
                     <p>8.1 Es gilt das Recht der Bundesrepublik Deutschland unter Ausschluss des CISG.</p>
                     <p>8.2 Sollte eine Bestimmung dieser AGB unwirksam sein oder werden, so wird die Gültigkeit der AGB
                         im Übrigen hiervon nicht berührt.</p>
@@ -122,7 +130,8 @@
                         Zeitpunkt des Inkrafttretens der Änderung außerordentlich zu kündigen. Die Benachrichtigung über
                         die beabsichtigte Änderung dieser AGB wird auf die Frist und die Folgen des Widerspruchs oder
                         seines Ausbleibens hinweisen.</p>
-                    <h2>9. Informationen zur Online-Streitbeilegung / Verbraucherschlichtung</h2>
+                        <br />
+                        <h2>9. Informationen zur Online-Streitbeilegung / Verbraucherschlichtung</h2>
                     <p>Die EU-Kommission stellt im Internet unter folgendem Link eine Plattform zur
                         Online-Streitbeilegung bereit: <a href="https://ec.europa.eu/consumers/odr" target="_blank"
                             rel="noopener noreferrer">https://ec.europa.eu/consumers/odr</a></p>
@@ -130,6 +139,7 @@
                         Online-Kauf- oder Dienstleistungsverträgen, an denen ein Verbraucher beteiligt ist. Der Anbieter
                         ist weder bereit noch verpflichtet, an einem Verbraucherstreitschlichtungsverfahren nach dem
                         VSBG teilzunehmen.</p>
+                        <br />
                     <p>Unsere E-Mail-Adresse entnehmen Sie der Überschrift dieser AGB.</p>
                 </div>
             </div>
@@ -137,7 +147,7 @@
     </section>
     <footer class="mainFooterContainer">
         <div class="footerContainer">
-            <img id="footerLogo" src="{{ asset('asset/images/Logo (2).png') }}" width="133" height="77"
+            <img id="footerLogo" src="{{ asset('asset/images/Logo_(2).png') }}" width="133" height="77"
                 alt="Logo" loading="lazy">
             <div class="CenterContainer">
                 <div class="anchorTagsFooterContainer">

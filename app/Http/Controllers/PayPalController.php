@@ -193,7 +193,7 @@ class PayPalController extends Controller
 
         if ($name == 'silber') {
             $user->updateSubscriptionStatus($name, null);
-            return redirect()->route('profile')->with('success', 'Transaction complete.');
+            return redirect()->route('profile')->with('success', "Herzlichen Glückwunsch, {$user->name}! Du hast jetzt das Silber Abonnement.");
         }
 
         $price = config("services.paypal.prices.$name", 10); // Standardpreis ist 10

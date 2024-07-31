@@ -123,7 +123,7 @@
                                             oninput="this.style.height = '';this.style.height = this.scrollHeight + 'px'"></textarea>
                                     </div>
                                 </div>
-                                <button type="button" class="send_button" id="submitForm">Magie</button>
+                                <button type="button" class="send_button" id="submitForm">Absenden</button>
                             </div>
 
                         </div>
@@ -152,7 +152,7 @@
 
     <!-- Modal -->
     <div class="modal fade" id="saveModal" tabindex="-1" aria-labelledby="saveModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <form id="save_data">
                     @csrf
@@ -204,6 +204,9 @@
 
                 $("#save_name").val('');
 
+                // Schließe das Modal
+                $('#saveModal').modal('hide');
+
                 showToast(document.title + " Gespeichert!");
             });
         });
@@ -241,7 +244,7 @@
                     success: function(response) {
                         conversation_id = response.message.conversation_id;
                         //Ladezeichen entfernen
-                        $("#submitForm").removeClass('loading-button').text("Magie");
+                        $("#submitForm").removeClass('loading-button').text("Absenden");
                         textToType = response.message.content.replace(/\n/g, " <br> ");
                         $('#typed-text').empty();
                         let checks = response.message.content.split('\n');
@@ -253,7 +256,7 @@
                     error: function(xhr, status, error) {
                         console.error("Ein Fehler ist aufgetreten: " + error);
                         //Ladezeichen entfernen
-                        $("#submitForm").removeClass('loading-button').text("Magie");
+                        $("#submitForm").removeClass('loading-button').text("Absenden");
                     }
                 });
             });

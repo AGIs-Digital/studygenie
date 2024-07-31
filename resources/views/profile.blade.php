@@ -78,6 +78,16 @@
                 transform: scale(1);
             }
         }
+
+        .invalid-feedback {
+            display: block;
+            color: red;
+            font-size: 0.875em;
+        }
+
+        .is-invalid {
+            border-color: red;
+        }
     </style>
 </head>
 
@@ -95,9 +105,6 @@
         </div>
 
         <!-- Display errors and success messages -->
-        @foreach ($errors->all() as $error)
-            <p class="text-danger">{{ $error }}</p>
-        @endforeach
 
         @if (Session::has('success'))
             <div class="alert alert-success mt-4">

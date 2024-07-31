@@ -287,8 +287,11 @@ h3 {
 }
 
 .plancardButton:hover {
-  cursor: url('../images/G.png'), auto;
-  border: 2px solid black;
+  cursor: pointer;
+  border: 2px solid #e09e50;
+  box-shadow: 0 4px 8px rgba(224, 158, 80, 0.3), 0 6px 20px rgba(224, 158, 80, 0.19);
+  transform: scale(1.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .contentPlanCard {

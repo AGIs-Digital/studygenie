@@ -51,6 +51,7 @@
                         vor allem mit sogenannten Analyseprogrammen.</p>
                     <p>Detaillierte Informationen zu diesen Analyseprogrammen finden Sie in der folgenden
                         Datenschutzerklärung.</p>
+                    <br />
                     <h2>2. Hosting</h2>
                     <p>Wir hosten die Inhalte unserer Website bei folgendem Anbieter:</p>
                     <h3>IONOS</h3>
@@ -71,6 +72,7 @@
                         geschlossen. Hierbei handelt es sich um einen datenschutzrechtlich vorgeschriebenen Vertrag, der
                         gewährleistet, dass dieser die personenbezogenen Daten unserer Websitebesucher nur nach unseren
                         Weisungen und unter Einhaltung der DSGVO verarbeitet.</p>
+                    <br />
                     <h2>3. Allgemeine Hinweise und Pflichtinformationen</h2>
                     <h3>Datenschutz</h3>
                     <p>Die Betreiber dieser Seiten nehmen den Schutz Ihrer persönlichen Daten sehr ernst. Wir behandeln
@@ -218,6 +220,7 @@
                         wechselt und an dem Schloss-Symbol in Ihrer Browserzeile.</p>
                     <p>Bei verschlüsselter Kommunikation können Ihre Zahlungsdaten, die Sie an uns übermitteln, nicht
                         von Dritten mitgelesen werden.</p>
+                    <br />
                     <h2>4. Datenerfassung auf dieser Website</h2>
                     <h3>Cookies</h3>
                     <p>Unsere Internetseiten verwenden so genannte „Cookies“. Cookies sind kleine Datenpakete und
@@ -243,31 +246,193 @@
                         Bereitstellung seiner Dienste. Sofern eine Einwilligung zur Speicherung von Cookies und
                         vergleichbaren Wiedererkennungstechnologien abgefragt wurde, erfolgt die Verarbeitung
                         ausschließlich auf Grundlage dieser Einwilligung (Art. 6 Abs. 1 lit. a DSGVO und § 25 Abs. 1
-                        TDDG); die Einwilligung ist jederzeit widerrufbar.</p>
+                        TDDDG); die Einwilligung ist jederzeit widerrufbar.</p>
                     <p>Sie können Ihren Browser so einstellen, dass Sie über das Setzen von Cookies informiert werden
-                        und Cookies nur im Einzelfall erlauben, die Annahme von Cookies für bestimmte Fälle oder
-                        generell ausschließen sowie das automatische Löschen der Cookies beim Schließen des Browsers
-                        aktivieren. Bei der Deaktivierung von Cookies kann die Funktionalität dieser Website
-                        eingeschränkt sein.</p>
+                        und Cookies nur im Einzelfall erlauben, die Annahme von Cookies für bestimmte Fälle oder generell
+                        ausschließen sowie das automatische Löschen der Cookies beim Schließen des Browsers aktivieren.
+                        Bei der Deaktivierung von Cookies kann die Funktionalität dieser Website eingeschränkt sein.
+                    </p>
                     <p>Welche Cookies und Dienste auf dieser Website eingesetzt werden, können Sie dieser
                         Datenschutzerklärung entnehmen.</p>
                     <h3>Anfrage per E-Mail, Telefon oder Telefax</h3>
                     <p>Wenn Sie uns per E-Mail, Telefon oder Telefax kontaktieren, wird Ihre Anfrage inklusive aller
                         daraus hervorgehenden personenbezogenen Daten (Name, Anfrage) zum Zwecke der Bearbeitung Ihres
-                        Anliegens bei uns gespeichert und verarbeitet. Diese Daten geben wir nicht ohne Ihre
-                        Einwilligung weiter.</p>
+                        Anliegens bei uns gespeichert und verarbeitet. Diese Daten geben wir nicht ohne Ihre Einwilligung
+                        weiter.</p>
                     <p>Die Verarbeitung dieser Daten erfolgt auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO, sofern Ihre
                         Anfrage mit der Erfüllung eines Vertrags zusammenhängt oder zur Durchführung vorvertraglicher
                         Maßnahmen erforderlich ist. In allen übrigen Fällen beruht die Verarbeitung auf unserem
-                        berechtigten Interesse an der effektiven Bearbeitung der an uns gerichteten Anfragen (Art. 6
-                        Abs. 1 lit. f DSGVO) oder auf Ihrer Einwilligung (Art. 6 Abs. 1 lit. a DSGVO) sofern diese
-                        abgefragt wurde; die Einwilligung ist jederzeit widerrufbar.</p>
+                        berechtigten Interesse an der effektiven Bearbeitung der an uns gerichteten Anfragen (Art. 6 Abs.
+                        1 lit. f DSGVO) oder auf Ihrer Einwilligung (Art. 6 Abs. 1 lit. a DSGVO) sofern diese abgefragt
+                        wurde; die Einwilligung ist jederzeit widerrufbar.</p>
                     <p>Die von Ihnen an uns per Kontaktanfragen übersandten Daten verbleiben bei uns, bis Sie uns zur
                         Löschung auffordern, Ihre Einwilligung zur Speicherung widerrufen oder der Zweck für die
                         Datenspeicherung entfällt (z. B. nach abgeschlossener Bearbeitung Ihres Anliegens). Zwingende
                         gesetzliche Bestimmungen – insbesondere gesetzliche Aufbewahrungsfristen – bleiben unberührt.
                     </p>
                     <h3>Registrierung auf dieser Website</h3>
+                    <p>Sie können sich auf dieser Website registrieren, um zusätzliche Funktionen auf der Seite zu
+                        nutzen. Die dazu eingegebenen Daten verwenden wir nur zum Zwecke der Nutzung des jeweiligen
+                        Angebotes oder Dienstes, für den Sie sich registriert haben. Die bei der Registrierung
+                        abgefragten Pflichtangaben müssen vollständig angegeben werden. Anderenfalls werden wir die
+                        Registrierung ablehnen.</p>
+                    <p>Für wichtige Änderungen etwa beim Angebotsumfang oder bei technisch notwendigen Änderungen nutzen
+                        wir die bei der Registrierung angegebene E-Mail-Adresse, um Sie auf diesem Wege zu informieren.
+                    </p>
+                    <p>Die Verarbeitung der bei der Registrierung eingegebenen Daten erfolgt zum Zwecke der Durchführung
+                        des durch die Registrierung begründeten Nutzungsverhältnisses und ggf. zur Anbahnung weiterer
+                        Verträge (Art. 6 Abs. 1 lit. b DSGVO).</p>
+                    <p>Die bei der Registrierung erfassten Daten werden von uns gespeichert, solange Sie auf dieser
+                        Website registriert sind und werden anschließend gelöscht. Gesetzliche Aufbewahrungsfristen
+                        bleiben unberührt.</p>
+                    <h3>Registrierung mit Google</h3>
+                    <p>Statt einer direkten Registrierung auf dieser Website können Sie sich mit Google registrieren.
+                        Anbieter dieses Dienstes ist die Google Ireland Limited („Google”), Gordon House, Barrow Street,
+                        Dublin 4, Irland.</p>
+                    <p>Um sich mit Google zu registrieren, müssen Sie ausschließlich Ihre Google-Namen und Ihr Passwort
+                        eingeben. Google wird Sie identifizieren und unserer Website Ihre Identität bestätigen.</p>
+                    <p>Wenn Sie sich mit Google anmelden, ist es uns ggf. möglich bestimmte Informationen auf Ihrem
+                        Konto zu nutzen, um Ihr Profil bei uns zu vervollständigen. Ob und welche Informationen das sind,
+                        entscheiden Sie im Rahmen Ihrer Google-Sicherheitseinstellungen, die Sie hier finden: <a
+                            href="https://myaccount.google.com/security" target="_blank"
+                            rel="noopener noreferrer">https://myaccount.google.com/security</a> und <a
+                            href="https://myaccount.google.com/permissions" target="_blank"
+                            rel="noopener noreferrer">https://myaccount.google.com/permissions</a>.</p>
+                    <p>Die Datenverarbeitung, die mit der Google-Registrierung einhergeht beruht auf unserem berechtigten
+                        Interesse, unseren Nutzern einen möglichst einfachen Registrierungsprozess zu ermöglichen (Art.
+                        6 Abs. 1 lit. f DSGVO). Da die Nutzung der Registrierungsfunktion freiwillig ist und die Nutzer
+                        selbst über die jeweiligen Zugriffsmöglichkeiten entscheiden können, sind keine
+                        entgegenstehenden überwiegenden Rechte der Betroffenen ersichtlich.</p>
+                    <p>Das Unternehmen verfügt über eine Zertifizierung nach dem „EU-US Data Privacy Framework“ (DPF).
+                        Der DPF ist ein Übereinkommen zwischen der Europäischen Union und den USA, der die Einhaltung
+                        europäischer Datenschutzstandards bei Datenverarbeitungen in den USA gewährleisten soll. Jedes
+                        nach dem DPF zertifizierte Unternehmen verpflichtet sich, diese Datenschutzstandards
+                        einzuhalten. Weitere Informationen hierzu erhalten Sie vom Anbieter unter folgendem Link: <a
+                            href="https://www.dataprivacyframework.gov/participant/5780" target="_blank"
+                            rel="noopener noreferrer">https://www.dataprivacyframework.gov/participant/5780</a>.</p>
+                            <br />
+                    <h2>5. Analyse-Tools und Werbung</h2>
+                    <h3>IONOS WebAnalytics</h3>
+                    <p>Diese Website nutzt die Analysedienste von IONOS WebAnalytics (im Folgenden: IONOS). Anbieter ist
+                        die 1&1 IONOS SE, Elgendorfer Straße 57, D – 56410 Montabaur. Im Rahmen der Analysen mit IONOS
+                        können u. a. Besucherzahlen und –verhalten (z. B. Anzahl der Seitenaufrufe, Dauer eines
+                        Webseitenbesuchs, Absprungraten), Besucherquellen (d. h., von welcher Seite der Besucher kommt),
+                        Besucherstandorte sowie technische Daten (Browser- und Betriebssystemversionen) analysiert
+                        werden. Zu diesem Zweck speichert IONOS insbesondere folgende Daten:</p>
+                    <ul>
+                        <li>Referrer (zuvor besuchte Webseite)</li>
+                        <li>angeforderte Webseite oder Datei</li>
+                        <li>Browsertyp und Browserversion</li>
+                        <li>verwendetes Betriebssystem</li>
+                        <li>verwendeter Gerätetyp</li>
+                        <li>Uhrzeit des Zugriffs</li>
+                        <li>IP-Adresse in anonymisierter Form (wird nur zur Feststellung des Orts des Zugriffs
+                            verwendet)</li>
+                    </ul>
+                    <p>Die Datenerfassung erfolgt laut IONOS vollständig anonymisiert, sodass sie nicht zu einzelnen
+                        Personen zurückverfolgt werden kann. Cookies werden von IONOS WebAnalytics nicht gespeichert.
+                    </p>
+                    <p>Die Speicherung und Analyse der Daten erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO. Der
+                        Websitebetreiber hat ein berechtigtes Interesse an der statistischen Analyse des Nutzerverhaltens,
+                        um sowohl sein Webangebot als auch seine Werbung zu optimieren. Sofern eine entsprechende
+                        Einwilligung abgefragt wurde, erfolgt die Verarbeitung ausschließlich auf Grundlage von Art. 6
+                        Abs. 1 lit. a DSGVO und § 25 Abs. 1 TDDDG, soweit die Einwilligung die Speicherung von Cookies
+                        oder den Zugriff auf Informationen im Endgerät des Nutzers (z. B. Device-Fingerprinting) im Sinne
+                        des TDDDG umfasst. Die Einwilligung ist jederzeit widerrufbar.</p>
+                    <p>Weitere Informationen zur Datenerfassung und Verarbeitung durch IONOS WebAnalytics entnehmen Sie
+                        der Datenschutzerklärung von IONOS unter folgendem Link: <a
+                            href="https://www.ionos.de/terms-gtc/datenschutzerklaerung/" target="_blank"
+                            rel="noopener noreferrer">https://www.ionos.de/terms-gtc/datenschutzerklaerung/</a></p>
+
+                    <h4>Auftragsverarbeitung</h4>
+                    <p>Wir haben einen Vertrag über Auftragsverarbeitung (AVV) zur Nutzung des oben genannten Dienstes
+                        geschlossen. Hierbei handelt es sich um einen datenschutzrechtlich vorgeschriebenen Vertrag, der
+                        gewährleistet, dass dieser die personenbezogenen Daten unserer Websitebesucher nur nach unseren
+                        Weisungen und unter Einhaltung der DSGVO verarbeitet.</p>
+                        <br />
+                    <h2>6. Plugins und Tools</h2>
+                    <h3>Google Fonts (lokales Hosting)</h3>
+                    <p>Diese Seite nutzt zur einheitlichen Darstellung von Schriftarten so genannte Google Fonts, die von
+                        Google bereitgestellt werden. Die Google Fonts sind lokal installiert. Eine Verbindung zu Servern
+                        von Google findet dabei nicht statt.</p>
+                    <p>Weitere Informationen zu Google Fonts finden Sie unter <a
+                            href="https://developers.google.com/fonts/faq" target="_blank"
+                            rel="noopener noreferrer">https://developers.google.com/fonts/faq</a> und in der
+                        Datenschutzerklärung von Google: <a href="https://policies.google.com/privacy?hl=de"
+                            target="_blank" rel="noopener noreferrer">https://policies.google.com/privacy?hl=de</a>.</p>
+                    <h3>Font Awesome (lokales Hosting)</h3>
+                    <p>Diese Seite nutzt zur einheitlichen Darstellung von Schriftarten Font Awesome. Font Awesome ist
+                        lokal installiert. Eine Verbindung zu Servern von Fonticons, Inc. findet dabei nicht statt.</p>
+                    <p>Weitere Informationen zu Font Awesome finden Sie in der Datenschutzerklärung für Font Awesome
+                        unter: <a href="https://fontawesome.com/privacy" target="_blank"
+                            rel="noopener noreferrer">https://fontawesome.com/privacy</a>.</p>
+                    <h3>ChatGPT</h3>
+                    <p>Wir nutzen ChatGPT für unsere Kundenkommunikation. Anbieter ist die OpenAI, 3180 18th St, San
+                        Francisco, CA 94110, USA, <a href="https://openai.com" target="_blank"
+                            rel="noopener noreferrer">https://openai.com</a>. Wir nutzen ChatGPT für folgende Tools:
+                    </p>
+                    <ul>
+                        <li>Die Anwendung basiert auf ChatGPT</li>
+                    </ul>
+                    <p>Wenn Sie über unsere Website ein Gespräch mit uns beginnen und ChatGPT aktiviert wird, werden Ihre
+                        Eingaben inklusive Metadaten an die Server von ChatGPT übertragen und dort verarbeitet, um eine
+                        passende Antwort zu generieren.</p>
+                    <p>Wir haben ChatGPT so konfiguriert, dass die eingegebenen personenbezogenen Daten nicht zum
+                        Trainieren des Algorithmus von ChatGPT benutzt werden.</p>
+                    <p>Die Verwendung von ChatGPT erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO. Der
+                        Websitebetreiber hat ein berechtigtes Interesse an einer möglichst effizienten Kundenkommunikation
+                        unter Einsatz moderner technischer Lösungen. Sofern eine entsprechende Einwilligung abgefragt
+                        wurde, erfolgt die Verarbeitung ausschließlich auf Grundlage von Art. 6 Abs. 1 lit. a DSGVO und §
+                        25 Abs. 1 TDDDG. Die Einwilligung ist jederzeit widerrufbar.</p>
+                    <p>Weitere Informationen erhalten Sie hier: <a href="https://openai.com/policies/privacy-policy"
+                            target="_blank" rel="noopener noreferrer">https://openai.com/policies/privacy-policy</a>.
+                    </p>
+                    <br />
+                    <h2>7. eCommerce und Zahlungsanbieter</h2>
+                    <h3>Verarbeiten von Kunden- und Vertragsdaten</h3>
+                    <p>Wir erheben, verarbeiten und nutzen personenbezogene Kunden- und Vertragsdaten zur Begründung,
+                        inhaltlichen Ausgestaltung und Änderung unserer Vertragsbeziehungen. Personenbezogene Daten über
+                        die Inanspruchnahme dieser Website (Nutzungsdaten) erheben, verarbeiten und nutzen wir nur,
+                        soweit dies erforderlich ist, um dem Nutzer die Inanspruchnahme des Dienstes zu ermöglichen oder
+                        abzurechnen. Rechtsgrundlage hierfür ist Art. 6 Abs. 1 lit. b DSGVO.</p>
+                    <p>Die erhobenen Kundendaten werden nach Abschluss des Auftrags oder Beendigung der Geschäftsbeziehung
+                        und Ablauf der ggf. bestehenden gesetzlichen Aufbewahrungsfristen gelöscht. Gesetzliche
+                        Aufbewahrungsfristen bleiben unberührt.</p>
+                    <h3>Datenübermittlung bei Vertragsschluss für Dienstleistungen und digitale Inhalte</h3>
+                    <p>Wir übermitteln personenbezogene Daten an Dritte nur dann, wenn dies im Rahmen der Vertragsabwicklung
+                        notwendig ist, etwa an das mit der Zahlungsabwicklung beauftragte Kreditinstitut.</p>
+                    <p>Eine weitergehende Übermittlung der Daten erfolgt nicht bzw. nur dann, wenn Sie der Übermittlung
+                        ausdrücklich zugestimmt haben. Eine Weitergabe Ihrer Daten an Dritte ohne ausdrückliche
+                        Einwilligung, etwa zu Zwecken der Werbung, erfolgt nicht.</p>
+                    <p>Grundlage für die Datenverarbeitung ist Art. 6 Abs. 1 lit. b DSGVO, der die Verarbeitung von Daten
+                        zur Erfüllung eines Vertrags oder vorvertraglicher Maßnahmen gestattet.</p>
+                    <h3>Zahlungsdienste</h3>
+                    <p>Wir binden Zahlungsdienste von Drittunternehmen auf unserer Website ein. Wenn Sie einen Kauf bei uns
+                        tätigen, werden Ihre Zahlungsdaten (z. B. Name, Zahlungssumme, Kontoverbindung, Kreditkartennummer)
+                        vom Zahlungsdienstleister zum Zwecke der Zahlungsabwicklung verarbeitet. Für diese Transaktionen
+                        gelten die jeweiligen Vertrags- und Datenschutzbestimmungen der jeweiligen Anbieter. Der Einsatz
+                        der Zahlungsdienstleister erfolgt auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO
+                        (Vertragsabwicklung) sowie im Interesse eines möglichst reibungslosen, komfortablen und sicheren
+                        Zahlungsvorgangs (Art. 6 Abs. 1 lit. f DSGVO). Soweit für bestimmte Handlungen Ihre Einwilligung
+                        abgefragt wird, ist Art. 6 Abs. 1 lit. a DSGVO Rechtsgrundlage der Datenverarbeitung; Einwilligungen
+                        sind jederzeit für die Zukunft widerrufbar.</p>
+                    <p>Folgende Zahlungsdienste / Zahlungsdienstleister setzen wir im Rahmen dieser Website ein:</p>
+                    <h4>PayPal</h4>
+                    <p>Anbieter dieses Zahlungsdienstes ist PayPal (Europe) S.à.r.l. et Cie, S.C.A., 22-24 Boulevard Royal,
+                        L-2449 Luxembourg (im Folgenden „PayPal“).</p>
+                    <p>Die Datenübertragung in die USA wird auf die Standardvertragsklauseln der EU-Kommission gestützt.
+                        Details finden Sie hier: <a href="https://www.paypal.com/de/webapps/mpp/ua/pocpsa-full"
+                            target="_blank" rel="noopener noreferrer">https://www.paypal.com/de/webapps/mpp/ua/pocpsa-full</a>.
+                    </p>
+                    <p>Details entnehmen Sie der Datenschutzerklärung von PayPal: <a
+                            href="https://www.paypal.com/de/webapps/mpp/ua/privacy-full" target="_blank"
+                            rel="noopener noreferrer">https://www.paypal.com/de/webapps/mpp/ua/privacy-full</a>.</p>
+                            <h4>VISA</h4>
+                            <p>Anbieter dieses Zahlungsdienstes ist die Visa Europe Services Inc., Zweigniederlassung London, 1 Sheldon Square, London W2 6TT, Gro&szlig;britannien (im Folgenden &bdquo;VISA&ldquo;).</p>
+                            <p>Gro&szlig;britannien gilt als datenschutzrechtlich sicherer Drittstaat. Das bedeutet, dass Gro&szlig;britannien ein Datenschutzniveau aufweist, das dem Datenschutzniveau in der Europ&auml;ischen Union entspricht.</p>
+                            <p>VISA kann Daten an seine Muttergesellschaft in die USA &uuml;bertragen. Die Daten&uuml;bertragung in die USA wird auf die Standardvertragsklauseln der EU-Kommission gest&uuml;tzt. Details finden Sie hier: <a href="https://www.visa.de/nutzungsbedingungen/visa-globale-datenschutzmitteilung/mitteilung-zu-zustandigkeitsfragen-fur-den-ewr.html" target="_blank" rel="noopener noreferrer">https://www.visa.de/nutzungsbedingungen/visa-globale-datenschutzmitteilung/mitteilung-zu-zustandigkeitsfragen-fur-den-ewr.html</a>.</p>
+                            <p>Weitere Informationen entnehmen Sie der Datenschutzerkl&auml;rung von VISA: <a href="https://www.visa.de/nutzungsbedingungen/visa-privacy-center.html" target="_blank" rel="noopener noreferrer">https://www.visa.de/nutzungsbedingungen/visa-privacy-center.html</a>.</p>
+                        
                 </div>
             </div>
         </div>
@@ -275,7 +440,7 @@
 
     <footer class="mainFooterContainer">
         <div class="footerContainer">
-            <img id="footerLogo" src="{{ asset('asset/images/Logo (2).png') }}" width="133" height="77"
+            <img id="footerLogo" src="{{ asset('asset/images/Logo_(2).png') }}" width="133" height="77"
                 alt="Logo" loading="lazy">
             <div class="CenterContainer">
                 <div class="anchorTagsFooterContainer">

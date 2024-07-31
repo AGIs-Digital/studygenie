@@ -168,3 +168,16 @@ Auth::routes();
 ### SOCIALITE ROUTES ###
 Route::get('login/{provider}', [LoginController::class, 'redirectToProvider']);
 Route::get('auth/callback/{provider}', [LoginController::class, 'handleProviderCallback']);
+
+
+// Route for showing the password reset form
+Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+
+// Route for sending the password reset link
+Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+
+// Route for showing the password reset form with the token
+Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+
+// Route for resetting the password
+Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');

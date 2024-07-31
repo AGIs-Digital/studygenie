@@ -42,7 +42,6 @@
 
         .criteria-container {
             width: 100%;
-            /* Ensure the container takes the full width of the input field */
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
@@ -51,14 +50,12 @@
         .criteria-row {
             justify-content: space-between;
             margin-bottom: 10px;
-            /* Add some space between rows */
         }
 
         .criteria-row p {
             margin: 0;
             white-space: nowrap;
             width: 100%;
-            /* Ensure each criterion takes the full width of its container */
         }
 
         .text-success .checkmark {
@@ -125,8 +122,7 @@
     </div>
 
     <!-- Cookie Consent Modal -->
-    <div id="cookieConsentModal" class="modal fade" tabindex="-1" aria-labelledby="cookieConsentModalLabel"
-        aria-hidden="true">
+    <div id="cookieConsentModal" class="modal fade" tabindex="-1" aria-labelledby="cookieConsentModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -138,97 +134,61 @@
                         akzeptieren möchten.</p>
                     <form id="cookieConsentForm">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="necessary" id="necessaryCookies"
-                                checked disabled>
-                            <label class="form-check-label" for="necessaryCookies">
-                                Notwendige Cookies
-                            </label>
+                            <input class="form-check-input" type="checkbox" value="necessary" id="necessaryCookies" checked disabled>
+                            <label class="form-check-label" for="necessaryCookies">Notwendige Cookies</label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" value="analytics" id="analyticsCookies">
-                            <label class="form-check-label" for="analyticsCookies">
-                                Analytische Cookies
-                            </label>
+                            <label class="form-check-label" for="analyticsCookies">Analytische Cookies</label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" value="marketing" id="marketingCookies">
-                            <label class="form-check-label" for="marketingCookies">
-                                Marketing Cookies
-                            </label>
+                            <label class="form-check-label" for="marketingCookies">Marketing Cookies</label>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" id="declineCookies"
-                        data-bs-dismiss="modal">Ablehnen</button>
+                    <button type="button" class="btn btn-secondary" id="declineCookies" data-bs-dismiss="modal">Ablehnen</button>
                     <button type="button" class="btn btn-primary" id="acceptCookies">Akzeptieren</button>
                 </div>
             </div>
         </div>
     </div>
 
-
-
     <header class="headerContainer">
         <div class="container">
             <nav class="navbar navbar-expand-lg">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="/"> <img src="{{ asset('asset/images/logo.png') }}"
-                            width="90" height="48" alt="StudyGenie Logo" loading="lazy"></a>
-                    <button class="navbar-toggler navbar navbar-light" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                    <a class="navbar-brand" href="/"> <img src="{{ asset('asset/images/logo.png') }}" width="90" height="48" alt="StudyGenie Logo" loading="lazy"></a>
+                    <button class="navbar-toggler navbar navbar-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         @guest
                         @else
                             <ul class="navbar-nav mx-auto mb-2 mb-lg-0 anchorTagsContainer">
-                                <li class="nav-item"><a class="nav-link anchor active" aria-current="page"
-                                        href="/">Home</a></li>
-                                <li class="nav-item"><a class="nav-link  anchor" href="/tools">Tools</a>
-                                </li>
-
-                                <li class="nav-item"><a class="nav-link anchor" href="/profile">Profil</a>
-                                </li>
-                                <li class="nav-item"><a class="nav-link anchor" href="/archive">Archiv</a>
-                                </li>
+                                <li class="nav-item"><a class="nav-link anchor active" aria-current="page" href="/">Home</a></li>
+                                <li class="nav-item"><a class="nav-link anchor" href="/tools">Tools</a></li>
+                                <li class="nav-item"><a class="nav-link anchor" href="/profile">Profil</a></li>
+                                <li class="nav-item"><a class="nav-link anchor" href="/archive">Archiv</a></li>
                             </ul>
                         @endguest
 
                         <ul class="navbar-nav ms-auto">
-                            <!-- Authentication Links -->
                             @guest
-
-                                <!-- <li class="nav-item"><a class="nav-link blog primary-button"
-                                        href="#">{{ __('Blog') }}</a></li> -->
-
-
-
                                 <li class="nav-item">
-                                    <button class="primary-button" data-bs-toggle="modal" data-bs-target="#loginModal"
-                                        id="loginButton">Log In</button>
-
+                                    <button class="primary-button" data-bs-toggle="modal" data-bs-target="#loginModal" id="loginButton">Log In</button>
                                 </li>
                             @else
-                                <!-- <li class="nav-item"><a class="nav-link blog primary-button"
-                                        href="#">{{ __('Blog') }}</a></li> -->
-                                <li class="nav-item dropdown"><a id="navbarDropdown" class="nav-link dropdown-toggle"
-                                        href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true"
-                                        aria-expanded="false" v-pre> {{ Auth::user()->name }} </a>
-
+                                <li class="nav-item dropdown">
+                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre> {{ Auth::user()->name }} </a>
                                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="{{ route('logout') }}"
-                                            onclick="event.preventDefault();
-                                                 document.getElementById('logout-form').submit();">
-                                            {{ __('Logout') }} </a>
-
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                            class="d-none">@csrf</form>
+                                        <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">@csrf</form>
                                     </div>
-                            </li> @endguest
+                                </li>
+                            @endguest
                         </ul>
-
                     </div>
                 </div>
             </nav>
@@ -236,39 +196,28 @@
 
         <div class="container">
             <div class="mainImageContantContainer">
-
                 <div class="contentContainer">
                     <h1 class="primary-heading">
-                        <u>Bildung & Karriere</u></br> neu gedacht, mit</br> Genie
-                        gemacht!
+                        <u>Bildung & Karriere</u></br> neu gedacht, mit</br> Genie gemacht!
                     </h1>
-
-                    <p class="primary-paragraph">
-                        Chancengleichheit in Schule,</br>Studium und Karriere
-                    </p>
+                    <p class="primary-paragraph">Chancengleichheit in Schule,</br>Studium und Karriere</p>
                     <img src="{{ asset('asset/images/23.1.png') }}" alt="Z Design Illustration" loading="lazy">
                 </div>
-
                 <div class="imageContainer">
-                    <img src="{{ asset('asset/images/illustrations/heroImage.svg') }}" alt="Hauptbild"
-                        loading="lazy">
+                    <img src="{{ asset('asset/images/illustrations/heroImage.svg') }}" alt="Hauptbild" loading="lazy">
                 </div>
             </div>
         </div>
 
         <div class="headerDesign">
-            <img src="{{ asset('asset/images/Group 391.png') }}" alt="Haupt Hintergrundbild" loading="lazy">
+            <img src="{{ asset('asset/images/Group_391.png') }}" alt="Haupt Hintergrundbild" loading="lazy">
         </div>
     </header>
 
     <section class="learnAnythingSection">
-        <img class="crownImg" src="{{ asset('asset/images/Fill 7.png') }}" alt="Kronenbild" loading="lazy">
-
+        <img class="crownImg" src="{{ asset('asset/images/fill_7.png') }}" alt="Kronenbild" loading="lazy">
         <h1 class="secondary-Heading">Gemeinsam schaffen wir das</h1>
-
-        <p class="secondary-Paragraph">Wir unterstützen dich in der Schule, im
-            Studium und im Berufsstart.</p>
-
+        <p class="secondary-Paragraph">Wir unterstützen dich in der Schule, im Studium und im Berufsstart.</p>
         <div class="video_sec">
             <video controls id="home_video" loading="lazy" preload="metadata">
                 <source src="{{ asset('asset/Videos/video_klein.mp4') }}" type="video/mp4">
@@ -279,103 +228,73 @@
                     e.preventDefault();
                 }, false);
             </script>
-            <img class="learnAnythingImage" src="{{ asset('asset/images/pic_mac_book.png') }}" alt="Mac Book Bild"
-                loading="lazy">
+            <img class="learnAnythingImage" src="{{ asset('asset/images/pic_mac_book.png') }}" alt="Mac Book Bild" loading="lazy">
         </div>
-
         <div class="buttonContainer">
             <img src="{{ asset('asset/images/69.png') }}" alt="Vorwärtspfeil" loading="lazy">
-
-            <button data-bs-toggle="modal" data-bs-target="#signupModal" class="plancardButton">Jetzt
-                starten</button>
-
+            <button data-bs-toggle="modal" data-bs-target="#signupModal" class="plancardButton">Jetzt starten</button>
             <img src="{{ asset('asset/images/68.png') }}" alt="Rückwärtspfeil" loading="lazy">
         </div>
     </section>
 
     <section class="MathrixSection">
         <img src="{{ asset('asset/images/23.png') }}" alt="Z Design" loading="lazy">
-
         <h1 class="secondary-Heading">Was wir noch können</h1>
-
         <div class="testomnialDivision">
-
             <div class="testimonialCard">
-                <img src="{{ asset('asset/images/illustrations/Deine_professionelle_Bewerbung.png') }}"
-                    alt="Testimonial Card" loading="lazy"> <span class="CardThumbnailSpan">Karrierecoaching und
-                    Bewerbung</span>
+                <img src="{{ asset('asset/images/illustrations/Deine_professionelle_Bewerbung.png') }}" alt="Testimonial Card" loading="lazy">
+                <span class="CardThumbnailSpan">Karrierecoaching und Bewerbung</span>
             </div>
             <div class="testimonialCard">
-                <img src="{{ asset('asset/images/illustrations/Der_perfekte_Lernplan_fur_dich.png') }}"
-                    alt="Testimonial Card" loading="lazy"> <span class="CardThumbnailSpan">Individuelle
-                    Lernhilfe</span>
+                <img src="{{ asset('asset/images/illustrations/Der_perfekte_Lernplan_fuer_dich.png') }}" alt="Testimonial Card" loading="lazy">
+                <span class="CardThumbnailSpan">Individuelle Lernhilfe</span>
             </div>
             <div class="testimonialCard">
-                <img src="{{ asset('asset/images/illustrations/Alles_wichtige_uber_deine_Traumberufe.png') }}"
-                    alt="Testimonial Card" loading="lazy"> <span class="CardThumbnailSpan">Deinen Traumberuf
-                    finden</span>
+                <img src="{{ asset('asset/images/illustrations/Alles_wichtige_ueber_deine_Traumberufe.png') }}" alt="Testimonial Card" loading="lazy">
+                <span class="CardThumbnailSpan">Deinen Traumberuf finden</span>
             </div>
         </div>
-
         <div class="buttonContainer MathrixButtonContainer">
             <img src="{{ asset('asset/images/71.png') }}" alt="Vorwärtspfeil" loading="lazy">
-
-            <button data-bs-toggle="modal" data-bs-target="#signupModal" class="plancardButton">Lege jetzt
-                los</button>
-
+            <button data-bs-toggle="modal" data-bs-target="#signupModal" class="plancardButton">Lege jetzt los</button>
             <img src="{{ asset('asset/images/70.png') }}" alt="Rückwärtspfeil" loading="lazy">
         </div>
     </section>
 
     <section class="witnessSection">
         <div class="container">
-            <img class="crownImg mb-2" src="{{ asset('asset/images/Fill 7.png') }}" alt="Kronenbild"
-                loading="lazy">
-
+            <img class="crownImg mb-2" src="{{ asset('asset/images/fill_7.png') }}" alt="Kronenbild" loading="lazy">
             <h1 class="secondary-Heading mb-2">Sie liebens!</h1>
-
             <div class="MainCardsContainer">
                 <div class="CardDiv">
-                    <img class="shadowOfCard" src="{{ asset('asset/images/Vector 2.png') }}"
-                        alt="Karte 1 Hintergrund" loading="lazy">
+                    <img class="shadowOfCard" src="{{ asset('asset/images/Vector_2.png') }}" alt="Karte 1 Hintergrund" loading="lazy">
                     <div class="card">
-                        <img class="quoteMarks" src="{{ asset('asset/images/ic.png') }}" alt="Zitatzeichen"
-                            loading="lazy">
+                        <img class="quoteMarks" src="{{ asset('asset/images/ic.png') }}" alt="Zitatzeichen" loading="lazy">
                         <div class="thumbnail-Content-Container">
-                            <img src="{{ asset('asset/images/illustrations/lukeg.png') }}" alt="Thumbnail Luke G."
-                                loading="lazy"> <span class="thumbnailDescription">Luke G.</span>
+                            <img src="{{ asset('asset/images/illustrations/lukeg.png') }}" alt="Thumbnail Luke G." loading="lazy">
+                            <span class="thumbnailDescription">Luke G.</span>
                         </div>
-                        « Ich habe jetzt einen klaren Überblick und kann genau fragen was
-                        noch nicht verstanden habe »
-                        </p>
+                        « Ich habe jetzt einen klaren Überblick und kann genau fragen was noch nicht verstanden habe »
                     </div>
                 </div>
                 <div class="CardDiv">
-                    <img class="shadowOfCard2" src="{{ asset('asset/images/2nd Card bg.png') }}"
-                        alt="2nd Card Hintergrund" loading="lazy">
+                    <img class="shadowOfCard2" src="{{ asset('asset/images/2nd_Card_bg.png') }}" alt="2nd Card Hintergrund" loading="lazy">
                     <div class="card card2">
                         <div class="thumbnail-Content-Container">
-                            <img class="quoteMarks" src="{{ asset('asset/images/ic.png') }}" alt="Zitatzeichen"
-                                loading="lazy"> <img src="{{ asset('asset/images/illustrations/julias.png') }}"
-                                alt="Thumbnail Julia S." loading="lazy"> <span class="thumbnailDescription">Julia
-                                S.</span>
-
+                            <img class="quoteMarks" src="{{ asset('asset/images/ic.png') }}" alt="Zitatzeichen" loading="lazy">
+                            <img src="{{ asset('asset/images/illustrations/julias.png') }}" alt="Thumbnail Julia S." loading="lazy">
+                            <span class="thumbnailDescription">Julia S.</span>
                         </div>
-
                         « Mit StudyGenie fällt mir Lernen leichter und macht Spaß. »
-                        </p>
                     </div>
                 </div>
-
                 <div class="CardDiv">
-                    <img class="shadowOfCard3" src="{{ asset('asset/images/3rd Card bg.png') }}"
-                        alt="3rd Card Hintergrund" loading="lazy">
+                    <img class="shadowOfCard3" src="{{ asset('asset/images/3rd_Card_bg.png') }}" alt="3rd Card Hintergrund" loading="lazy">
                     <div class="card">
                         <div class="thumbnail-Content-Container">
-                            <img class="quoteMarks" src="{{ asset('asset/images/ic.png') }}" alt="Zitatzeichen"
-                                loading="lazy"> <img src="{{ asset('asset/images/illustrations/alexm.png') }}"
-                                alt="Thumbnail Alex M." loading="lazy"> <span class="thumbnailDescription">Alex
-                                M.</span>
+                            <img class="quoteMarks" src="{{ asset('asset/images/ic.png') }}" alt="Zitatzeichen" loading="lazy">
+                            <img src="{{ asset('asset/images/illustrations/alexm.png') }}" alt="Thumbnail Alex M." loading="lazy">
+                            <span class="thumbnailDescription">Alex M.</span>
                         </div>
                         « StudyGenie ist einfach nice. Ich kann so lernen wie ich will! »
                     </div>
@@ -386,109 +305,85 @@
 
     <section class="tutorialSection">
         <div class="container">
-            <img class="crownImg mb-2" src="{{ asset('asset/images/Fill 7.png') }}" alt="Kronenbild"
-                loading="lazy">
-
+            <img class="crownImg mb-2" src="{{ asset('asset/images/fill_7.png') }}" alt="Kronenbild" loading="lazy">
             <h1 class="secondary-Heading mb-2">Wünsch dir was</h1>
-
             <div class="cardsContainer">
                 <div class="parent-card">
                     <div class="cards">
-                        <img src="{{ asset('asset/images/illustrations/Berufsinformationen.png') }}" width="90"
-                            height="90" alt="Berufsinformationen " loading="lazy">
+                        <img src="{{ asset('asset/images/illustrations/Berufsinformationen.png') }}" width="90" height="90" alt="Berufsinformationen" loading="lazy">
                         <p class="cardPara">Berufsinformationen</p>
                     </div>
                 </div>
                 <div class="parent-card">
                     <div class="cards">
-                        <img src="{{ asset('asset/images/illustrations/Bewerbungscoach.png') }}" width="90"
-                            height="90" alt="Bewerbungscoach " loading="lazy">
+                        <img src="{{ asset('asset/images/illustrations/Bewerbungscoach.png') }}" width="90" height="90" alt="Bewerbungscoach" loading="lazy">
                         <p class="cardPara">Bewerbungscoach</p>
                     </div>
                 </div>
                 <div class="parent-card">
                     <div class="cards">
-                        <img src="{{ asset('asset/images/illustrations/Lebenslauf.png') }}" width="90"
-                            height="90" alt="Lebenslauf" loading="lazy">
+                        <img src="{{ asset('asset/images/illustrations/Lebenslauf.png') }}" width="90" height="90" alt="Lebenslauf" loading="lazy">
                         <p class="cardPara">Lebenslauf</p>
                     </div>
                 </div>
                 <div class="parent-card">
                     <div class="cards">
-                        <img src="{{ asset('asset/images/illustrations/Lernplan.png') }}" width="90"
-                            height="90" alt="Lernplan" loading="lazy">
+                        <img src="{{ asset('asset/images/illustrations/Lernplan.png') }}" width="90" height="90" alt="Lernplan" loading="lazy">
                         <p class="cardPara">Persönlicher Tutor</p>
                     </div>
                 </div>
                 <div class="parent-card">
                     <div class="cards">
-                        <img src="{{ asset('asset/images/illustrations/Motivationsschreiben.png') }}" width="90"
-                            height="90" alt="Motivationsschreiben " loading="lazy">
+                        <img src="{{ asset('asset/images/illustrations/Motivationsschreiben.png') }}" width="90" height="90" alt="Motivationsschreiben" loading="lazy">
                         <p class="cardPara">Motivationsschreiben</p>
                     </div>
                 </div>
-
                 <div class="parent-card">
                     <div class="cards">
-                        <img src="{{ asset('asset/images/illustrations/Textinspiration.png') }}" width="90"
-                            height="90" alt="Textinspiration" loading="lazy">
+                        <img src="{{ asset('asset/images/illustrations/Textinspiration.png') }}" width="90" height="90" alt="Textinspiration" loading="lazy">
                         <p class="cardPara">Textinspiration</p>
                     </div>
                 </div>
-
                 <div class="parent-card">
                     <div class="cards">
-                        <img src="{{ asset('asset/images/illustrations/Textkorrekturen.png') }}" width="90"
-                            height="90" alt="Textkorrekturen" loading="lazy">
+                        <img src="{{ asset('asset/images/illustrations/Textkorrekturen.png') }}" width="90" height="90" alt="Textkorrekturen" loading="lazy">
                         <p class="cardPara">Textkorrekturen</p>
                     </div>
                 </div>
-
                 <div class="parent-card">
                     <div class="cards">
-                        <img src="{{ asset('asset/images/illustrations/Übungsklausur.png') }}" width="90"
-                            height="90" alt="Übungsklausur" loading="lazy">
+                        <img src="{{ asset('asset/images/illustrations/Übungsklausur.png') }}" width="90" height="90" alt="Übungsklausur" loading="lazy">
                         <p class="cardPara">Übungsklausur</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
     <div align="center">
         <img src="{{ asset('asset/images/23.png') }}" alt="Ein zentriertes Bild" loading="lazy">
     </div>
+
     <section class="planCardsSection">
-
-
         <h1 class="secondary-Heading planCardHeading">Dein persönlicher Genie</h1>
-
         <div class="planCardsContainer">
-            <img id="upperDesign" src="{{ asset('asset/images/patterns.png') }}" alt="Oberes Design"
-                loading="lazy">
+            <img id="upperDesign" src="{{ asset('asset/images/patterns.png') }}" alt="Oberes Design" loading="lazy">
             <div class="planCard">
                 <div class="discountSticekr">
-                    <img src="{{ asset('asset/images/Star 2.png') }}" alt="Rabattsticker" id="discountStickerImg"
-                        loading="lazy"> <span id="discountPercent">FREE</span>
+                    <img src="{{ asset('asset/images/Star_2.png') }}" alt="Rabattsticker" id="discountStickerImg" loading="lazy">
+                    <span id="discountPercent">FREE</span>
                 </div>
                 <div class="headerPlanCard">
-                    <img class="crownImg" src="{{ asset('asset/images/illustrations/silber2.png') }}"
-                        alt="Kronenbild Silber" loading="lazy">
-
+                    <img class="crownImg" src="{{ asset('asset/images/illustrations/silber2.png') }}" alt="Kronenbild Silber" loading="lazy">
                     <h1 class="secondary-Heading" style="color: #fff">Silber</h1>
-
                 </div>
                 <div class="contentPlanCard contentPlanCard1">
-
                     <span class="highWeightSpan">0 €<span class="lowWeightSpan"> mtl.</span></span>
                     <p class="planCardParagraph">
-                        ✓ Intelligente Soforthilfe<br /> ✓ Traumberuf finden<br />✓ Berufsinformationen<br /> ✘
-                        Textinspirationen<br /> ✘ Textanalyse<br />
-                        ✘ Bewerbungsunterlagen<br /> ✘ Lerncoach<br /> ✘ Bewerbungstrainer
+                        ✓ Intelligente Soforthilfe<br /> ✓ Traumberuf finden<br />✓ Berufsinformationen<br /> ✘ Textinspirationen<br /> ✘ Textanalyse<br /> ✘ Bewerbungsunterlagen<br /> ✘ Lerncoach<br /> ✘ Bewerbungstrainer
                     </p>
-
                     @guest
-                        <button data-bs-toggle="modal" data-bs-target="#signupModal" class="plancardButton">Jetzt
-                            ausprobieren</button>
+                        <button data-bs-toggle="modal" data-bs-target="#signupModal" class="plancardButton">Jetzt ausprobieren</button>
                     @else
                         @if (auth()->user()->subscription_name == 'silber')
                             <button class="plancardButton" disabled>Jetzt ausprobieren</button>
@@ -518,16 +413,12 @@
                         @guest
                             <button data-bs-toggle="modal" data-bs-target="#signupModal" class="plancardButton">Hol dir
                                 Gold</button>
-                        @else
-                            @php$check = false;
-                                                                $date = auth()->user()->expire_date;
-                                                                if ($date != null && \Carbon\Carbon::parse($date)->gt(\Carbon\Carbon::now())) {
-                                                                    $check = true;
-                                                        } @endphp ?> @if (auth()->user()->subscription_name == 'gold' && $check)
+                        @else                               
+                                @if (auth()->user()->subscription_name == 'gold' && $check)
                                 <button class="plancardButton" disabled>Hol dir Gold</button>
                             @else
                                 <button
-                                    onclick="setModel('{{ route('paypal.payment', 'gold') }}'/* ,'{{ route('stripe.payment', 'gold') }}' */)"
+                                    onclick="setModel('{{ route('paypal.payment', 'gold') }}')"
                                     class="plancardButton">Hol dir Gold</button>
                             @endif @endguest
                         </div>
@@ -556,7 +447,7 @@
                                     <button class="plancardButton" disabled>Hol dir Diamant</button>
                                 @else
                                     <button
-                                        onclick="setModel('{{ route('paypal.payment', 'diamant') }}'/* ,'{{ route('stripe.payment', 'diamant') }}' */)"
+                                        onclick="setModel('{{ route('paypal.payment', 'diamant') }}')"
                                         class="plancardButton">Hol dir Diamant</button>
                                 @endif @endguest
 
@@ -568,7 +459,7 @@
                 </section>
 
                 <section class="joinNowSection">
-                    <img src="{{ asset('asset/images/Fill 7.png') }}" alt="Kronenbild" loading="lazy">
+                    <img src="{{ asset('asset/images/fill_7.png') }}" alt="Kronenbild" loading="lazy">
 
                     <h1 class="secondary-Heading">Worauf wartest du?</h1>
                     <p class="secondary-Paragraph">Starte jetzt kostenlos und mach dir das
@@ -673,7 +564,7 @@
                                         loading="lazy"> <img class="close-icon" data-bs-dismiss="modal" aria-label="Close"
                                         src="{{ asset('asset/images/ic_close1.png') }}" alt="Close" loading="lazy">
                                     <div class="text-center">
-                                        <img src="{{ asset('asset/images/Logo (2).png') }}" width="133" height="77"
+                                        <img src="{{ asset('asset/images/Logo_(2).png') }}" width="133" height="77"
                                             alt="Logo" loading="lazy">
                                     </div>
                                     <br />
@@ -701,8 +592,11 @@
 
                                                 <label class="label" for="password">Passwort:</label>
                                                 <div class="password-field">
-                                                    <input type="password" placeholder="Dein Passwort" name="password"
-                                                        id="password_login" class="emailLogin" autocomplete="current-password">
+                                                    <input type="password" placeholder="Dein Passwort" name="password" id="password_login" class="emailLogin" autocomplete="current-password">
+                                                    <span class="toggle-password" onclick="togglePasswordVisibility()">
+                                                        <img src="{{ asset('asset/images/eye.svg') }}"
+                                                            alt="Toggle Password Visibility" width="25" height="25">
+                                                    </span>
                                                 </div>
 
                                                 <input type="submit" value="Login" class="emailLogin">
@@ -713,6 +607,10 @@
                                                         <img src="{{ asset('asset/images/google.svg') }}" alt="Google"
                                                             loading="lazy">
                                                     </a>
+                                                </div>
+                                                <!-- Add the "Forgot Password?" link here -->
+                                                <div class="forgot-password">
+                                                    <a href="#" data-bs-toggle="modal" data-bs-target="#forgetModal">Passwort vergessen?</a>
                                                 </div>
                                             </div>
                                         </form>
@@ -739,7 +637,7 @@
                                         loading="lazy"> <img class="close-icon" data-bs-dismiss="modal" aria-label="Close"
                                         src="{{ asset('asset/images/ic_close1.png') }}" alt="Close" loading="lazy">
                                     <div class="text-center">
-                                        <img src="{{ asset('asset/images/Logo (2).png') }}" width="133" height="77"
+                                        <img src="{{ asset('asset/images/Logo_(2).png') }}" width="133" height="77"
                                             alt="Logo" loading="lazy">
                                     </div>
                                     <div class="main">
@@ -798,7 +696,6 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -812,11 +709,8 @@
                             <div class="modal-body p-0">
                                 <div class="button_payment_box">
                                     <a href="#" id="paypal_btn">Bezahlen mit <span>Pay</span><span>pal</span></a>
-                                    <!-- <a href="#" id="stripe_btn">Bezahlen mit Stripe</a> -->
-
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -826,40 +720,33 @@
                 <div class="modal fade" id="forgetModal" tabindex="-1" aria-labelledby="forgetModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
-
                             <div class="modal-body p-0">
                                 <div class="login_sec p-4 position-relative">
-                                    <img class="login_m1" src="{{ asset('asset/images/m1.svg') }}" alt=""
-                                        loading="lazy"> <img class="login_m2" src="{{ asset('asset/images/m2.svg') }}"
-                                        alt="" loading="lazy"> <img class="login_m3"
-                                        src="{{ asset('asset/images/m3.svg') }}" alt="" loading="lazy">
-                                    <img class="login_m4" src="{{ asset('asset/images/m4.svg') }}" alt=""
-                                        loading="lazy"> <img class="close-icon" data-bs-dismiss="modal" aria-label="Close"
-                                        src="{{ asset('asset/images/ic_close1.png') }}" alt="Close" loading="lazy">
+                                    <img class="login_m1" src="{{ asset('asset/images/m1.svg') }}" alt="" loading="lazy">
+                                    <img class="login_m2" src="{{ asset('asset/images/m2.svg') }}" alt="" loading="lazy">
+                                    <img class="login_m3" src="{{ asset('asset/images/m3.svg') }}" alt="" loading="lazy">
+                                    <img class="login_m4" src="{{ asset('asset/images/m4.svg') }}" alt="" loading="lazy">
+                                    <img class="close-icon" data-bs-dismiss="modal" aria-label="Close" src="{{ asset('asset/images/ic_close1.png') }}" alt="Close" loading="lazy">
                                     <div class="text-center">
-                                        <img src="{{ asset('asset/images/Logo (2).png') }}" width="133" height="77"
-                                            alt="Logo" loading="lazy">
+                                        <img src="{{ asset('asset/images/Logo_(2).png') }}" width="133" height="77" alt="Logo" loading="lazy">
                                         <h2 class="primary-heading-forget">Passwort vergessen?</h2>
                                     </div>
                                     <div class="main">
                                         <div class="emailInput">
-                                            <label for="email">Email:</label> <input type="email"
-                                                placeholder="Deine E-Mailadresse" name="email" id="email_reset" class="email"
-                                                autocomplete="email">
+                                            <label for="email">Email:</label>
+                                            <input type="email" placeholder="Deine E-Mailadresse" name="email" id="email_reset" class="email" autocomplete="email">
                                             <button id="resetButton">Zurücksetzen</button>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
 
                 <footer class="mainFooterContainer"> <!-- Klasse nicht definiert-->
                     <div class="footerContainer">
-                        <img id="footerLogo" src="{{ asset('asset/images/Logo (2).png') }}" width="133" height="77"
+                        <img id="footerLogo" src="{{ asset('asset/images/Logo_(2).png') }}" width="133" height="77"
                             alt="Logo " loading="lazy">
                         <div class="CenterContainer">
                             <div class="anchorTagsFooterContainer">
@@ -894,13 +781,43 @@
 
                 <script>
                     document.addEventListener("DOMContentLoaded", function() {
+
+                        // Password Reset Form Submission
+                        document.getElementById("resetButton").addEventListener("click", function(e) {
+                            e.preventDefault();
+                            var email = document.getElementById("email_reset").value;
+                            var formData = new FormData();
+                            formData.append('email', email);
+                            formData.append('_token', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
+
+                        fetch("{{ route('password.email') }}", {
+                            method: "POST",
+                            body: formData,
+                            headers: {
+                                'X-Requested-With': 'XMLHttpRequest',
+                            },
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.status === 'success') {
+                                alert("Ein Link zum Zurücksetzen des Passworts wurde an Ihre E-Mail-Adresse gesendet.");
+                                var forgetModal = bootstrap.Modal.getInstance(document.getElementById('forgetModal'));
+                                forgetModal.hide();
+                            } else {
+                                alert("Fehler beim Senden des Links zum Zurücksetzen des Passworts.");
+                            }
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                            });
+                        });
+
                         // Login Form Submission
                         document.getElementById("loginForm").addEventListener("submit", function(e) {
                             e.preventDefault();
                             var formData = new FormData(this);
-                            formData.append('_token', document.querySelector('meta[name="csrf-token"]').getAttribute(
-                                'content')); // Fügt das CSRF-Token zum FormData hinzu
-                            fetch("/postLogin", {
+                            formData.append('_token', document.querySelector('meta[name="csrf-token"]').getAttribute('content')); // Fügt das CSRF-Token zum FormData hinzu
+                            fetch("postLogin", {
                                     method: "POST",
                                     body: formData,
                                     headers: {
@@ -924,13 +841,12 @@
                         document.getElementById("registerForm").addEventListener("submit", function(e) {
                             e.preventDefault();
                             var formData = new FormData(this);
-                            fetch("/postRegistration", {
+                            fetch("postRegistration", {
                                     method: "POST",
                                     body: formData,
                                     headers: {
                                         'X-Requested-With': 'XMLHttpRequest', // Wichtig für Laravel, um AJAX-Anfragen zu erkennen
-                                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
-                                            .getAttribute('content') // CSRF-Token
+                                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') // CSRF-Token
                                     },
                                 })
                                 .then(response => response.json())
@@ -968,11 +884,11 @@
                             toast.ariaLive = 'assertive';
                             toast.ariaAtomic = 'true';
                             toast.innerHTML = `
-                <div class="d-flex">
-                    <div class="toast-body">${message}</div>
-                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-                </div>
-            `;
+                                <div class="d-flex">
+                                    <div class="toast-body">${message}</div>
+                                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                                </div>
+                            `;
                             document.body.appendChild(toast);
                             var bsToast = new bootstrap.Toast(toast, {
                                 delay: 3000
@@ -992,8 +908,7 @@
                             };
                             localStorage.setItem('cookieConsent', JSON.stringify(consent));
                             showToast('Ihre Cookie-Einstellungen wurden gespeichert.');
-                            var cookieModal = bootstrap.Modal.getInstance(document.getElementById(
-                                'cookieConsentModal'));
+                            var cookieModal = bootstrap.Modal.getInstance(document.getElementById('cookieConsentModal'));
                             cookieModal.hide();
                         });
 
@@ -1006,8 +921,7 @@
                             };
                             localStorage.setItem('cookieConsent', JSON.stringify(consent));
                             showToast('Ihre Cookie-Einstellungen wurden gespeichert.');
-                            var cookieModal = bootstrap.Modal.getInstance(document.getElementById(
-                                'cookieConsentModal'));
+                            var cookieModal = bootstrap.Modal.getInstance(document.getElementById('cookieConsentModal'));
                             cookieModal.hide();
                         });
 
@@ -1049,36 +963,10 @@
                             showSuccessMessage();
                             localStorage.removeItem('subscription_updated');
                         }
-                    });
 
-                    // Smooth scroll to top function
-                    function smoothScrollToTop() {
-                        const scrollDuration = 300; // Duration in ms
-                        const scrollStep = -window.scrollY / (scrollDuration / 15);
-                        const scrollInterval = setInterval(function() {
-                            if (window.scrollY !== 0) {
-                                window.scrollBy(0, scrollStep);
-                            } else {
-                                clearInterval(scrollInterval);
-                            }
-                        }, 15);
-                    }
-
-                    // Toggle Password Visibility
-                    function togglePasswordVisibility() {
                         const passwordInput = document.getElementById('password_register');
-                        const toggleIcon = document.querySelector('.toggle-password img');
-                        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-                        passwordInput.setAttribute('type', type);
-                        toggleIcon.src = type === 'password' ? "{{ asset('asset/images/eye.svg') }}" :
-                            "{{ asset('asset/images/eye-off.svg') }}";
-                    }
-                </script>
-                <script>
-                    document.addEventListener("DOMContentLoaded", function() {
-                        const passwordInput = document.getElementById('password_register');
+                        const passwordCriteria = document.getElementById('passwordCriteria');
                         if (passwordInput) {
-                            const passwordCriteria = document.getElementById('passwordCriteria');
                             const criteria = {
                                 length: document.getElementById('lengthCriteria'),
                                 uppercase: document.getElementById('uppercaseCriteria'),
@@ -1098,14 +986,46 @@
                                 criteria.uppercase.classList.toggle('text-danger', !/[A-Z]/.test(password));
                                 criteria.number.classList.toggle('text-success', /\d/.test(password));
                                 criteria.number.classList.toggle('text-danger', !/\d/.test(password));
-                                criteria.specialChar.classList.toggle('text-success', /[!@#$%^&*(),.?":{}|<>]/.test(
-                                    password));
-                                criteria.specialChar.classList.toggle('text-danger', !/[!@#$%^&*(),.?":{}|<>]/.test(
-                                    password));
+                                criteria.specialChar.classList.toggle('text-success', /[!@#$%^&*(),.?":{}|<>]/.test(password));
+                                criteria.specialChar.classList.toggle('text-danger', !/[!@#$%^&*(),.?":{}|<>]/.test(password));
                             });
                         }
                     });
-                </script>
-            </body>
 
-            </html>
+                    // Smooth scroll to top function
+                    function smoothScrollToTop() {
+                        const scrollDuration = 300; // Duration in ms
+                        const scrollStep = -window.scrollY / (scrollDuration / 15);
+                        const scrollInterval = setInterval(function() {
+                            if (window.scrollY !== 0) {
+                                window.scrollBy(0, scrollStep);
+                            } else {
+                                clearInterval(scrollInterval);
+                            }
+                        }, 15);
+                    }
+
+                    // Toggle Password Visibility
+                    function togglePasswordVisibility() {
+                        const passwordRegisterInput = document.getElementById('password_register');
+                        const passwordLoginInput = document.getElementById('password_login');
+                        const toggleIcons = document.querySelectorAll('.toggle-password img');
+
+                        if (passwordRegisterInput) {
+                            const type = passwordRegisterInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                            passwordRegisterInput.setAttribute('type', type);
+                            toggleIcons[0].src = type === 'password' ? "{{ asset('asset/images/eye.svg') }}" : "{{ asset('asset/images/eye-off.svg') }}";
+                        }
+
+                        if (passwordLoginInput) {
+                            const type = passwordLoginInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                            passwordLoginInput.setAttribute('type', type);
+                            toggleIcons[1].src = type === 'password' ? "{{ asset('asset/images/eye.svg') }}" : "{{ asset('asset/images/eye-off.svg') }}";
+                        }
+                    }
+
+                    
+                </script>
+</body>
+
+</html>
