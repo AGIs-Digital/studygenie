@@ -225,7 +225,7 @@
     </section>
 
     <!-- Download Button -->
-    <form action="{{ route('motivation.download-pdf') }}" method="POST" id="downloadForm">
+    <form action="{{ route('karriere.motivation.download-pdf') }}" method="POST" id="downloadForm">
         @csrf
         <input type="hidden" name="pdf_content" id="pdf_content">
         <button type="submit" class="save_folder" onclick="updatePdfContent()">
@@ -277,7 +277,7 @@
                 // Ladezeichen anzeigen
                 $("#submitForm").addClass('loading-button').text("Zaubert...");
                 $.ajax({
-                    url: "{{ route('motivation.generate') }}",
+                    url: route('karriere.motivation.generate'),
                     type: "POST",
                     data: formData,
                     processData: false,

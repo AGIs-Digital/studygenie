@@ -73,7 +73,7 @@
                         </filter>
                     </defs>
                 </svg>
-            </a> <a href="/motivationsschreiben" class="Cloud_Karriere" id="textInspirationCloud2"> <svg
+            </a> <a href="{{ route('karriere.motivation') }}" class="Cloud_Karriere" id="textInspirationCloud2"> <svg
                     xmlns="http://www.w3.org/2000/svg" width="245" height="167" viewBox="0 0 245 167"
                     fill="none">
                     <g filter="url(#filter0_d_168_754)">

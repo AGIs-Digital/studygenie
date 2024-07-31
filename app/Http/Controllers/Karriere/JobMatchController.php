@@ -25,7 +25,7 @@ class JobMatchController extends Controller
      */
     public function create()
     {
-        //
+        return view('karriere.job_match');
     }
 
     /**
