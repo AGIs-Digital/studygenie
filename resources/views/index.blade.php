@@ -458,7 +458,12 @@
                             <button data-bs-toggle="modal" data-bs-target="#signupModal" class="plancardButton">Hol dir
                                 Gold</button>
                         @else
-                            @if (auth()->user()->subscription_name == 'gold' && $check)
+                            @php
+                                $check = false;
+                                $date = auth()->user()->expire_date;
+                                if ($date != null && \Carbon\Carbon::parse($date)->gt(\Carbon\Carbon::now())) {
+                                    $check = true;
+                            } @endphp @if (auth()->user()->subscription_name == 'gold' && $check)
                                 <button class="plancardButton" disabled>Hol dir Gold</button>
                             @else
                                 <button onclick="setModel('{{ route('paypal.payment', 'gold') }}')"
@@ -853,7 +858,8 @@
                                 .then(data => {
                                     if (data.status === 'success') {
                                         alert(
-                                            "Ein Link zum Zurücksetzen des Passworts wurde an Ihre E-Mail-Adresse gesendet.");
+                                            "Ein Link zum Zurücksetzen des Passworts wurde an Ihre E-Mail-Adresse gesendet."
+                                            );
                                         var forgetModal = bootstrap.Modal.getInstance(document.getElementById(
                                             'forgetModal'));
                                         forgetModal.hide();
@@ -965,7 +971,7 @@
                             localStorage.setItem('cookieConsent', JSON.stringify(consent));
                             showToast('Ihre Cookie-Einstellungen wurden gespeichert.');
                             var cookieModal = bootstrap.Modal.getInstance(document.getElementById(
-                            'cookieConsentModal'));
+                                'cookieConsentModal'));
                             cookieModal.hide();
                         });
 
@@ -979,7 +985,7 @@
                             localStorage.setItem('cookieConsent', JSON.stringify(consent));
                             showToast('Ihre Cookie-Einstellungen wurden gespeichert.');
                             var cookieModal = bootstrap.Modal.getInstance(document.getElementById(
-                            'cookieConsentModal'));
+                                'cookieConsentModal'));
                             cookieModal.hide();
                         });
 
