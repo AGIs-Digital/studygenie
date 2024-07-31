@@ -8,27 +8,17 @@
     <style>
         .remove-entry {
             color: white;
-            /* Schriftfarbe Weiß */
             background-color: #E74C3C;
-            /* Modernes Rot */
             border-radius: 50%;
-            /* Kreisform */
             cursor: pointer;
             margin-left: 10px;
             padding: 5px 8px;
-            /* Polsterung für bessere Form */
             font-size: 14px;
-            /* Lesbare Schriftgröße */
             font-weight: bold;
-            /* Fettgedruckte Schrift */
             display: inline-block;
-            /* Korrekte Anzeige als Button */
             text-align: center;
-            /* Zentrierter Text */
             line-height: 1;
-            /* Linienhöhe für vertikale Zentrierung */
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-            /* Schatten für 3D-Effekt */
         }
 
         .entry p {
@@ -56,9 +46,7 @@
             margin-right: 3rem;
             background-color: #f8f8f8;
             height: 100%;
-            /* Höhe auf 100% der Ansichtshöhe setzen */
             overflow-y: auto;
-            /* Scrollen ermöglichen, falls Inhalt zu groß ist */
         }
     </style>
 </head>

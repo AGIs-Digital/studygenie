@@ -122,7 +122,7 @@
                                             oninput="this.style.height = '';this.style.height = this.scrollHeight + 'px'"></textarea>
                                     </div>
                                 </div>
-                                <button type="submit" class="send_button" id="submitForm">Magie</button>
+                                <button type="submit" class="send_button" id="submitForm">Absenden</button>
                             </div>
 
                         </div>
@@ -243,7 +243,7 @@
                     success: function(response) {
                         conversation_id = response.message.conversation_id;
                         //Ladezeichen entfernen
-                        $("#submitForm").removeClass('loading-button').text("Magie");
+                        $("#submitForm").removeClass('loading-button').text("Absenden");
                         textToType = response.message.content.replace(/\n/g, " <br> ");
                         $('#typed-text').empty();
                         let checks = response.message.content.split('\n');
@@ -255,7 +255,7 @@
                     error: function(xhr, status, error) {
                         console.error("Ein Fehler ist aufgetreten: " + error);
                         //Ladezeichen entfernen
-                        $("#submitForm").removeClass('loading-button').text("Magie");
+                        $("#submitForm").removeClass('loading-button').text("Absenden");
                     }
                 });
             });

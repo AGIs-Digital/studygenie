@@ -6,9 +6,120 @@
     @include('includes.head')
     <link rel="stylesheet" href="{{ asset('asset/css/HomePage.css') }}">
     <link rel="stylesheet" href="{{ asset('asset/css/cookie-consent.css') }}">
+    <style>
+        .hidden {
+            display: none;
+        }
+
+        .visible {
+            display: block;
+        }
+
+        .text-success {
+            color: green;
+        }
+
+        .text-danger {
+            color: red;
+        }
+
+        .password-field {
+            position: relative;
+        }
+
+        .toggle-password {
+            position: absolute;
+            top: 50%;
+            right: 1.5rem;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+
+        .toggle-password img {
+            width: 23px;
+            height: 23px;
+        }
+
+        .criteria-container {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .criteria-row {
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .criteria-row p {
+            margin: 0;
+            white-space: nowrap;
+            width: 100%;
+        }
+
+        .text-success .checkmark {
+            color: green;
+            animation: highlight 3.5s ease-in-out;
+        }
+
+        .text-danger .checkmark {
+            color: red;
+        }
+
+        @keyframes highlight {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .arrow-up {
+            position: fixed;
+            bottom: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 50px;
+            background-color: #212529;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+            z-index: 1000;
+        }
+
+        .arrow-up.hidden {
+            display: none;
+        }
+
+        .arrow-up:hover {
+            opacity: 1;
+        }
+
+        .arrow-up img {
+            width: 30px;
+            height: 30px;
+        }
+    </style>
 </head>
 
 <body class="MainContainer">
+
+    <!-- Arrow Up Button -->
+    <div class="arrow-up hidden" id="arrowUpContainer">
+        <img src="{{ asset('asset/images/arrow-up.svg') }}" id="arrowUp" class="hidden" alt="Nach oben">
+    </div>
 
     <!-- Cookie Consent Modal -->
     <div id="cookieConsentModal" class="modal fade" tabindex="-1" aria-labelledby="cookieConsentModalLabel"
@@ -26,21 +137,15 @@
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" value="necessary" id="necessaryCookies"
                                 checked disabled>
-                            <label class="form-check-label" for="necessaryCookies">
-                                Notwendige Cookies
-                            </label>
+                            <label class="form-check-label" for="necessaryCookies">Notwendige Cookies</label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" value="analytics" id="analyticsCookies">
-                            <label class="form-check-label" for="analyticsCookies">
-                                Analytische Cookies
-                            </label>
+                            <label class="form-check-label" for="analyticsCookies">Analytische Cookies</label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" value="marketing" id="marketingCookies">
-                            <label class="form-check-label" for="marketingCookies">
-                                Marketing Cookies
-                            </label>
+                            <label class="form-check-label" for="marketingCookies">Marketing Cookies</label>
                         </div>
                     </form>
                 </div>
@@ -52,8 +157,6 @@
             </div>
         </div>
     </div>
-
-
 
     <header class="headerContainer">
         <div class="container">
@@ -72,49 +175,32 @@
                             <ul class="navbar-nav mx-auto mb-2 mb-lg-0 anchorTagsContainer">
                                 <li class="nav-item"><a class="nav-link anchor active" aria-current="page"
                                         href="/">Home</a></li>
-                                <li class="nav-item"><a class="nav-link  anchor" href="/tools">Tools</a>
-                                </li>
-
-                                <li class="nav-item"><a class="nav-link anchor" href="/profile">Profil</a>
-                                </li>
-                                <li class="nav-item"><a class="nav-link anchor" href="/archive">Archiv</a>
-                                </li>
+                                <li class="nav-item"><a class="nav-link anchor" href="/tools">Tools</a></li>
+                                <li class="nav-item"><a class="nav-link anchor" href="/profile">Profil</a></li>
+                                <li class="nav-item"><a class="nav-link anchor" href="/archive">Archiv</a></li>
                             </ul>
                         @endguest
 
                         <ul class="navbar-nav ms-auto">
-                            <!-- Authentication Links -->
                             @guest
-
-                                <li class="nav-item"><a class="nav-link blog primary-button"
-                                        href="#">{{ __('Blog') }}</a></li>
-
-
-
                                 <li class="nav-item">
                                     <button class="primary-button" data-bs-toggle="modal" data-bs-target="#loginModal"
                                         id="loginButton">Log In</button>
-
                                 </li>
                             @else
-                                <li class="nav-item"><a class="nav-link blog primary-button"
-                                        href="#">{{ __('Blog') }}</a></li>
-                                <li class="nav-item dropdown"><a id="navbarDropdown" class="nav-link dropdown-toggle"
-                                        href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true"
-                                        aria-expanded="false" v-pre> {{ Auth::user()->name }} </a>
-
+                                <li class="nav-item dropdown">
+                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                        {{ Auth::user()->name }} </a>
                                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="{{ route('logout') }}"
-                                            onclick="event.preventDefault();
-                                                 document.getElementById('logout-form').submit();">
-                                            {{ __('Logout') }} </a>
-
+                                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                             class="d-none">@csrf</form>
                                     </div>
-                            </li> @endguest
+                                </li>
+                            @endguest
                         </ul>
-
                     </div>
                 </div>
             </nav>
@@ -122,19 +208,13 @@
 
         <div class="container">
             <div class="mainImageContantContainer">
-
                 <div class="contentContainer">
                     <h1 class="primary-heading">
-                        <u>Bildung & Karriere</u></br> neu gedacht, mit</br> Genie
-                        gemacht!
+                        <u>Bildung & Karriere</u></br> neu gedacht, mit</br> Genie gemacht!
                     </h1>
-
-                    <p class="primary-paragraph">
-                        Chancengleichheit in Schule,</br>Studium und Karriere
-                    </p>
+                    <p class="primary-paragraph">Chancengleichheit in Schule,</br>Studium und Karriere</p>
                     <img src="{{ asset('asset/images/23.1.png') }}" alt="Z Design Illustration" loading="lazy">
                 </div>
-
                 <div class="imageContainer">
                     <img src="{{ asset('asset/images/illustrations/heroImage.svg') }}" alt="Hauptbild"
                         loading="lazy">
@@ -148,17 +228,12 @@
     </header>
 
     <section class="learnAnythingSection">
-        <img class="crownImg" src="{{ asset('asset/images/Fill_7.png') }}" alt="Kronenbild" loading="lazy">
-
+        <img class="crownImg" src="{{ asset('asset/images/fill_7.png') }}" alt="Kronenbild" loading="lazy">
         <h1 class="secondary-Heading">Gemeinsam schaffen wir das</h1>
-
-        <p class="secondary-Paragraph">Wir unterstützen dich in der Schule, im
-            Studium und im Berufsstart.</p>
-
+        <p class="secondary-Paragraph">Wir unterstützen dich in der Schule, im Studium und im Berufsstart.</p>
         <div class="video_sec">
-            <video controls id="home_video" loading="lazy">
-                <source src="{{ asset('asset/Videos/video.mp4') }}" type="video/mp4">
-                <source src="{{ asset('asset/Videos/video.mp4') }}" type="video/ogg">
+            <video controls id="home_video" loading="lazy" preload="metadata">
+                <source src="{{ asset('asset/Videos/video_klein.mp4') }}" type="video/mp4">
                 Ihr Browser unterstützt das Video-Tag nicht.
             </video>
             <script>
@@ -169,58 +244,47 @@
             <img class="learnAnythingImage" src="{{ asset('asset/images/pic_mac_book.png') }}" alt="Mac Book Bild"
                 loading="lazy">
         </div>
-
         <div class="buttonContainer">
             <img src="{{ asset('asset/images/69.png') }}" alt="Vorwärtspfeil" loading="lazy">
-
             <button data-bs-toggle="modal" data-bs-target="#signupModal" class="plancardButton">Jetzt
                 starten</button>
-
             <img src="{{ asset('asset/images/68.png') }}" alt="Rückwärtspfeil" loading="lazy">
         </div>
     </section>
 
     <section class="MathrixSection">
         <img src="{{ asset('asset/images/23.png') }}" alt="Z Design" loading="lazy">
-
         <h1 class="secondary-Heading">Was wir noch können</h1>
-
         <div class="testomnialDivision">
-
             <div class="testimonialCard">
                 <img src="{{ asset('asset/images/illustrations/Deine_professionelle_Bewerbung.png') }}"
-                    alt="Testimonial Card" loading="lazy"> <span class="CardThumbnailSpan">Karrierecoaching und
-                    Bewerbung</span>
+                    alt="Testimonial Card" loading="lazy">
+                <span class="CardThumbnailSpan">Karrierecoaching und Bewerbung</span>
             </div>
             <div class="testimonialCard">
                 <img src="{{ asset('asset/images/illustrations/Der_perfekte_Lernplan_fuer_dich.png') }}"
-                    alt="Testimonial Card" loading="lazy"> <span class="CardThumbnailSpan">Individuelle
-                    Lernhilfe</span>
+                    alt="Testimonial Card" loading="lazy">
+                <span class="CardThumbnailSpan">Individuelle Lernhilfe</span>
             </div>
             <div class="testimonialCard">
                 <img src="{{ asset('asset/images/illustrations/Alles_wichtige_ueber_deine_Traumberufe.png') }}"
-                    alt="Testimonial Card" loading="lazy"> <span class="CardThumbnailSpan">Deinen Traumberuf
-                    finden</span>
+                    alt="Testimonial Card" loading="lazy">
+                <span class="CardThumbnailSpan">Deinen Traumberuf finden</span>
             </div>
         </div>
-
         <div class="buttonContainer MathrixButtonContainer">
             <img src="{{ asset('asset/images/71.png') }}" alt="Vorwärtspfeil" loading="lazy">
-
             <button data-bs-toggle="modal" data-bs-target="#signupModal" class="plancardButton">Lege jetzt
                 los</button>
-
             <img src="{{ asset('asset/images/70.png') }}" alt="Rückwärtspfeil" loading="lazy">
         </div>
     </section>
 
     <section class="witnessSection">
         <div class="container">
-            <img class="crownImg mb-2" src="{{ asset('asset/images/Fill_7.png') }}" alt="Kronenbild"
+            <img class="crownImg mb-2" src="{{ asset('asset/images/fill_7.png') }}" alt="Kronenbild"
                 loading="lazy">
-
             <h1 class="secondary-Heading mb-2">Sie liebens!</h1>
-
             <div class="MainCardsContainer">
                 <div class="CardDiv">
                     <img class="shadowOfCard" src="{{ asset('asset/images/Vector_2.png') }}"
@@ -230,11 +294,10 @@
                             loading="lazy">
                         <div class="thumbnail-Content-Container">
                             <img src="{{ asset('asset/images/illustrations/lukeg.png') }}" alt="Thumbnail Luke G."
-                                loading="lazy"> <span class="thumbnailDescription">Luke G.</span>
+                                loading="lazy">
+                            <span class="thumbnailDescription">Luke G.</span>
                         </div>
-                        « Ich habe jetzt einen klaren Überblick und kann genau fragen was
-                        noch nicht verstanden habe »
-                        </p>
+                        « Ich habe jetzt einen klaren Überblick und kann genau fragen was noch nicht verstanden habe »
                     </div>
                 </div>
                 <div class="CardDiv">
@@ -243,26 +306,24 @@
                     <div class="card card2">
                         <div class="thumbnail-Content-Container">
                             <img class="quoteMarks" src="{{ asset('asset/images/ic.png') }}" alt="Zitatzeichen"
-                                loading="lazy"> <img src="{{ asset('asset/images/illustrations/julias.png') }}"
-                                alt="Thumbnail Julia S." loading="lazy"> <span class="thumbnailDescription">Julia
-                                S.</span>
-
+                                loading="lazy">
+                            <img src="{{ asset('asset/images/illustrations/julias.png') }}" alt="Thumbnail Julia S."
+                                loading="lazy">
+                            <span class="thumbnailDescription">Julia S.</span>
                         </div>
-
                         « Mit StudyGenie fällt mir Lernen leichter und macht Spaß. »
-                        </p>
                     </div>
                 </div>
-
                 <div class="CardDiv">
                     <img class="shadowOfCard3" src="{{ asset('asset/images/3rd_Card_bg.png') }}"
                         alt="3rd Card Hintergrund" loading="lazy">
                     <div class="card">
                         <div class="thumbnail-Content-Container">
                             <img class="quoteMarks" src="{{ asset('asset/images/ic.png') }}" alt="Zitatzeichen"
-                                loading="lazy"> <img src="{{ asset('asset/images/illustrations/alexm.png') }}"
-                                alt="Thumbnail Alex M." loading="lazy"> <span class="thumbnailDescription">Alex
-                                M.</span>
+                                loading="lazy">
+                            <img src="{{ asset('asset/images/illustrations/alexm.png') }}" alt="Thumbnail Alex M."
+                                loading="lazy">
+                            <span class="thumbnailDescription">Alex M.</span>
                         </div>
                         « StudyGenie ist einfach nice. Ich kann so lernen wie ich will! »
                     </div>
@@ -273,23 +334,21 @@
 
     <section class="tutorialSection">
         <div class="container">
-            <img class="crownImg mb-2" src="{{ asset('asset/images/Fill_7.png') }}" alt="Kronenbild"
+            <img class="crownImg mb-2" src="{{ asset('asset/images/fill_7.png') }}" alt="Kronenbild"
                 loading="lazy">
-
             <h1 class="secondary-Heading mb-2">Wünsch dir was</h1>
-
             <div class="cardsContainer">
                 <div class="parent-card">
                     <div class="cards">
                         <img src="{{ asset('asset/images/illustrations/Berufsinformationen.png') }}" width="90"
-                            height="90" alt="Berufsinformationen " loading="lazy">
+                            height="90" alt="Berufsinformationen" loading="lazy">
                         <p class="cardPara">Berufsinformationen</p>
                     </div>
                 </div>
                 <div class="parent-card">
                     <div class="cards">
                         <img src="{{ asset('asset/images/illustrations/Bewerbungscoach.png') }}" width="90"
-                            height="90" alt="Bewerbungscoach " loading="lazy">
+                            height="90" alt="Bewerbungscoach" loading="lazy">
                         <p class="cardPara">Bewerbungscoach</p>
                     </div>
                 </div>
@@ -310,11 +369,10 @@
                 <div class="parent-card">
                     <div class="cards">
                         <img src="{{ asset('asset/images/illustrations/Motivationsschreiben.png') }}" width="90"
-                            height="90" alt="Motivationsschreiben " loading="lazy">
+                            height="90" alt="Motivationsschreiben" loading="lazy">
                         <p class="cardPara">Motivationsschreiben</p>
                     </div>
                 </div>
-
                 <div class="parent-card">
                     <div class="cards">
                         <img src="{{ asset('asset/images/illustrations/Textinspiration.png') }}" width="90"
@@ -322,7 +380,6 @@
                         <p class="cardPara">Textinspiration</p>
                     </div>
                 </div>
-
                 <div class="parent-card">
                     <div class="cards">
                         <img src="{{ asset('asset/images/illustrations/Textkorrekturen.png') }}" width="90"
@@ -330,7 +387,6 @@
                         <p class="cardPara">Textkorrekturen</p>
                     </div>
                 </div>
-
                 <div class="parent-card">
                     <div class="cards">
                         <img src="{{ asset('asset/images/illustrations/Übungsklausur.png') }}" width="90"
@@ -341,38 +397,34 @@
             </div>
         </div>
     </section>
+
     <div align="center">
         <img src="{{ asset('asset/images/23.png') }}" alt="Ein zentriertes Bild" loading="lazy">
     </div>
+
     <section class="planCardsSection">
-
-
         <h1 class="secondary-Heading planCardHeading">Dein persönlicher Genie</h1>
-
         <div class="planCardsContainer">
             <img id="upperDesign" src="{{ asset('asset/images/patterns.png') }}" alt="Oberes Design"
                 loading="lazy">
             <div class="planCard">
                 <div class="discountSticekr">
                     <img src="{{ asset('asset/images/Star_2.png') }}" alt="Rabattsticker" id="discountStickerImg"
-                        loading="lazy"> <span id="discountPercent">FREE</span>
+                        loading="lazy">
+                    <span id="discountPercent">FREE</span>
                 </div>
                 <div class="headerPlanCard">
                     <img class="crownImg" src="{{ asset('asset/images/illustrations/silber2.png') }}"
                         alt="Kronenbild Silber" loading="lazy">
-
                     <h1 class="secondary-Heading" style="color: #fff">Silber</h1>
-
                 </div>
                 <div class="contentPlanCard contentPlanCard1">
-
                     <span class="highWeightSpan">0 €<span class="lowWeightSpan"> mtl.</span></span>
                     <p class="planCardParagraph">
                         ✓ Intelligente Soforthilfe<br /> ✓ Traumberuf finden<br />✓ Berufsinformationen<br /> ✘
-                        Textinspirationen<br /> ✘ Textanalyse<br />
-                        ✘ Bewerbungsunterlagen<br /> ✘ Lerncoach<br /> ✘ Bewerbungstrainer
+                        Textinspirationen<br /> ✘ Textanalyse<br /> ✘ Bewerbungsunterlagen<br /> ✘ Lerncoach<br /> ✘
+                        Bewerbungstrainer
                     </p>
-
                     @guest
                         <button data-bs-toggle="modal" data-bs-target="#signupModal" class="plancardButton">Jetzt
                             ausprobieren</button>
@@ -414,8 +466,8 @@
                             } @endphp @if (auth()->user()->subscription_name == 'gold' && $check)
                                 <button class="plancardButton" disabled>Hol dir Gold</button>
                             @else
-                                <button onclick="setModel('{{ route('paypal.payment', 'gold') }}'" class="plancardButton">Hol
-                                    dir Gold</button>
+                                <button onclick="setModel('{{ route('paypal.payment', 'gold') }}')"
+                                    class="plancardButton">Hol dir Gold</button>
                             @endif @endguest
                         </div>
                         <br />
@@ -454,7 +506,7 @@
                 </section>
 
                 <section class="joinNowSection">
-                    <img src="{{ asset('asset/images/Fill_7.png') }}" alt="Kronenbild" loading="lazy">
+                    <img src="{{ asset('asset/images/fill_7.png') }}" alt="Kronenbild" loading="lazy">
 
                     <h1 class="secondary-Heading">Worauf wartest du?</h1>
                     <p class="secondary-Paragraph">Starte jetzt kostenlos und mach dir das
@@ -589,16 +641,25 @@
                                                 <div class="password-field">
                                                     <input type="password" placeholder="Dein Passwort" name="password"
                                                         id="password_login" class="emailLogin" autocomplete="current-password">
+                                                    <span class="toggle-password" onclick="togglePasswordVisibility()">
+                                                        <img src="{{ asset('asset/images/eye.svg') }}"
+                                                            alt="Toggle Password Visibility" width="25" height="25">
+                                                    </span>
                                                 </div>
 
                                                 <input type="submit" value="Login" class="emailLogin">
 
                                                 <div class="or">
                                                     oder anmelden über
-                                                    <a href="{{ url('login/google') }}">
+                                                    <a href="{{ url('login/google') }}" id="google-login">
                                                         <img src="{{ asset('asset/images/google.svg') }}" alt="Google"
                                                             loading="lazy">
                                                     </a>
+                                                </div>
+                                                <!-- Add the "Forgot Password?" link here -->
+                                                <div class="forgot-password">
+                                                    <a href="#" data-bs-toggle="modal"
+                                                        data-bs-target="#forgetModal">Passwort vergessen?</a>
                                                 </div>
                                             </div>
                                         </form>
@@ -636,8 +697,8 @@
                                                 <div id="errors-list" class="mx-auto"></div>
                                                 <div class="emailField">
                                                     <label class="label" for="name">Name:</label> <input type="text"
-                                                        placeholder="Wie möchtest du genannt werden?" name="name"
-                                                        id="name_register" class="emailLogin" autocomplete="name">
+                                                        placeholder="Wie heißt du?" name="name" id="name_register"
+                                                        class="emailLogin" autocomplete="name">
                                                 </div>
 
                                                 <div class="emailField">
@@ -648,10 +709,27 @@
                                                 </div>
                                                 <label class="label" for="password">Passwort:</label>
                                                 <div class="password-field">
-                                                    <input type="password" placeholder="Dein Wunschpasswort" name="password"
-                                                        id="password_register" class="emailLogin" autocomplete="new-password">
+                                                    <input type="password" id="password_register" name="password"
+                                                        placeholder="Dein Wunschpasswort" class="emailLogin">
+                                                    <span class="toggle-password" onclick="togglePasswordVisibility()">
+                                                        <img src="{{ asset('asset/images/eye.svg') }}"
+                                                            alt="Toggle Password Visibility" width="25" height="25">
+                                                    </span>
                                                 </div>
-
+                                                <div id="passwordCriteria" class="criteria-container mt-2">
+                                                    <div class="criteria-row">
+                                                        <p id="lengthCriteria" class="text-danger"><span
+                                                                class="checkmark">✔</span> 8 Zeichen</p>
+                                                        <p id="uppercaseCriteria" class="text-danger"><span
+                                                                class="checkmark">✔</span> 1 Großbuchstabe</p>
+                                                    </div>
+                                                    <div class="criteria-row">
+                                                        <p id="numberCriteria" class="text-danger"><span
+                                                                class="checkmark">✔</span> 1 Zahl</p>
+                                                        <p id="specialCharCriteria" class="text-danger"><span
+                                                                class="checkmark">✔</span> 1 Sonderzeichen</p>
+                                                    </div>
+                                                </div>
 
                                                 <input type="submit" value="Registrieren" class="emailLogin">
                                                 <div class="or">
@@ -667,7 +745,6 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -681,11 +758,8 @@
                             <div class="modal-body p-0">
                                 <div class="button_payment_box">
                                     <a href="#" id="paypal_btn">Bezahlen mit <span>Pay</span><span>pal</span></a>
-                                    <!-- <a href="#" id="stripe_btn">Bezahlen mit Stripe</a> -->
-
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -695,15 +769,17 @@
                 <div class="modal fade" id="forgetModal" tabindex="-1" aria-labelledby="forgetModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
-
                             <div class="modal-body p-0">
                                 <div class="login_sec p-4 position-relative">
                                     <img class="login_m1" src="{{ asset('asset/images/m1.svg') }}" alt=""
-                                        loading="lazy"> <img class="login_m2" src="{{ asset('asset/images/m2.svg') }}"
-                                        alt="" loading="lazy"> <img class="login_m3"
-                                        src="{{ asset('asset/images/m3.svg') }}" alt="" loading="lazy">
+                                        loading="lazy">
+                                    <img class="login_m2" src="{{ asset('asset/images/m2.svg') }}" alt=""
+                                        loading="lazy">
+                                    <img class="login_m3" src="{{ asset('asset/images/m3.svg') }}" alt=""
+                                        loading="lazy">
                                     <img class="login_m4" src="{{ asset('asset/images/m4.svg') }}" alt=""
-                                        loading="lazy"> <img class="close-icon" data-bs-dismiss="modal" aria-label="Close"
+                                        loading="lazy">
+                                    <img class="close-icon" data-bs-dismiss="modal" aria-label="Close"
                                         src="{{ asset('asset/images/ic_close1.png') }}" alt="Close" loading="lazy">
                                     <div class="text-center">
                                         <img src="{{ asset('asset/images/Logo_(2).png') }}" width="133" height="77"
@@ -712,16 +788,14 @@
                                     </div>
                                     <div class="main">
                                         <div class="emailInput">
-                                            <label for="email">Email:</label> <input type="email"
-                                                placeholder="Deine E-Mailadresse" name="email" id="email_reset" class="email"
-                                                autocomplete="email">
+                                            <label for="email">Email:</label>
+                                            <input type="email" placeholder="Deine E-Mailadresse" name="email"
+                                                id="email_reset" class="email" autocomplete="email">
                                             <button id="resetButton">Zurücksetzen</button>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -760,14 +834,51 @@
                 <script src="{{ asset('asset/js/index.js') }}"></script>
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
                 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
                 <script>
                     document.addEventListener("DOMContentLoaded", function() {
+
+                        // Password Reset Form Submission
+                        document.getElementById("resetButton").addEventListener("click", function(e) {
+                            e.preventDefault();
+                            var email = document.getElementById("email_reset").value;
+                            var formData = new FormData();
+                            formData.append('email', email);
+                            formData.append('_token', document.querySelector('meta[name="csrf-token"]').getAttribute(
+                                'content'));
+
+                            fetch("{{ route('password.email') }}", {
+                                    method: "POST",
+                                    body: formData,
+                                    headers: {
+                                        'X-Requested-With': 'XMLHttpRequest',
+                                    },
+                                })
+                                .then(response => response.json())
+                                .then(data => {
+                                    if (data.status === 'success') {
+                                        alert(
+                                            "Ein Link zum Zurücksetzen des Passworts wurde an Ihre E-Mail-Adresse gesendet."
+                                            );
+                                        var forgetModal = bootstrap.Modal.getInstance(document.getElementById(
+                                            'forgetModal'));
+                                        forgetModal.hide();
+                                    } else {
+                                        alert("Fehler beim Senden des Links zum Zurücksetzen des Passworts.");
+                                    }
+                                })
+                                .catch(error => {
+                                    console.error('Error:', error);
+                                });
+                        });
+
+                        // Login Form Submission
                         document.getElementById("loginForm").addEventListener("submit", function(e) {
                             e.preventDefault();
                             var formData = new FormData(this);
                             formData.append('_token', document.querySelector('meta[name="csrf-token"]').getAttribute(
                                 'content')); // Fügt das CSRF-Token zum FormData hinzu
-                            fetch("/postLogin", {
+                            fetch("postLogin", {
                                     method: "POST",
                                     body: formData,
                                     headers: {
@@ -786,13 +897,12 @@
                                     console.error('Error:', error);
                                 });
                         });
-                    });
 
-                    document.addEventListener("DOMContentLoaded", function() {
+                        // Register Form Submission
                         document.getElementById("registerForm").addEventListener("submit", function(e) {
                             e.preventDefault();
                             var formData = new FormData(this);
-                            fetch("/postRegistration", {
+                            fetch("postRegistration", {
                                     method: "POST",
                                     body: formData,
                                     headers: {
@@ -804,6 +914,9 @@
                                 .then(response => response.json())
                                 .then(data => {
                                     if (data.status === true) {
+                                        if (data.subscription_updated) {
+                                            localStorage.setItem('subscription_updated', 'true');
+                                        }
                                         window.location.href = data.redirect;
                                     } else {
                                         alert("Fehler beim Login.");
@@ -813,22 +926,19 @@
                                     console.error('Error:', error);
                                 });
                         });
-                    });
 
-                    document.getElementById('facebook-login').addEventListener('click', function() {
-                        window.location.href = "{{ url('login/facebook') }}";
-                    });
+                        // Google Login
+                        document.getElementById('google-login').addEventListener('click', function() {
+                            window.location.href = "{{ url('login/google') }}";
+                        });
 
-                    document.getElementById('google-login').addEventListener('click', function() {
-                        window.location.href = "{{ url('login/google') }}";
-                    });
-
-                    document.addEventListener("DOMContentLoaded", function() {
+                        // Cookie Consent Modal
                         if (!localStorage.getItem('cookieConsent')) {
                             var cookieModal = new bootstrap.Modal(document.getElementById('cookieConsentModal'));
                             cookieModal.show();
                         }
 
+                        // Show Toast Message
                         function showToast(message) {
                             var toast = document.createElement('div');
                             toast.className = 'toast align-items-center text-white bg-primary border-0';
@@ -836,11 +946,11 @@
                             toast.ariaLive = 'assertive';
                             toast.ariaAtomic = 'true';
                             toast.innerHTML = `
-            <div class="d-flex">
-                <div class="toast-body">${message}</div>
-                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
-        `;
+                                <div class="d-flex">
+                                    <div class="toast-body">${message}</div>
+                                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                                </div>
+                            `;
                             document.body.appendChild(toast);
                             var bsToast = new bootstrap.Toast(toast, {
                                 delay: 3000
@@ -851,6 +961,7 @@
                             });
                         }
 
+                        // Accept Cookies
                         document.getElementById('acceptCookies').addEventListener('click', function() {
                             var consent = {
                                 necessary: true,
@@ -864,6 +975,7 @@
                             cookieModal.hide();
                         });
 
+                        // Decline Cookies
                         document.getElementById('declineCookies').addEventListener('click', function() {
                             var consent = {
                                 necessary: true,
@@ -876,7 +988,109 @@
                                 'cookieConsentModal'));
                             cookieModal.hide();
                         });
+
+                        // Arrow Up Button
+                        var arrowUp = document.getElementById('arrowUp');
+                        var arrowUpContainer = document.getElementById('arrowUpContainer');
+
+                        window.addEventListener('scroll', function() {
+                            if (window.scrollY > window.innerHeight) {
+                                arrowUp.classList.add('visible');
+                                arrowUp.classList.remove('hidden');
+                                arrowUpContainer.classList.add('visible');
+                                arrowUpContainer.classList.remove('hidden');
+                            } else {
+                                arrowUp.classList.add('hidden');
+                                arrowUp.classList.remove('visible');
+                                arrowUpContainer.classList.add('hidden');
+                                arrowUpContainer.classList.remove('visible');
+                            }
+                        });
+
+                        arrowUp.addEventListener('click', function() {
+                            smoothScrollToTop();
+                        });
+
+                        // Hide Arrow Up Button after scrolling to top
+                        window.addEventListener('scroll', function() {
+                            if (window.scrollY === 0) {
+                                arrowUp.classList.add('hidden');
+                                arrowUp.classList.remove('visible');
+                                arrowUpContainer.classList.add('hidden');
+                                arrowUpContainer.classList.remove('visible');
+                            }
+                        });
+
+                        // Check for subscription update
+                        if (localStorage.getItem('subscription_updated') === 'true') {
+                            showConfetti();
+                            showSuccessMessage();
+                            localStorage.removeItem('subscription_updated');
+                        }
+
+                        const passwordInput = document.getElementById('password_register');
+                        const passwordCriteria = document.getElementById('passwordCriteria');
+                        if (passwordInput) {
+                            const criteria = {
+                                length: document.getElementById('lengthCriteria'),
+                                uppercase: document.getElementById('uppercaseCriteria'),
+                                number: document.getElementById('numberCriteria'),
+                                specialChar: document.getElementById('specialCharCriteria')
+                            };
+
+                            passwordInput.addEventListener('focus', () => passwordCriteria.classList.remove('hidden'));
+                            passwordInput.addEventListener('blur', () => {
+                                if (passwordInput.value === '') passwordCriteria.classList.add('hidden');
+                            });
+                            passwordInput.addEventListener('input', function() {
+                                const password = passwordInput.value;
+                                criteria.length.classList.toggle('text-success', password.length >= 8);
+                                criteria.length.classList.toggle('text-danger', password.length < 8);
+                                criteria.uppercase.classList.toggle('text-success', /[A-Z]/.test(password));
+                                criteria.uppercase.classList.toggle('text-danger', !/[A-Z]/.test(password));
+                                criteria.number.classList.toggle('text-success', /\d/.test(password));
+                                criteria.number.classList.toggle('text-danger', !/\d/.test(password));
+                                criteria.specialChar.classList.toggle('text-success', /[!@#$%^&*(),.?":{}|<>]/.test(
+                                    password));
+                                criteria.specialChar.classList.toggle('text-danger', !/[!@#$%^&*(),.?":{}|<>]/.test(
+                                    password));
+                            });
+                        }
                     });
+
+                    // Smooth scroll to top function
+                    function smoothScrollToTop() {
+                        const scrollDuration = 300; // Duration in ms
+                        const scrollStep = -window.scrollY / (scrollDuration / 15);
+                        const scrollInterval = setInterval(function() {
+                            if (window.scrollY !== 0) {
+                                window.scrollBy(0, scrollStep);
+                            } else {
+                                clearInterval(scrollInterval);
+                            }
+                        }, 15);
+                    }
+
+                    // Toggle Password Visibility
+                    function togglePasswordVisibility() {
+                        const passwordRegisterInput = document.getElementById('password_register');
+                        const passwordLoginInput = document.getElementById('password_login');
+                        const toggleIcons = document.querySelectorAll('.toggle-password img');
+
+                        if (passwordRegisterInput) {
+                            const type = passwordRegisterInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                            passwordRegisterInput.setAttribute('type', type);
+                            toggleIcons[0].src = type === 'password' ? "{{ asset('asset/images/eye.svg') }}" :
+                                "{{ asset('asset/images/eye-off.svg') }}";
+                        }
+
+                        if (passwordLoginInput) {
+                            const type = passwordLoginInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                            passwordLoginInput.setAttribute('type', type);
+                            toggleIcons[1].src = type === 'password' ? "{{ asset('asset/images/eye.svg') }}" :
+                                "{{ asset('asset/images/eye-off.svg') }}";
+                        }
+                    }
                 </script>
             </body>
 

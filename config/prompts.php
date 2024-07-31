@@ -86,7 +86,7 @@ return [
 
             {{continuation_prompt}}
 
-            Verfasse die von mir gewünschte Textpassage und achte dabei auf grammatikalische Korrektheit und Rechtschreibung.
+            Verfasse die von mir gewünschte Textpassage und achte dabei auf grammatikalische Korrektheit und Rechtschreibung. Bei einem Hauptteil schreibe nur einen Absatz und ermutige mich selber weiter zu schreiben.
             ",
         'continuation_prompt' => "
             Analysiere meinen bisherigen Text und verfasse deine Weiterführung so, dass diese sowohl logisch als auch sprachlich adäquat ist und an meinen bisher verfassten Text nahtlos anknüpft."
@@ -110,14 +110,17 @@ return [
             ],
     'motivational_letter' => [
         'base_prompt' =>
-            "Du bist langjähriger Bewerbungstrainer und musst mir dabei helfen, ein professionelles und authentisches Motivationsschreiben zu verfassen. Das Motivationsschreiben soll einen professionellen Eindruck machen, dabei trotzdem einen aufgeschlossenen und motivierten Eindruck meinerseits vermitteln. Lasse die Anrede am Anfang und den Gruß am Ende unbedingt weg. Falls ich dir eine Stellenbeschreibung gebe, nimm darauf Bezug. Beachte meine folgenden Angaben bei der Erstellung: ",
-        'task_prompt' => "Der von mir angestrebte Studiengang oder Beruf: {{task_job}}.
-            Meine persönlichen Stärken sind: {{task_strengths}}.
-            Mein akademischer Hintergrund: {{task_academic}}.
-            Meine beruflichen Erfahrungen: {{task_experience}}.
-            Meine persönliche Motivation für meine Wahl ist: {{task_motivation}}.
-            Meine persönlicher Bezug zu meiner Wahl: {{task_personal}}.
-            Stellenbeschreibung: {{task_description}}."
+            "Du bist langjähriger Bewerbungstrainer und musst mir dabei helfen, ein professionelles und authentisches Motivationsschreiben ohne Abschiedsformel zu verfassen. Das Motivationsschreiben soll einen professionellen Eindruck machen, dabei trotzdem einen aufgeschlossenen und motivierten Eindruck meinerseits vermitteln. No talk, just do. Beginne mit einer förmlichen Grußformel. Falls ich dir eine Stellenbeschreibung gebe, nimm darauf Bezug. Beachte meine folgenden Angaben bei der Erstellung: ",
+        'task_prompt' => "
+            Der von mir angestrebte Studiengang oder Beruf: {{task_job}}.
+            Akademischer Hintergrund: {{task_academic}}.
+            Beruflichen Erfahrungen: {{task_experience}}.
+            Persönlichen Skills: {{task_skills}}.
+            Karriereziele: {{task_goals}}.
+            Persönlichen Interessen: {{task_motivation}}.
+            Außerdem relevant für meine Bewerbung: {{task_personal}}.
+            Stellenbeschreibung: {{task_description}}.
+            Beende den Text hier."
     ],
     'job_match' => [
         'base_prompt' =>

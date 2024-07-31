@@ -185,9 +185,15 @@
                                 @if (!empty($school))
                                     <h3>{{ $school }}</h3>
                                 @endif
-                                @if (!empty($school_start[$index]))
-                                    <p>{{ \Carbon\Carbon::parse($school_start[$index])->format('d.m.Y') }} -
-                                        {{ \Carbon\Carbon::parse($school_end[$index])->format('d.m.Y') }}</p>
+                                @if (!empty($school_start[$index]) || !empty($school_end[$index]))
+                                    <p>
+                                        @if (!empty($school_start[$index]))
+                                            {{ \Carbon\Carbon::parse($school_start[$index])->format('d.m.Y') }}
+                                        @endif
+                                        @if (!empty($school_end[$index]))
+                                            - {{ \Carbon\Carbon::parse($school_end[$index])->format('d.m.Y') }}
+                                        @endif
+                                    </p>
                                 @endif
                                 @if (!empty($school_grade[$index]))
                                     <p>Abschluss: {{ $school_grade[$index] }}</p>
@@ -255,7 +261,7 @@
             @if (
                 !empty($volunteer_company) &&
                     (array_filter($volunteer_company) || array_filter($volunteer_task) || array_filter($volunteer_period)))
-                <h2>Ehrenamtliche Tätigkeiten</h2>
+                <h2>Ehrenämter</h2>
                 @foreach ($volunteer_company as $index => $volunteer)
                     <div class="skill">
                         @if (!empty($volunteer_task[$index]))

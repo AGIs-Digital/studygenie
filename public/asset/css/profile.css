@@ -1,523 +1,517 @@
 h1 {
-	color: #2D3E4E;
-	font-family: Milonga;
-	font-size: 32px;
-	font-style: normal;
-	font-weight: 400;
-	line-height: 38px;
-	position: relative;
+  color: #2d3e4e;
+  font-family: Milonga;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 38px;
+  position: relative;
 }
 
 h1 img {
-	position: absolute;
-	top: -11px;
-	height: 94px;
-	left: 171px;
-	z-index: -1;
+  position: absolute;
+  top: -11px;
+  height: 94px;
+  left: 171px;
+  z-index: -1;
 }
 
 .content {
-	border-radius: 10px;
-	/* opacity: 0.4; */
-	background: #FFF;
-	box-shadow: 5px 0px 20px 0px rgba(0, 0, 0, 0.40);
-	padding: 20px;
-	margin-top: 2rem;
-	margin-bottom: 2rem;
+  border-radius: 10px;
+  /* opacity: 0.4; */
+  background: #fff;
+  box-shadow: 5px 0px 20px 0px rgba(0, 0, 0, 0.4);
+  padding: 20px;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 
 h2 {
-	text-align: center;
-	color: #E09E50;
-	font-size: 32px;
-	font-style: normal;
-	font-weight: 400;
-	line-height: 38px;
+  text-align: center;
+  color: #e09e50;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 38px;
 }
 
 h3 {
-	color: #2D3E4E;
-	font-family: Milonga;
-	font-size: 18px;
-	font-style: normal;
-	font-weight: 400;
-	line-height: normal;
+  color: #2d3e4e;
+  font-family: Milonga;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
 .input_group {
-	margin-top: 1rem;
-	margin-bottom: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 .input_group label {
-	color: #282929;
-	text-align: center;
-	font-family: Montserrat;
-	font-size: 14px;
-	font-style: normal;
-	font-weight: 600;
-	line-height: normal;
-	letter-spacing: -0.014px;
-	line-height: 1.5;
-	margin-bottom: .5rem;
+  color: #282929;
+  text-align: center;
+  font-family: Montserrat;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: -0.014px;
+  line-height: 1.5;
+  margin-bottom: 0.5rem;
 }
 
 .input_group input {
-	border-radius: 10px;
-	border: 1px solid #CBCDCD;
-	background: #FFF;
-	height: 50px;
+  border-radius: 10px;
+  border: 1px solid #cbcdcd;
+  background: #fff;
+  height: 50px;
 }
 
 .sup_plan {
-	border-radius: 20px;
-	background: rgba(232, 129, 40, 0.15);
-	position: relative;
-	overflow: hidden;
-	padding: 31px;
-	text-align: center;
+  border-radius: 20px;
+  background: rgba(232, 129, 40, 0.15);
+  position: relative;
+  overflow: hidden;
+  padding: 31px;
+  text-align: center;
 }
 
 .sup_plan .p1 {
-	position: absolute;
-	top: 0;
-	left: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .sup_plan .p2 {
-	position: absolute;
-	bottom: 0;
-	right: 0;
+  position: absolute;
+  bottom: 0;
+  right: 0;
 }
 
 .geni_image {
-	display: block;
-	width: 87px;
-	margin-left: auto;
-	margin-right: auto;
+  display: block;
+  width: 87px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .sup_plan .head {
-	color: #2D3E4E;
-	font-family: Milonga;
-	font-size: 24px;
-	font-style: normal;
-	font-weight: 400;
-	line-height: 38px;
-	letter-spacing: -0.763px;
-	display: block;
+  color: #2d3e4e;
+  font-family: Milonga;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 38px;
+  letter-spacing: -0.763px;
+  display: block;
 }
 
 .sup_plan .sub_head {
-	color: #E09E50;
-	text-align: center;
-	font-family: Montserrat;
-	font-size: 16px;
-	font-style: normal;
-	font-weight: 300;
-	line-height: 24.85px;
-	letter-spacing: -0.15px;
+  color: #e09e50;
+  text-align: center;
+  font-family: Montserrat;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 24.85px;
+  letter-spacing: -0.15px;
 }
 
 .dayleft {
-	position: relative;
+  position: relative;
 }
 
 .dayleft img {
-	width: 130px;
-	height: 130px;
+  width: 130px;
+  height: 130px;
 }
 
 .con {
-	position: absolute;
-	top: 65%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	-webkit-transform: translate(-50%, -50%);
-	-moz-transform: translate(-50%, -50%);
-	-ms-transform: translate(-50%, -50%);
-	-o-transform: translate(-50%, -50%);
+  position: absolute;
+  top: 65%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
 }
 
 .con .first {
-	color: #505857;
-	font-family: Montserrat;
-	font-size: 29.033px;
-	font-style: normal;
-	font-weight: 600;
-	/* line-height: normal; */
-	letter-spacing: -0.01px;
-	display: block;
-	line-height: 1;
+  color: #505857;
+  font-family: Montserrat;
+  font-size: 29.033px;
+  font-style: normal;
+  font-weight: 600;
+  /* line-height: normal; */
+  letter-spacing: -0.01px;
+  display: block;
+  line-height: 1;
 }
 
 .con .last {
-	color: #505857;
-	font-family: Montserrat;
-	font-size: 13.639px;
-	font-style: normal;
-	font-weight: 600;
-	line-height: normal;
-	letter-spacing: -0.01px;
+  color: #505857;
+  font-family: Montserrat;
+  font-size: 13.639px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: -0.01px;
 }
 
 .planCard {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	gap: 1rem;
-	width: 280px;
-	box-shadow: 0px 0px 4px 4px rgba(0, 0, 0, 0.1);
-	border-top-left-radius: 1rem;
-	border-top-right-radius: 1rem;
-	margin: 1rem;
-	background-color: white;
-	position: relative;
-	z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  width: 280px;
+  box-shadow: 0px 0px 4px 4px rgba(0, 0, 0, 0.1);
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+  margin: 1rem;
+  background-color: white;
+  position: relative;
+  z-index: 1;
 }
 
 .headerPlanCard {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	gap: 0.5rem;
-	background: linear-gradient(261.11deg, #3e5972 0%, #2a3f51 90.84%);
-	border-top-left-radius: 1rem;
-	border-top-right-radius: 1rem;
-	width: 100%;
-	padding: 0.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(261.11deg, #3e5972 0%, #2a3f51 90.84%);
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+  width: 100%;
+  padding: 0.5rem 1rem;
 }
 
 .headerPlanCard img {
-	width: 64px;
-	height: 64px;
+  width: 64px;
+  height: 64px;
 }
 
 .planCardHeading {
-	align-self: center;
-	text-align: center;
+  align-self: center;
+  text-align: center;
 }
 
 .headerPlanCard h6 {
-	font-family: "Milonga", cursive;
-	font-weight: 400;
-	font-size: 1.2rem;
-	color: white;
-	display: flex;
-	justify-content: center;
-	align-items: left;
-	gap: .4rem;
+  font-family: 'Milonga', cursive;
+  font-weight: 400;
+  font-size: 1.2rem;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: left;
+  gap: 0.4rem;
 }
 
 .contentPlanCard ul {
-	padding-left: 0;
+  padding-left: 0;
 }
 
 .contentPlanCard ul li {
-	font-family: "Milonga", cursive;
-	font-weight: 400;
-	font-size: 1rem;
-	color: rgba(45, 62, 78, 1);
+  font-family: 'Milonga', cursive;
+  font-weight: 400;
+  font-size: 1rem;
+  color: rgba(45, 62, 78, 1);
 }
 
 .discountSticekr {
-	position: absolute;
-	top: -8%;
-	left: -7%;
+  position: absolute;
+  top: -8%;
+  left: -7%;
 }
 
 .discountStickerImg {
-	position: relative;
-	z-index: 0;
+  position: relative;
+  z-index: 0;
 }
 
 .discountPercent {
-	position: absolute;
-	z-index: 1;
-	left: 13%;
-	top: 28%;
-	font-family: "Montserrat", sans-serif;
-	font-weight: 700;
-	font-size: 18px;
-	color: white;
+  position: absolute;
+  z-index: 1;
+  left: 13%;
+  top: 28%;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  color: white;
 }
 
 .hidden {
-    display: none;
-}
-
-.mathrixrecomendsSpan {
-	font-family: "Montserrat", sans-serif;
-	font-weight: 600;
-	font-size: 12px;
-	text-align: center;
-	color: rgba(255, 61, 0, 1);
-	background-color: rgba(255, 235, 228, 1);
-	padding: 0.2rem 0.4rem;
-	border-radius: 10px;
+  display: none;
 }
 
 .highWeightSpan {
-	font-family: "Milonga", cursive;
-	font-weight: 400;
-	font-size: 2rem;
-	color: rgba(45, 62, 78, 1);
+  font-family: 'Milonga', cursive;
+  font-weight: 400;
+  font-size: 2rem;
+  color: rgba(45, 62, 78, 1);
 }
 
 .lowWeightSpan {
-	font-family: "Montserrat", sans-serif;
-	font-weight: 400;
-	font-size: 1rem;
-	color: rgba(183, 194, 191, 1);
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  color: rgba(183, 194, 191, 1);
 }
 
 .planCardParagraph {
-	font-family: "Montserrat", sans-serif;
-	font-weight: 300;
-	font-size: 16px;
-	text-align: left;
-	color: rgba(80, 88, 87, 1);
-	width: 100%;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  text-align: left;
+  color: rgba(80, 88, 87, 1);
+  width: 100%;
 }
 
 .plancardButton {
-	width: 200px;
-	height: 35px;
-	border-radius: 6px;
-	background-color: rgba(232, 129, 40, 1);
-	color: white !important;
-	font-family: "Montserrat", sans-serif;
-	font-weight: 600;
-	text-align: center;
-	outline: none;
-	border: none;
-	text-decoration: none;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+  width: 200px;
+  height: 35px;
+  border-radius: 6px;
+  background-color: #e09e50;
+  color: white !important;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  text-align: center;
+  outline: none;
+  border: none;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .plancardButton:hover {
-	cursor: url("../images/G.png"), auto;
-	border: 2px solid black;
+  cursor: pointer;
+  border: 2px solid #e09e50;
+  box-shadow: 0 4px 8px rgba(224, 158, 80, 0.3), 0 6px 20px rgba(224, 158, 80, 0.19);
+  transform: scale(1.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .contentPlanCard {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
 }
 
 .submit_button {
-	border-radius: 10px;
-	background: #E09E50;
-	color: #FFF;
-	font-size: 16px;
-	font-style: normal;
-	font-weight: 600;
-	line-height: normal;
-	letter-spacing: -0.014px;
-	border: none;
-	padding: 14px 40px;
-	margin-top: 2rem;
-	margin-bottom: 3rem;
+  border-radius: 10px;
+  background: #e09e50;
+  color: #fff;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: -0.014px;
+  border: none;
+  padding: 14px 40px;
+  margin-top: 2rem;
+  margin-bottom: 3rem;
 }
 
 /* Stellen Sie sicher, dass der Body sich über die volle Höhe erstreckt */
 .MainContainer {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh; /* Minimale Höhe des Viewports */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Minimale Höhe des Viewports */
 }
 
-/* Definieren Sie .archive_sec so, dass sie den verfügbaren Platz einnimmt */
 .archive_sec {
-    flex: 1; /* Erlaubt .archive_sec zu wachsen und den verfügbaren Platz einzunehmen */
-    display: flex;
-    flex-direction: column;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .footerContainer {
-	background-color: #D8DCDF;
-	display: flex;
-	flex-direction: row;
-	justify-content: space-around;
-	gap: 1rem;
-	align-items: center; /* Added to vertically center the content within the footer */
+  background-color: #d8dcdf;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  gap: 1rem;
+  align-items: center; /* Added to vertically center the content within the footer */
+}
+
+footer.mainFooterContainer {
+  position: relative; /* Entferne fixed Positionierung */
+  bottom: 0;
+  width: 100%;
+  margin-top: auto; /* Stellt sicher, dass der Footer am Ende des Inhalts bleibt */
 }
 
 #footerLogo {
-	width: 133px;
-	height: 77px;
-	margin-top: 1em;
+  width: 133px;
+  height: 77px;
 }
 
 .footerUpperSection {
-	background-image: url("../images/download_app.png");
-	background-repeat: no-repeat;
-	background-size: cover;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	gap: 1.5rem;
-	padding-block: 1rem;
+  background-image: url('../images/download_app.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  padding-block: 1rem;
 }
 
 .buttonsContainerFooterUperSec {
-	display: flex;
-	flex-direction: row;
-	gap: 1rem;
-	align-items: center;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  align-items: center;
 }
 
 .buttonsContainerFooterUperSec button {
-	border: none;
-	outline: none;
+  border: none;
+  outline: none;
 }
 
 .CenterContainer {
-	display: flex;
-	flex-direction: row;
-	padding-block: 2rem;
-	gap: 2.5rem;
-	align-items: center; /* Added to vertically center the content within the footer */
+  display: flex;
+  flex-direction: row;
+  padding-block: 2rem;
+  gap: 2.5rem;
+  align-items: center; /* Added to vertically center the content within the footer */
 }
 
 .anchorTagsFooterContainer {
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
-	gap: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2rem;
 }
 
 .anchorTags {
-	display: flex;
-	flex-direction: column;
-	align-items: baseline;
-	gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  gap: 1rem;
 }
 
 .RightContainer {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	gap: 3rem;
-	padding: 2rem 6rem 2rem 0rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 3rem;
+  padding: 2rem 6rem 2rem 0rem;
 }
 
 .socialAnchorTags {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	gap: 0.5rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .socialAnchorTags a img {
-	height: 40px;
-	width: 40px;
+  height: 40px;
+  width: 40px;
 }
 
-#facebook, #twitter {
-	height: 31px;
-	width: 31px;
-	margin: 0.3rem;
+#facebook,
+#twitter {
+  height: 31px;
+  width: 31px;
+  margin: 0.3rem;
 }
 
 .footerHeading {
-	font-family: "Montserrat", sans-serif;
-	font-weight: 400;
-	font-size: 1rem;
-	color: rgba(40, 41, 41, 1) !important;
-	text-decoration: none;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  color: rgba(40, 41, 41, 1) !important;
+  text-decoration: none;
 }
 
 .anchorTags a {
-	font-family: "Montserrat", sans-serif;
-	font-weight: 400;
-	font-size: 14px;
-	color: rgba(83, 83, 83, 1);
-	text-decoration: none;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  color: rgba(83, 83, 83, 1);
+  text-decoration: none;
 }
 
 .anchorTags a:hover {
-	color: #f28816;
-	cursor: pointer;
-	text-decoration: underline;
+  color: #f28816;
+  cursor: pointer;
+  text-decoration: underline;
 }
 
-button:disabled, button[disabled] {
-	border: 1px solid #999999;
-	background-color: #cccccc;
-	color: #666666;
+button:disabled,
+button[disabled] {
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
 }
 
 .button_payment_box {
-	padding: 40px;
+  padding: 40px;
 }
 
 .button_payment_box a:first-child {
-	background: #ffc439;
+  background: #ffc439;
 }
 
 .button_payment_box a:last-child {
-	background: #635bff;
+  background: #635bff;
 }
 
 .button_payment_box a:first-child span:first-child {
-	color: #003087;
-	font-weight: 700;
+  color: #003087;
+  font-weight: 700;
 }
 
 .button_payment_box a:first-child span:last-child {
-	color: #0070e0;
-	font-weight: 700;
+  color: #0070e0;
+  font-weight: 700;
 }
 
 .button_payment_box a {
-	padding: 14px;
-	display: block;
-	text-align: center;
-	text-decoration: none;
-	color: #fff;
-	margin-bottom: 1rem;
-	font-size: 21px;
-	border-radius: 11px;
+  padding: 14px;
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  color: #fff;
+  margin-bottom: 1rem;
+  font-size: 21px;
+  border-radius: 11px;
 }
 
 .planCard.back {
-	background: linear-gradient(261.11deg, #3e5972 0%, #2a3f51 90.84%);
+  background: linear-gradient(261.11deg, #3e5972 0%, #2a3f51 90.84%);
 }
 
-.planCard.back .highWeightSpan, .planCard.back .planCardParagraph {
-	color: #fff;
-}
-
-#mathrixrecomendsSpan {
-	font-family: "Montserrat", sans-serif;
-	font-weight: 600;
-	font-size: 12px;
-	text-align: center;
-	color: rgba(255, 61, 0, 1);
-	background-color: rgba(255, 235, 228, 1);
-	padding: 0.2rem 0.4rem;
-	border-radius: 10px;
-	margin-top: -21px;
+.planCard.back .highWeightSpan,
+.planCard.back .planCardParagraph {
+  color: #fff;
 }
 
 *::-webkit-scrollbar {
-	width: 0px; /* width of the entire scrollbar */
+  width: 0px; /* width of the entire scrollbar */
 }
 
 *::-webkit-scrollbar-track {
-	background: transparent; /* color of the tracking area */
+  background: transparent; /* color of the tracking area */
 }
 
 *::-webkit-scrollbar-thumb {
-	background-color: #004639;
-	border-radius: 20px;
-	-webkit-border-radius: 20px;
-	-moz-border-radius: 20px;
-	-ms-border-radius: 20px;
-	-o-border-radius: 20px;
+  background-color: #004639;
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+}
+
+a,
+.close-icon,
+input[type='radio'] {
+  cursor: pointer;
 }

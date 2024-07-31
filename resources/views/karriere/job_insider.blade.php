@@ -121,7 +121,7 @@
                                         <input type="text" name="field1" id="field1">
                                     </div>
                                 </div>
-                                <button type="button" class="send_button" id="submitForm">Magie</button>
+                                <button type="button" class="send_button" id="submitForm">Absenden</button>
                             </div>
                         </div>
                     </form>
@@ -270,7 +270,7 @@
                     success: function(response) {
                         conversation_id = response.message.conversation_id;
                         //Ladezeichen entfernen
-                        $("#submitForm").removeClass('loading-button').text("Magie");
+                        $("#submitForm").removeClass('loading-button').text("Absenden");
                         textToType = response.message.content.replace(/\n/g, " <br> ");
                         $('#typed-text').empty();
                         let checks = response.message.content.split('\n');
@@ -282,7 +282,7 @@
                     error: function(xhr, status, error) {
                         console.error("Ein Fehler ist aufgetreten: " + error);
                         //Ladezeichen entfernen
-                        $("#submitForm").removeClass('loading-button').text("Magie");
+                        $("#submitForm").removeClass('loading-button').text("Absenden");
                     }
                 });
             });

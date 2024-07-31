@@ -8,7 +8,7 @@
     <style>
         @page {
             size: A4;
-            margin: 2cm;
+            margin: 2cm 2cm 1cm 2cm;
         }
 
         body {
@@ -73,24 +73,27 @@
     <div class="container">
         <div class="address">
             <!-- Absenderadresse -->
-            <p>Max Mustermann<br>Musterstraße 1<br>12345 Musterstadt</p>
+            <p>{{ $name }}<br>{{ $street }}<br>{{ $postal_city }} {{ $city }}<br>Tel:
+                {{ $phone }}<br>E-Mail: {{ $email }}</p>
             <!-- Empfängeradresse -->
-            <p>Firma XYZ<br>z.Hd. Frau/Herrn Beispiel<br>Beispielstraße 2<br>54321 Beispielstadt</p>
+            <p>{{ $adressat_company }}
+                @if (!empty($adressat_person))
+                    <br>z.Hd. {{ $adressat_person }}
+                @endif
+                <br>{{ $adressat_street }}<br>{{ $adressat_postal_city }} {{ $adressat_city }}
+            </p>
         </div>
         <div class="date">
             <p>{{ date('d.m.Y') }}</p>
         </div>
         <div class="subject">
-            <p>Bewerbung als [Position/Studiengang]</p>
+            <p>Bewerbung - {{ $stellenbezeichnung_job }}</p>
         </div>
         <div class="content">
             {!! $motivational_letter !!} <!-- Interpretiert den Inhalt als HTML -->
         </div>
         <div class="signature">
-            <p>Mit freundlichen Grüßen,<br><br>Max Mustermann</p>
-        </div>
-        <div class="footer">
-            <p>Max Mustermann - Musterstraße 1 - 12345 Musterstadt - max.mustermann@example.com - 01234/567890</p>
+            <p>Mit freundlichen Grüßen,<br>{{ $name }}</p>
         </div>
     </div>
 </body>

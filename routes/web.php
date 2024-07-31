@@ -7,7 +7,6 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ArchiveController;
 use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\Auth\LoginController;
-
 use App\Http\Controllers\PayPalController;
 
 use App\Http\Controllers\Karriere\MentorController;
@@ -32,9 +31,9 @@ use App\Http\Controllers\Bildung\TextAnalysisController;
 */
 
 ### PUBLIC VIEW ROUTES ###
-Route::view('impressum', 'impressum');
-Route::view('agb', 'agb');
-Route::view('datenschutz', 'datenschutz');
+Route::view('impressum', 'impressum')->name('impressum');
+Route::view('agb', 'agb')->name('agb');
+Route::view('datenschutz', 'datenschutz')->name('datenschutz');
 
 Route::get('/', function () {
     return view('index');
@@ -76,7 +75,7 @@ Route::group(['middleware' => ['auth']], function () {
 
         // Bildung Routes which require diamant subscription
         Route::middleware(['check.subscription.expiry', 'check.subscription:diamant'])->group(function () {
-            Route::view('genietutor', 'bildung.genie_tutor')->name('genietutor.create');
+            Route::view('genietutor', 'bildung.genie_tutor')->name('genie_tutor.create');
         });
 
         // Bildung Routes which require gold or diamant subscription
@@ -169,3 +168,16 @@ Auth::routes();
 ### SOCIALITE ROUTES ###
 Route::get('login/{provider}', [LoginController::class, 'redirectToProvider']);
 Route::get('auth/callback/{provider}', [LoginController::class, 'handleProviderCallback']);
+
+
+// Route for showing the password reset form
+Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+
+// Route for sending the password reset link
+Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+
+// Route for showing the password reset form with the token
+Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+
+// Route for resetting the password
+Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
