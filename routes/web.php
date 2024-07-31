@@ -51,10 +51,10 @@ Route::middleware('auth:sanctum')->prefix('conversation')->group(function () {
 Route::group(['middleware' => ['auth']], function () {
     // View routes
     Route::view('tools', 'tools');
-    Route::view('profile', 'profile')->name('profil');
+    Route::get('profile', [UserController::class, 'show'])->name('profil');
 
     // Resources
-    Route::resource('user', UserController::class);
+    // Route::resource('user', UserController::class)->except('show');
     Route::resource('archive', ArchiveController::class)->except(['create', 'store']);
 
     ### SINGLE OPERATION ROUTES ###
@@ -155,6 +155,10 @@ Route::post('/postLogin', [FrontController::class, 'postLogin']);
 Route::post('/postRegistration', [FrontController::class, 'postRegistration']);
 Route::post('/register', [UserController::class, 'register'])->name('register.post');
 Route::post('change-password', [FrontController::class, 'changePassword'])->name('change.password');
+
+Route::prefix('user')->name('user.')->group(function () {
+    Route::delete('{user}/delete', [UserController::class, 'destroy'])->name('destroy');
+});
 
 Auth::routes();
 
