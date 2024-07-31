@@ -561,7 +561,6 @@
                                             <a href="{{ route('datenschutz') }}" class="footerHeading"> Datenschutz </a>
                                         </div>
                                     </div>
-
                                     <div class="rightContainer" style="gap: 0rem;">
                                         <div class="socialAnchorTags">
                                             <a href=""><img id="instagram"
@@ -609,7 +608,7 @@
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary"
                                                 data-bs-dismiss="modal">Abbrechen</button>
-                                            <form method="POST" action="{{ route('user.delete') }}">
+                                            <form method="POST" action="{{ route('user.delete', ['user' => $user->id]) }}">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger">Account löschen</button>

@@ -75,7 +75,7 @@ Route::group(['middleware' => ['auth']], function () {
 
         // Bildung Routes which require diamant subscription
         Route::middleware(['check.subscription.expiry', 'check.subscription:diamant'])->group(function () {
-            Route::view('genietutor', 'bildung.genie_tutor')->name('genietutor.create');
+            Route::view('genietutor', 'bildung.genie_tutor')->name('genie_tutor.create');
         });
 
         // Bildung Routes which require gold or diamant subscription
