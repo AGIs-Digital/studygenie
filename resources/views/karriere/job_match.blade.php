@@ -329,7 +329,9 @@
 
         $(document).ready(function() {
 
-            $("#submitForm").on("click", function() {
+            $("#submitForm").on("click", function(e) {
+                e.preventDefault();
+
                 let form = $("#myForm")[0];
                 let formData = new FormData(form);
                 $("#save_data").val('x');

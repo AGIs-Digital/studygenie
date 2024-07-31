@@ -7,13 +7,14 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ArchiveController;
 use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\MotivationController;
+
 use App\Http\Controllers\PayPalController;
 
 use App\Http\Controllers\Karriere\MentorController;
 use App\Http\Controllers\Karriere\LebenslaufController;
 use App\Http\Controllers\Karriere\JobInsiderController;
 use App\Http\Controllers\Karriere\JobMatchController;
+use App\Http\Controllers\Karriere\MotivationController;
 
 use App\Http\Controllers\Bildung\GenieCheckController;
 use App\Http\Controllers\Bildung\TextInspirationController;
@@ -51,10 +52,10 @@ Route::middleware('auth:sanctum')->prefix('conversation')->group(function () {
 Route::group(['middleware' => ['auth']], function () {
     // View routes
     Route::view('tools', 'tools');
-    Route::view('profile', 'profile')->name('profil');
+    Route::get('profile', [UserController::class, 'show'])->name('profil');
 
     // Resources
-    Route::resource('user', UserController::class);
+    // Route::resource('user', UserController::class)->except('show');
     Route::resource('archive', ArchiveController::class)->except(['create', 'store']);
 
     ### SINGLE OPERATION ROUTES ###
@@ -114,7 +115,9 @@ Route::group(['middleware' => ['auth']], function () {
             });
 
             // Motivational letter routes
+            Route::get('motivationsschreiben', [MotivationController::class, 'create'])->name('motivation');
             Route::prefix('motivation')->name('motivation.')->group(function () {
+
                 Route::post('preview', [MotivationController::class, 'preview']);
                 Route::post('generate', [MotivationController::class, 'generate'])->name('generate');
                 Route::post('download-pdf', [MotivationController::class, 'downloadPDF'])->name('download-pdf');
@@ -126,6 +129,7 @@ Route::group(['middleware' => ['auth']], function () {
         ### JOB MATCH ROUTES
         Route::get('jobmatch', [JobMatchController::class, 'create'])->name('jobmatch');
         Route::resource('jobmatch', JobMatchController::class)->except(['index', 'create', 'show', 'edit', 'update', 'destroy']);
+
 
         ### JOB INSIDER ROUTES
         Route::get('jobinsider', [JobInsiderController::class, 'create'])->name('jobinsider');
@@ -155,6 +159,10 @@ Route::post('/postLogin', [FrontController::class, 'postLogin']);
 Route::post('/postRegistration', [FrontController::class, 'postRegistration']);
 Route::post('/register', [UserController::class, 'register'])->name('register.post');
 Route::post('change-password', [FrontController::class, 'changePassword'])->name('change.password');
+
+Route::prefix('user')->name('user.')->group(function () {
+    Route::delete('{user}/delete', [UserController::class, 'destroy'])->name('destroy');
+});
 
 Auth::routes();
 

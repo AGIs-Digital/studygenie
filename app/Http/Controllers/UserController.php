@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class UserController extends Controller
 {
@@ -33,9 +35,10 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show()
     {
-        //
+        $user = Auth::user();
+        return view('profile', compact('user'));
     }
 
     /**
@@ -57,10 +60,8 @@ class UserController extends Controller
     /**
      * Delete the user and all related data.
      */
-    public function destroy(Request $request)
+    public function destroy(Request $request, User $user)
     {
-        $user = $request->user();
-
         try {
             $user->deleteAccount();
 

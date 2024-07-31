@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Karriere;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use PDF;
 use Carbon\Carbon;
@@ -12,6 +13,14 @@ use OpenAI\Laravel\Facades\OpenAI;
 
 class MotivationController extends Controller
 {
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        return view('karriere.motivationsschreiben');
+    }
 
     /**
      * Generate a preview of the motivational letter
