@@ -608,7 +608,7 @@
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary"
                                                 data-bs-dismiss="modal">Abbrechen</button>
-                                            <form method="POST" action="{{ route('user.delete', ['user' => $user->id]) }}">
+                                            <form method="POST" action="{{ route('user.destroy', ['user' => $user->id]) }}">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger">Account löschen</button>
