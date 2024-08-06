@@ -62,7 +62,7 @@
             <div class="row">
                 <div class="col-md-2">
                     <div class="leftCon" style="cursor: pointer">
-                        <img id="closeIcon" onclick="window.history.back()" src="{{ asset('asset/images/ic_close.png') }}"
+                        <img id="closeIcon" onclick="window.location.href='/bildung'" src="{{ asset('asset/images/ic_close.png') }}"
                             alt="closeIcon">
 
                         <svg xmlns="http://www.w3.org/2000/svg" width="134" height="113" viewBox="0 0 245 167"
@@ -123,9 +123,11 @@
                                             oninput="this.style.height = '';this.style.height = this.scrollHeight + 'px'"></textarea>
                                     </div>
                                 </div>
-                                <button type="button" class="send_button" id="submitForm">Absenden</button>
+                                <div class="text-center" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                                    <button type="button" class="send_button" id="submitForm">Absenden</button>
+                                    <button type="button" class="send_button" id="showSaveModal">Speichern</button>
+                                </div>
                             </div>
-
                         </div>
                     </form>
                 </div>
@@ -138,12 +140,7 @@
                                 <div id="typed-text"></div>
                             </div>
                         </div>
-                        <div class="save_folder center" id="save_folder" data-bs-toggle="modal"
-                            data-bs-target="#saveModal">
-                            <img src="{{ asset('asset/images/savefolder.svg') }}" data-bs-toggle="tooltip"
-                                data-bs-placement="top" title="" data-bs-original-title="Speichern" width="40"
-                                height="40" alt="">
-                        </div>
+                        <p style="font-size: 12px; color: gray; text-align: center;">StudyGenie kann Fehler machen. Überprüfe wichtige Informationen.</p>
                     </div>
                 </div>
             </div>
@@ -171,13 +168,10 @@
                         <input type="hidden" name="save_val" id="save_val"> <input type="hidden" name="tooltype"
                             value="genie_check"> <input type="hidden" name="type" value="Bildung"
                             id="Bildung">
-
-
-
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Schließen</button>
-                        <button type="button" class="btn btn-primary" id="saveForm">Speichern</button>
+                        <button type="button" class="btn btn-primary" id="saveFormButton">Speichern</button>
                     </div>
                 </form>
             </div>
@@ -191,7 +185,8 @@
         document.addEventListener('DOMContentLoaded', () => {
 
             const saveForm = document.getElementById('save_data');
-            const saveFormButton = document.getElementById('saveForm');
+            const saveFormButton = document.getElementById('saveFormButton');
+            const showSaveModalButton = document.getElementById('showSaveModal');
 
             // Speichern des Chatverlaufs
             saveFormButton.addEventListener('click', async () => {
@@ -208,6 +203,10 @@
                 $('#saveModal').modal('hide');
 
                 showToast(document.title + " Gespeichert!");
+            });
+
+            showSaveModalButton.addEventListener('click', () => {
+                $('#saveModal').modal('show');
             });
         });
     </script>
@@ -251,7 +250,6 @@
                         textarray = checks;
                         $("#save_val").val(textToType + " <br> <br> ");
                         typeFun();
-                        $("#save_folder").show();
                     },
                     error: function(xhr, status, error) {
                         console.error("Ein Fehler ist aufgetreten: " + error);
@@ -267,20 +265,21 @@
             var toast = document.createElement('div');
             toast.textContent = message;
             toast.style.position = 'fixed';
-            toast.style.bottom = '20px';
             toast.style.left = '50%';
-            toast.style.transform = 'translateX(-50%)';
-            toast.style.backgroundColor = 'black';
-            toast.style.color = 'white';
+            toast.style.top = '50%';
+            toast.style.transform = 'translateX(-50%, -50%)';
+            toast.style.backgroundColor = '#d1e7dd';
+            toast.style.color = '#0a3622';
             toast.style.padding = '10px';
             toast.style.borderRadius = '5px';
+            toast.style.borderColor = '#a3cfbb';
             toast.style.zIndex = '1000';
             toast.style.opacity = '0';
             toast.style.transition = 'opacity 0.5s';
 
             // Füge das Toast-Element hinzu und fade es ein
             document.body.appendChild(toast);
-            setTimeout(() => toast.style.opacity = '1', 100);
+            setTimeout(() => toast.style.opacity = '0.8', 100);
 
             // Entferne das Toast-Element nach einer gewissen Zeit
             setTimeout(() => {

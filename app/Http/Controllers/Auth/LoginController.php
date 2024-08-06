@@ -10,36 +10,16 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 use App\Models\User;
-use Illuminate\Support\Facades\Hash; // Import the Hash class
-use Illuminate\Support\Str; // Import the Str class
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles authenticating users for the application and
-    | redirecting them to your home screen. The controller uses a trait
-    | to conveniently provide its functionality to your applications.
-    |
-    */
-
     use AuthenticatesUsers;
 
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
     protected $redirectTo = RouteServiceProvider::HOME;
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
@@ -70,7 +50,7 @@ class LoginController extends Controller
                 'email' => $socialUser->getEmail(),
                 'provider' => $provider,
                 'provider_id' => $socialUser->getId(),
-                'password' => Hash::make(Str::random(16)), // Generate a random password
+                'password' => Hash::make(Str::random(16)),
                 'tutorial_shown' => 0,
                 'subscription_name' => 'silber',
             ]);
@@ -81,15 +61,45 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        // Authentifizierungslogik...
+        $credentials = $request->only('email', 'password');
 
-        if (Auth::check()) {
-            // Benutzer ist eingeloggt
+        if (Auth::attempt($credentials)) {
             $userId = Auth::user()->id;
             $frontController = new FrontController();
             $frontController->startNewSessionWithCustomInstructions($userId);
+
+            return redirect('/tools');
+        } else {
+            return response()->json(['status' => false, 'message' => 'Ungültige Anmeldedaten']);
+        }
+    }
+
+    public function postLogin(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                "status" => false,
+                "errors" => $validator->errors()->all()
+            ]);
         }
 
-        // Weiterleitung oder Antwort...
+        if (Auth::attempt($request->only(['email', 'password']))) {
+            return response()->json([
+                "status" => true,
+                "redirect_url" => url('/tools')
+            ]);
+        }
+
+        return response()->json([
+            "status" => false,
+            "errors" => [
+                "Benutzername oder Passwort falsch"
+            ]
+        ]);
     }
 }

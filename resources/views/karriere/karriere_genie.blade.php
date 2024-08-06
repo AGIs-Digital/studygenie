@@ -25,7 +25,7 @@
             src="{{ asset('asset/images/ab3.svg') }}" class="ab3" alt=""> <img
             src="{{ asset('asset/images/ab4.svg') }}" class="ab4" alt="">
         <div class="headerMainContainer">
-            <div class="leftCon" onclick="window.history.back()" style="cursor: pointer">
+            <div class="leftCon" onclick="window.location.href='/karriere'" style="cursor: pointer">
                 <img id="closeIcon" src="{{ asset('asset/images/ic_close.png') }}" alt="closeIcon">
             </div>
             <div class="centerCon">

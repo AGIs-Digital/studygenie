@@ -4,23 +4,7 @@
 <head>
     @section('title', 'JobInsider')
     @include('includes.head')
-    <script>
-        window.MathJax = {
-            tex: {
-                inlineMath: [
-                    ['$', '$'],
-                    ['\\(', '\\)']
-                ],
-                displayMath: [
-                    ['$$', '$$'],
-                    ['\\[', '\\]']
-                ]
-            },
-            svg: {
-                fontCache: 'global'
-            }
-        };
-    </script>
+
     <style>
         .loading-button {
             position: relative;
@@ -60,7 +44,7 @@
             <div class="row">
                 <div class="col-md-2">
                     <div class="leftCon" style="cursor: pointer">
-                        <img id="closeIcon" onclick="window.history.back()" src="{{ asset('asset/images/ic_close.png') }}"
+                        <img id="closeIcon" onclick="window.location.href='/karriere/karrieregenie'" src="{{ asset('asset/images/ic_close.png') }}"
                             alt="closeIcon">
 
                         <svg xmlns="http://www.w3.org/2000/svg" width="134" height="113" viewBox="0 0 245 167"
@@ -78,6 +62,8 @@
                                     <text class="textStyle" x="50%" y="65" text-anchor="middle" font-family: 'Milonga' ,
                                         cursive; font-size="24" fill="#FFFFFF" font-weight="400">JobInsider</text>
                                 </svg>
+
+
 
                             </g>
                             <defs>
@@ -118,10 +104,13 @@
                                                     alt="">
                                             </strong>
                                         </span>
-                                        <input type="text" name="field1" id="field1">
+                                        <input type="text" name="field1" id="field1" placeholder="Maurer, Hundefriseur, etc.">
                                     </div>
                                 </div>
+                                <div class="text-center" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
                                 <button type="button" class="send_button" id="submitForm">Absenden</button>
+                                    <button type="button" class="send_button" id="showSaveModal">Speichern</button>
+                                </div>
                             </div>
                         </div>
                     </form>
@@ -133,22 +122,13 @@
                             <div class="written-green-board" style="display: flex" id="second_box">
 
                                 <div class="content-written right">
-                                    <div class="typing-container" id="typingContainer">
+                                    <div class="typing-container">
                                         <!-- Ausgabefenster -->
                                         <div id="typed-text"></div>
                                     </div>
                                 </div>
-                                <div class="save_folder center" id="save_folder" data-bs-toggle="modal"
-                                    data-bs-target="#saveModal">
-                                    <img src="{{ asset('asset/images/savefolder.svg') }}" data-bs-toggle="tooltip"
-                                        data-bs-placement="top" title="" data-bs-original-title="Speichern"
-                                        width="40" height="40" alt="">
-                                </div>
-
-                            </div>
-                        </div>
+                                <p style="font-size: 12px; color: gray; text-align: center;">StudyGenie kann Fehler machen. Überprüfe wichtige Informationen.</p>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -156,12 +136,12 @@
 
     <!-- Modal -->
     <div class="modal fade" id="saveModal" tabindex="-1" aria-labelledby="saveModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <form id="save_data">
                     @csrf
                     <div class="modal-header">
-                        <h5 class="modal-title" id="saveModalLabel">Speichern</h5>
+                        <h5 class="modal-title" id="saveModalLabel">Antwort speichern</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                             aria-label="Close"></button>
                     </div>
@@ -178,7 +158,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Schließen</button>
-                        <button type="button" class="btn btn-primary" id="saveForm">Speichern</button>
+                        <button type="button" class="btn btn-primary" id="saveFormButton">Speichern</button>
                     </div>
                 </form>
             </div>
@@ -186,41 +166,14 @@
     </div>
 
     @include('includes.footer')
+
     <script>
         let conversation_id = null
-
-        function showToast(message) {
-            // Erstelle das Toast-Element
-            var toast = document.createElement('div');
-            toast.textContent = message;
-            toast.style.position = 'fixed';
-            toast.style.bottom = '20px';
-            toast.style.left = '50%';
-            toast.style.transform = 'translateX(-50%)';
-            toast.style.backgroundColor = 'black';
-            toast.style.color = 'white';
-            toast.style.padding = '10px';
-            toast.style.borderRadius = '5px';
-            toast.style.zIndex = '1000';
-            toast.style.opacity = '0';
-            toast.style.transition = 'opacity 0.5s';
-
-            // Füge das Toast-Element hinzu und fade es ein
-            document.body.appendChild(toast);
-            setTimeout(() => toast.style.opacity = '1', 100);
-
-            // Entferne das Toast-Element nach einer gewissen Zeit
-            setTimeout(() => {
-                toast.style.opacity = '0';
-                setTimeout(() => document.body.removeChild(toast),
-                    500); // Warte auf das Ende der Opacity-Transition
-            }, 3000);
-        }
-
         document.addEventListener('DOMContentLoaded', () => {
 
             const saveForm = document.getElementById('save_data');
-            const saveFormButton = document.getElementById('saveForm');
+            const saveFormButton = document.getElementById('saveFormButton');
+            const showSaveModalButton = document.getElementById('showSaveModal');
 
             // Speichern des Chatverlaufs
             saveFormButton.addEventListener('click', async () => {
@@ -232,13 +185,18 @@
                 );
 
                 $("#save_name").val('');
-                $("#saveModal").modal('hide');
+
+                // Schließe das Modal
+                $('#saveModal').modal('hide');
 
                 showToast(document.title + " Gespeichert!");
             });
+
+            showSaveModalButton.addEventListener('click', () => {
+                $('#saveModal').modal('show');
+            });
         });
     </script>
-
     <script>
         let textToType = "";
         let textarray = [];
@@ -246,15 +204,17 @@
         let currentChar = 0;
         let curloop = 0;
         let alltext = '';
+        const blockSize = 10; // Anzahl der Zeichen pro Block
         var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
         var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
             return new bootstrap.Tooltip(tooltipTriggerEl)
         });
 
         $(document).ready(function() {
-            $("#submitForm").on("click", function(e) {
-                e.preventDefault();
+            const saveForm = document.getElementById('save_data');
+            const saveFormButton = document.getElementById('saveForm');
 
+            $("#submitForm").on("click", function() {
                 let form = $("#myForm")[0];
                 let formData = new FormData(form);
                 $("#save_data").val('x');
@@ -277,7 +237,6 @@
                         textarray = checks;
                         $("#save_val").val(textToType + " <br> <br> ");
                         typeFun();
-                        $("#save_folder").show();
                     },
                     error: function(xhr, status, error) {
                         console.error("Ein Fehler ist aufgetreten: " + error);
@@ -288,30 +247,66 @@
             });
         });
 
-        function typeText() {
+        function showToast(message) {
+            // Erstelle das Toast-Element
+            var toast = document.createElement('div');
+            toast.textContent = message;
+            toast.style.position = 'fixed';
+            toast.style.left = '50%';
+            toast.style.top = '50%';
+            toast.style.transform = 'translateX(-50%, -50%)';
+            toast.style.backgroundColor = '#d1e7dd';
+            toast.style.color = '#0a3622';
+            toast.style.padding = '10px';
+            toast.style.borderRadius = '5px';
+            toast.style.borderColor = '#a3cfbb';
+            toast.style.zIndex = '1000';
+            toast.style.opacity = '0';
+            toast.style.transition = 'opacity 0.5s';
+
+            // Füge das Toast-Element hinzu und fade es ein
+            document.body.appendChild(toast);
+            setTimeout(() => toast.style.opacity = '0.8', 100);
+
+            // Entferne das Toast-Element nach einer gewissen Zeit
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                setTimeout(() => document.body.removeChild(toast),
+                    500); // Warte auf das Ende der Opacity-Transition
+            }, 3000);
+        }
+
+        async function typeText() {
             if (currentChar < textToType.length) {
-                if (textToType.charAt(currentChar) === '<') {
-                    let endTag = textToType.indexOf('>', currentChar);
-                    if (endTag !== -1) {
-                        typedTextElement.innerHTML += textToType.substring(currentChar, endTag + 1);
-                        currentChar = endTag + 1;
+                // Füge den nächsten Block von Zeichen hinzu
+                let nextBlock = textToType.substring(currentChar, currentChar + blockSize);
+                currentChar += blockSize;
+
+                // Überprüfe, ob der Block ein HTML-Tag enthält
+                if (nextBlock.includes('<')) {
+                    let endTagIndex = textToType.indexOf('>', currentChar);
+                    if (endTagIndex !== -1) {
+                        nextBlock = textToType.substring(currentChar - blockSize, endTagIndex + 1);
+                        currentChar = endTagIndex + 1;
                     }
-                } else {
-                    typedTextElement.innerHTML += textToType.charAt(currentChar);
-                    currentChar++;
                 }
-                setTimeout(typeText, 5); // Adjust the typing speed (in milliseconds)
-                typedTextElement.scrollTop = typedTextElement.scrollHeight;
+
+                typedTextElement.innerHTML += nextBlock;
+
+                typedTextElement.scrollTop = typedTextElement.scrollHeight; // Scroll to the bottom
+                setTimeout(typeText, 20); // Adjust the typing speed (in milliseconds)
             } else {
-                alltext += textToType + " <br> ";
+                // Füge den gesamten Text hinzu und formatiere ihn
+                alltext += textToType + " ";
                 typedTextElement.innerHTML = alltext;
                 currentChar = 0;
                 curloop++;
+                typedTextElement.scrollTop = typedTextElement.scrollHeight; // Ensure final scroll to the bottom
                 typeFun();
             }
         }
 
-        function typeFun() {
+        async function typeFun() {
             if (curloop < textarray.length) {
                 textToType = textarray[curloop];
                 typeText();
@@ -319,6 +314,7 @@
                 alltext = '';
                 textToType = [];
                 curloop = 0;
+                typedTextElement.scrollTop = typedTextElement.scrollHeight; // Ensure final scroll to the bottom
             }
         }
     </script>

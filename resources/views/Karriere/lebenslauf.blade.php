@@ -32,6 +32,7 @@
             margin-top: 0.25rem;
             border: 1px solid #ccc;
             border-radius: 4px;
+            font-size: 0.8rem;
         }
 
         .accordion-body {
@@ -58,7 +59,7 @@
             <div class="row">
                 <div class="col-md-2">
                     <div class="leftCon" style="cursor: pointer">
-                        <img id="closeIcon" onclick="window.history.back()"
+                        <img id="closeIcon" onclick="window.location.href='/karriere/bewerbegenie'"
                             src="{{ asset('asset/images/ic_close.png') }}" alt="closeIcon">
 
                         <svg xmlns="http://www.w3.org/2000/svg" width="134" height="113" viewBox="0 0 245 167"

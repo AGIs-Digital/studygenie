@@ -220,7 +220,7 @@ h3 {
   color: rgba(45, 62, 78, 1);
 }
 
-.discountSticekr {
+.discountSticker {
   position: absolute;
   top: -8%;
   left: -7%;
@@ -244,6 +244,64 @@ h3 {
 
 .hidden {
   display: none;
+}
+
+.visible {
+  display: block;
+}
+
+.text-success {
+  color: green;
+  animation: highlight 0.5s ease-in-out;
+}
+
+.text-danger {
+  color: red;
+}
+
+.password-container {
+  position: relative;
+}
+
+.toggle-password {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.toggle-password img {
+  width: 23px;
+  height: 23px;
+}
+
+.criteria-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8em;
+  line-height: 1.2;
+  flex-wrap: nowrap;
+}
+
+.criteria-row p {
+  margin-right: 10px;
+  white-space: nowrap;
+}
+
+.text-success .checkmark {
+  color: green;
+  animation: highlight 0.5s ease-in-out;
+}
+
+.text-danger .checkmark {
+  color: red;
+}
+
+@keyframes highlight {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
 }
 
 .highWeightSpan {

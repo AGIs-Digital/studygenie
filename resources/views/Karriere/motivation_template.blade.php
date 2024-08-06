@@ -50,22 +50,9 @@
         }
 
         .content {
-            margin-bottom: 2cm;
+            margin-bottom: 1cm;
         }
 
-        .signature {
-            margin-top: 2cm;
-        }
-
-        .footer {
-            position: fixed;
-            bottom: 1cm;
-            left: 0;
-            right: 0;
-            text-align: center;
-            font-size: 12px;
-            color: #666;
-        }
     </style>
 </head>
 

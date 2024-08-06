@@ -31,6 +31,7 @@ class MotivationController extends Controller
     public function preview(Request $request): \Illuminate\Http\JsonResponse
     {
         try {
+            // Hier wird die OpenAI-Antwort verarbeitet
             $data = $request->all();
             $openAIResponse = $this->getOpenAIResponse($data);
 
@@ -46,6 +47,7 @@ class MotivationController extends Controller
             return response()->json(['pdf' => base64_encode($pdf->output())]);
         } catch (\Exception $e) {
             // Fehlerbehandlung und Debugging-Informationen
+            \Log::error('Fehler in preview Methode: ' . $e->getMessage());
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
@@ -72,8 +74,56 @@ class MotivationController extends Controller
             return $pdf->download('motivationsschreiben.pdf');
         } catch (\Exception $e) {
             // Fehlerbehandlung und Debugging-Informationen
+            \Log::error('Fehler in downloadPDF Methode: ' . $e->getMessage());
             return response()->json(['error' => $e->getMessage()], 500);
         }
+    }
+
+    private function getOpenAIResponse($data)
+    {
+        // Hier wird die OpenAI-Anfrage gesendet und die Antwort zurückgegeben
+        // Dies ist ein Platzhalter. Implementiere die tatsächliche OpenAI-Anfrage hier.
+        $generated_text = $data['openai_response'] ?? "OpenAI Antwort basierend auf den Benutzereingaben.";
+
+        // Entferne bekannte Abschiedsformeln, falls vorhanden
+        $abschiedsformeln = [
+            'Mit freundlichen Grüßen,',
+            'Hochachtungsvoll,',
+            'Freundliche Grüße,',
+            'Mit besten Grüßen,',
+            'Mit herzlichen Grüßen,',
+            'Mit den besten Wünschen,',
+            'Beste Grüße,',
+            'Viele Grüße,',
+            'Liebe Grüße,',
+            'Viele liebe Grüße,',
+            'Bis bald,',
+            'Alles Gute,',
+            'Herzlichst,',
+            '[Dein Name],',
+            '[Dein Name]',
+            '(Dein Name),',
+            '(Dein Name)',
+            '[Ihr Name],',
+            '[Ihr Name]',
+            '(Ihr Name),',
+            '(Ihr Name)'
+        ];
+
+        foreach ($abschiedsformeln as $formel) {
+            $generated_text = str_replace($formel, '', $generated_text);
+        }
+
+        // Entferne den authentifizierten Benutzernamen aus der Antwort, falls vorhanden
+        if (auth()->check()) {
+            $username = auth()->user()->name;
+            $generated_text = str_replace($username, '', $generated_text);
+        }
+
+        // Trimme den Text, um mgliche Leerzeichen oder Zeilenumbrche zu entfernen
+        $generated_text = trim($generated_text);
+
+        return $generated_text;
     }
 
     /**
@@ -92,13 +142,18 @@ class MotivationController extends Controller
 
             $prompt = new Prompt('prompts.motivational_letter.task_prompt');
             $prompt->replace('task_job', $request->stellenbezeichnung_job, "keine Angabe");
-            $prompt->replace('task_skills', $request->qualification_skills, "keine Angabe");
+            $prompt->replace('task_description', $request->stellenbezeichnung_stellenbeschreibung, "keine Angabe");
+            
             $prompt->replace('task_academic', $request->qualification_grade, "keine Angabe");
             $prompt->replace('task_experience', $request->qualification_jobs, "keine Angabe");
-            $prompt->replace('task_motivation', $request->motivationen_level, "keine Angabe");
-            $prompt->replace('task_personal', $request->motivationen_freitext, "keine Angabe");
-            $prompt->replace('task_description', $request->stellenbezeichnung_stellenbeschreibung, "keine Angabe");
+            $prompt->replace('task_tasks_now', $request->qualification_tasks_now, "keine Angabe");
+            $prompt->replace('task_tasks_earlier', $request->qualification_tasks_earlier, "keine Angabe");
+            $prompt->replace('task_skills', $request->qualification_skills, "keine Angabe");
+
             $prompt->replace('task_goals', $request->motivationen_type, "keine Angabe");
+            $prompt->replace('task_motivation', $request->motivationen_level, "keine Angabe");
+            $prompt->replace('task_style', $request->motivationen_style, "keine Angabe");
+            $prompt->replace('task_personal', $request->motivationen_freitext, "keine Angabe");
 
             # Create a new message
             $message = new Message();

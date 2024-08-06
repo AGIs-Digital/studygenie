@@ -13,7 +13,7 @@
 
 				<div class="col-md-2">
 					<div class="leftCon" style="cursor: pointer">
-						<img id="closeIcon" onclick="window.history.back()"
+						<img id="closeIcon" onclick="window.location.href='/karriere'"
 							src="{{ asset('asset/images/ic_close.png')}}" alt="closeIcon">
 
 						<svg xmlns="http://www.w3.org/2000/svg" width="134" height="113"
@@ -115,12 +115,9 @@
 					<div class="written-green-board">
 
 						<div class="content-written message">
-                            <img src="{{ asset('asset/images/ab2.svg') }}" class="ab1" alt=""> <img
-			src="{{ asset('asset/images/ab2.svg') }}" class="ab2" alt=""> <img
-			src="{{ asset('asset/images/ab3.svg') }}" class="ab3" alt=""> <img
-			src="{{ asset('asset/images/ab4.svg') }}" class="ab4" alt="">
-            <img
-			src="{{ asset('asset/images/ToolsImage.png') }}" class="ab5" alt="">
+                            <img src="{{ asset('asset/images/ab2.svg') }}" class="ab1" alt="">
+                            <img src="{{ asset('asset/images/ab2.svg') }}" class="ab2" alt=""> <img src="{{ asset('asset/images/ab3.svg') }}" class="ab3" alt=""> <img src="{{ asset('asset/images/ab4.svg') }}" class="ab4" alt="">
+                            <img src="{{ asset('asset/images/ToolsImage.png') }}" class="ab5" alt="">
 							<div class="typing-container d-block">
 								<div class="all_content" id="all_content">
 
@@ -128,19 +125,19 @@
 
 							</div>
 							<div class="user_input_form">
-								<form id="form_user_input">
+								<form id="form_user_input" style="display: flex; align-items: center; gap: 10px;">
 									@csrf
                                     <div class="save_folder left" id="save_folder" style="display: block"
                                         data-bs-toggle="modal" data-bs-target="#saveModal">
                                         <img src="{{ asset('asset/images/savefolder.svg') }}" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Speichern" width="40"
                                         height="40" alt="">
                                     </div>
-                                    <input type="text" id="user_input" name="user" required>
-									<button type="submit" id="button_submit" style="background-color:#E09E50;">Senden</button>
+                                    <input type="text" id="user_input" name="user" required placeholder="Sende eine Nachricht an StudyGenie" style="flex: 1;">
+									<button type="submit" id="button_submit" style="background-color:#E09E50; flex-shrink: 0;">Senden</button>
 								</form>
 							</div>
 						</div>
-
+                        <p style="font-size: 12px; color: gray; text-align: center;">StudyGenie kann Fehler machen. Überprüfe wichtige Informationen.</p>
 					</div>
 				</div>
 			</div>
@@ -150,7 +147,7 @@
 	<!-- Modal -->
 	<div class="modal fade" id="saveModal" tabindex="-1"
 		aria-labelledby="saveModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
+		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
 
 				<div class="modal-header">
@@ -279,35 +276,33 @@
             });
         });
 
-        /**
-         * Erstellt und zeigt eine Toast-Nachricht mit einer gegebenen Nachricht an.
-         * @param {string} message - Die Nachricht, die im Toast angezeigt werden soll.
-         */
         function showToast(message) {
-          // Erstelle das Toast-Element
-          var toast = document.createElement('div');
-          toast.textContent = message;
-          toast.style.position = 'fixed';
-          toast.style.bottom = '20px';
-          toast.style.left = '50%';
-          toast.style.transform = 'translateX(-50%)';
-          toast.style.backgroundColor = 'black';
-          toast.style.color = 'white';
-          toast.style.padding = '10px';
-          toast.style.borderRadius = '5px';
-          toast.style.zIndex = '1000';
-          toast.style.opacity = '0';
-          toast.style.transition = 'opacity 0.5s';
-
-          // Füge das Toast-Element hinzu und fade es ein
-          document.body.appendChild(toast);
-          setTimeout(() => toast.style.opacity = '1', 100);
-
-          // Entferne das Toast-Element nach einer gewissen Zeit
-          setTimeout(() => {
+            // Erstelle das Toast-Element
+            var toast = document.createElement('div');
+            toast.textContent = message;
+            toast.style.position = 'fixed';
+            toast.style.left = '50%';
+            toast.style.top = '50%';
+            toast.style.transform = 'translateX(-50%, -50%)';
+            toast.style.backgroundColor = '#d1e7dd';
+            toast.style.color = '#0a3622';
+            toast.style.padding = '10px';
+            toast.style.borderRadius = '5px';
+            toast.style.borderColor = '#a3cfbb';
+            toast.style.zIndex = '1000';
             toast.style.opacity = '0';
-            setTimeout(() => document.body.removeChild(toast), 500); // Warte auf das Ende der Opacity-Transition
-          }, 3000);
+            toast.style.transition = 'opacity 0.5s';
+
+            // Füge das Toast-Element hinzu und fade es ein
+            document.body.appendChild(toast);
+            setTimeout(() => toast.style.opacity = '0.8', 100);
+
+            // Entferne das Toast-Element nach einer gewissen Zeit
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                setTimeout(() => document.body.removeChild(toast),
+                    500); // Warte auf das Ende der Opacity-Transition
+            }, 3000);
         }
 
         var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))

@@ -4,12 +4,16 @@
 <head>
     @section('title', 'Datenschutz')
     @include('includes.head')
-    <link rel="stylesheet" href="{{ asset('asset/css/homepage.css') }}">
+    <link rel="stylesheet" href="{{ asset('asset/css/homepage.css') }}"> 
 </head>
 
 <body class="MainContainer">
     @include('includes.header')
 
+    <!-- Arrow Up Button -->
+    <div class="arrow-up hidden" id="arrowUpContainer">
+        <img src="{{ asset('asset/images/arrow-up.svg') }}" id="arrowUp" class="hidden" alt="Nach oben">
+    </div>
     <section class="blog_sec">
         <div class="container">
             <div class="row justify-content-center">
@@ -377,8 +381,8 @@
                     <p>Wenn Sie über unsere Website ein Gespräch mit uns beginnen und ChatGPT aktiviert wird, werden Ihre
                         Eingaben inklusive Metadaten an die Server von ChatGPT übertragen und dort verarbeitet, um eine
                         passende Antwort zu generieren.</p>
-                    <p>Wir haben ChatGPT so konfiguriert, dass die eingegebenen personenbezogenen Daten nicht zum
-                        Trainieren des Algorithmus von ChatGPT benutzt werden.</p>
+                    <p>Es ist sichergestellt, dass die eingegebenen personenbezogenen Daten nicht zum Trainieren des Algorithmus von ChatGPT benutzt werden. Wir verwenden die Daten, die Sie uns zur Verfügung stellen, ausschließlich zur Bereitstellung und Verbesserung der Funktionen unserer Anwendung. Ihre über die OpenAI API verarbeiteten Daten werden ausschließlich zur Beantwortung Ihrer Anfragen genutzt und nicht für das Training der ChatGPT-Modelle verwendet.
+                    </p>
                     <p>Die Verwendung von ChatGPT erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO. Der
                         Websitebetreiber hat ein berechtigtes Interesse an einer möglichst effizienten Kundenkommunikation
                         unter Einsatz moderner technischer Lösungen. Sofern eine entsprechende Einwilligung abgefragt
@@ -469,6 +473,54 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
+     <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Arrow Up Button
+            var arrowUp = document.getElementById('arrowUp');
+                        var arrowUpContainer = document.getElementById('arrowUpContainer');
+
+                        window.addEventListener('scroll', function() {
+                            if (window.scrollY > window.innerHeight) {
+                                arrowUp.classList.add('visible');
+                                arrowUp.classList.remove('hidden');
+                                arrowUpContainer.classList.add('visible');
+                                arrowUpContainer.classList.remove('hidden');
+                            } else {
+                                arrowUp.classList.add('hidden');
+                                arrowUp.classList.remove('visible');
+                                arrowUpContainer.classList.add('hidden');
+                                arrowUpContainer.classList.remove('visible');
+                            }
+                        });
+
+                        arrowUp.addEventListener('click', function() {
+                            smoothScrollToTop();
+                        });
+
+                        // Hide Arrow Up Button after scrolling to top
+                        window.addEventListener('scroll', function() {
+                            if (window.scrollY === 0) {
+                                arrowUp.classList.add('hidden');
+                                arrowUp.classList.remove('visible');
+                                arrowUpContainer.classList.add('hidden');
+                                arrowUpContainer.classList.remove('visible');
+                            }
+                        });
+            });
+
+            // Smooth scroll to top function
+            function smoothScrollToTop() {
+                const scrollDuration = 300; // Duration in ms
+                const scrollStep = -window.scrollY / (scrollDuration / 15);
+                const scrollInterval = setInterval(function() {
+                    if (window.scrollY !== 0) {
+                        window.scrollBy(0, scrollStep);
+                    } else {
+                        clearInterval(scrollInterval);
+                    }
+                }, 15);
+            }
     </script>
 
 </body>
