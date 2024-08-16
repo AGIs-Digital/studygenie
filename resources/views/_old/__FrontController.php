@@ -53,13 +53,91 @@ class FrontController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'tutorial_shown' => false, // Ensure tutorial_shown is set to false for new users
-            'expire_date' => Carbon::now()->addYear(100), // Set expire_date to null for unlimited duration
+            'expire_date' => null, // Set expire_date to null for unlimited duration
             'subscription_name' => 'silber'
         ]);
 
         $user->save();
 
         return $user;
+    }
+
+    public function postLogin(Request $request)
+    {
+        // Validierung für das Einloggen
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                "status" => false,
+                "errors" => $validator->errors()
+            ]);
+        }
+
+        if (Auth::attempt($request->only(['email', 'password']))) {
+            return response()->json([
+                "status" => true,
+                "redirect" => '/tools'
+            ]);
+        }
+
+        return response()->json([
+            "status" => false,
+            "errors" => [
+                "Benutzername oder Passwort falsch"
+            ]
+        ]);
+    }
+
+    public function postRegistration(Request $request)
+    {
+        // Validierung für die Account-Erstellung
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => [
+                'required',
+                'string',
+                'min:8',
+                'regex:/[0-9]/', // Mindestens eine Zahl
+                'regex:/[A-Z]/', // Mindestens ein Großbuchstabe
+                'regex:/[@$!%*?&#]/' // Mindestens ein Sonderzeichen
+            ],
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                "status" => false,
+                "errors" => $validator->errors()
+            ]);
+        }
+
+        // Korrigiere den Passwort-Parameter
+        $data = $request->all();
+
+        $user = $this->create($data);
+
+        // Überprüfe die ID des Benutzers und aktualisiere den subscription_name
+        if ($user->id <= 100) {
+            $user->subscription_name = 'diamant';
+            $user->save();
+            Auth::login($user);
+            return response()->json([
+                'status' => true,
+                'redirect' => '/tools',
+                'subscription_updated' => true
+            ]);
+        }
+
+        Auth::login($user);
+
+        return response()->json([
+            'status' => true,
+            'redirect' => '/tools'
+        ]);
     }
 
     public function changePassword(Request $request)

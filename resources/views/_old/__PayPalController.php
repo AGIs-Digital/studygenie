@@ -193,7 +193,7 @@ class PayPalController extends Controller
 
         if ($name == 'silber') {
             $user->updateSubscriptionStatus($name, null);
-            return redirect()->route('profile')->with('success', "{$user->name}, du hast jetzt das Silber Abonnement.");
+            return redirect()->route('profile')->with('success', "Herzlichen Glückwunsch, {$user->name}! Du hast jetzt das Silber Abonnement.");
         }
 
         $price = config("services.paypal.prices.$name", 10); // Standardpreis ist 10
@@ -250,14 +250,5 @@ class PayPalController extends Controller
         } else {
             return redirect()->route('create.payment')->with('error', $response['message'] ?? 'Etwas ist schief gelaufen');
         }
-    }
-
-    public function updateSilberSubscription(Request $request)
-    {
-        $user = Auth::user();
-        $user->subscription_name = 'silber';
-        $user->save();
-
-        return response()->json(['message' => 'Subscription updated successfully']);
     }
 }

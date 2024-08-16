@@ -20,22 +20,24 @@
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 <style>
     .delete-archive {
-        background-color: #ff4d4d;
-        color: white;
+        color: red;
         border: none;
-        padding: 8px 12px;
+        padding: 8px;
         border-radius: 50%;
         cursor: pointer;
         transition: background-color 0.3s ease, transform 0.3s ease;
-        font-size: 16px;
         display: flex;
         align-items: center;
         justify-content: center;
     }
 
     .delete-archive:hover {
-        background-color: #ff1a1a;
-        transform: scale(1.1);
+        background-color: grey;
+        transform: scale(1.2); // Objekt wird etwas größer
+    }
+
+    .delete-archive i {
+        font-size: 18px;
     }
 
     .toast {
@@ -111,7 +113,7 @@
 								<button class="accordion-button collapsed" type="button"
 									data-bs-toggle="collapse" data-bs-target="#BildungCollpasetool4"
 									aria-expanded="false" aria-controls="BildungCollpasetool4">
-									genieTutor</button>
+									GenieTutor</button>
 							</h2>
 							<div id="BildungCollpasetool4" class="accordion-collapse collapse"
 								aria-labelledby="BildungMentor" data-bs-parent="#accordionBildung">
@@ -242,7 +244,7 @@
 								$(this).remove();
 							});
 							var deleteToast = new bootstrap.Toast(document.getElementById('deleteToast'), {
-								delay: 1500
+								delay: 1750
 							});
 							deleteToast.show();
 						} else {
@@ -268,7 +270,7 @@ function createAccordion($data, $toolType) {
             echo '<div class="accordion-item" id="archive-item-' . $row->id . '">';
             echo '<h2 class="accordion-header d-flex justify-content-between align-items-center" id="flush-headingOne' . $row->id . '">';
             echo '<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne' . $row->id . '" aria-expanded="false" aria-controls="flush-collapseOne' . $row->id . '">' . $row->question . '</button>';
-            echo '<button class="btn delete-archive" data-id="' . $row->id . '">X</button>';
+            echo '<button class="btn delete-archive" data-id="' . $row->id . '"><i class="fas fa-trash-alt"></i></button>';
             echo '</h2>';
             echo '<div id="flush-collapseOne' . $row->id . '" class="accordion-collapse collapse" aria-labelledby="flush-headingOne' . $row->id . '" data-bs-parent="#accordionFlushExample2">';
             echo '<div class="accordion-body">' . $row->answer . '</div>';
@@ -284,7 +286,7 @@ function createAccordion($data, $toolType) {
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="deleteConfirmationModalLabel">Bestätigung</h5>
+        <h5 class="modal-title" id="deleteConfirmationModalLabel">Eintrag löschen</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">

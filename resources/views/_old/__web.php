@@ -7,9 +7,6 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ArchiveController;
 use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\Auth\ForgotPasswordController;
-use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\PayPalController;
 
 use App\Http\Controllers\Karriere\MentorController;
@@ -40,7 +37,7 @@ Route::view('datenschutz', 'datenschutz')->name('datenschutz');
 
 Route::get('/', function () {
     return view('index');
-})->name('home');
+})->name('home')->middleware('check.tutorial'); // not sure what the check.tutorial does here on a public route... (FL)
 
 ### CONVERSATION ROUTES ###
 Route::middleware('auth:sanctum')->prefix('conversation')->group(function () {
@@ -53,7 +50,7 @@ Route::middleware('auth:sanctum')->prefix('conversation')->group(function () {
 ### AUTHENTICATED ROUTES ###
 Route::group(['middleware' => ['auth']], function () {
     // View routes
-    Route::view('tools', 'tools')->name('tools');
+    Route::view('tools', 'tools');
     Route::get('profile', [UserController::class, 'show'])->name('profil');
 
     // Resources
@@ -119,7 +116,8 @@ Route::group(['middleware' => ['auth']], function () {
             // Motivational letter routes
             Route::get('motivationsschreiben', [MotivationController::class, 'create'])->name('motivation');
             Route::prefix('motivation')->name('motivation.')->group(function () {
-                Route::post('preview', [MotivationController::class, 'preview'])->name('preview');
+
+                Route::post('preview', [MotivationController::class, 'preview']);
                 Route::post('generate', [MotivationController::class, 'generate'])->name('generate');
                 Route::post('download-pdf', [MotivationController::class, 'downloadPDF'])->name('download-pdf');
             });
@@ -155,13 +153,10 @@ Route::get('/setup-plans', [PayPalController::class, 'setupPlans'])->name('paypa
 Route::post('/create-subscription', [PayPalController::class, 'createSubscription'])->name('paypal.createSubscription');
 Route::get('/update-subscription', [PayPalController::class, 'updateSubscription'])->name('paypal.updateSubscription');
 
-// New route for updating Silber subscription
-Route::post('/update-silber-subscription', [PayPalController::class, 'updateSilberSubscription'])->name('paypal.updateSilberSubscription');
-
 ### USER ROUTES ###
-Route::post('/postLogin', [LoginController::class, 'postLogin'])->name('login.post');
-Route::post('/postRegistration', [RegisterController::class, 'postRegistration'])->name('register.post');
-//Route::post('/register', [UserController::class, 'register'])->name('register.post');
+Route::post('/postLogin', [FrontController::class, 'postLogin']);
+Route::post('/postRegistration', [FrontController::class, 'postRegistration']);
+Route::post('/register', [UserController::class, 'register'])->name('register.post');
 Route::post('change-password', [FrontController::class, 'changePassword'])->name('change.password');
 
 Route::prefix('user')->name('user.')->group(function () {

@@ -229,6 +229,17 @@ input[type='radio'] {
   border: none;
   padding: 9px 20px;
   margin-top: 0rem;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.send_button:hover {
+  background-color: rgba(41, 58, 74, 0.8);
+  transform: scale(1.05);
+}
+
+.send_button:active {
+  background-color: rgba(41, 58, 74, 0.6);
+  transform: scale(0.95);
 }
 
 .content-written button {
@@ -241,6 +252,17 @@ input[type='radio'] {
   letter-spacing: -0.014px;
   border: none;
   margin-top: 2rem;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.content-written button:hover {
+  background-color: rgba(41, 58, 74, 0.8);
+  transform: scale(1.05);
+}
+
+.content-written button:active {
+  background-color: rgba(41, 58, 74, 0.6);
+  transform: scale(0.95);
 }
 
 .group-box span {
@@ -590,7 +612,7 @@ label > i {
   margin-top: 3px;
   margin-bottom: 6px;
   border-radius: 12px;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .typing-container .left_box span:last-child {

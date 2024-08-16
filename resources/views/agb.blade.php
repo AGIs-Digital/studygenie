@@ -4,11 +4,16 @@
 <head>
     @section('title', 'AGBs')
     @include('includes.head')
-    <link rel="stylesheet" href="{{ asset('asset/css/homepage.css') }}">
+    <link rel="stylesheet" href="{{ asset('asset/css/homepage.css') }}"> 
 </head>
 
 <body class="MainContainer">
     @include('includes.header')
+
+    <!-- Arrow Up Button -->
+    <div class="arrow-up hidden" id="arrowUpContainer">
+        <img src="{{ asset('asset/images/arrow-up.svg') }}" id="arrowUp" class="hidden" alt="Nach oben">
+    </div>
     <section class="blog_sec">
         <div class="container">
             <div class="row justify-content-center">
@@ -175,6 +180,55 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"
         type="text/javascript"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Arrow Up Button
+            var arrowUp = document.getElementById('arrowUp');
+                        var arrowUpContainer = document.getElementById('arrowUpContainer');
+
+                        window.addEventListener('scroll', function() {
+                            if (window.scrollY > window.innerHeight) {
+                                arrowUp.classList.add('visible');
+                                arrowUp.classList.remove('hidden');
+                                arrowUpContainer.classList.add('visible');
+                                arrowUpContainer.classList.remove('hidden');
+                            } else {
+                                arrowUp.classList.add('hidden');
+                                arrowUp.classList.remove('visible');
+                                arrowUpContainer.classList.add('hidden');
+                                arrowUpContainer.classList.remove('visible');
+                            }
+                        });
+
+                        arrowUp.addEventListener('click', function() {
+                            smoothScrollToTop();
+                        });
+
+                        // Hide Arrow Up Button after scrolling to top
+                        window.addEventListener('scroll', function() {
+                            if (window.scrollY === 0) {
+                                arrowUp.classList.add('hidden');
+                                arrowUp.classList.remove('visible');
+                                arrowUpContainer.classList.add('hidden');
+                                arrowUpContainer.classList.remove('visible');
+                            }
+                        });
+            });
+
+            // Smooth scroll to top function
+            function smoothScrollToTop() {
+                const scrollDuration = 300; // Duration in ms
+                const scrollStep = -window.scrollY / (scrollDuration / 15);
+                const scrollInterval = setInterval(function() {
+                    if (window.scrollY !== 0) {
+                        window.scrollBy(0, scrollStep);
+                    } else {
+                        clearInterval(scrollInterval);
+                    }
+                }, 15);
+            }
+    </script>
 </body>
 
 </html>

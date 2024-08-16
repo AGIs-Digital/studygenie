@@ -62,7 +62,7 @@
             <div class="row">
                 <div class="col-md-2">
                     <div class="leftCon" style="cursor: pointer">
-                        <img id="closeIcon" onclick="window.history.back()" src="{{ asset('asset/images/ic_close.png') }}"
+                        <img id="closeIcon" onclick="window.location.href='/bildung/genieautor'" src="{{ asset('asset/images/ic_close.png') }}"
                             alt="closeIcon">
 
                         <svg xmlns="http://www.w3.org/2000/svg" width="134" height="113" viewBox="0 0 245 167"
@@ -120,7 +120,7 @@
                                                     src="{{ asset('asset/images/info-tools.svg') }}" width="16"
                                                     alt="">
                                             </strong>
-                                        </span> <input type="text" placeholder="" id="field_1" name="field1">
+                                        </span> <input type="text" placeholder="Aufsatz, Inhaltsangaben, Bachelorarbeit, etc." id="field_1" name="field1">
                                     </div>
 
                                     <div class="group-box">
@@ -130,7 +130,7 @@
                                                     src="{{ asset('asset/images/info-tools.svg') }}" width="16"
                                                     alt="">
                                             </strong>
-                                        </span> <input type="text" placeholder="" id="field_2" name="field2">
+                                        </span> <input type="text" placeholder="9. Klasse Realschule, Oberstufe, Studium, etc." id="field_2" name="field2">
                                     </div>
 
                                     <div class="group-box">
@@ -140,7 +140,7 @@
                                                     src="{{ asset('asset/images/info-tools.svg') }}" width="16"
                                                     alt="">
                                             </strong>
-                                        </span> <input type="text" placeholder="" id="field_3" name="field3">
+                                        </span> <input type="text" placeholder="Bildungsreform im digitalen Zeitalter, etc." id="field_3" name="field3">
                                     </div>
                                     <div class="group-box">
                                         <span class="small_text_font">Besonderen Anforderungen/Interessen: <strong
@@ -150,7 +150,7 @@
                                                 <img src="{{ asset('asset/images/info-tools.svg') }}" width="16"
                                                     alt="">
                                             </strong>
-                                        </span> <input type="text" placeholder="" id="field_4" name="field4">
+                                        </span> <input type="text" placeholder="300 Worte, in Englisch, etc." id="field_4" name="field4">
                                     </div>
                                     <div class="row radio_button_box">
                                         <div class="col-md-12">
@@ -192,7 +192,10 @@
                                     </div>
                                     <br>
                                 </div>
-                                <button type="button" class="send_button" id="submitForm">Absenden</button>
+                                <div class="text-center" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                                    <button type="button" class="send_button" id="submitForm">Absenden</button>
+                                    <button type="button" class="send_button" id="showSaveModal">Speichern</button>
+                                </div>
                             </div>
                         </div>
                     </form>
@@ -205,16 +208,7 @@
                                 <div id="typed-text"></div>
                             </div>
                         </div>
-                        <div class="save_folder center" id="save_folder" data-bs-toggle="modal"
-                            data-bs-target="#saveModal">
-                            <img src="{{ asset('asset/images/savefolder.svg') }}" data-bs-toggle="tooltip"
-                                data-bs-placement="top" title="" data-bs-original-title="Speichern"
-                                width="40" height="40" alt="">
-                        </div>
-
-
-
-
+                        <p style="font-size: 12px; color: gray; text-align: center;">StudyGenie kann Fehler machen. Überprüfe wichtige Informationen.</p>
                     </div>
                 </div>
             </div>
@@ -224,32 +218,29 @@
 
     <!-- Modal -->
     <div class="modal fade" id="saveModal" tabindex="-1" aria-labelledby="saveModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <form id="save_data">
                     @csrf
                     <div class="modal-header">
-                        <h5 class="modal-title" id="saveModalLabel">Speichern</h5>
+                        <h5 class="modal-title" id="saveModalLabel">Antwort speichern</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                             aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
 
                         <div class="mb-3">
-                            <label for="save_name" class="form-label">Speichername
-                            </label> <input type="text" class="form-control" id="save_name" name="name"
-                                placeholder="Speichername">
+                            <label for="save_name" class="form-label">Name:</label>
+                            <input type="text" class="form-control" id="save_name" name="name"
+                                placeholder="Speichername eingeben">
                         </div>
                         <input type="hidden" name="save_val" id="save_val"> <input type="hidden" name="tooltype"
                             value="text_inspiration"> <input type="hidden" name="type" value="Bildung"
                             id="Bildung">
-
-
-
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Schließen</button>
-                        <button type="button" class="btn btn-primary" id="saveForm">Speichern
+                        <button type="button" class="btn btn-primary" id="saveFormButton">Speichern
                         </button>
                     </div>
                 </form>
@@ -264,7 +255,8 @@
         document.addEventListener('DOMContentLoaded', () => {
 
             const saveForm = document.getElementById('save_data');
-            const saveFormButton = document.getElementById('saveForm');
+            const saveFormButton = document.getElementById('saveFormButton');
+            const showSaveModalButton = document.getElementById('showSaveModal');
 
             // Speichern des Chatverlaufs
             saveFormButton.addEventListener('click', async () => {
@@ -277,7 +269,14 @@
 
                 $("#save_name").val('');
 
+                // Schließe das Modal
+                $('#saveModal').modal('hide');
+
                 showToast(document.title + " Gespeichert!");
+            });
+
+            showSaveModalButton.addEventListener('click', () => {
+                $('#saveModal').modal('show');
             });
         });
     </script>
@@ -288,7 +287,7 @@
         let currentChar = 0;
         let curloop = 0;
         let alltext = '';
-        const blockSize = 10; // Define blockSize here
+        const blockSize = 10; // Anzahl der Zeichen pro Block
         var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
         var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
             return new bootstrap.Tooltip(tooltipTriggerEl)
@@ -304,8 +303,6 @@
                 $("#save_data").val('x');
                 //Ladezeichen anzeigen
                 $("#submitForm").addClass('loading-button').text("Zaubert...");
-
-
                 $.ajax({
                     url: route('bildung.textinspiration.store'),
                     method: "POST",
@@ -323,7 +320,6 @@
                         textarray = checks;
                         $("#save_val").val(textToType + " <br> <br> ");
                         typeFun();
-                        $("#save_folder").show();
                     },
                     error: function(xhr, status, error) {
                         console.error("Ein Fehler ist aufgetreten: " + error);
@@ -339,20 +335,21 @@
             var toast = document.createElement('div');
             toast.textContent = message;
             toast.style.position = 'fixed';
-            toast.style.bottom = '20px';
             toast.style.left = '50%';
-            toast.style.transform = 'translateX(-50%)';
-            toast.style.backgroundColor = 'black';
-            toast.style.color = 'white';
+            toast.style.top = '50%';
+            toast.style.transform = 'translateX(-50%, -50%)';
+            toast.style.backgroundColor = '#d1e7dd';
+            toast.style.color = '#0a3622';
             toast.style.padding = '10px';
             toast.style.borderRadius = '5px';
+            toast.style.borderColor = '#a3cfbb';
             toast.style.zIndex = '1000';
             toast.style.opacity = '0';
             toast.style.transition = 'opacity 0.5s';
 
             // Füge das Toast-Element hinzu und fade es ein
             document.body.appendChild(toast);
-            setTimeout(() => toast.style.opacity = '1', 100);
+            setTimeout(() => toast.style.opacity = '0.8', 100);
 
             // Entferne das Toast-Element nach einer gewissen Zeit
             setTimeout(() => {
