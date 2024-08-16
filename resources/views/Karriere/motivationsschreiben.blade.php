@@ -64,16 +64,6 @@
             overflow-y: auto;
             flex: 1;
         }
-
-        .container-fluid {
-            display: flex;
-            align-items: stretch;
-        }
-
-        .col-md-3, .col-md-7 {
-            display: flex;
-            flex-direction: column;
-        }
     </style>
 </head>
 
