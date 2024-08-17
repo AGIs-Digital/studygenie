@@ -1,6 +1,6 @@
 <section class="witnessSection">
     <div class="container">
-        <img class="crownImg mb-2" src="{{ asset('asset/images/fill_7.png') }}" alt="Kronenbild"
+        <img class="crownImg mb-2" src="{{ asset('asset/images/crownimage.png') }}" alt="Kronenbild"
             loading="lazy">
         <h1 class="secondary-Heading mb-2">Sie liebens!</h1>
         <div class="MainCardsContainer">
@@ -11,7 +11,7 @@
                     <img class="quoteMarks" src="{{ asset('asset/images/ic.png') }}" alt="Zitatzeichen"
                         loading="lazy">
                     <div class="thumbnail-Content-Container">
-                        <img src="{{ asset('asset/images/illustrations/lukeg.png') }}" alt="Thumbnail Luke G."
+                        <img src="{{ asset('asset/images/illustrations/testimonial3.png') }}" alt="Thumbnail Luke G."
                             loading="lazy">
                         <span class="thumbnailDescription">Luke G.</span>
                     </div>
@@ -25,7 +25,7 @@
                     <div class="thumbnail-Content-Container">
                         <img class="quoteMarks" src="{{ asset('asset/images/ic.png') }}" alt="Zitatzeichen"
                             loading="lazy">
-                        <img src="{{ asset('asset/images/illustrations/julias.png') }}" alt="Thumbnail Julia S."
+                        <img src="{{ asset('asset/images/illustrations/testimonial2.png') }}" alt="Thumbnail Julia S."
                             loading="lazy">
                         <span class="thumbnailDescription">Julia S.</span>
                     </div>
@@ -39,7 +39,7 @@
                     <div class="thumbnail-Content-Container">
                         <img class="quoteMarks" src="{{ asset('asset/images/ic.png') }}" alt="Zitatzeichen"
                             loading="lazy">
-                        <img src="{{ asset('asset/images/illustrations/alexm.png') }}" alt="Thumbnail Alex M."
+                        <img src="{{ asset('asset/images/illustrations/testimonial1.png') }}" alt="Thumbnail Alex M."
                             loading="lazy">
                         <span class="thumbnailDescription">Alex M.</span>
                     </div>

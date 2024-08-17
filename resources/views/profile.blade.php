@@ -58,7 +58,7 @@
                         <div class="col-md-4 d-flex justify-content-center">
                             <div class="planCard">
                                 <div class="headerPlanCard">
-                                    <img class="crownImg" src="{{ asset('asset/images/illustrations/silber2.png') }}" alt="Crown Image">
+                                    <img class="crownImg" src="{{ asset('asset/images/illustrations/silber.png') }}" alt="Crown Image">
                                     <h6 class="secondary-Heading">Silber</h6>
                                 </div>
                                 <div class="contentPlanCard contentPlanCard3">

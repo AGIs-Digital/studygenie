@@ -19,7 +19,7 @@ class MotivationController extends Controller
      */
     public function create()
     {
-        return view('karriere.motivationsschreiben');
+        return view('Karriere.motivationsschreiben');
     }
 
     /**
@@ -39,7 +39,7 @@ class MotivationController extends Controller
             $data['motivational_letter'] = $openAIResponse;
 
             // Generiere das PDF nur mit den gefilterten Daten
-            $pdf = PDF::loadView('karriere.motivation_template', $data)
+            $pdf = PDF::loadView('Karriere.motivation_template', $data)
                           ->setPaper('a4', 'portrait')
                           ->setOptions(['isHtml5ParserEnabled' => true, 'isPhpEnabled' => true]);
 
@@ -67,7 +67,7 @@ class MotivationController extends Controller
             $data['motivational_letter'] = $this->getOpenAIResponse($data);
 
             // Generiere das PDF nur mit den gefilterten Daten
-            $pdf = PDF::loadView('karriere.motivation_template', $data)
+            $pdf = PDF::loadView('Karriere.motivation_template', $data)
                           ->setPaper('a4', 'portrait')
                           ->setOptions(['isHtml5ParserEnabled' => true, 'isPhpEnabled' => true]);
 

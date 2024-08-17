@@ -4,55 +4,7 @@
 <head>
     @section('title', 'TextInspiration')
     @include('includes.head')
-
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>
-        window.MathJax = {
-            tex: {
-                inlineMath: [
-                    ['$', '$'],
-                    ['\\(', '\\)']
-                ],
-                displayMath: [
-                    ['$$', '$$'],
-                    ['\\[', '\\]']
-                ]
-            },
-            svg: {
-                fontCache: 'global'
-            }
-        };
-    </script>
-    <style>
-        .loading-button {
-            position: relative;
-            padding-right: 30px;
-        }
-
-        .loading-button::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            right: 10px;
-            width: 16px;
-            height: 16px;
-            border: 2px solid #fff;
-            border-top: 2px solid transparent;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-            transform: translateY(-50%);
-        }
-
-        @keyframes spin {
-            0% {
-                transform: translateY(-50%) rotate(0deg);
-            }
-
-            100% {
-                transform: translateY(-50%) rotate(360deg);
-            }
-        }
-    </style>
+    @include('components.mathjax')
 </head>
 
 <body class="MainContainer backimage">
@@ -249,7 +201,8 @@
     </div>
 
     @include('includes.footer')
-
+    <script src="{{ asset('asset/js/toast.js') }}"></script>
+    <script src="{{ asset('asset/js/typing.js') }}"></script>
     <script>
         let conversation_id = null
         document.addEventListener('DOMContentLoaded', () => {
@@ -329,80 +282,6 @@
                 });
             });
         });
-
-        function showToast(message) {
-            // Erstelle das Toast-Element
-            var toast = document.createElement('div');
-            toast.textContent = message;
-            toast.style.position = 'fixed';
-            toast.style.left = '50%';
-            toast.style.top = '50%';
-            toast.style.transform = 'translateX(-50%, -50%)';
-            toast.style.backgroundColor = '#d1e7dd';
-            toast.style.color = '#0a3622';
-            toast.style.padding = '10px';
-            toast.style.borderRadius = '5px';
-            toast.style.borderColor = '#a3cfbb';
-            toast.style.zIndex = '1000';
-            toast.style.opacity = '0';
-            toast.style.transition = 'opacity 0.5s';
-
-            // Füge das Toast-Element hinzu und fade es ein
-            document.body.appendChild(toast);
-            setTimeout(() => toast.style.opacity = '0.8', 100);
-
-            // Entferne das Toast-Element nach einer gewissen Zeit
-            setTimeout(() => {
-                toast.style.opacity = '0';
-                setTimeout(() => document.body.removeChild(toast),
-                    500); // Warte auf das Ende der Opacity-Transition
-            }, 3000);
-        }
-
-        async function typeText() {
-            if (currentChar < textToType.length) {
-                // Füge den nächsten Block von Zeichen hinzu
-                let nextBlock = textToType.substring(currentChar, currentChar + blockSize);
-                currentChar += blockSize;
-
-                // Überprüfe, ob der Block ein HTML-Tag enthält
-                if (nextBlock.includes('<')) {
-                    let endTagIndex = textToType.indexOf('>', currentChar);
-                    if (endTagIndex !== -1) {
-                        nextBlock = textToType.substring(currentChar - blockSize, endTagIndex + 1);
-                        currentChar = endTagIndex + 1;
-                    }
-                }
-
-                typedTextElement.innerHTML += nextBlock;
-
-                await MathJax.typesetPromise([typedTextElement]); // Render MathJax content after each block
-                typedTextElement.scrollTop = typedTextElement.scrollHeight; // Scroll to the bottom
-                setTimeout(typeText, 20); // Adjust the typing speed (in milliseconds)
-            } else {
-                // Füge den gesamten Text hinzu und formatiere ihn
-                alltext += textToType + " ";
-                typedTextElement.innerHTML = alltext;
-                currentChar = 0;
-                curloop++;
-                await MathJax.typesetPromise([typedTextElement]); // Final render of MathJax content
-                typedTextElement.scrollTop = typedTextElement.scrollHeight; // Ensure final scroll to the bottom
-                typeFun();
-            }
-        }
-
-        async function typeFun() {
-            if (curloop < textarray.length) {
-                textToType = textarray[curloop];
-                typeText();
-            } else {
-                alltext = '';
-                textToType = [];
-                curloop = 0;
-                await MathJax.typesetPromise([typedTextElement]); // Ensure final MathJax rendering
-                typedTextElement.scrollTop = typedTextElement.scrollHeight; // Ensure final scroll to the bottom
-            }
-        }
     </script>
 </body>
 

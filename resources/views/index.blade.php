@@ -113,7 +113,7 @@
     @include('components.plancards-section')
 
     <section class="joinNowSection">
-        <img src="{{ asset('asset/images/fill_7.png') }}" alt="Kronenbild" loading="lazy">
+        <img src="{{ asset('asset/images/crownimage.png') }}" alt="Kronenbild" loading="lazy">
         <h1 class="secondary-Heading">Worauf wartest du?</h1>
         <p class="secondary-Paragraph">Starte jetzt kostenlos und mach dir das Leben leichter.</p>
         <button data-bs-toggle="modal" data-bs-target="#signupModal" class="plancardButton">Jetzt ausprobieren</button>
@@ -163,6 +163,7 @@
     <script src="{{ asset('asset/js/index.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="{{ asset('asset/js/toast.js') }}"></script>
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
@@ -298,29 +299,6 @@
             if (!localStorage.getItem('cookieConsent')) {
                 var cookieModal = new bootstrap.Modal(document.getElementById('cookieConsentModal'));
                 cookieModal.show();
-            }
-
-            // Funktion zum Anzeigen der Toast-Nachricht
-            function showToast(message) {
-                var toast = document.createElement('div');
-                toast.className = 'toast align-items-center text-white bg-primary border-0';
-                toast.role = 'alert';
-                toast.ariaLive = 'assertive';
-                toast.ariaAtomic = 'true';
-                toast.innerHTML = `
-                    <div class="d-flex">
-                        <div class="toast-body">${message}</div>
-                        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-                    </div>
-                `;
-                document.body.appendChild(toast);
-                var bsToast = new bootstrap.Toast(toast, {
-                    delay: 3000
-                });
-                bsToast.show();
-                toast.addEventListener('hidden.bs.toast', function() {
-                    toast.remove();
-                });
             }
 
             // Cookies akzeptieren

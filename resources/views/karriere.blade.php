@@ -5,6 +5,7 @@
     @section('title', 'Karriere')
     @include('includes.head')
     <link rel="stylesheet" href="{{ asset('asset/css/forBildungStyle.css') }}">
+    @include('components.toolsperre')
 </head>
 
 <body class="MainContainer">
@@ -241,24 +242,6 @@
     </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.9.0/dist/sweetalert2.all.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.9.0/dist/sweetalert2.min.css" rel="stylesheet">
-    <script>
-        function showDialog() {
-            Swal.fire({
-                title: '<strong>Das musst du erst freischalten</strong>',
-                icon: 'info',
-                html: 'Dazu musst du dein Abo upgraden, ' +
-                    '<a href="/profile">Profil</a> ' +
-                    'zum freischalten.',
-
-            });
-        }
-
-        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-        var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
-            return new bootstrap.Tooltip(tooltipTriggerEl)
-        })
-    </script>
 </body>
 
 </html>

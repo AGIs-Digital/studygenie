@@ -22,7 +22,7 @@ class LebenslaufController extends Controller
      */
     public function create()
     {
-        return view('karriere.lebenslauf');
+        return view('Karriere.lebenslauf');
     }
 
     /**

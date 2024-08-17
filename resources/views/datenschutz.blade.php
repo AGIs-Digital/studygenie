@@ -4,7 +4,7 @@
 <head>
     @section('title', 'Datenschutz')
     @include('includes.head')
-    <link rel="stylesheet" href="{{ asset('asset/css/homepage.css') }}"> 
+    <link rel="stylesheet" href="{{ asset('asset/css/HomePage.css') }}"> 
 </head>
 
 <body class="MainContainer">

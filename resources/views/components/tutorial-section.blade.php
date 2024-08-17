@@ -1,6 +1,6 @@
 <section class="tutorialSection">
     <div class="container">
-        <img class="crownImg mb-2" src="{{ asset('asset/images/fill_7.png') }}" alt="Kronenbild"
+        <img class="crownImg mb-2" src="{{ asset('asset/images/crownimage.png') }}" alt="Kronenbild"
             loading="lazy">
         <h1 class="secondary-Heading mb-2">Wünsch dir was</h1>
         <div class="cardsContainer">

@@ -4,25 +4,7 @@
 <head>
     @section('title', 'genieTutor')
     @include('includes.head')
-
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>
-        window.MathJax = {
-            tex: {
-                inlineMath: [
-                    ['$', '$'],
-                    ['\\(', '\\)']
-                ],
-                displayMath: [
-                    ['$$', '$$'],
-                    ['\\[', '\\]']
-                ]
-            },
-            svg: {
-                fontCache: 'global'
-            }
-        };
-    </script>
+    @include('components.mathjax')
 </head>
 
 <body class="MainContainer">
@@ -203,7 +185,7 @@
         </div>
     </div>
     @include('includes.footer')
-
+    <script src="{{ asset('asset/js/toast.js') }}"></script>
     <script>
         // Initialisierung bei DOMContentLoaded
         document.addEventListener('DOMContentLoaded', () => {
@@ -310,35 +292,6 @@
                 showToast(document.title + " Gespeichert!");
             });
         });
-
-        function showToast(message) {
-            // Erstelle das Toast-Element
-            var toast = document.createElement('div');
-            toast.textContent = message;
-            toast.style.position = 'fixed';
-            toast.style.left = '50%';
-            toast.style.top = '50%';
-            toast.style.transform = 'translateX(-50%, -50%)';
-            toast.style.backgroundColor = '#d1e7dd';
-            toast.style.color = '#0a3622';
-            toast.style.padding = '10px';
-            toast.style.borderRadius = '5px';
-            toast.style.borderColor = '#a3cfbb';
-            toast.style.zIndex = '1000';
-            toast.style.opacity = '0';
-            toast.style.transition = 'opacity 0.5s';
-
-            // Füge das Toast-Element hinzu und fade es ein
-            document.body.appendChild(toast);
-            setTimeout(() => toast.style.opacity = '0.8', 100);
-
-            // Entferne das Toast-Element nach einer gewissen Zeit
-            setTimeout(() => {
-                toast.style.opacity = '0';
-                setTimeout(() => document.body.removeChild(toast),
-                    500); // Warte auf das Ende der Opacity-Transition
-            }, 3000);
-        }
 
         var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
         var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {

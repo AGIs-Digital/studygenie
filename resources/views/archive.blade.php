@@ -3,48 +3,11 @@
 <head>
     @section('title', Auth::check() ? auth()->user()->name . 's - Archiv' : 'Archiv')
     @include('includes.head')
+    @include('components.mathjax')
 
     @routes
     <link rel="stylesheet" href="{{ asset('asset/css/profile.css') }}">
-	<link rel="stylesheet" href="{{ asset('asset/css/homepage.css') }}">
-    <!-- MathJax Konfiguration -->
-    <script>
-        window.MathJax = {
-            tex: {
-                inlineMath: [['$', '$'], ['\\(', '\\)']]
-            },
-            svg: {
-                fontCache: 'global'
-            }
-        };
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <style>
-        .delete-archive {
-            color: red;
-            border: none;
-            padding: 8px;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .delete-archive:hover {
-            background-color: grey;
-            transform: scale(1.2); // Objekt wird etwas größer
-        }
-
-        .delete-archive i {
-            font-size: 18px;
-        }
-
-        .toast {
-            opacity: 0.7;
-        }
-    </style>
+	<link rel="stylesheet" href="{{ asset('asset/css/HomePage.css') }}">
 </head>
 
 <body class="MainContainer">
@@ -243,11 +206,9 @@
             </div>
         </div>
     </footer>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ asset('asset/js/toast.js') }}"></script>
 	<script>
 		$(document).ready(function() {
 			var deleteId;
@@ -270,10 +231,7 @@
                             $('#archive-item-' + deleteId).fadeOut('slow', function() {
                                 $(this).remove();
                             });
-                            var deleteToast = new bootstrap.Toast(document.getElementById('deleteToast'), {
-                                delay: 1750
-                            });
-                            deleteToast.show();
+                            showToast('Der Eintrag wurde erfolgreich gelöscht.'); // Toast anzeigen
                         } else {
                             alert('Fehler: ' + response.message);
                         }

@@ -1,5 +1,5 @@
 <section class="learnAnythingSection">
-    <img class="crownImg" src="{{ asset('asset/images/fill_7.png') }}" alt="Kronenbild" loading="lazy">
+    <img class="crownImg" src="{{ asset('asset/images/crownimage.png') }}" alt="Kronenbild" loading="lazy">
     <h1 class="secondary-Heading">Gemeinsam schaffen wir das</h1>
     <p class="secondary-Paragraph">Wir unterstützen dich in der Schule, im Studium und im Berufsstart.</p>
     <div class="video_sec">

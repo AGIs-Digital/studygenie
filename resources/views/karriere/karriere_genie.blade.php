@@ -10,10 +10,6 @@
     .categoryClouds {
         grid-template-columns: 1fr 1fr;
     }
-
-    .Cloud_Karriere svg svg text {
-        font-size: 16.5px;
-    }
 </style>
 
 <body class="MainContainer">

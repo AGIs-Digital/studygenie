@@ -6,48 +6,15 @@
     @include('includes.head')
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <style>
-        .remove-entry {
-            color: white;
-            background-color: #E74C3C;
-            border-radius: 50%;
+        .delete-archive {
+            color: #ff6666; /* Light red color */
+            background: none;
+            border: none;
             cursor: pointer;
-            margin-left: 10px;
-            padding: 5px 8px;
-            font-size: 14px;
-            font-weight: bold;
-            display: inline-block;
-            text-align: center;
-            line-height: 1;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
 
-        .entry p {
-            margin: 0.5rem 0;
-        }
-
-        .entry input,
-        .entry textarea {
-            width: 100%;
-            padding: 0.5rem;
-            margin-top: 0.25rem;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 0.8rem;
-        }
-
-        .accordion-body {
-            padding-left: 1rem;
-        }
-
-        .preview-container {
-            border: 1px solid #2D3E4E;
-            border-radius: 12px;
-            padding: 1rem;
-            margin-top: 6rem;
-            margin-right: 3rem;
-            background-color: #f8f8f8;
-            height: 100%;
-            overflow-y: auto;
+        .delete-archive:hover {
+            color: #ff0000; /* Bright red color on hover */
         }
     </style>
 </head>
@@ -59,7 +26,7 @@
             <div class="row">
                 <div class="col-md-2">
                     <div class="leftCon" style="cursor: pointer">
-                        <img id="closeIcon" onclick="window.location.href='/karriere/bewerbegenie'"
+                        <img id="closeIcon" onclick="window.location.href='{{ route('karriere.bewerbegenie') }}'"
                             src="{{ asset('asset/images/ic_close.png') }}" alt="closeIcon">
 
                         <svg xmlns="http://www.w3.org/2000/svg" width="134" height="113" viewBox="0 0 245 167"
@@ -321,9 +288,9 @@
             }
 
             function addRemoveButton(entry) {
-                const removeButton = document.createElement('span');
-                removeButton.classList.add('remove-entry');
-                removeButton.innerHTML = 'X';
+                const removeButton = document.createElement('button');
+                removeButton.classList.add('btn', 'delete-archive');
+                removeButton.innerHTML = '<i class="fas fa-trash-alt"></i>';
                 removeButton.addEventListener('click', () => {
                     entry.remove();
                     checkFields();
