@@ -48,11 +48,6 @@
             font-weight: bold;
             margin-bottom: 1cm;
         }
-
-        .content {
-            margin-bottom: 1cm;
-        }
-
     </style>
 </head>
 
@@ -60,8 +55,8 @@
     <div class="container">
         <div class="address">
             <!-- Absenderadresse -->
-            <p>{{ $name }}<br>{{ $street }}<br>{{ $postal_city }} {{ $city }}<br>Tel:
-                {{ $phone }}<br>E-Mail: {{ $email }}</p>
+            <p>{{ $name }}<br>{{ $street }}<br>{{ $postal_city }} {{ $city }}@if (!empty($phone))<br>Tel:
+                {{ $phone }}@endif @if (!empty($email))<br>E-Mail: {{ $email }}@endif</p>
             <!-- Empfängeradresse -->
             <p>{{ $adressat_company }}
                 @if (!empty($adressat_person))
