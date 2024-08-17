@@ -3,17 +3,17 @@
     <h1 class="secondary-Heading">Was wir noch können</h1>
     <div class="testomnialDivision">
         <div class="testimonialCard">
-            <img src="{{ asset('asset/images/illustrations/Deine_professionelle_Bewerbung.png') }}"
+            <img src="{{ asset('asset/images/landingpage/Deine_professionelle_Bewerbung.png') }}"
                 alt="Testimonial Card" loading="lazy">
             <span class="CardThumbnailSpan">Karrierecoaching und Bewerbung</span>
         </div>
         <div class="testimonialCard">
-            <img src="{{ asset('asset/images/illustrations/Der_perfekte_Lernplan_fuer_dich.png') }}"
+            <img src="{{ asset('asset/images/landingpage/Der_perfekte_Lernplan_fuer_dich.png') }}"
                 alt="Testimonial Card" loading="lazy">
             <span class="CardThumbnailSpan">Individuelle Lernhilfe</span>
         </div>
         <div class="testimonialCard">
-            <img src="{{ asset('asset/images/illustrations/Alles_wichtige_ueber_deine_Traumberufe.png') }}"
+            <img src="{{ asset('asset/images/landingpage/Alles_wichtige_ueber_deine_Traumberufe.png') }}"
                 alt="Testimonial Card" loading="lazy">
             <span class="CardThumbnailSpan">Deinen Traumberuf finden</span>
         </div>

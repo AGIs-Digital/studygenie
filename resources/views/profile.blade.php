@@ -58,7 +58,7 @@
                         <div class="col-md-4 d-flex justify-content-center">
                             <div class="planCard">
                                 <div class="headerPlanCard">
-                                    <img class="crownImg" src="{{ asset('asset/images/illustrations/silber.png') }}" alt="Crown Image">
+                                    <img class="crownImg" src="{{ asset('asset/images/landingpage/silber.png') }}" alt="Crown Image">
                                     <h6 class="secondary-Heading">Silber</h6>
                                 </div>
                                 <div class="contentPlanCard contentPlanCard3">
@@ -85,7 +85,7 @@
                             <div class="col-md-4 d-flex justify-content-center">
                                 <div class="planCard">
                                     <div class="headerPlanCard">
-                                <img class="crownImg" src="{{ asset('asset/images/illustrations/gold.png') }}" alt="Crown Image">
+                                <img class="crownImg" src="{{ asset('asset/images/landingpage/gold.png') }}" alt="Crown Image">
                                         <h6 class="secondary-Heading">Gold</h6>
                                     </div>
                                     <div class="contentPlanCard contentPlanCard2">
@@ -121,7 +121,7 @@
                                 <div class="col-md-4 d-flex justify-content-center">
                         <div class="planCard">
                                         <div class="headerPlanCard">
-                                <img class="crownImg" src="{{ asset('asset/images/illustrations/diamant.png') }}" alt="Crown Image">
+                                <img class="crownImg" src="{{ asset('asset/images/landingpage/diamant.png') }}" alt="Crown Image">
                                             <h6 class="secondary-Heading">Diamant</h6>
                                         </div>
                                         <div class="contentPlanCard contentPlanCard3">

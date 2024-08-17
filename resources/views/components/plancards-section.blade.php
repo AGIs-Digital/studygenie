@@ -5,7 +5,7 @@
     <span id="discountPercent">FREE</span>
 </div>
             <div class="headerPlanCard">
-                <img class="crownImg" src="{{ asset('asset/images/illustrations/silber.png') }}" alt="Kronenbild Silber" loading="lazy">
+                <img class="crownImg" src="{{ asset('asset/images/landingpage/silber.png') }}" alt="Kronenbild Silber" loading="lazy">
                 <h1 class="secondary-Heading" style="color: #fff">Silber</h1>
             </div>
             <div class="contentPlanCard contentPlanCard1">
@@ -17,7 +17,7 @@
         </div>
         <div class="planCard">
             <div class="headerPlanCard">
-                <img class="crownImg" src="{{ asset('asset/images/illustrations/gold.png') }}" alt="Kronenbild Gold" loading="lazy">
+                <img class="crownImg" src="{{ asset('asset/images/landingpage/gold.png') }}" alt="Kronenbild Gold" loading="lazy">
                 <h1 class="secondary-Heading" style="color: #fff">Gold</h1>
             </div>
             <div class="contentPlanCard contentPlanCard1">
@@ -30,7 +30,7 @@
         </div>
         <div class="planCard">
             <div class="headerPlanCard">
-                <img class="crownImg" src="{{ asset('asset/images/illustrations/diamant.png') }}" alt="Kronenbild Diamant" loading="lazy">
+                <img class="crownImg" src="{{ asset('asset/images/landingpage/diamant.png') }}" alt="Kronenbild Diamant" loading="lazy">
                 <h1 class="secondary-Heading" style="color: #fff">Diamant</h1>
             </div>
             <div class="contentPlanCard contentPlanCard1">

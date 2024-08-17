@@ -89,7 +89,7 @@
                     <img src="{{ asset('asset/images/23.1.png') }}" alt="Z Design Illustration" loading="lazy">
                 </div>
                 <div class="imageContainer">
-                    <img src="{{ asset('asset/images/illustrations/heroImage.svg') }}" alt="Hauptbild"
+                    <img src="{{ asset('asset/images/landingpage/heroImage.svg') }}" alt="Hauptbild"
                         loading="lazy">
                 </div>
             </div>
