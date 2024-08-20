@@ -294,30 +294,6 @@
 	font-size: 13px;
 }
 
-.BildungCloud.active {
-	z-index: 5;
-	border: 3px solid red;
-	border-radius: 50%;
-}
-
-.KarriereCloud.active {
-	z-index: 5;
-	border: 3px solid red;
-	border-radius: 50%;
-}
-
-.BildungCloud.active2 {
-	z-index: 5;
-	border-radius: 50%;
-	border: 3px solid red;
-}
-
-.KarriereCloud.active2 {
-	z-index: 5;
-	border-radius: 50%;
-	border: 3px solid red;
-}
-
 .image_box_first.sec .four_img {
 	position: absolute;
 	top: 258px;

@@ -2,7 +2,7 @@
 <html lang="de">
 
 <head>
-    @section('title', Auth::check() ? auth()->user()->name . 's - Profil' : 'Profil')
+    @section('title', Auth::check() ? auth()->user()->name . ' - Profil' : 'Profil')
     @include('includes.head')
     <link rel="stylesheet" href="{{ asset('asset/css/profile.css') }}">
     <script src="https://www.paypal.com/sdk/js?client-id=Abj-J9HxV5L4s1izmSlNl27AJLM0z71Z0BzLAVV4n7ClCYaxlBWEGdvfSBnSvY7beu-AhQv0YdMLOzcc&currency=EUR"></script>
@@ -11,16 +11,18 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
 </head>
-
+@include('includes.header')
+@include('components.feedback')
 <body class="MainContainer">
-    @include('includes.header')
+    <div class="headerSpacer"></div>
+
     @include('components.tooglePasswordVisibility')
 
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-12">
                 <h1>
-                    {{ auth()->user()->name }} Profil Einstellungen
+                    {{ auth()->user()->name }} - Einstellungen
                     <img src="{{ asset('asset/images/profile.svg') }}">
                 </h1>
             </div>
@@ -68,7 +70,7 @@
                             <div class="contentPlanCard contentPlanCard3">
                                 <span class="highWeightSpan">0 €<span class="lowWeightSpan"> mtl.</span></span>
                                 <p class="planCardParagraph">
-                                    ✓ Intelligente Soforthilfe<br />✓ Traumberuf finden<br />✓ Berufsinformationen<br />✘ Textinspirationen<br />✘ Textanalyse<br />
+                                <span class="pink-textmarker">✓ Intelligente Soforthilfe<br />✓ Traumberuf finden<br />✓ Berufsinformationen</span><br />✘ Textinspirationen<br />✘ Textanalyse<br />
                                     ✘ Bewerbungsunterlagen<br />✘ Lerncoach<br />✘ Bewerbungstrainer
                                 </p>
                                 @guest
@@ -95,8 +97,8 @@
                             <div class="contentPlanCard contentPlanCard2">
                                 <span class="highWeightSpan">10 €<span class="lowWeightSpan"> mtl.</span></span>
                                 <p class="planCardParagraph">
-                                    ✓ Intelligente Soforthilfe<br />✓ Traumberuf finden<br />✓ Berufsinformationen<br />✓ Textinspirationen<br />✓ Textanalyse<br />
-                                    ✓ Bewerbungsunterlagen<br />✘ Lerncoach<br />✘ Bewerbungstrainer
+                                    ✓ Intelligente Soforthilfe<br />✓ Traumberuf finden<br />✓ Berufsinformationen<br /><span class="blue-textmarker">✓ Textinspirationen</span><br /><span class="blue-textmarker">✓ Textanalyse</span><br />
+                                    <span class="blue-textmarker">✓ Bewerbungsunterlagen</span><br />✘ Lerncoach<br />✘ Bewerbungstrainer
                                 </p>
                                 @guest
                                     <button data-bs-toggle="modal" data-bs-target="#signupModal" class="plancardButton">Hol dir Gold</button>
@@ -126,7 +128,7 @@
                                 <span class="highWeightSpan">20 €<span class="lowWeightSpan"> mtl.</span></span>
                                 <p class="planCardParagraph">
                                     ✓ Intelligente Soforthilfe<br />✓ Traumberuf finden<br />✓ Berufsinformationen<br />✓ Textinspirationen<br />✓ Textanalyse<br />
-                                    ✓ Bewerbungsunterlagen<br />✓ Lerncoach<br />✓ Bewerbungstrainer
+                                    ✓ Bewerbungsunterlagen<br /><span class="green-textmarker">✓ Lerncoach</span><br /><span class="green-textmarker">✓ Bewerbungstrainer</span>
                                 </p>
                                 @guest
                                     <button data-bs-toggle="modal" data-bs-target="#loginModal" class="plancardButton">Hol dir Diamant</button>
@@ -259,6 +261,7 @@
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="{{ asset('asset/js/toast.js') }}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             // PayPal Button Rendering

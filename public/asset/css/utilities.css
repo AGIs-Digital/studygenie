@@ -9,6 +9,11 @@
 	box-sizing: border-box;
 }
 
+#user_input:focus {
+	outline: none;
+	box-shadow: none;
+}
+
 .toolsAnchor {
 	display: flex;
 	flex-direction: column;

@@ -7,29 +7,7 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
 </head>
 
-<body class="MainContainer">
-    @include('components.arrowupbutton')
-    @include('components.cookie-consent')
-    @include('components.login-modal')
-    @include('components.signup-modal')
-    @include('components.forget-modal')
-    @include('components.tooglePasswordVisibility')
-
-    <!-- Toast Container, aber wofür? Kann vielleicht weg -->
-    <div aria-live="polite" aria-atomic="true" class="position-relative">
-        <div class="toast-container position-fixed top-0 end-0 p-3">
-            <div id="errorToast" class="toast align-items-center text-white bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
-                <div class="d-flex">
-                    <div class="toast-body" id="errorToastMessage">
-                        <!-- Error message will be injected here -->
-                    </div>
-                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <header class="headerContainer">
+<header class="headerContainer">
         <div class="container">
             <nav class="navbar navbar-expand-lg">
                 <div class="container-fluid">
@@ -85,6 +63,32 @@
         
     </header>
 
+<body class="MainContainer">
+    <div class="headerSpacer"></div>
+    @include('components.arrowupbutton')
+    @include('components.cookie-consent')
+    @include('components.login-modal')
+    @include('components.signup-modal')
+    @include('components.forget-modal')
+    @include('components.tooglePasswordVisibility')
+    @include('components.feedback')
+
+    <!-- Toast Container, aber wofür? Kann vielleicht weg -->
+    <div aria-live="polite" aria-atomic="true" class="position-relative">
+        <div class="toast-container position-fixed top-0 end-0 p-3">
+            <div id="errorToast" class="toast align-items-center text-white bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body" id="errorToastMessage">
+                        <!-- Error message will be injected here -->
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
     @include('components.heroimage-section')
     @include('components.learn-anything-section')
     @include('components.mathrix-section')
@@ -121,8 +125,7 @@
 
     @include('components.footer')
 
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" defer></script>
     <script src="{{ asset('asset/js/index.js') }}"></script>
     <script src="{{ asset('asset/js/toast.js') }}"></script>
     @include('components.tooglePasswordVisibility')

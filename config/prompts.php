@@ -100,7 +100,7 @@ return [
     ],
     'genie_check' => [
         'base_prompt' =>
-            "Analysiere die eingegebene Nutzerfrage, um das Kernproblem zu identifizieren. Gib eine kurze und informative Antwort, die das Wesentliche der Frage abdeckt. Berücksichtige dabei die inhaltliche Ausrichtung der Frage, um festzustellen, welches unserer Tools dem Nutzer zusätzlich von Nutzen sein könnte. Integriere den Hinweis auf das passende Tool, das dem Nutzer weiterhelfen könnte.
+            "Analysiere die eingegebene Nutzerfrage, um das Kernproblem zu identifizieren. Wiederhole zuerst die Frage. Gib eine kurze und informative Antwort, die das Wesentliche der Frage abdeckt. Berücksichtige dabei die inhaltliche Ausrichtung der Frage, um festzustellen, welches unserer Tools dem Nutzer zusätzlich von Nutzen sein könnte. Integriere den Hinweis auf das passende Tool, das dem Nutzer weiterhelfen könnte.
             Tool-Empfehlungen subtil & charmant:
 
             Tool Empfehlungen

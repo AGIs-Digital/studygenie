@@ -3,16 +3,16 @@
 <head>
     @section('title', Auth::check() ? auth()->user()->name . 's - Archiv' : 'Archiv')
     @include('includes.head')
-    @include('components.mathjax')
     @include('components.arrowupbutton')
 
     @routes
     <link rel="stylesheet" href="{{ asset('asset/css/profile.css') }}">
 </head>
-
+@include('includes.header')
 <body class="MainContainer">
+    <div class="headerSpacer"></div>
+    @include('components.feedback')
     
-    @include('includes.header')
     <section class="archive_sec">
     </div>
     <section class="archive_sec">
@@ -151,37 +151,7 @@
         </div>
     </div>
 </div>
-<!-- Confirmation Modal -->
-<div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="deleteConfirmationModalLabel">Eintrag löschen</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        Bist du sicher, dass du diese Antwort löschen möchtest?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Abbrechen</button>
-        <button type="button" class="btn btn-danger" id="confirmDelete">Löschen</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Toast Container -->
-<div class="toast-container position-fixed top-50 start-50 translate-middle p-3" style="z-index: 11">
-    <div id="deleteToast" class="toast align-items-center text-white bg-success bg-opacity-75 border-0" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="d-flex">
-            <div class="toast-body">
-                Der Eintrag wurde erfolgreich gelöscht.
-            </div>
-            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-    </div>
-</div>
-
+@include('components.mathjax')
 @include('components.footer')
 
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>

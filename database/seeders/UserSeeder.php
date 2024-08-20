@@ -26,6 +26,7 @@ class UserSeeder extends Seeder
             'subscription_name' => 'diamant',
             'expire_date' => Carbon::now()->addYear(10),
             'tutorial_shown' => true,
+            'is_admin' => true,
         ]);
     }
 }

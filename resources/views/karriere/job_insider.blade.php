@@ -8,6 +8,7 @@
 
 <body class="MainContainer backimage">
     @include('includes.header')
+    @include('components.feedback')
     <section class="TextInspiration_sec">
         <div class="container-fluid">
             <div class="row">
@@ -78,7 +79,7 @@
                                 </div>
                                 <div class="text-center" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
                                 <button type="button" class="send_button" id="submitForm">Absenden</button>
-                                    <button type="button" class="send_button" id="showSaveModal">Speichern</button>
+                                    <button type="button" class="send_button" id="showSaveModal">Archivieren</button>
                                 </div>
                             </div>
                         </div>
@@ -103,37 +104,7 @@
         </div>
     </section>
 
-    <!-- Modal -->
-    <div class="modal fade" id="saveModal" tabindex="-1" aria-labelledby="saveModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <form id="save_data">
-                    @csrf
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="saveModalLabel">Antwort speichern</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                            aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-
-                        <div class="mb-3">
-                            <label for="save_name" class="form-label">Name:</label>
-                            <input type="text" class="form-control" id="save_name" name="name"
-                                placeholder="Speichername eingeben">
-                        </div>
-                        <input type="hidden" name="save_val" id="save_val"> <input type="hidden" name="tooltype"
-                            value="job_insider"> <input type="hidden" name="type" value="Karriere"
-                            id="Bildung">
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Schließen</button>
-                        <button type="button" class="btn btn-primary" id="saveFormButton">Speichern</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
+    @include('components.save_modal')
     @include('includes.footer')
     <script src="{{ asset('asset/js/toast.js') }}"></script>
     <script src="{{ asset('asset/js/typing.js') }}"></script>

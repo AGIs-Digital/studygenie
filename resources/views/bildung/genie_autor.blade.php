@@ -16,10 +16,12 @@
         font-size: 16.5px;
     }
 </style>
-
+@include('includes.header')
+@include('components.feedback')
 <body class="MainContainer">
+    <div class="headerSpacer"></div>
 
-    @include('includes.header')
+
     <main class="mainContainer">
         <img src="{{ asset('asset/images/ab1.svg') }}" class="ab1" alt=""> <img
             src="{{ asset('asset/images/ab2.svg') }}" class="ab2" alt=""> <img

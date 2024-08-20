@@ -9,13 +9,11 @@
         @page {
             size: A4;
             margin: 20mm;
-            /* Erhöhen Sie die Margen */
         }
 
         html,
         body {
             height: auto;
-            /* Ändern Sie die Höhe auf auto */
             margin: 0;
             padding: 0;
             font-family: Arial, sans-serif;
@@ -28,7 +26,6 @@
             display: flex;
             width: 100%;
             height: auto;
-            /* Ändern Sie die Höhe auf auto */
             padding: 20px;
             box-sizing: border-box;
             background-color: #f4f4f4;
@@ -92,16 +89,13 @@
 
         .side-panel {
             width: 230px;
-            background-color: #E09E50;
-            color: #ffffff;
+            background-color: {{ $side_panel_color ?? '#E09E50' }};
+            color: {{ $side_panel_text_color ?? '#ffffff' }};
             padding: 55px 30px 50px 30px;
             box-sizing: border-box;
             border-bottom-left-radius: 200px;
-            /* Nur unten links abgerundet */
             height: 100%;
-            /* Höhe von 100% der Seite */
             position: absolute;
-            /* Fixiert auf der rechten Seite */
             right: 0;
             top: 0;
             bottom: 0;
@@ -112,7 +106,7 @@
 
         .side-panel h2 {
             font-size: 18px;
-            border-bottom: 1px solid #ffffff;
+            border-bottom: 1px solid var(--side-panel-text-color, #ffffff);
             padding-bottom: 5px;
             margin-bottom: 10px;
         }

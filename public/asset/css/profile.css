@@ -1,3 +1,15 @@
+.headerContainer {
+  background: #2d3e4e;
+  position: fixed;
+  width: 100%;
+  z-index: 999;
+  height: 75px; /* Feste Höhe für den Header */
+}
+
+.headerSpacer {
+  height: 75px; /* Gleiche Höhe wie der Header */
+}
+
 .box {
   position: relative;
   max-width: 600px;
@@ -154,12 +166,11 @@ h1 img {
 
 .content {
   border-radius: 10px;
-  /* opacity: 0.4; */
   background: #fff;
   box-shadow: 5px 0px 20px 0px rgba(0, 0, 0, 0.4);
   padding: 20px;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 h2 {
@@ -392,10 +403,7 @@ h3 {
 
 .planCardParagraph {
   font-family: 'Montserrat', sans-serif;
-  font-weight: 300;
-  font-size: 16px;
   text-align: left;
-  color: rgba(80, 88, 87, 1);
   width: 100%;
 }
 
@@ -464,7 +472,6 @@ h3 {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  gap: 1rem;
   align-items: center; /* Added to vertically center the content within the footer */
 }
 

@@ -139,6 +139,11 @@
   position: fixed;
   width: 100%;
   z-index: 999;
+  height: 75px; /* Feste Höhe für den Header */
+}
+
+.headerSpacer {
+  height: 75px; /* Gleiche Höhe wie der Header */
 }
 
 a {
@@ -1008,7 +1013,6 @@ a {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  gap: 1rem;
   align-items: center; /* Added to vertically center the content within the footer */
 }
 
@@ -1482,7 +1486,7 @@ input[type='text'] {
 }
 
 input[type='text'] {
-  border: 1px solid gray;
+  border: 1px solid red;
 }
 
 input[type='password'] {

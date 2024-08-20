@@ -7,9 +7,11 @@
     <link rel="stylesheet" href="{{ asset('asset/css/forBildungStyle.css') }}">
     @include('components.toolsperre')
 </head>
-
+@include('includes.header')
+@include('components.feedback')
 <body class="MainContainer">
-    @include('includes.header')
+    <div class="headerSpacer"></div>
+
     <main class="mainContainer">
         <img src="{{ asset('asset/images/ab1.svg') }}" class="ab1" alt="">
         <img src="{{ asset('asset/images/ab2.svg') }}" class="ab2" alt="">
@@ -242,6 +244,7 @@
     </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.9.0/dist/sweetalert2.all.min.js"></script>
+    <script src="{{ asset('asset/js/karriere.js') }}"></script>
 </body>
 
 </html>

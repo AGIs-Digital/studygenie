@@ -21,6 +21,8 @@ use App\Http\Controllers\Karriere\MotivationController;
 use App\Http\Controllers\Bildung\GenieCheckController;
 use App\Http\Controllers\Bildung\TextInspirationController;
 use App\Http\Controllers\Bildung\TextAnalysisController;
+use App\Http\Controllers\FeedbackController;
+use App\Http\Controllers\AdminFeedbackController;
 
 /*
 |--------------------------------------------------------------------------
@@ -186,3 +188,8 @@ Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm
 
 // Route for resetting the password
 Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
+
+Route::post('/feedback', [FeedbackController::class, 'store'])->name('feedback.store');
+
+### ADMIN ROUTES ###
+Route::get('/admin/feedbacks', [AdminFeedbackController::class, 'index'])->name('admin.feedbacks.index')->middleware('admin');

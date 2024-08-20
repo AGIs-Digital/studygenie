@@ -25,6 +25,11 @@
                             <li class="nav-item archive" id="archive">
                                 <a class="nav-link anchor {{ request()->is('archive') ? 'active' : '' }}" href="/archive">Archiv</a>
                             </li>
+                            @if(Auth::user()->is_admin)
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('admin.feedbacks.index') }}">Admin Dashboard</a>
+                                </li>
+                            @endif
                         @endauth
                     </ul>
                     <div class="rightContainer">

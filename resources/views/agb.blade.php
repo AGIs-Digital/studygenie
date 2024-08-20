@@ -6,9 +6,11 @@
     @include('includes.head')
     <link rel="stylesheet" href="{{ asset('asset/css/HomePage.css') }}"> 
 </head>
-
-<body class="MainContainer">
 @include('includes.header')
+@include('components.feedback')
+<body class="MainContainer">
+    <div class="headerSpacer"></div>
+
 @include('components.arrowupbutton')
 
     <section class="blog_sec">
@@ -153,6 +155,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"
         type="text/javascript"></script>
+    <script src="{{ asset('asset/js/toast.js') }}"></script>s
 </body>
 
 </html>

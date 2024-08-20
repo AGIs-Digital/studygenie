@@ -7,8 +7,10 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 
+@include('includes.header')
+@include('components.feedback')
 <body class="MainContainer">
-    @include('includes.header')
+    <div class="headerSpacer"></div>
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-2">
