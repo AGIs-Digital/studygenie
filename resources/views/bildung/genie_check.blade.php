@@ -4,11 +4,14 @@
 <head>
     @section('title', 'GenieCheck')
     @include('includes.head')
-    @include('components.mathjax')
+
 </head>
 
 <body class="MainContainer backimage">
     @include('includes.header')
+    @include('components.mathjax')
+    @include('components.charts_and_svg')
+
     <section class="TextInspiration_sec">
         <div class="container-fluid">
             <div class="row">
@@ -165,13 +168,7 @@
         });
     </script>
     <script>
-        let textToType = "";
-        let textarray = [];
-        const typedTextElement = document.getElementById('typed-text');
-        let currentChar = 0;
-        let curloop = 0;
-        let alltext = '';
-        const blockSize = 10; // Anzahl der Zeichen pro Block
+
         var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
         var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
             return new bootstrap.Tooltip(tooltipTriggerEl)
@@ -213,7 +210,6 @@
                 });
             });
         });
-
     </script>
 </body>
 

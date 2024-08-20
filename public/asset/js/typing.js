@@ -1,3 +1,11 @@
+let textToType = "";
+let textarray = [];
+const typedTextElement = document.getElementById('typed-text');
+let currentChar = 0;
+let curloop = 0;
+let alltext = '';
+const blockSize = 10; // Anzahl der Zeichen pro Block
+
 async function typeText() {
     if (currentChar < textToType.length) {
         // Füge den nächsten Block von Zeichen hinzu
@@ -15,7 +23,11 @@ async function typeText() {
 
         typedTextElement.innerHTML += nextBlock;
 
-        await MathJax.typesetPromise([typedTextElement]); // Render MathJax content after each block
+        // Überprüfe, ob der Block mathematische Ausdrücke enthält
+        if (nextBlock.includes('$') || nextBlock.includes('\\(') || nextBlock.includes('\\[')) {
+            await MathJax.typesetPromise([typedTextElement]); // Render MathJax content after each block
+        }
+
         typedTextElement.scrollTop = typedTextElement.scrollHeight; // Scroll to the bottom
         setTimeout(typeText, 20); // Adjust the typing speed (in milliseconds)
     } else {

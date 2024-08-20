@@ -1,17 +1,7 @@
-@import
-	url('https://fonts.googleapis.com/css2?family=Milonga&display=swap');
-
-@import
-	url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,400;0,600;0,700;1,400&display=swap')
-	;
-
-@import
-	url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap')
-	;
-
-@import
-	url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap')
-	;
+@import url('https://fonts.googleapis.com/css2?family=Milonga&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
 
 * {
 	margin: 0;
@@ -58,6 +48,7 @@
 .toast {
 	opacity: 0.7;
 }
+
 .entry p {
 	margin: 0.5rem 0;
 }
@@ -91,7 +82,6 @@
 	0% {
 		transform: translateY(-50%) rotate(0deg);
 	}
-
 	100% {
 		transform: translateY(-50%) rotate(360deg);
 	}
@@ -113,4 +103,60 @@
 	border-radius: 50%;
 	animation: spin 0.8s linear infinite;
 	transform: translateY(-50%);
+}
+
+.textmarker {
+	display: inline-block;
+	background: linear-gradient(
+		100deg,
+		#ffffaf00 1%,
+		#ffffaf 2.5%,
+		#ffffaf80 5.7%,
+		#ffffaf1a 93%,
+		#ffffafb4 95%,
+		#ffffaf00 98%
+	),
+	linear-gradient(182deg, #ffffaf00, #ffffaf4d 8%, #ffffaf00 15%);
+}
+
+.green-textmarker {
+	display: inline-block;
+	background: linear-gradient(
+		100deg,
+		#b8ffaf00 1%,
+		#b8ffaf 2.5%,
+		#b8ffaf80 5.7%,
+		#b8ffaf1a 93%,
+		#b8ffafb4 95%,
+		#b8ffaf00 98%
+	),
+	linear-gradient(182deg, #b8ffaf00, #b8ffaf4d 8%, #b8ffaf00 15%);
+}
+
+.pink-textmarker {
+	display: inline-block;
+	background: linear-gradient(
+		100deg,
+		#ffafd400 1%,
+		#ffafd4 2.5%,
+		#ffafd480 5.7%,
+		#ffafd41a 93%,
+		#ffafd4b4 95%,
+		#ffafd400 98%
+	),
+	linear-gradient(182deg, #ffafd400, #ffafd44d 8%, #ffafd400 15%);
+}
+
+.blue-textmarker {
+	display: inline-block;
+	background: linear-gradient(
+		100deg,
+		#afd7ff00 1%,
+		#afd7ff 2.5%,
+		#afd7ff80 5.7%,
+		#afd7ff1a 93%,
+		#afd7ffb4 95%,
+		#afd7ff00 98%
+	),
+	linear-gradient(182deg, #afd7ff00, #afd7ff4d 8%, #afd7ff00 15%);
 }

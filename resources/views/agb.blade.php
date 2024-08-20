@@ -8,54 +8,9 @@
 </head>
 
 <body class="MainContainer">
-<header class="headerContainer navContainer">
-    <div class="container">
-        <nav class="navbar navbar-expand-lg">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#"> <img src="{{ asset('asset/images/logo.png') }}" width="90"
-                        height="48" alt="logoContainer"></a>
-                <button class="navbar-toggler navbar navbar-light" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0 CenterAnchorTagsContainer">
-                        <li class="nav-item"><a class="nav-link anchor {{ request()->is('/') ? 'active' : '' }}"
-                                aria-current="page" href="/">Home</a></li>
-                        @auth
-                            <li class="nav-item"><a class="nav-link  anchor {{ request()->is('tools') ? 'active' : '' }}"
-                                    href="/tools">Tools</a></li>
-                            <li class="nav-item profile_u" id="userprofile"><a
-                                    class="nav-link  anchor {{ request()->is('profile') ? 'active' : '' }}"
-                                    href="/profile">Profil</a></li>
-                            <li class="nav-item archive" id="archive"><a
-                                    class="nav-link anchor {{ request()->is('archive') ? 'active' : '' }}"
-                                    href="/archive">Archiv</a></li>
-                        @endauth
-                    </ul>
-                    <div class="rightContainer">
-                        @auth
-                            <div class="logOutbutton">
-                                <img style="cursor: pointer" src="{{ asset('asset/images/LogOut.svg') }}"
-                                    onclick="event.preventDefault();
-                          document.getElementById('logout-form').submit();"
-                                    alt="Log Out">
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">@csrf
-                                </form>
-                            </div>
-                        @endauth
-                    </div>
-                </div>
-            </div>
-        </nav>
-    </div>
-</header>
+@include('includes.header')
+@include('components.arrowupbutton')
 
-    <!-- Arrow Up Button -->
-    <div class="arrow-up hidden" id="arrowUpContainer">
-        <img src="{{ asset('asset/images/arrow-up.svg') }}" id="arrowUp" class="hidden" alt="Nach oben">
-    </div>
     <section class="blog_sec">
         <div class="container">
             <div class="row justify-content-center">
@@ -192,85 +147,12 @@
             </div>
         </div>
     </section>
-    <footer class="mainFooterContainer">
-        <div class="footerContainer">
-            <img id="footerLogo" src="{{ asset('asset/images/Logo_(2).png') }}" width="133" height="77"
-                alt="Logo" loading="lazy">
-            <div class="CenterContainer">
-                <div class="anchorTagsFooterContainer">
-                    <a href="{{ route('impressum') }}" class="footerHeading"> Impressum </a>
-                </div>
-                <div class="anchorTagsFooterContainer">
-                    <a href="{{ route('agb') }}" class="footerHeading"> AGBs </a>
-                </div>
-                <div class="anchorTagsFooterContainer">
-                    <a href="{{ route('datenschutz') }}" class="footerHeading"> Datenschutz </a>
-                </div>
-            </div>
-            <div class="rightContainer" style="gap: 0rem;">
-                <div class="socialAnchorTags">
-                    <a href=""><img id="instagram" src="{{ asset('asset/images/instagram.svg') }}"
-                            alt="Instagram" loading="lazy"></a>
-                    <a href=""><img id="tiktok" src="{{ asset('asset/images/tiktok.svg') }}" alt="TikTok"
-                            loading="lazy"></a>
-                    <a href=""><img id="linkedin" src="{{ asset('asset/images/linkedin.svg') }}" alt="LinkedIn"
-                            loading="lazy"></a>
-                </div>
-            </div>
-        </div>
-    </footer>
+
+    @include('components.footer')
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"
         type="text/javascript"></script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Arrow Up Button
-            var arrowUp = document.getElementById('arrowUp');
-            var arrowUpContainer = document.getElementById('arrowUpContainer');
-
-                        window.addEventListener('scroll', function() {
-                            if (window.scrollY > window.innerHeight) {
-                                arrowUp.classList.add('visible');
-                                arrowUp.classList.remove('hidden');
-                                arrowUpContainer.classList.add('visible');
-                                arrowUpContainer.classList.remove('hidden');
-                            } else {
-                                arrowUp.classList.add('hidden');
-                                arrowUp.classList.remove('visible');
-                                arrowUpContainer.classList.add('hidden');
-                                arrowUpContainer.classList.remove('visible');
-                            }
-                        });
-
-                        arrowUp.addEventListener('click', function() {
-                            smoothScrollToTop();
-                        });
-
-                        // Hide Arrow Up Button after scrolling to top
-                        window.addEventListener('scroll', function() {
-                            if (window.scrollY === 0) {
-                                arrowUp.classList.add('hidden');
-                                arrowUp.classList.remove('visible');
-                                arrowUpContainer.classList.add('hidden');
-                                arrowUpContainer.classList.remove('visible');
-                            }
-                        });
-        });
-
-            // Smooth scroll to top function
-            function smoothScrollToTop() {
-                const scrollDuration = 300; // Duration in ms
-                const scrollStep = -window.scrollY / (scrollDuration / 15);
-                const scrollInterval = setInterval(function() {
-                    if (window.scrollY !== 0) {
-                        window.scrollBy(0, scrollStep);
-                    } else {
-                        clearInterval(scrollInterval);
-                    }
-                }, 15);
-            }
-    </script>
 </body>
 
 </html>

@@ -10,8 +10,8 @@
                 ['$$', '$$'],
                 ['\\[', '\\]']
             ],
-            processEscapes: true, // Vermeidet unnötige Verarbeitung
-            tags: 'ams' // Schnelleres Rendern von Gleichungen
+            processEscapes: true,
+            tags: 'ams'
         },
         svg: {
             fontCache: 'global'
@@ -23,9 +23,17 @@
                 checkStixFonts: [0, '', ''],
                 checkWebFonts: [0, '', '']
             },
-            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'], // Vermeidet unnötige Verarbeitung
-            ignoreHtmlClass: 'tex2jax_ignore', // Vermeidet unnötige Verarbeitung
-            processHtmlClass: 'tex2jax_process' // Vermeidet unnötige Verarbeitung
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            ignoreHtmlClass: 'tex2jax_ignore',
+            processHtmlClass: 'tex2jax_process'
+        },
+        startup: {
+            ready: () => {
+                MathJax.startup.defaultReady();
+                MathJax.startup.promise.then(() => {
+                    console.log('MathJax initialisiert');
+                });
+            }
         }
     };
 </script>

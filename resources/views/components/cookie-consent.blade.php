@@ -1,7 +1,22 @@
+<style>
+    .cookie-consent-modal .modal-content {
+    padding: 20px;
+}
+
+.cookie-consent-modal .modal-header {
+    border-bottom: none;
+}
+
+.cookie-consent-modal .modal-footer {
+    border-top: none;
+    display: flex;
+    justify-content: space-between;
+}
+</style>
 <div id="cookieConsentModal" class="modal fade" tabindex="-1" aria-labelledby="cookieConsentModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
+        <div class="cookie-consent-modal modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="cookieConsentModalLabel">Cookie-Einstellungen</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -33,3 +48,36 @@
         </div>
     </div>
 </div>
+<script>
+                // Cookie Consent Modal
+                if (!localStorage.getItem('cookieConsent')) {
+                var cookieModal = new bootstrap.Modal(document.getElementById('cookieConsentModal'));
+                cookieModal.show();
+            }
+
+            // Cookies akzeptieren
+            document.getElementById('acceptCookies').addEventListener('click', function() {
+                var consent = {
+                    necessary: true,
+                    analytics: document.getElementById('analyticsCookies').checked,
+                    marketing: document.getElementById('marketingCookies').checked
+                };
+                localStorage.setItem('cookieConsent', JSON.stringify(consent));
+                showToast('Ihre Cookie-Einstellungen wurden gespeichert.');
+                var cookieModal = bootstrap.Modal.getInstance(document.getElementById('cookieConsentModal'));
+                cookieModal.hide();
+            });
+
+            // Cookies ablehnen
+            document.getElementById('declineCookies').addEventListener('click', function() {
+                var consent = {
+                    necessary: true,
+                    analytics: false,
+                    marketing: false
+                };
+                localStorage.setItem('cookieConsent', JSON.stringify(consent));
+                showToast('Ihre Cookie-Einstellungen wurden gespeichert.');
+                var cookieModal = bootstrap.Modal.getInstance(document.getElementById('cookieConsentModal'));
+                cookieModal.hide();
+            });
+</script>

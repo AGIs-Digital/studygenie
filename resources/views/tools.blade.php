@@ -5,54 +5,6 @@
     @section('title', 'StudyGenie')
     @include('includes.head')
     <link rel="stylesheet" href="{{ asset('asset/css/ToolsStyle.css') }}">
-    <style>
-        .disabled-link {
-            pointer-events: none;
-        }
-
-        .highlight {
-            border: 2px solid red;
-            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
-            position: relative;
-            z-index: 1000;
-        }
-
-        .overlay {
-            background: rgba(0, 0, 0, 0.5);
-            height: 100%;
-            left: 0;
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 999;
-        }
-
-        .tooltip {
-            background: white;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            max-width: 300px;
-            min-width: 100px;
-            padding: 10px;
-            position: absolute;
-            text-align: center;
-            z-index: 1002;
-        }
-
-        .success-message {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: #E09E50;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            text-align: center;
-            z-index: 1002;
-        }
-    </style>
-
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
