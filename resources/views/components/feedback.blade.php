@@ -10,7 +10,7 @@
             <form id="feedbackForm">
                 @csrf
                 <div class="modal-header">
-                    <h5 class="modal-title" id="feedbackModalLabel">Feedback</h5>
+                    <h5 class="modal-title" id="feedbackModalLabel">Anonymes Feedback</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -24,8 +24,8 @@
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="feedbackText" class="form-label">Feedback</label>
-                        <textarea class="form-control" id="feedbackText" name="feedbackText" rows="3" required></textarea>
+                        <label for="feedbackText" class="form-label">Anonymes Feedback</label>
+                        <textarea class="form-control" id="feedbackText" name="feedbackText" rows="3" required placeholder="Das möchte ich euch mitteilen..."></textarea>
                     </div>
                     <input type="hidden" id="currentPage" name="currentPage" value="{{ Request::path() }}">
                 </div>
