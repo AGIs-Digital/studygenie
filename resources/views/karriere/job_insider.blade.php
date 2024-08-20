@@ -172,6 +172,9 @@
                         textarray = checks;
                         $("#save_val").val(textToType + " <br> <br> ");
                         typeFun();
+
+                        // Textfeld leeren
+                        $("#field1").val('');
                     },
                     error: function(xhr, status, error) {
                         console.error("Ein Fehler ist aufgetreten: " + error);

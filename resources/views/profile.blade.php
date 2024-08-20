@@ -70,7 +70,7 @@
                             <div class="contentPlanCard contentPlanCard3">
                                 <span class="highWeightSpan">0 €<span class="lowWeightSpan"> mtl.</span></span>
                                 <p class="planCardParagraph">
-                                <span class="pink-textmarker">✓ Intelligente Soforthilfe<br />✓ Traumberuf finden<br />✓ Berufsinformationen</span><br />✘ Textinspirationen<br />✘ Textanalyse<br />
+                                <span class="textmarker">✓ Intelligente Soforthilfe</span><br /><span class="textmarker">✓ Traumberuf finden</span><br /><span class="textmarker">✓ Berufsinformationen</span><br />✘ Textinspirationen<br />✘ Textanalyse<br />
                                     ✘ Bewerbungsunterlagen<br />✘ Lerncoach<br />✘ Bewerbungstrainer
                                 </p>
                                 @guest

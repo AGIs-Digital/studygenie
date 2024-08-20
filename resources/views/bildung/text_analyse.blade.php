@@ -72,7 +72,7 @@
                                             </strong>
                                         </span>
                                         <textarea name="text1" id="field1" rows="10" style="width:100%;"
-                                            oninput="this.style.height = '';this.style.height = this.scrollHeight + 'px'"></textarea>
+                                            oninput="this.style.height = '';this.style.height = this.scrollHeight + 'px'" placeholder="Deinen aktuellen Text hier eingeben"></textarea>
                                     </div>
                                 </div>
                                 <div class="text-center" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
