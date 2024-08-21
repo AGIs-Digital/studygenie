@@ -3,12 +3,12 @@
 
 <head>
     @section('title', 'TextInspiration')
-    @include('includes.head')
+    @include('components.head')
     @include('components.mathjax')
 </head>
 
 <body class="MainContainer backimage">
-    @include('includes.header')
+    @include('components.navbar')
     @include('components.feedback')
     <section class="TextInspiration_sec">
         <div class="container-fluid">
@@ -61,7 +61,7 @@
                 <div class="col-md-4">
                     <form id="myForm">
                         @csrf
-                        <div class="written-green-board">
+                        <div class="output">
 
                             <div class="content-written left brain">
                                 <div class="left_scroll">
@@ -107,7 +107,7 @@
                                     </div>
                                     <div class="row radio_button_box">
                                         <div class="col-md-12">
-                                            <label>Zu erstellender Text:
+                                            <label>Zu erstellender Absatz:
                                             </label>
                                         </div>
                                         <div class="col-md-6">
@@ -154,7 +154,7 @@
                     </form>
                 </div>
                 <div class="col-md-6">
-                    <div class="written-green-board">
+                    <div class="output">
                         <div class="content-written right" id="checkcontent_box">
                             <div class="typing-container">
                                 <!-- Ausgabefenster -->

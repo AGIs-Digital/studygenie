@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    @include('includes.head')
+    @include('components.head')
     <title>@yield('title', 'Default Title')</title> <!-- Dynamischer Titel -->
 </head>
 <body>
-    @include('includes.header')
+    @include('components.navbar')
     <div class="container">
         @yield('content')
     </div>

@@ -2,20 +2,17 @@
 <html lang="de">
 <head>
     @section('title', Auth::check() ? auth()->user()->name . 's - Archiv' : 'Archiv')
-    @include('includes.head')
-    @include('components.arrowupbutton')
+    @include('components.head')
 
     @routes
     <link rel="stylesheet" href="{{ asset('asset/css/profile.css') }}">
 </head>
-@include('includes.header')
+@include('components.navbar')
 <body class="MainContainer">
     <div class="headerSpacer"></div>
     @include('components.feedback')
+    @include('components.arrowupbutton')
     
-    <section class="archive_sec">
-    </div>
-    <section class="archive_sec">
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
@@ -119,7 +116,6 @@
                 </div>
             </div>
         </div>
-    </section>
 
 	<!-- Confirmation Modal -->
 <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">

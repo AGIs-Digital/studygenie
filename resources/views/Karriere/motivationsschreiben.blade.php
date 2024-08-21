@@ -3,11 +3,11 @@
 
 <head>
     @section('title', 'Motivationsschreiben')
-    @include('includes.head')
+    @include('components.head')
     <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 
-@include('includes.header')
+@include('components.navbar')
 @include('components.feedback')
 <body class="MainContainer">
     <div class="headerSpacer"></div>

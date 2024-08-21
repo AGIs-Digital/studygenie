@@ -2,67 +2,13 @@
 <html lang="de">
 <head>
     @section('title', 'StudyGenie')
-    @include('includes.head')
+    @include('components.head')
     <link rel="stylesheet" href="{{ asset('asset/css/HomePage.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
 </head>
 
-<header class="headerContainer">
-        <div class="container">
-            <nav class="navbar navbar-expand-lg">
-                <div class="container-fluid">
-                    <a class="navbar-brand" href="/">
-                        <img src="{{ asset('asset/images/logo.png') }}" width="90" height="48" alt="StudyGenie Logo" loading="lazy">
-                    </a>
-                    <button class="navbar-toggler navbar navbar-light" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        @guest
-                        @else
-                            <ul class="navbar-nav mx-auto mb-2 mb-lg-0 anchorTagsContainer">
-                                <li class="nav-item">
-                                    <a class="nav-link anchor" aria-current="page" href="/">Home</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link anchor" href="/tools">Tools</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link anchor" href="/profile">Profil</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link anchor" href="/archive">Archiv</a>
-                                </li>
-                            </ul>
-                        @endguest
-                        <ul class="navbar-nav ms-auto">
-                            @guest
-                                <li class="nav-item">
-                                    <button class="plancardButton" data-bs-toggle="modal" data-bs-target="#loginModal" id="loginButton" style="max-width: 150px;">Log In</button>
-                                </li>
-                            @else
-                                <li class="nav-item dropdown">
-                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                        {{ Auth::user()->name }}
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                            {{ __('Logout') }}
-                                        </a>
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">@csrf</form>
-                                    </div>
-                                </li>
-                            @endguest
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-        </div>
-        
-    </header>
-
+@include('components.navbar')
+@include('components.feedback')
 <body class="MainContainer">
     <div class="headerSpacer"></div>
     @include('components.arrowupbutton')
@@ -71,7 +17,6 @@
     @include('components.signup-modal')
     @include('components.forget-modal')
     @include('components.tooglePasswordVisibility')
-    @include('components.feedback')
 
     <!-- Toast Container, aber wofür? Kann vielleicht weg -->
     <div aria-live="polite" aria-atomic="true" class="position-relative">

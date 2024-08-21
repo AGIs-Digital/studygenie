@@ -418,7 +418,7 @@ a {
 }
 
 .secondary-Paragraph {
-  font-family: 'Montserrat';
+  font-family: 'Montserrat', sans-serif;
   font-weight: 300;
   font-size: 1.2rem;
   color: rgba(40, 41, 41, 1);
@@ -494,7 +494,7 @@ a {
 }
 
 .CardThumbnailSpan {
-  font-family: 'Montserrat';
+  font-family: 'Montserrat', sans-serif;
   font-weight: 400;
   font-size: 1.2rem;
   color: #2d3e4e;
@@ -626,7 +626,7 @@ a {
 }
 
 .cardPara {
-  font-family: 'Montserrat';
+  font-family: 'Montserrat', sans-serif;
   font-weight: 400;
   font-size: 1rem;
   color: rgba(40, 41, 41, 1);
@@ -951,7 +951,7 @@ a {
 }
 
 .answerContentContainer {
-  font-family: 'Montserrat';
+  font-family: 'Montserrat', sans-serif;
   color: rgba(40, 41, 41, 1);
   display: none;
   margin: 5px 0px 0px 35px;
@@ -1486,7 +1486,7 @@ input[type='text'] {
 }
 
 input[type='text'] {
-  border: 1px solid red;
+  border: 1px solid gray;
 }
 
 input[type='password'] {

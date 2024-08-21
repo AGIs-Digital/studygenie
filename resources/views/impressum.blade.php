@@ -3,14 +3,17 @@
 
 <head>
     @section('title', 'Impressum')
-    @include('includes.head')
-
+    @include('components.head')
     <link rel="stylesheet" href="{{ asset('asset/css/HomePage.css') }}">
 </head>
 
-@include('includes.header')
+@include('components.navbar')
 @include('components.feedback')
 <body class="MainContainer">
+    @include('components.login-modal')
+    @include('components.signup-modal')
+    @include('components.forget-modal')
+    @include('components.tooglePasswordVisibility')
     <div class="headerSpacer"></div>
     <section class="blog_sec">
         <div class="container">

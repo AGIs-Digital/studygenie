@@ -3,11 +3,11 @@
 
 <head>
     @section('title', 'JobInsider')
-    @include('includes.head')
+    @include('components.head')
 </head>
 
 <body class="MainContainer backimage">
-    @include('includes.header')
+    @include('components.navbar')
     @include('components.feedback')
     <section class="TextInspiration_sec">
         <div class="container-fluid">
@@ -60,7 +60,7 @@
                 <div class="col-md-4">
                     <form id="myForm">
                         @csrf
-                        <div class="written-green-board">
+                        <div class="output">
 
                             <div class="content-written left brain">
                                 <br>
@@ -89,7 +89,7 @@
                     <div class="row">
 
                         <div class="col-md-12">
-                            <div class="written-green-board" style="display: flex" id="second_box">
+                            <div class="output" style="display: flex" id="second_box">
 
                                 <div class="content-written right">
                                     <div class="typing-container">
@@ -148,6 +148,12 @@
         $(document).ready(function() {
             const saveForm = document.getElementById('save_data');
             const saveFormButton = document.getElementById('saveForm');
+
+            // Abfangen des Formular-Submit-Ereignisses
+            $("#myForm").on("submit", function(event) {
+                event.preventDefault(); // Verhindert das Neuladen der Seite
+                $("#submitForm").click(); // Simuliert einen Klick auf den Absenden-Button
+            });
 
             $("#submitForm").on("click", function() {
                 let form = $("#myForm")[0];

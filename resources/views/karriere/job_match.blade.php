@@ -3,11 +3,11 @@
 
 <head>
     @section('title', 'JobMatch')
-    @include('includes.head')
+    @include('components.head')
 </head>
 
 <body class="MainContainer backimage">
-    @include('includes.header')
+    @include('components.navbar')
     @include('components.feedback')
     <section class="TextInspiration_sec">
         <div class="container-fluid">
@@ -60,7 +60,7 @@
                 <div class="col-md-4">
                     <form id="myForm">
                         @csrf
-                        <div class="written-green-board">
+                        <div class="output">
 
                             <div class="content-written left brain">
                                 <div class="left_scroll">
@@ -161,7 +161,7 @@
                 <div class="col-md-6">
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="written-green-board" id="first_box">
+                            <div class="output" id="first_box">
                                 <div class="content-written right">
                                     <div class="typing-container">
                                         <!-- Ausgabefenster -->

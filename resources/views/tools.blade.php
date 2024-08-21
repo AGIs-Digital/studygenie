@@ -3,21 +3,19 @@
 
 <head>
     @section('title', 'StudyGenie')
-    @include('includes.head')
-    <link rel="stylesheet" href="{{ asset('asset/css/ToolsStyle.css') }}">
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    @include('components.head')
+    <link rel="stylesheet" href="{{ asset('asset/css/clouds.css') }}">
 </head>
-@include('includes.header')
+@include('components.navbar')
 @include('components.feedback')
 <body class="MainContainer">
     <div class="headerSpacer"></div>
 
-
     <main class="mainContainer">
-        <img src="{{ asset('asset/images/ab1.svg') }}" class="ab1" alt="">
-        <img src="{{ asset('asset/images/ab2.svg') }}" class="ab2" alt="">
-        <img src="{{ asset('asset/images/ab3.svg') }}" class="ab3" alt="">
-        <img src="{{ asset('asset/images/ab4.svg') }}" class="ab4" alt="">
+        <img src="{{ asset('asset/images/ab1.svg') }}" class="ab5" alt="">
+        <img src="{{ asset('asset/images/ab2.svg') }}" class="ab6" alt="">
+        <img src="{{ asset('asset/images/ab3.svg') }}" class="ab7" alt="">
+        <img src="{{ asset('asset/images/ab4.svg') }}" class="ab8" alt="">
 
         <div class="container">
             <div class="content text-center">
@@ -25,7 +23,7 @@
 
                 <img id="StudyGenieImage" src="{{ asset('asset/images/ToolsImage.png') }}" alt="StudyGenieImage">
 
-                <div class="categoryClouds">
+                <div class="categoryClouds tools">
                     <!-- Bildung Cloud -->
                     <a href="/bildung" class="Cloud">
                         <svg xmlns="http://www.w3.org/2000/svg" width="245" height="167" viewBox="0 0 245 167"

@@ -3,11 +3,11 @@
 
 <head>
     @section('title', 'Karriere')
-    @include('includes.head')
-    <link rel="stylesheet" href="{{ asset('asset/css/forBildungStyle.css') }}">
+    @include('components.head')
+    <link rel="stylesheet" href="{{ asset('asset/css/clouds.css') }}">
     @include('components.toolsperre')
 </head>
-@include('includes.header')
+@include('components.navbar')
 @include('components.feedback')
 <body class="MainContainer">
     <div class="headerSpacer"></div>

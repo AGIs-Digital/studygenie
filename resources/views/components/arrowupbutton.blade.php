@@ -23,7 +23,7 @@
             });
 
             arrowUp.addEventListener('click', function() {
-                smoothScrollToTop();
+                scrollToTop();
             });
 
             window.addEventListener('scroll', function() {
@@ -36,15 +36,7 @@
             });
         });
 
-        function smoothScrollToTop() {
-            const scrollDuration = 300;
-            const scrollStep = -window.scrollY / (scrollDuration / 15);
-            const scrollInterval = setInterval(function() {
-                if (window.scrollY !== 0) {
-                    window.scrollBy(0, scrollStep);
-                } else {
-                    clearInterval(scrollInterval);
-                }
-            }, 15);
+        function scrollToTop() {
+            window.scrollTo(0, 0);
         }
     </script>

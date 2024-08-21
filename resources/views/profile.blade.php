@@ -3,7 +3,7 @@
 
 <head>
     @section('title', Auth::check() ? auth()->user()->name . ' - Profil' : 'Profil')
-    @include('includes.head')
+    @include('components.head')
     <link rel="stylesheet" href="{{ asset('asset/css/profile.css') }}">
     <script src="https://www.paypal.com/sdk/js?client-id=Abj-J9HxV5L4s1izmSlNl27AJLM0z71Z0BzLAVV4n7ClCYaxlBWEGdvfSBnSvY7beu-AhQv0YdMLOzcc&currency=EUR"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
@@ -11,7 +11,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
 </head>
-@include('includes.header')
+@include('components.navbar')
 @include('components.feedback')
 <body class="MainContainer">
     <div class="headerSpacer"></div>
@@ -225,7 +225,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    Sind Sie sicher, dass Sie Ihren Account und alle damit verbundenen Daten dauerhaft löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden.
+                    Bist du sicher, dass dein Account und alle damit verbundenen Daten dauerhaft gelösch werden soll? Das kann nicht rückgängig gemacht werden!
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Abbrechen</button>

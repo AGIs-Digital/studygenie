@@ -11,19 +11,22 @@ class AdminFeedbackController extends Controller
     {
         $query = Feedback::query();
 
-        if ($request->filled('page')) {
-            $query->where('page', $request->input('page'));
+        if ($request->has('sort') && $request->has('direction')) {
+            $query->orderBy($request->get('sort'), $request->get('direction'));
         }
 
-        if ($request->filled('type')) {
-            $query->where('type', $request->input('type'));
-        }
+        $feedbacks = $query->paginate(10);
 
-        $feedbacks = $query->orderBy('created_at', 'desc')->paginate(10);
+        return view('admin.feedbacks.index', [
+            'feedbacks' => $feedbacks
+        ]);
+    }
 
-        // Alle verfügbaren Seiten (pages) laden
-        $pages = Feedback::select('page')->distinct()->get();
+    public function destroy(Request $request, $id)
+    {
+        $feedback = Feedback::findOrFail($id);
+        $feedback->delete();
 
-        return view('admin.feedbacks.index', compact('feedbacks', 'pages'));
+        return response()->json(['status' => 'success']);
     }
 }

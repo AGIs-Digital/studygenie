@@ -3,12 +3,12 @@
 
 <head>
     @section('title', 'GenieCheck')
-    @include('includes.head')
+    @include('components.head')
 
 </head>
 
 <body class="MainContainer backimage">
-    @include('includes.header')
+    @include('components.navbar')
     @include('components.mathjax')
     @include('components.save_modal')
     @include('components.charts_and_svg')
@@ -64,7 +64,7 @@
                 <div class="col-md-4">
                     <form id="myForm">
                         @csrf
-                        <div class="written-green-board">
+                        <div class="output">
                             <div class="content-written left">
                                 <div class="left_scroll">
                                     <div class="group-box">
@@ -88,7 +88,7 @@
                     </form>
                 </div>
                 <div class="col-md-6">
-                    <div class="written-green-board">
+                    <div class="output">
 
                         <div class="content-written right" id="checkcontent_box">
                             <div class="typing-container">

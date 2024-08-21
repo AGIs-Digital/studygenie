@@ -3,8 +3,8 @@
 
 <head>
     @section('title', 'Paypal')
-    @include('includes.head')
-    <link rel="stylesheet" href="{{ asset('asset/css/forBildungStyle.css') }}">
+    @include('components.head')
+    <link rel="stylesheet" href="{{ asset('asset/css/clouds.css') }}">
 </head>
 
 <body>

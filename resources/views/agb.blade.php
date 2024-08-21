@@ -3,17 +3,22 @@
 
 <head>
     @section('title', 'AGBs')
-    @include('includes.head')
+    @include('components.head')
     <link rel="stylesheet" href="{{ asset('asset/css/HomePage.css') }}"> 
 </head>
-@include('includes.header')
+
+@include('components.navbar')
 @include('components.feedback')
 <body class="MainContainer">
+@include('components.login-modal')
+    @include('components.signup-modal')
+    @include('components.forget-modal')
+    @include('components.tooglePasswordVisibility')
+    @include('components.arrowupbutton')
     <div class="headerSpacer"></div>
 
-@include('components.arrowupbutton')
 
-    <section class="blog_sec">
+    <main class="blog_sec">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-8">
@@ -148,14 +153,12 @@
                 </div>
             </div>
         </div>
-    </section>
-
+    </main>
     @include('components.footer')
-    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"
         type="text/javascript"></script>
-    <script src="{{ asset('asset/js/toast.js') }}"></script>s
+    <script src="{{ asset('asset/js/toast.js') }}"></script>
 </body>
 
 </html>

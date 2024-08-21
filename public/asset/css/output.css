@@ -166,7 +166,7 @@ input[type='radio'] {
   margin-top: 0;
 }
 
-.written-green-board {
+.output {
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -313,7 +313,7 @@ input[type='radio'] {
   opacity: 0.5;
 }
 
-.written-green-board > img {
+.output > img {
   z-index: 1;
   margin-top: 1rem;
   width: 600px;
@@ -334,13 +334,13 @@ input[type='radio'] {
 }
 
 @media screen and (max-width: 595px) {
-  #written-green-board img {
+  #output img {
     width: 400px;
   }
 }
 
 @media screen and (max-width: 430px) {
-  #written-green-board img {
+  #output img {
     width: 300px;
   }
 }
@@ -847,7 +847,7 @@ input[type='text']:disabled {
 }
 
 @media only screen and (max-width: 800px) {
-  .written-green-board {
+  .output {
     margin-bottom: 3rem;
   }
   .content-written.information {

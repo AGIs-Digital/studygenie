@@ -1,47 +1,101 @@
-.navContainer {
-	background-color: rgba(41, 58, 74, 1);
-	border-bottom-left-radius: 5rem;
-}
+@import url('https://fonts.googleapis.com/css2?family=Milonga&display=swap');
 
-.CenterAnchorTagsContainer {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-}
-
-.nav-link:focus, .nav-link:hover, .nav-link.active, .CenterAnchorTagsContainer a:nth-child(2) {
-	color: #E09E50 !important;
-}
-
-.nav-link anchor active {
-	color: #E09E50 !important;
-}
-
-.CenterAnchorTagsContainer a {
+.anchorTagsContainer a {
+	color: white;
+	font-family: 'Milonga', cursive;
+	font-size: 1rem;
+	font-weight: 400;
 	margin-inline: 1rem;
 	text-decoration: none;
-	font-family: "Milonga";
-	color: white;
-	font-weight: 400;
-	font-size: 1.25rem;
 }
 
 .barIconContainer {
 	display: none;
 }
 
+.buttonContainer button:first-child {
+	background: transparent;
+	border: 1px solid white;
+}
+
+.buttonContainer button:last-child {
+	background-color: #E09E50;
+	border: none;
+	outline: none;
+}
+
+.CenterAnchorTagsContainer {
+	align-items: center;
+	display: flex;
+	flex-direction: row;
+}
+
+.CenterAnchorTagsContainer a {
+	color: white;
+	font-family: "Milonga";
+	font-size: 1.25rem;
+	font-weight: 400;
+	margin-inline: 1rem;
+	text-decoration: none;
+}
+
+.CenterAnchorTagsContainer a:nth-child(2),
+.nav-link.active,
+.nav-link:focus,
+.nav-link:hover {
+	color: #E09E50 !important;
+}
+
+.logOutbutton {
+	display: none;
+}
+
+.navContainer {
+	align-items: center;
+	background-color: rgba(41, 58, 74, 1);
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	padding: 0.5rem 2rem;
+}
+
+.nav-link {
+	text-decoration: none !important;
+}
+
+.nav-link anchor active {
+	color: #E09E50 !important;
+}
+
+.primary-button {
+	color: white;
+	cursor: pointer;
+	font-family: 'Milonga', cursive;
+	font-size: 1rem;
+	font-weight: 400;
+	height: 35px;
+	margin-inline: 0.3rem;
+	padding: 0.5rem 1rem;
+	text-align: center;
+	width: 150px;
+	border-radius: 7px;
+}
+
+.RightContainer {
+	align-items: center;
+	display: flex;
+	flex-direction: row;
+	gap: 3rem;
+}
+
 @media screen and (max-width:650px) {
-	.logOutbutton {
+	.barIconContainer {
 		display: block;
 	}
 	.CenterAnchorTagsContainer {
 		display: inline-block;
 	}
-	.barIconContainer {
+	.logOutbutton {
 		display: block;
 	}
-}
-
-.cv_box {
-	font-family: Arial, sans-serif;
 }

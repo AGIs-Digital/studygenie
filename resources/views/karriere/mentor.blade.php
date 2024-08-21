@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 @section('title', 'KarriereMentor')
-@include('includes.head')
+@include('components.head')
 <style>
     #user_input:focus {
         outline: none;
@@ -10,7 +10,7 @@
     }
 </style>
 </head>
-@include('includes.header')
+@include('components.navbar')
 @include('components.feedback')
 <body class="MainContainer">
     <div class="headerSpacer"></div>
@@ -120,7 +120,7 @@
 				</div>
 
 				<div class="col-md-9">
-					<div class="written-green-board">
+					<div class="output">
 
 						<div class="content-written message">
                             <img src="{{ asset('asset/images/ab2.svg') }}" class="ab1" alt="">

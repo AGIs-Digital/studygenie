@@ -20,7 +20,7 @@
                 Welche Daten werden gespeichert?
             </div>
             <div class="answerContentContainer">
-                Wir speichern lediglich deinen Namen, deine E-Mail-Adresse und das Passwort. Zusätzlich werden die Antworten, die du in deinem Archiv ablegst, gesichert, um sie dir jederzeit zugänglich zu machen.
+                Wir speichern lediglich den namen den du dir hier aussuchst, deine E-Mail-Adresse und das verschlüsselte Passwort. Zusätzlich werden die Antworten, die du in deinem Archiv ablegst, gesichert, um sie dir jederzeit zugänglich zu machen.
             </div>
 
         </div>
@@ -31,7 +31,7 @@
                 Wie sicher sind meine Daten?
             </div>
             <div class="answerContentContainer">
-                Die Sicherheit deiner Daten ist uns sehr wichtig. Wir speichern nur die absolut notwendigen Daten und gewährleisten ihre Sicherheit durch modernste Verschlüsselungstechnologien. So kannst du sicher sein, dass deine Daten bei StudyGenie bestens geschützt sind.
+                Die Sicherheit deiner Daten ist uns sehr wichtig. Deine Daten, Fragen und Antworten werden nicht zum Training für KI's benutzt. Deine daten sind bei uns durch modernste Verschlüsselungstechnologien gesichert. So kannst du sicher sein, dass deine Daten bei StudyGenie bestens geschützt sind.
             </div>
 
         </div>
@@ -39,10 +39,10 @@
             <div class="questionContentContainer">
                 <img class="plusIcon" src="{{ asset('asset/images/ic_plus.png') }}" alt="Plus Icon" loading="lazy">
                 <img class="crossIcon" src="{{ asset('asset/images/ic_cross.png') }}" alt="Kreuz Icon" loading="lazy">
-                Wie kann ich mein Abo bei StudyGenie kündigen oder upgraden?
+                Wie kann ich mein Abo bei StudyGenie kündigen oder ändern?
             </div>
             <div class="answerContentContainer">
-                Um dein Abo bei StudyGenie zu kündigen oder upzugraden, navigiere einfach zu 'Mein Profil'. Unsere Abopläne sind flexibel und monatlich kündbar. In einem übersichtlichen Fenster siehst du zudem immer, wie viele Tage deines aktuellen Abos noch verbleiben.
+                Um dein Abo bei StudyGenie zu kündigen oder zu ändern, navigiere einfach zu 'Profil'. Unsere Abopläne sind flexibel und monatlich kündbar.
             </div>
 
         </div>

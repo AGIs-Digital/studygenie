@@ -3,12 +3,12 @@
 
 <head>
     @section('title', 'TextAnalyse')
-    @include('includes.head')
+    @include('components.head')
     @include('components.mathjax')
 </head>
 
 <body class="MainContainer backimage">
-    @include('includes.header')
+    @include('components.navbar')
     @include('components.feedback')
     <section class="TextInspiration_sec">
         <div class="container-fluid">
@@ -61,12 +61,12 @@
                 <div class="col-md-4">
                     <form id="myForm">
                         @csrf
-                        <div class="written-green-board">
+                        <div class="output">
                             <div class="content-written left">
                                 <div class="left_scroll">
                                     <div class="group-box">
                                         <span>Dein Text: <strong type="button" class="" data-bs-toggle="tooltip"
-                                                data-bs-placement="top" title="Gib hier deinen gesamten Text ein."> <img
+                                                data-bs-placement="top" title="Bei längeren Texten empfehlen wir, jeden Absatz einzeln zu prüfen."> <img
                                                     src="{{ asset('asset/images/info-tools.svg') }}" width="16"
                                                     alt="">
                                             </strong>
@@ -85,7 +85,7 @@
                     </form>
                 </div>
                 <div class="col-md-6">
-                    <div class="written-green-board">
+                    <div class="output">
 
                         <div class="content-written right" id="checkcontent_box">
                             <div class="typing-container">

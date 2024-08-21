@@ -27,7 +27,7 @@
                             </li>
                             @if(Auth::user()->is_admin)
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('admin.feedbacks.index') }}">Admin Dashboard</a>
+                                    <a class="nav-link anchor {{ request()->is('admin/feedbacks') ? 'active' : '' }}" href="{{ route('admin.feedbacks.index') }}">Admin Dashboard</a>
                                 </li>
                             @endif
                         @endauth
@@ -40,7 +40,7 @@
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">@csrf</form>
                             </div>
                         @else
-                            <button class="primary-button" data-bs-toggle="modal" data-bs-target="#loginModal" id="loginButton">Log In</button>
+                            <button class="plancardButton" data-bs-toggle="modal" data-bs-target="#loginModal" id="loginButton">Log In</button>
                         @endauth
                     </div>
                 </div>

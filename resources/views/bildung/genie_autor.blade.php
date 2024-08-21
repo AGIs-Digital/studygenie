@@ -3,8 +3,8 @@
 
 <head>
     @section('title', 'GenieAutor')
-    @include('includes.head')
-    <link rel="stylesheet" href="{{ asset('asset/css/forBildungStyle.css') }}">
+    @include('components.head')
+    <link rel="stylesheet" href="{{ asset('asset/css/clouds.css') }}">
     @include('components.toolsperre')
 </head>
 <style>
@@ -16,7 +16,7 @@
         font-size: 16.5px;
     }
 </style>
-@include('includes.header')
+@include('components.navbar')
 @include('components.feedback')
 <body class="MainContainer">
     <div class="headerSpacer"></div>

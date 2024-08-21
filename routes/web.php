@@ -193,3 +193,4 @@ Route::post('/feedback', [FeedbackController::class, 'store'])->name('feedback.s
 
 ### ADMIN ROUTES ###
 Route::get('/admin/feedbacks', [AdminFeedbackController::class, 'index'])->name('admin.feedbacks.index')->middleware('admin');
+Route::delete('/admin/feedbacks/{id}', [AdminFeedbackController::class, 'destroy'])->name('admin.feedbacks.destroy')->middleware('admin');

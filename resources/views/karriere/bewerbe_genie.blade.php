@@ -3,8 +3,8 @@
 
 <head>
     @section('title', 'BewerbeGenie')
-    @include('includes.head')
-    <link rel="stylesheet" href="{{ asset('asset/css/forBildungStyle.css') }}">
+    @include('components.head')
+    <link rel="stylesheet" href="{{ asset('asset/css/clouds.css') }}">
 </head>
 <style>
     .categoryClouds {
@@ -15,7 +15,7 @@
     }
 
 </style>
-@include('includes.header')
+@include('components.navbar')
 @include('components.feedback')
 <body class="MainContainer">
     <div class="headerSpacer"></div>
