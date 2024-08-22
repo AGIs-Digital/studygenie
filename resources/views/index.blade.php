@@ -10,7 +10,7 @@
 @include('components.navbar')
 @include('components.feedback')
 <body class="MainContainer">
-    <div class="headerSpacer"></div>
+    <div class="headerSpacer">22.08.2024 04:11</div>
     @include('components.arrowupbutton')
     @include('components.cookie-consent')
     @include('components.login-modal')
