@@ -8,11 +8,8 @@ function showToast(message, type) {
     toast.style.width = 'max-content'; // Breite an Inhalt anpassen
     toast.style.maxWidth = '80%'; // Maximalbreite auf 80% des Viewports begrenzen
     toast.style.left = '50%'; // Zentriert im Viewport
-    toast.style.top = '50%'; // Zentriert im Viewport
-    toast.style.transform = 'translate(-50%, -50%)'; // Zentriert im Viewport
+    toast.style.transform = 'translateX(-50%)'; // Zentriert im Viewport
     toast.style.borderRadius = '5px';
-    toast.style.borderColor = '#a3cfbb';
-    toast.style.zIndex = '1000';
     toast.style.zIndex = '1060';
     toast.style.opacity = '0.7';
     toast.style.transition = 'opacity 1.5s, transform 0.3s'; // Transition für Opacity und Transform

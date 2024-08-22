@@ -80,6 +80,9 @@
                     const errorMessages = data.errors.join('<br>'); // Fehler in separate Zeilen aufteilen
                     showToast(errorMessages, 'error');
                 } else {
+                    if (data.subscription_updated) {
+                        localStorage.setItem('subscription_updated', 'true');
+                    }
                     window.location.href = data.redirect;
                 }
             })

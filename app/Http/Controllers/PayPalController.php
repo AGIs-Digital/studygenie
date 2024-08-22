@@ -128,7 +128,7 @@ class PayPalController extends Controller
 
     public function createSubscription(Request $request)
     {
-        $planId = $request->input('plan_id'); // Plan-ID aus der Anfrage
+        $planId = $request->input('plan_id');
         $description = $planId === 'P-5XT70630D04889123M2LLU5A' ? 'Gold Abonnement: Textinspirationen, Textanalyse, Bewerbungsunterlagen' : 'Diamant Abonnement: Textinspirationen, Textanalyse, Bewerbungsunterlagen, Lerncoach, Bewerbungstrainer';
 
         $response = Http::withBasicAuth('Abj-J9HxV5L4s1izmSlNl27AJLM0z71Z0BzLAVV4n7ClCYaxlBWEGdvfSBnSvY7beu-AhQv0YdMLOzcc', 'EP3Uw3x4sZqIuOAEtSKeUW3rKzVKjm4myz5Wt5IVZDpHjBberd-9CKPC_1l9gsQh7Rsx4Zc8-d8dNSDJ')
@@ -150,15 +150,27 @@ class PayPalController extends Controller
                         'payer_selected' => 'PAYPAL',
                         'payee_preferred' => 'IMMEDIATE_PAYMENT_REQUIRED'
                     ],
-                    'return_url' => route('paypal.updateSubscription', ['plan_id' => $planId]), // Setze die Rückkehr-URL auf die Profilseite
-                    'cancel_url' => route('profile') // Setze die Abbruch-URL auf die Profilseite
+                    'return_url' => route('paypal.updateSubscription', ['plan_id' => $planId]),
+                    'cancel_url' => route('profile')
                 ],
                 'description' => $description
             ]);
 
-        Log::info('PayPal createSubscription response: ', $response->json());
+        Log::info('PayPal createSubscription response: ', ['body' => $response->body()]);
 
-        return $response->json();
+        if ($response->successful()) {
+            $responseBody = $response->json();
+            if (isset($responseBody['links'])) {
+                foreach ($responseBody['links'] as $link) {
+                    if ($link['rel'] === 'approve') {
+                        return redirect()->away($link['href']);
+                    }
+                }
+            }
+            return response()->json($responseBody);
+        } else {
+            return response()->json(['error' => 'Failed to create subscription', 'details' => $response->body()], 500);
+        }
     }
 
     public function updateSubscription(Request $request)
@@ -250,14 +262,5 @@ class PayPalController extends Controller
         } else {
             return redirect()->route('create.payment')->with('error', $response['message'] ?? 'Etwas ist schief gelaufen');
         }
-    }
-
-    public function updateSilberSubscription(Request $request)
-    {
-        $user = Auth::user();
-        $user->subscription_name = 'silber';
-        $user->save();
-
-        return response()->json(['message' => 'Subscription updated successfully']);
     }
 }

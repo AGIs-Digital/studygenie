@@ -80,7 +80,6 @@
                     .then(response => response.json())
                     .then(data => {
                         if (data.status === 'success') {
-                            alert("Ein Link zum Zurücksetzen des Passworts wurde an Ihre E-Mail-Adresse gesendet.");
                             showToast("Ein Link zum Zurücksetzen des Passworts wurde an Ihre E-Mail-Adresse gesendet.");
                             var forgetModal = bootstrap.Modal.getInstance(document.getElementById('forgetModal'));
                             forgetModal.hide();

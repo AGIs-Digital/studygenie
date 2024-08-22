@@ -23,6 +23,7 @@ use App\Http\Controllers\Bildung\TextInspirationController;
 use App\Http\Controllers\Bildung\TextAnalysisController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\AdminFeedbackController;
+use App\Http\Controllers\SubscriptionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,7 +57,7 @@ Route::middleware('auth:sanctum')->prefix('conversation')->group(function () {
 Route::group(['middleware' => ['auth']], function () {
     // View routes
     Route::view('tools', 'tools')->name('tools');
-    Route::get('profile', [UserController::class, 'show'])->name('profil');
+    Route::get('profile', [UserController::class, 'show'])->name('profile');
 
     // Resources
     // Route::resource('user', UserController::class)->except('show');
@@ -157,8 +158,7 @@ Route::get('/setup-plans', [PayPalController::class, 'setupPlans'])->name('paypa
 Route::post('/create-subscription', [PayPalController::class, 'createSubscription'])->name('paypal.createSubscription');
 Route::get('/update-subscription', [PayPalController::class, 'updateSubscription'])->name('paypal.updateSubscription');
 
-// New route for updating Silber subscription
-Route::post('/update-silber-subscription', [PayPalController::class, 'updateSilberSubscription'])->name('paypal.updateSilberSubscription');
+Route::post('/update-silber-subscription', [SubscriptionController::class, 'updateSilberSubscription'])->name('subscription.updateSilberSubscription');
 
 ### USER ROUTES ###
 Route::post('/postLogin', [LoginController::class, 'postLogin'])->name('login.post');

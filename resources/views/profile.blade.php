@@ -83,7 +83,7 @@
                                     @if(auth()->user()->subscription_name == 'silber')
                                         <button class="plancardButton" disabled>Aktueller Status</button>
                                     @else
-                                        <button class="plancardButton silberButton"> Kostenlos </button>
+                                        <button class="plancardButton" id="silberButton" data-paypal-plan="silber" data-paypal-route="{{ route('subscription.updateSilberSubscription') }}">Kostenlos</button>
                                     @endif
                                 @endguest
                             </div>
@@ -275,6 +275,7 @@
     </div>
 
     @include('components.scripts')
+    <script src="{{ asset('asset/js/toast.js') }}"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -294,9 +295,8 @@
                             body: JSON.stringify({ plan_id: plan })
                         }).then(res => res.json())
                         .then(subscriptionData => {
-                            if (subscriptionData.links) {
-                                const approvalUrl = subscriptionData.links.find(link => link.rel === 'approve').href;
-                                window.location.href = approvalUrl;
+                            if (subscriptionData.plan_id) {
+                                return subscriptionData.plan_id;
                             } else {
                                 console.error('Subscription creation failed:', subscriptionData);
                             }
@@ -314,8 +314,15 @@
             document.querySelectorAll('.plancardButton').forEach(button => {
                 button.addEventListener('click', function(event) {
                     event.preventDefault();
-                    renderPayPalButton(button.getAttribute('data-paypal-route'), button.getAttribute('data-paypal-plan'));
-                    $("#payment_modal").modal('show');
+                    const plan = button.getAttribute('data-paypal-plan');
+                    const route = button.getAttribute('data-paypal-route');
+
+                    if (plan === 'silber') {
+                        confirmSilberStatus(route);
+                    } else if (plan) {
+                        renderPayPalButton(route, plan);
+                        $("#payment_modal").modal('show');
+                    }
                 });
             });
 
@@ -337,6 +344,7 @@
                     body: JSON.stringify({ subscription_name: 'silber' })
                 }).then(response => {
                     if (response.ok) {
+                        showToast('Du hast jetzt den Silber Status', 'error');
                         location.reload();
                     } else {
                         console.error('Failed to update subscription');

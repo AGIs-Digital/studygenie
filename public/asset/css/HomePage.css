@@ -1390,6 +1390,10 @@ input[type='text'] {
   text-decoration: underline;
 }
 
+.loginAnchor {
+  text-decoration: #2d3e4e underline;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
   color: #e09e50;
   font-size: 16px;
 
