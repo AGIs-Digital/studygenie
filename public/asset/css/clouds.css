@@ -32,6 +32,10 @@
 	font-size: 20.5px;
 }
 
+.Cloud.small svg svg text {
+	font-size: 16.5px;
+}
+
 .Cloud:hover {
 	transform: scale(1.2);
 	-webkit-transform: scale(1.2);
@@ -57,6 +61,10 @@
 	font-size: 20.5px;
 }
 
+.Cloud_Karriere.small svg svg text {
+	font-size: 16.5px;
+}
+
 .Cloud_Karriere:hover {
 	transform: scale(1.2);
 	-webkit-transform: scale(1.2);
@@ -67,14 +75,6 @@
 
 .Cloud_Karriere:hover svg path {
 	fill: #2B4053;
-}
-
-#navigationSpan {
-	font-family: 'Montserrat', sans-serif;
-	font-size: 1rem;
-	font-weight: 600;
-	color: #2D3E4E;
-	margin-inline: 3rem;
 }
 
 #StudyGenieImage {
@@ -106,6 +106,16 @@
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	column-gap: 2rem;
+}
+
+.categoryClouds.twoClouds {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	column-gap: 2rem;
+}
+
+.Cloud.twoClouds svg svg text {
+	font-size: 16.5px;
 }
 
 .disabled-link {

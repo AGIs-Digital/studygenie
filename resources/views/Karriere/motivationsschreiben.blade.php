@@ -44,10 +44,10 @@
             <div class="col-md-3">
                 <form id="motivation-form">
                     @csrf
-                    <h2 style="color: #2D3E4E; font-family: Milonga; font-size: 32px; font-style: normal; font-weight: 400; line-height: 38px; position: relative; margin-top: 3rem;">
+                    <h2 style="color: #2D3E4E; font-family: Milonga; font-size: 24px; font-style: normal; font-weight: 500; line-height: 38px; position: relative; margin-top: 3rem;">
                         Motivationsschreiben
                         <strong type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Je mehr Informationen du uns gibst, desto persönlicher wird das Ergebnis. Trage hier nur Infos ein, die für die Bewerbung auf diese Stelle relevant sind.">
-                            <img src="{{ asset('asset/images/info-tools.svg') }}" width="25" alt="">
+                            <img src="{{ asset('asset/images/info-tools.svg') }}" width="20" alt="">
                         </strong>
                     </h2>
                     <p style="font-size: 12px; color: gray; text-align: center; margin: 0;">Mehrere Versuche können das Ergebnis verbessern.</p>
@@ -207,10 +207,7 @@
             </div>
         </div>
     </div>
-    @include('includes.footer')
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    @include('components.scripts')
 
     <script>       
         document.addEventListener('DOMContentLoaded', () => {

@@ -4,7 +4,12 @@
 <head>
     @section('title', 'genieTutor')
     @include('components.head')
-    @include('components.mathjax')
+    <style>
+    #user_input:focus {
+        outline: none;
+        box-shadow: none;
+    }
+</style>
 </head>
 @include('components.navbar')
 @include('components.feedback')
@@ -155,8 +160,9 @@
     </section>
 
     @include('components.save_modal')
-    @include('includes.footer')
-    <script src="{{ asset('asset/js/toast.js') }}"></script>
+    @include('components.scripts')
+    @include('components.mathjax')
+    
     <script>
         // Initialisierung bei DOMContentLoaded
         document.addEventListener('DOMContentLoaded', () => {
@@ -247,18 +253,18 @@
             });
 
             // Speichern des Chatverlaufs
-            saveForm.addEventListener('click', async () => {
+            const saveFormButton = document.getElementById('saveFormButton');
+            saveFormButton.addEventListener('click', async () => {
                 await window.fns.saveToArchive(
                     conversation.id,
                     $("#save_name").val(),
-                    "genieTutor",
+                    "genie_tutor",
                     "Bildung",
                 );
 
                 document.getElementById('save_val').value = '';
 
                 $("#saveModal").modal('hide');
-
 
                 showToast(document.title + " Gespeichert!");
             });

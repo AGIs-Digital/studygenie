@@ -105,8 +105,8 @@
     </section>
 
     @include('components.save_modal')
-    @include('includes.footer')
-    <script src="{{ asset('asset/js/toast.js') }}"></script>
+    @include('components.scripts')
+    
     <script src="{{ asset('asset/js/typing.js') }}"></script>
     <script>
         let conversation_id = null

@@ -38,6 +38,8 @@
     </div>
 </div>
 
+<script src="{{ asset('asset/js/toast.js') }}"></script>
+
 <script>
     document.getElementById('feedback-button').addEventListener('click', function() {
         var feedbackModal = new bootstrap.Modal(document.getElementById('feedbackModal'));
@@ -62,7 +64,7 @@
                 var feedbackModal = bootstrap.Modal.getInstance(document.getElementById('feedbackModal'));
                 feedbackModal.hide();
             } else {
-                showToast("Fehler beim Senden des Feedbacks!");;
+                showToast("Fehler beim Senden des Feedbacks!");
             }
         })
         .catch(error => console.error('Error:', error));

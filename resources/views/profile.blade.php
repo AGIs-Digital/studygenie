@@ -6,9 +6,9 @@
     @include('components.head')
     <link rel="stylesheet" href="{{ asset('asset/css/profile.css') }}">
     <script src="https://www.paypal.com/sdk/js?client-id=Abj-J9HxV5L4s1izmSlNl27AJLM0z71Z0BzLAVV4n7ClCYaxlBWEGdvfSBnSvY7beu-AhQv0YdMLOzcc&currency=EUR"></script>
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    
 
 </head>
 @include('components.navbar')
@@ -258,10 +258,8 @@
         </div>
     </div>
 
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="{{ asset('asset/js/toast.js') }}"></script>
+    @include('components.scripts')
+    
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             // PayPal Button Rendering

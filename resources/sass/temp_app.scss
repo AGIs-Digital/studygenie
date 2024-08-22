@@ -1,3 +1,9 @@
+// Temporärer Test
+body::before {
+    content: "app.scss geladen";
+    display: none;
+}
+
 // Fonts
 @import url('https://fonts.bunny.net/css?family=Nunito');
 

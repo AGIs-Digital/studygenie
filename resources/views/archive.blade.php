@@ -64,7 +64,7 @@
                             <div id="BildungCollpasetool4" class="accordion-collapse collapse" aria-labelledby="BildungMentor" data-bs-parent="#accordionBildung">
                                 <div class="accordion-body">
                                     <div class="accordion accordion-flush" id="accordionFlushgenieTutor">
-                                        <?php createAccordion($Bildung, 'genieTutor'); ?>
+                                        <?php createAccordion($Bildung, 'genie_tutor'); ?>
                                     </div>
                                 </div>
                             </div>
@@ -149,10 +149,7 @@
 </div>
 @include('components.mathjax')
 @include('components.footer')
-
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="{{ asset('asset/js/toast.js') }}"></script>
+@include('components.scripts')
 	<script>
 		$(document).ready(function() {
 			var deleteId;

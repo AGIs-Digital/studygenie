@@ -152,11 +152,10 @@
 		</div>
 	</section>
     @include('components.save_modal')
-	@include('includes.footer')
-    <script src="{{ asset('asset/js/toast.js') }}"></script>
+	@include('components.scripts')
+    
 
     <script>
-        // Initialisierung bei DOMContentLoaded
         document.addEventListener('DOMContentLoaded', () => {
             const toolIdentifier = 'karriere_mentor';
 
@@ -165,6 +164,7 @@
             const messageContainer = document.getElementById('all_content');
             const conversationForm = document.getElementById('form_user_input');
             const saveForm = document.getElementById('saveForm');
+            const saveFormButton = document.getElementById('saveFormButton');
             let conversation = {};
 
             // Load an existing or create a new conversation
@@ -186,14 +186,10 @@
 
             conversationForm.addEventListener('submit', async (event) => {
 
-                // prevent default form submission
                 event.preventDefault();
 
-                // disable the user input form
                 userInput.disabled = true;
-                // add class "disabled" to the form
                 conversationForm.classList.add('disabled');
-                // remove focus
                 userInput.blur();
 
                 const userValue = userInput.value.trim();
@@ -235,7 +231,7 @@
             });
 
             // Speichern des Chatverlaufs
-            saveForm.addEventListener('click', async () => {
+            saveFormButton.addEventListener('click', async () => {
                 await window.fns.saveToArchive(
                     conversation.id,
                     $("#save_name").val(),
@@ -257,10 +253,6 @@
         return new bootstrap.Tooltip(tooltipTriggerEl)
         });
 
-        /**
-         * Setzt den Wert des Eingabefeldes und löst das Absenden des Formulars aus.
-         * @param {string} value - Der Wert, der gesetzt werden soll.
-         */
         function setInputValue(value) {
             const userInput = document.getElementById('user_input');
             const berufInput = document.getElementById('beruf_input').value.trim();
@@ -280,10 +272,6 @@
         document.getElementById('form_user_input').dispatchEvent(event);
     }
 
-        /**
-         * Sendet den Wert an den Server.
-         * @param {string} value - Der Wert, der gesendet werden soll.
-         */
         function sendInput(value) {
             fetch('/submit-input', {
                 method: 'POST',

@@ -4,7 +4,7 @@
     @section('title', 'StudyGenie')
     @include('components.head')
     <link rel="stylesheet" href="{{ asset('asset/css/HomePage.css') }}">
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
+    
 </head>
 
 @include('components.navbar')
@@ -69,10 +69,9 @@
     </div>
 
     @include('components.footer')
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" defer></script>
+    @include('components.scripts')
     <script src="{{ asset('asset/js/index.js') }}"></script>
-    <script src="{{ asset('asset/js/toast.js') }}"></script>
+    
     @include('components.tooglePasswordVisibility')
 
     <script>
