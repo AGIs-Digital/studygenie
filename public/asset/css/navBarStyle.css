@@ -46,10 +46,6 @@
 	color: #E09E50 !important;
 }
 
-.logOutbutton {
-	display: none;
-}
-
 .navContainer {
 	align-items: center;
 	background-color: rgba(41, 58, 74, 1);

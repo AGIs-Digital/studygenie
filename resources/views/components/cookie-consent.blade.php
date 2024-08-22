@@ -43,7 +43,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" id="declineCookies"
                     data-bs-dismiss="modal">Ablehnen</button>
-                <button type="button" class="btn btn-primary" id="acceptCookies">Akzeptieren</button>
+                <button type="button" class="btn btn-primary" id="acceptCookies" data-bs-dismiss="modal">Akzeptieren</button>
             </div>
         </div>
     </div>
@@ -63,9 +63,12 @@
                     marketing: document.getElementById('marketingCookies').checked
                 };
                 localStorage.setItem('cookieConsent', JSON.stringify(consent));
+                var cookieModalElement = document.getElementById('cookieConsentModal');
+                var cookieModal = bootstrap.Modal.getInstance(cookieModalElement);
+                if (cookieModal) {
+                    cookieModal.hide();
+                }
                 showToast('Ihre Cookie-Einstellungen wurden gespeichert.');
-                var cookieModal = bootstrap.Modal.getInstance(document.getElementById('cookieConsentModal'));
-                cookieModal.hide();
             });
 
             // Cookies ablehnen

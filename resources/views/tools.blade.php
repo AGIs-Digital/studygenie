@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="{{ asset('asset/css/clouds.css') }}">
 </head>
 @include('components.navbar')
+@include('components.scripts')
 @include('components.feedback')
 <body class="MainContainer">
     <div class="headerSpacer"></div>
@@ -100,8 +101,6 @@
             </div>
         </div>
     </main>
-
-    @include('components.scripts')
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {

@@ -7,7 +7,7 @@
 }
 
 .headerSpacer {
-  height: 75px; /* Gleiche Höhe wie der Header */
+  height: 75px !important; /* Gleiche Höhe wie der Header */
 }
 
 .box {
@@ -459,6 +459,12 @@ h3 {
   flex-direction: column;
   min-height: 90vh; /* Minimale Höhe des Viewports */
   flex: 1;
+}
+
+#passwordChangeForm {
+  margin-top: 20px;
+  z-index: 2;
+  position: relative;
 }
 
 html, body {

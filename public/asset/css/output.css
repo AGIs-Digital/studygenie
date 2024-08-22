@@ -409,7 +409,6 @@ input[type='radio'] {
   border-radius: 12px;
 }
 
-/*hide the items when the select box is closed:*/
 .select-hide {
   display: none;
 }

@@ -6,16 +6,14 @@
     @include('components.head')
     <link rel="stylesheet" href="{{ asset('asset/css/profile.css') }}">
     <script src="https://www.paypal.com/sdk/js?client-id=Abj-J9HxV5L4s1izmSlNl27AJLM0z71Z0BzLAVV4n7ClCYaxlBWEGdvfSBnSvY7beu-AhQv0YdMLOzcc&currency=EUR"></script>
-    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-    
-
 </head>
+
 @include('components.navbar')
 @include('components.feedback')
-<body class="MainContainer">
-    <div class="headerSpacer"></div>
 
+<body class="MainContainer">
+    <div class="headerSpacer"><br><br></div>
     @include('components.tooglePasswordVisibility')
 
     <div class="container mt-5">
@@ -44,10 +42,10 @@
                         spread: 170,
                         origin: { x: 0.5, y: 0.5 }
                     });
-                });    
+                });
             </script>
         @endif
-            
+
         @if(Session::has('error'))
             <div class="alert alert-danger mt-4">
                 <strong>{{Session::get('error')}}</strong>
@@ -70,8 +68,14 @@
                             <div class="contentPlanCard contentPlanCard3">
                                 <span class="highWeightSpan">0 €<span class="lowWeightSpan"> mtl.</span></span>
                                 <p class="planCardParagraph">
-                                <span class="textmarker">✓ Intelligente Soforthilfe</span><br /><span class="textmarker">✓ Traumberuf finden</span><br /><span class="textmarker">✓ Berufsinformationen</span><br />✘ Textinspirationen<br />✘ Textanalyse<br />
-                                    ✘ Bewerbungsunterlagen<br />✘ Lerncoach<br />✘ Bewerbungstrainer
+                                    <span class="textmarker">✓ Intelligente Soforthilfe</span><br />
+                                    <span class="textmarker">✓ Traumberuf finden</span><br />
+                                    <span class="textmarker">✓ Berufsinformationen</span><br />
+                                    ✘ Textinspirationen<br />
+                                    ✘ Textanalyse<br />
+                                    ✘ Bewerbungsunterlagen<br />
+                                    ✘ Lerncoach<br />
+                                    ✘ Bewerbungstrainer
                                 </p>
                                 @guest
                                     <button data-bs-toggle="modal" data-bs-target="#loginModal" class="plancardButton">Kostenlos</button>
@@ -97,8 +101,14 @@
                             <div class="contentPlanCard contentPlanCard2">
                                 <span class="highWeightSpan">10 €<span class="lowWeightSpan"> mtl.</span></span>
                                 <p class="planCardParagraph">
-                                    ✓ Intelligente Soforthilfe<br />✓ Traumberuf finden<br />✓ Berufsinformationen<br /><span class="blue-textmarker">✓ Textinspirationen</span><br /><span class="blue-textmarker">✓ Textanalyse</span><br />
-                                    <span class="blue-textmarker">✓ Bewerbungsunterlagen</span><br />✘ Lerncoach<br />✘ Bewerbungstrainer
+                                    ✓ Intelligente Soforthilfe<br />
+                                    ✓ Traumberuf finden<br />
+                                    ✓ Berufsinformationen<br />
+                                    <span class="blue-textmarker">✓ Textinspirationen</span><br />
+                                    <span class="blue-textmarker">✓ Textanalyse</span><br />
+                                    <span class="blue-textmarker">✓ Bewerbungsunterlagen</span><br />
+                                    ✘ Lerncoach<br />
+                                    ✘ Bewerbungstrainer
                                 </p>
                                 @guest
                                     <button data-bs-toggle="modal" data-bs-target="#signupModal" class="plancardButton">Hol dir Gold</button>
@@ -120,15 +130,21 @@
                     <div class="col-md-4 d-flex justify-content-center">
                         <div class="planCard">
                             <div class="headerPlanCard">
-                            <div class="ribbon ribbon-top-left"><span>Empfohlen</span></div>
+                                <div class="ribbon ribbon-top-left"><span>Empfohlen</span></div>
                                 <img class="crownImg" src="{{ asset('asset/images/landingpage/diamant.png') }}" alt="Crown Image">
                                 <h6 class="secondary-Heading">Diamant</h6>
                             </div>
                             <div class="contentPlanCard contentPlanCard3">
                                 <span class="highWeightSpan">20 €<span class="lowWeightSpan"> mtl.</span></span>
                                 <p class="planCardParagraph">
-                                    ✓ Intelligente Soforthilfe<br />✓ Traumberuf finden<br />✓ Berufsinformationen<br />✓ Textinspirationen<br />✓ Textanalyse<br />
-                                    ✓ Bewerbungsunterlagen<br /><span class="green-textmarker">✓ Lerncoach</span><br /><span class="green-textmarker">✓ Bewerbungstrainer</span>
+                                    ✓ Intelligente Soforthilfe<br />
+                                    ✓ Traumberuf finden<br />
+                                    ✓ Berufsinformationen<br />
+                                    ✓ Textinspirationen<br />
+                                    ✓ Textanalyse<br />
+                                    ✓ Bewerbungsunterlagen<br />
+                                    <span class="green-textmarker">✓ Lerncoach</span><br />
+                                    <span class="green-textmarker">✓ Bewerbungstrainer</span>
                                 </p>
                                 @guest
                                     <button data-bs-toggle="modal" data-bs-target="#loginModal" class="plancardButton">Hol dir Diamant</button>
@@ -174,12 +190,12 @@
                                         <img src="{{ asset('asset/images/eye.svg') }}" alt="Toggle Password Visibility" width="25" height="25">
                                     </span>
                                 </div>
-                                <div id="passwordCriteria" class="mt-2 hidden">
+                                <div id="passwordCriteria" class="criteria-container mt-2">
                                     <div class="criteria-row">
-                                        <p id="lengthCriteria" class="text-danger"><span class="checkmark">✔</span> 8 Zeichen</p>
-                                        <p id="uppercaseCriteria" class="text-danger"><span class="checkmark">✔</span> 1 Großbuchstabe</p>
-                                        <p id="numberCriteria" class="text-danger"><span class="checkmark">✔</span> 1 Zahl</p>
-                                        <p id="specialCharCriteria" class="text-danger"><span class="checkmark">✔</span> 1 Sonderzeichen</p>
+                                        <p id="lengthCriteria" class="text-danger"><span class="checkmark">✘</span> 8 Zeichen</p>
+                                        <p id="uppercaseCriteria" class="text-danger"><span class="checkmark">✘</span> Großbuchstabe</p>
+                                        <p id="numberCriteria" class="text-danger"><span class="checkmark">✘</span> Zahl</p>
+                                        <p id="specialCharCriteria" class="text-danger"><span class="checkmark">✘</span> Sonderzeichen</p>
                                     </div>
                                 </div>
                             </div>
@@ -248,7 +264,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    Möchtest du wirklich zu Silber wechseln? Du hast dann nach Ablauf deines jetzigen Plans keinen Zugriff auf manche Tools mehr. 
+                    Möchtest du wirklich zu Silber wechseln? Du hast dann nach Ablauf deines jetzigen Plans keinen Zugriff auf manche Tools mehr.
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-success" data-bs-dismiss="modal">Abo behalten</button>
@@ -259,7 +275,7 @@
     </div>
 
     @include('components.scripts')
-    
+
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             // PayPal Button Rendering
@@ -287,7 +303,7 @@
                         }).catch(err => console.error('createSubscription error:', err));
                     },
                     onApprove: function(data, actions) {
-                        alert('Subscription completed successfully');
+                        showToast('Aboplan erfolgreich erstellt');
                         $("#payment_modal").modal('hide');
                         location.reload();
                     }
@@ -303,46 +319,8 @@
                 });
             });
 
-            document.getElementById('changePasswordButton').addEventListener('click', function () {
-                var form = document.getElementById('passwordChangeForm');
-                form.classList.toggle('hidden');
-                form.classList.toggle('visible');
-            });
-
-            // Ensure the password change form is visible if there are validation errors
-            @if ($errors->any())
-                document.getElementById('passwordChangeForm').classList.remove('hidden');
-                document.getElementById('passwordChangeForm').classList.add('visible');
-            @endif
-
             document.getElementById('deleteAccountButton').addEventListener('click', function() {
                 $("#deleteAccountModal").modal('show');
-            });
-
-            // Password Criteria Validation
-            const passwordInput = document.getElementById('new_password');
-            const passwordCriteria = document.getElementById('passwordCriteria');
-            const criteria = {
-                length: document.getElementById('lengthCriteria'),
-                uppercase: document.getElementById('uppercaseCriteria'),
-                number: document.getElementById('numberCriteria'),
-                specialChar: document.getElementById('specialCharCriteria')
-            };
-
-            passwordInput.addEventListener('focus', () => passwordCriteria.classList.remove('hidden'));
-            passwordInput.addEventListener('blur', () => {
-                if (passwordInput.value === '') passwordCriteria.classList.add('hidden');
-            });
-            passwordInput.addEventListener('input', function() {
-                const password = passwordInput.value;
-                criteria.length.classList.toggle('text-success', password.length >= 8);
-                criteria.length.classList.toggle('text-danger', password.length < 8);
-                criteria.uppercase.classList.toggle('text-success', /[A-Z]/.test(password));
-                criteria.uppercase.classList.toggle('text-danger', !/[A-Z]/.test(password));
-                criteria.number.classList.toggle('text-success', /\d/.test(password));
-                criteria.number.classList.toggle('text-danger', !/\d/.test(password));
-                criteria.specialChar.classList.toggle('text-success', /[!@#$%^&*(),.?":{}|<>]/.test(password));
-                criteria.specialChar.classList.toggle('text-danger', !/[!@#$%^&*(),.?":{}|<>]/.test(password));
             });
         });
 
@@ -370,6 +348,36 @@
         function confirmDeletion() {
             return confirm('ACHTUNG: Diese Aktion wird Ihren Account und alle damit verbundenen Daten dauerhaft löschen. Diese Aktion kann nicht rückgängig gemacht werden. Sind Sie sicher, dass Sie fortfahren möchten?');
         }
+
+        function updateCriteria() {
+            const criteria = [
+                { id: 'specialCharCriteria', regex: /[!@#$%^&*(),.?":{}|<>]/ },
+                { id: 'uppercaseCriteria', regex: /[A-Z]/ },
+                { id: 'numberCriteria', regex: /[0-9]/ },
+                { id: 'lengthCriteria', regex: /.{8,}/ }
+            ];
+
+            const password = document.getElementById('new_password').value;
+
+            criteria.forEach(({ id, regex }) => {
+                const element = document.getElementById(id);
+                if (regex.test(password)) {
+                    element.classList.remove('text-danger');
+                    element.classList.add('text-success');
+                    element.querySelector('.checkmark').textContent = '✔';
+                } else {
+                    element.classList.remove('text-success');
+                    element.classList.add('text-danger');
+                    element.querySelector('.checkmark').textContent = '✘';
+                }
+            });
+        }
+
+        document.getElementById('new_password').addEventListener('input', updateCriteria);
+
+        document.getElementById('changePasswordButton').addEventListener('click', function() {
+            document.getElementById('passwordChangeForm').classList.toggle('hidden');
+        });
     </script>
 </body>
 

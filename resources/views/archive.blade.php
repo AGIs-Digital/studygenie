@@ -172,13 +172,13 @@
                             $('#archive-item-' + deleteId).fadeOut('slow', function() {
                                 $(this).remove();
                             });
-                            showToast('Der Eintrag wurde erfolgreich gelöscht.'); // Toast anzeigen
+                            showToast('Der Eintrag wurde erfolgreich gelöscht.');
                         } else {
-                            alert('Fehler: ' + response.message);
+                            showToast('Fehler: ' + response.message, 'error');
                         }
                     },
                     error: function(xhr) {
-                        alert('Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.');
+                        showToast('Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.', 'error');
                     }
                 });
             });

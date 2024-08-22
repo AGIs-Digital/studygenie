@@ -59,29 +59,26 @@ class RegisterController extends Controller
         if ($validator->fails()) {
             return response()->json([
                 "status" => false,
-                "errors" => $validator->errors()
+                "errors" => $validator->errors()->all()
             ]);
         }
 
         $data = $request->all();
         $user = $this->create($data);
 
+        $subscriptionUpdated = false;
         if ($user->id <= 100) {
             $user->subscription_name = 'diamant';
             $user->expire_date = Carbon::now()->addYear(100);
             $user->save();
-            Auth::login($user);
-            return response()->json([
-                'status' => true,
-                'subscription_updated' => true,
-                'redirect' => route('tools')
-            ]);
+            $subscriptionUpdated = true;
         }
 
         Auth::login($user);
 
         return response()->json([
             'status' => true,
+            'subscription_updated' => $subscriptionUpdated,
             'redirect' => route('tools')
         ]);
     }

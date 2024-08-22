@@ -195,7 +195,7 @@
                 const userValue = userInput.value.trim();
 
                 if (!userValue) {
-                    alert('Bitte geben Sie einen Text ein');
+                    showToast('Gib bitte einen Text ein', 'error');
                     return;
                 }
 

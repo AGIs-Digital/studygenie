@@ -4,38 +4,22 @@
     @section('title', 'StudyGenie')
     @include('components.head')
     <link rel="stylesheet" href="{{ asset('asset/css/HomePage.css') }}">
-    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
 @include('components.navbar')
 @include('components.feedback')
 <body class="MainContainer">
-    <div class="headerSpacer">22.08.2024 04:11</div>
+    <div class="headerSpacer"></div>
     @include('components.arrowupbutton')
-    @include('components.cookie-consent')
     @include('components.login-modal')
     @include('components.signup-modal')
     @include('components.forget-modal')
     @include('components.tooglePasswordVisibility')
 
-    <!-- Toast Container, aber wofür? Kann vielleicht weg -->
-    <div aria-live="polite" aria-atomic="true" class="position-relative">
-        <div class="toast-container position-fixed top-0 end-0 p-3">
-            <div id="errorToast" class="toast align-items-center text-white bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
-                <div class="d-flex">
-                    <div class="toast-body" id="errorToastMessage">
-                        <!-- Error message will be injected here -->
-                    </div>
-                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
     @include('components.heroimage-section')
     @include('components.learn-anything-section')
+    @include('components.cookie-consent')
     @include('components.mathrix-section')
     @include('components.witness-section')
     @include('components.tutorial-section')
@@ -71,8 +55,8 @@
     @include('components.footer')
     @include('components.scripts')
     <script src="{{ asset('asset/js/index.js') }}"></script>
-    
-    @include('components.tooglePasswordVisibility')
+    <script src="{{ asset('asset/js/toast.js') }}"></script>
+
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
@@ -97,10 +81,11 @@
                     .then(data => {
                         if (data.status === 'success') {
                             alert("Ein Link zum Zurücksetzen des Passworts wurde an Ihre E-Mail-Adresse gesendet.");
+                            showToast("Ein Link zum Zurücksetzen des Passworts wurde an Ihre E-Mail-Adresse gesendet.");
                             var forgetModal = bootstrap.Modal.getInstance(document.getElementById('forgetModal'));
                             forgetModal.hide();
                         } else {
-                            alert("Fehler beim Senden des Links zum Zurücksetzen des Passworts.");
+                            showToast("Fehler beim Senden des Links zum Zurücksetzen des Passworts.", 'error');
                         }
                     })
                     .catch(error => {
@@ -204,44 +189,19 @@
                 window.location.href = "{{ url('login/google') }}";
             });
 
-            const passwordInput = document.getElementById('password_register');
-            const passwordCriteria = document.getElementById('passwordCriteria');
-            const criteria = {
-                length: document.getElementById('lengthCriteria'),
-                uppercase: document.getElementById('uppercaseCriteria'),
-                number: document.getElementById('numberCriteria'),
-                specialChar: document.getElementById('specialCharCriteria')
-            };
-
-            passwordInput.addEventListener('focus', () => passwordCriteria.classList.remove('hidden'));
-            passwordInput.addEventListener('blur', () => {
-                if (passwordInput.value === '') passwordCriteria.classList.add('hidden');
+            // Passwort-Reset-Formular anzeigen
+            document.getElementById("forgotPasswordLink").addEventListener("click", function(e) {
+                e.preventDefault();
+                var loginForm = document.getElementById("loginForm");
+                var resetFormHTML = `
+                    <div class="emailInput">
+                        <label for="email" class="label">Email:</label>
+                        <input type="email" placeholder="Deine E-Mailadresse" name="email" id="email_reset" class="emailLogin" autocomplete="email">
+                        <input type="submit" value="Zurücksetzen" class="emailLogin" id="resetButton">
+                    </div>
+                `;
+                loginForm.innerHTML += resetFormHTML;
             });
-            passwordInput.addEventListener('input', function() {
-                const password = passwordInput.value;
-                criteria.length.classList.toggle('text-success', password.length >= 8);
-                criteria.length.classList.toggle('text-danger', password.length < 8);
-                criteria.uppercase.classList.toggle('text-success', /[A-Z]/.test(password));
-                criteria.uppercase.classList.toggle('text-danger', !/[A-Z]/.test(password));
-                criteria.number.classList.toggle('text-success', /\d/.test(password));
-                criteria.number.classList.toggle('text-danger', !/\d/.test(password));
-                criteria.specialChar.classList.toggle('text-success', /[!@#$%^&*(),.?":{}|<>]/.test(password));
-                criteria.specialChar.classList.toggle('text-danger', !/[!@#$%^&*(),.?":{}|<>]/.test(password));
-            });
-        });
-
-        // Passwort-Reset-Formular anzeigen
-        document.getElementById("forgotPasswordLink").addEventListener("click", function(e) {
-            e.preventDefault();
-            var loginForm = document.getElementById("loginForm");
-            var resetFormHTML = `
-                <div class="emailInput">
-                    <label for="email" class="label">Email:</label>
-                    <input type="email" placeholder="Deine E-Mailadresse" name="email" id="email_reset" class="emailLogin" autocomplete="email">
-                    <input type="submit" value="Zurücksetzen" class="emailLogin" id="resetButton">
-                </div>
-            `;
-            loginForm.innerHTML += resetFormHTML;
         });
     </script>
 </body>

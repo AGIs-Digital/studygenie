@@ -207,15 +207,12 @@ a {
 }
 
 .criteria-container {
-  width: 100%;
+  width: 90%;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-}
-
-.criteria-row {
-  justify-content: space-between;
-  margin-bottom: 10px;
+  margin: 0px auto;
+  font-size: 12px;
 }
 
 .criteria-row p {
@@ -1393,6 +1390,11 @@ input[type='text'] {
   text-decoration: underline;
 }
 
+  color: #e09e50;
+  font-size: 16px;
+
+}
+
 /* ==============================Login Page Light Box CSS============================  */
 .main-conatainer-Login-Form {
   display: flex;
@@ -1412,10 +1414,6 @@ input[type='text'] {
   font-weight: 400;
   font-size: 28px;
   color: rgba(45, 62, 78, 1);
-}
-
-.loginAnchor {
-  font-family: 'Milonga', sans-serif;
 }
 
 #haveaccountSpan {
