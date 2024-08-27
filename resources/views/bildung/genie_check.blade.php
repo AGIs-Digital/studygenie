@@ -75,7 +75,7 @@
                                                     alt="">
                                             </strong>
                                         </span>
-                                        <textarea name="text1" id="field1" rows="20" style="width:100%;"
+                                        <textarea name="text1" id="field1" rows="20" style="width:100%;" placeholder="Was möchtest du wissen?"
                                             oninput="this.style.height = '';this.style.height = this.scrollHeight + 'px'"></textarea>
                                     </div>
                                 </div>
@@ -129,7 +129,7 @@
                 // Schließe das Modal
                 $('#saveModal').modal('hide');
 
-                showToast(document.title + " Gespeichert!");
+                showToast(document.title + " wurde im Archiv gespeichert");
             });
 
             showSaveModalButton.addEventListener('click', () => {
@@ -151,6 +151,13 @@
             $("#submitForm").on("click", function() {
                 let form = $("#myForm")[0];
                 let formData = new FormData(form);
+                let textField = $("#field1").val().trim();
+
+                if (textField === "") {
+                    showToast("Hoppla, du hast vergessen eine Frage zu stellen!.");
+                    return;
+                }
+
                 $("#save_data").val('x');
                 //Ladezeichen anzeigen
                 $("#submitForm").addClass('loading-button').text("Zaubert...");

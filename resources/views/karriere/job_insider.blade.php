@@ -130,7 +130,7 @@
                 // Schließe das Modal
                 $('#saveModal').modal('hide');
 
-                showToast(document.title + " Gespeichert!");
+                showToast(document.title + " wurde im Archiv gespeichert");
             });
 
             showSaveModalButton.addEventListener('click', () => {

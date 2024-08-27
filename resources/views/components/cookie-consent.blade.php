@@ -68,7 +68,7 @@
                 if (cookieModal) {
                     cookieModal.hide();
                 }
-                showToast('Ihre Cookie-Einstellungen wurden gespeichert.');
+                showToast('Cookie-Einstellungen wurden gespeichert.');
             });
 
             // Cookies ablehnen
@@ -79,7 +79,7 @@
                     marketing: false
                 };
                 localStorage.setItem('cookieConsent', JSON.stringify(consent));
-                showToast('Ihre Cookie-Einstellungen wurden gespeichert.');
+                showToast('Cookie-Einstellungen wurden gespeichert.');
                 var cookieModal = bootstrap.Modal.getInstance(document.getElementById('cookieConsentModal'));
                 cookieModal.hide();
             });

@@ -59,11 +59,26 @@
     </div>
 </section>
 <script>
-    document.querySelectorAll('.questionContentContainer').forEach(item => {
-  item.addEventListener('click', () => {
-    const answer = item.nextElementSibling;
-    const plusIcon = item.querySelector('.plusIcon');
-    const crossIcon = item.querySelector('.crossIcon');
+    document.querySelectorAll('.question').forEach(item => {
+  item.addEventListener('click', (event) => {
+    const question = event.currentTarget;
+    const answer = question.querySelector('.answerContentContainer');
+    const plusIcon = question.querySelector('.plusIcon');
+    const crossIcon = question.querySelector('.crossIcon');
+    
+    answer.classList.toggle('showAnswerDiv');
+    plusIcon.classList.toggle('hidePlusIcon');
+    crossIcon.classList.toggle('showCrossIcon');
+  });
+});
+
+document.querySelectorAll('.plusIcon, .crossIcon').forEach(icon => {
+  icon.addEventListener('click', (event) => {
+    event.stopPropagation(); // Verhindert das Event-Bubbling
+    const question = icon.closest('.question');
+    const answer = question.querySelector('.answerContentContainer');
+    const plusIcon = question.querySelector('.plusIcon');
+    const crossIcon = question.querySelector('.crossIcon');
     
     answer.classList.toggle('showAnswerDiv');
     plusIcon.classList.toggle('hidePlusIcon');

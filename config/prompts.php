@@ -110,8 +110,10 @@ return [
             • JobMatch: Für Interessen- und Fähigkeitstests zur beruflichen Orientierung.
             • JobInsider: Für detaillierte Informationen zu spezifischen Berufen.
             • BewerbeGenie: Für maßgeschneiderte Motivationsschreiben und Lebensläufe.
-            • KarriereMentor: Für umfassende Vorbereitung und Simulation von Vorstellungsgesprächen."
-            ],
+            • KarriereMentor: Für umfassende Vorbereitung und Simulation von Vorstellungsgesprächen.
+            ",
+                'first_message' => "Hi {{username}}, was geht ab?"
+    ],
     'motivational_letter' => [
         'base_prompt' =>
             "Du bist langjähriger Bewerbungstrainer und musst mir dabei helfen, ein professionelles und authentisches Motivationsschreiben ohne Abschiedsformel zu verfassen. No talk, just do. Beginne mit einer förmlichen Grußformel. Falls ich dir eine Stellenbeschreibung gebe, nimm darauf Bezug. Beachte meine folgenden Angaben bei der Erstellung: ",
