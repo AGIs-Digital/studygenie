@@ -176,8 +176,9 @@ input[type='radio'] {
 
 .content-written.right {
   height: calc(100vh - 195px);
-  background: #57937e;
-  border: 11px solid #f4da58;
+  background: #6ba292;
+  background-image: url('../images/noise-light.png');
+  border: 11px solid #f7e463;
   border-radius: 18px;
 }
 

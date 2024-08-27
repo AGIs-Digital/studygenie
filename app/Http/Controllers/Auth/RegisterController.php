@@ -67,7 +67,8 @@ class RegisterController extends Controller
         $user = $this->create($data);
 
         $subscriptionUpdated = false;
-        if ($user->id <= 100) {
+        $userCount = User::count(); // Anzahl der Benutzer in der Datenbank zählen
+        if ($userCount <= 103) { //103, weil es 3 AdminUser in der DB gibt
             $user->subscription_name = 'diamant';
             $user->expire_date = Carbon::now()->addYear(100);
             $user->save();
