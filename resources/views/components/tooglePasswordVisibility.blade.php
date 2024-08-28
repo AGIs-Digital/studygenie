@@ -4,7 +4,7 @@
 }
 
 .password-field input {
-    padding-right: 55px; /* Platz für das Auge-Symbol, 15px mehr als vorher */
+    padding-right: 10px; /* Platz für das Auge-Symbol, 15px mehr als vorher */
 }
 
 .password-field .toggle-password {
@@ -16,8 +16,8 @@
 }
 
 .password-field .toggle-password img {
-    width: 23px;
-    height: 23px;
+    width: 21px;
+    height: 21px;
 }
 </style>
 

@@ -3,7 +3,7 @@
 <head>
     @section('title', 'StudyGenie')
     @include('components.head')
-    <link rel="stylesheet" href="{{ asset('asset/css/HomePage.css') }}">
+    <link rel="stylesheet" href="{{ asset('asset/css/') }}">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 

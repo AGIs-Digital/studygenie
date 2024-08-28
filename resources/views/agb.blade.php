@@ -4,7 +4,7 @@
 <head>
     @section('title', 'AGBs')
     @include('components.head')
-    <link rel="stylesheet" href="{{ asset('asset/css/HomePage.css') }}"> 
+    <link rel="stylesheet" href="{{ asset('asset/css/') }}"> 
 </head>
 
 @include('components.navbar')

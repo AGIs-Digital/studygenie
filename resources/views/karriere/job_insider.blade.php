@@ -7,6 +7,7 @@
 </head>
 
 <body class="MainContainer backimage">
+<div class="headerSpacer"></div>
     @include('components.navbar')
     @include('components.feedback')
     <section class="TextInspiration_sec">

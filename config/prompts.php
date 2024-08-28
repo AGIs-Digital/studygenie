@@ -100,19 +100,18 @@ return [
     ],
     'genie_check' => [
         'base_prompt' =>
-            "Analysiere die eingegebene Nutzerfrage, um das Kernproblem zu identifizieren. Wiederhole zuerst die Frage. Gib eine kurze und informative Antwort, die das Wesentliche der Frage abdeckt. Berücksichtige dabei die inhaltliche Ausrichtung der Frage, um festzustellen, welches unserer Tools dem Nutzer zusätzlich von Nutzen sein könnte. Integriere den Hinweis auf das passende Tool, das dem Nutzer weiterhelfen könnte.
+            "Analysiere die eingegebene Nutzerfrage, um das Kernproblem zu identifizieren. Wiederhole zuerst die Frage. Gib eine kurze und informative Antwort, die das Wesentliche der Frage abdeckt. Berücksichtige dabei die inhaltliche Ausrichtung der Frage, um festzustellen, welches unserer Tools dem Nutzer zusätzlich von Nutzen sein könnte. Integriere den Hinweis auf das passende Tool, das dem Nutzer weiterhelfen könnte und verlinke dies direkt.
             Tool-Empfehlungen subtil & charmant:
 
             Tool Empfehlungen
-            • TextInspiration: Für kreative Schreibhilfen beim Verfassen von Texten.
-            • TextAnalyse: Für Verbesserung der Rechtschreibung, Grammatik oder des Schreibstils.
-            • GenieTutor: Für tiefergehende Erklärungen und interaktives Lernen, ideal zur Vorbereitung auf Klassenarbeiten und Klausuren.
-            • JobMatch: Für Interessen- und Fähigkeitstests zur beruflichen Orientierung.
-            • JobInsider: Für detaillierte Informationen zu spezifischen Berufen.
-            • BewerbeGenie: Für maßgeschneiderte Motivationsschreiben und Lebensläufe.
-            • KarriereMentor: Für umfassende Vorbereitung und Simulation von Vorstellungsgesprächen.
-            ",
-                'first_message' => "Hi {{username}}, was geht ab?"
+            • <a href=\"http://127.0.0.1:8000/bildung/textinspiration\">TextInspiration</a>: Für kreative Schreibhilfen beim Verfassen von Texten.
+            • <a href=\"http://127.0.0.1:8000/bildung/textanalyse\">TextAnalyse</a>: Für Verbesserung der Rechtschreibung, Grammatik oder des Schreibstils.
+            • <a href=\"http://127.0.0.1:8000/bildung/genietutor\">GenieTutor</a>: Für tiefergehende Erklärungen und interaktives Lernen, ideal zur Vorbereitung auf Klassenarbeiten und Klausuren.
+            • <a href=\"http://127.0.0.1:8000/karriere/jobmatch\">JobMatch</a>: Für Interessen- und Fähigkeitstests zur beruflichen Orientierung.
+            • <a href=\"http://127.0.0.1:8000/karriere/jobinsider\">JobInsider</a>: Für detaillierte Informationen zu spezifischen Berufen.
+            • <a href=\"http://127.0.0.1:8000/karriere/motivationsschreiben\">BewerbeGenie</a>: Für maßgeschneiderte Motivationsschreiben und Lebensläufe.
+            • <a href=\"http://127.0.0.1:8000/karriere/mentor\">KarriereMentor</a>: Für umfassende Vorbereitung und Simulation von Vorstellungsgesprächen.
+            "
     ],
     'motivational_letter' => [
         'base_prompt' =>

@@ -1,5 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Milonga&display=swap');
 
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 #main-body {
   font-family: 'Milonga', cursive;
   height: 90vh;
@@ -13,8 +19,7 @@
   background-image: url('../images/tool_back.png');
   background-position: center;
   background-repeat: no-repeat;
-  background-size: cover;
-
+  background-size: 100% 100%; /* Hintergrundbild über die gesamte Größe des Containers strecken */
   height: 100%;
 }
 

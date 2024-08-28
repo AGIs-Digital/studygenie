@@ -4,7 +4,7 @@
 <head>
     @section('title', Auth::check() ? auth()->user()->name . ' - Profil' : 'Profil')
     @include('components.head')
-    <link rel="stylesheet" href="{{ asset('asset/css/profile.css') }}">
+    <link rel="stylesheet" href="{{ asset('asset/css/') }}">
     <script src="https://www.paypal.com/sdk/js?client-id=Abj-J9HxV5L4s1izmSlNl27AJLM0z71Z0BzLAVV4n7ClCYaxlBWEGdvfSBnSvY7beu-AhQv0YdMLOzcc&currency=EUR"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
@@ -58,112 +58,8 @@
             <div class="content">
                 <!-- Subscription plans -->
                 <div class="row">
-                    <!-- Silber Plan -->
-                    <div class="col-md-4 d-flex justify-content-center">
-                        <div class="planCard">
-                            <div class="headerPlanCard">
-                                <img class="crownImg" src="{{ asset('asset/images/landingpage/silber.png') }}" alt="Crown Image">
-                                <h6 class="secondary-Heading">Silber</h6>
-                            </div>
-                            <div class="contentPlanCard contentPlanCard3">
-                                <span class="highWeightSpan">0 €<span class="lowWeightSpan"> mtl.</span></span>
-                                <p class="planCardParagraph">
-                                    <span class="textmarker">✓ Intelligente Soforthilfe</span><br />
-                                    <span class="textmarker">✓ Traumberuf finden</span><br />
-                                    <span class="textmarker">✓ Berufsinformationen</span><br />
-                                    ✘ Textinspirationen<br />
-                                    ✘ Textanalyse<br />
-                                    ✘ Bewerbungsunterlagen<br />
-                                    ✘ Lerncoach<br />
-                                    ✘ Bewerbungstrainer
-                                </p>
-                                @guest
-                                    <button data-bs-toggle="modal" data-bs-target="#loginModal" class="plancardButton">Kostenlos</button>
-                                @else
-                                    @if(auth()->user()->subscription_name == 'silber')
-                                        <button class="plancardButton" disabled>Aktueller Status</button>
-                                    @else
-                                        <button class="plancardButton" id="silberButton" data-paypal-plan="silber" data-paypal-route="{{ route('subscription.updateSilberSubscription') }}">Kostenlos</button>
-                                    @endif
-                                @endguest
-                            </div>
-                            <br />
-                        </div>
-                    </div>
-
-                    <!-- Gold Plan -->
-                    <div class="col-md-4 d-flex justify-content-center">
-                        <div class="planCard">
-                            <div class="headerPlanCard">
-                                <img class="crownImg" src="{{ asset('asset/images/landingpage/gold.png') }}" alt="Crown Image">
-                                <h6 class="secondary-Heading">Gold</h6>
-                            </div>
-                            <div class="contentPlanCard contentPlanCard2">
-                                <span class="highWeightSpan">10 €<span class="lowWeightSpan"> mtl.</span></span>
-                                <p class="planCardParagraph">
-                                    ✓ Intelligente Soforthilfe<br />
-                                    ✓ Traumberuf finden<br />
-                                    ✓ Berufsinformationen<br />
-                                    <span class="blue-textmarker">✓ Textinspirationen</span><br />
-                                    <span class="blue-textmarker">✓ Textanalyse</span><br />
-                                    <span class="blue-textmarker">✓ Bewerbungsunterlagen</span><br />
-                                    ✘ Lerncoach<br />
-                                    ✘ Bewerbungstrainer
-                                </p>
-                                @guest
-                                    <button data-bs-toggle="modal" data-bs-target="#signupModal" class="plancardButton">Hol dir Gold</button>
-                                @else
-                                    @if(auth()->user()->subscription_name == 'gold')
-                                        <button class="plancardButton" disabled>Aktueller Status</button>
-                                    @else
-                                        <button class="plancardButton" data-paypal-route="{{ route('paypal.createSubscription') }}" data-paypal-plan="P-5XT70630D04889123M2LLU5A" data-is-subscription="true">
-                                            Hol dir Gold
-                                        </button>
-                                    @endif
-                                @endguest
-                            </div>
-                            <br />
-                        </div>
-                    </div>
-
-                    <!-- Diamant Plan -->
-                    <div class="col-md-4 d-flex justify-content-center">
-                        <div class="planCard">
-                            <div class="headerPlanCard">
-                                <div class="ribbon ribbon-top-left"><span>Empfohlen</span></div>
-                                <img class="crownImg" src="{{ asset('asset/images/landingpage/diamant.png') }}" alt="Crown Image">
-                                <h6 class="secondary-Heading">Diamant</h6>
-                            </div>
-                            <div class="contentPlanCard contentPlanCard3">
-                                <span class="highWeightSpan">20 €<span class="lowWeightSpan"> mtl.</span></span>
-                                <p class="planCardParagraph">
-                                    ✓ Intelligente Soforthilfe<br />
-                                    ✓ Traumberuf finden<br />
-                                    ✓ Berufsinformationen<br />
-                                    ✓ Textinspirationen<br />
-                                    ✓ Textanalyse<br />
-                                    ✓ Bewerbungsunterlagen<br />
-                                    <span class="green-textmarker">✓ Lerncoach</span><br />
-                                    <span class="green-textmarker">✓ Bewerbungstrainer</span>
-                                </p>
-                                @guest
-                                    <button data-bs-toggle="modal" data-bs-target="#loginModal" class="plancardButton">Hol dir Diamant</button>
-                                @else
-                                    @if(auth()->user()->subscription_name == 'diamant')
-                                        <button class="plancardButton" disabled>Aktueller Status</button>
-                                    @else
-                                        <button class="plancardButton" data-paypal-route="{{ route('paypal.createSubscription') }}" data-paypal-plan="P-73N16093HM5621830M2LLU5I" data-is-subscription="true">
-                                            Hol dir Diamant
-                                        </button>
-                                    @endif
-                                @endguest
-                            </div>
-                            <br />
-                        </div>
-                    </div>
+                @include('components.plancards-section')
                 </div>
-
-                <br />
 
                 <!-- Account settings and password change -->
                 <div class="row">
@@ -171,19 +67,18 @@
                         <button id="changePasswordButton" type="button" class="btn btn-outline-primary mx-2">Account Einstellungen</button>
                         <button id="deleteAccountButton" type="button" class="btn btn-outline-danger mx-2">Account löschen</button>
                     </div>
-                </div>
 
-                <div id="passwordChangeForm" class="hidden mt-4">
-                    <div class="row">
+                    <div id="passwordChangeForm" class="hidden mt-4">
+                    <div class="row changePasswordForm">
                         <div class="col-md-4">
                             <div class="input_group">
-                                <label for="old_password">Altes Passwort</label>
+                                <label for="old_password">Altes Passwort?</label>
                                 <input type="password" name="old_password" class="form-control form-control-sm">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="input_group">
-                                <label for="new_password">Neues Passwort</label>
+                                <label for="new_password">Neues Passwort:</label>
                                 <div class="password-container">
                                     <input type="password" id="new_password" name="new_password" class="form-control form-control-sm">
                                     <span class="toggle-password" onclick="togglePasswordVisibility()">
@@ -202,7 +97,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="input_group">
-                                <label for="new_confirm_password">Wiederhole Neues Passwort</label>
+                                <label for="new_confirm_password">Neues Passwort?</label>
                                 <input type="password" name="new_confirm_password" class="form-control form-control-sm">
                             </div>
                         </div>
@@ -213,6 +108,11 @@
                         </div>
                     </div>
                 </div>
+
+
+                </div>
+
+
             </div>
         </form>
     </div>

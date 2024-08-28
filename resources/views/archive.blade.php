@@ -5,7 +5,6 @@
     @include('components.head')
 
     @routes
-    <link rel="stylesheet" href="{{ asset('asset/css/profile.css') }}">
 </head>
 @include('components.navbar')
 <body class="MainContainer">

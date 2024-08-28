@@ -6,6 +6,7 @@
 <link rel="stylesheet" href="{{ asset('asset/css/navBarStyle.css') }}">
 <link rel="stylesheet" href="{{ asset('asset/css/utilities.css') }}">
 <link rel="stylesheet" href="{{ asset('asset/css/output.css') }}">
+<link rel="stylesheet" href="{{ asset('asset/css/HomePage.css') }}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('favicon/apple-icon-57x57.png') }}">
 <link rel="apple-touch-icon" sizes="60x60" href="{{ asset('favicon/apple-icon-60x60.png') }}">

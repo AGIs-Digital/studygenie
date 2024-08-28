@@ -25,6 +25,7 @@
 
 .Cloud svg svg path {
 	fill: #E09E50;
+	background-image: url('../images/noise-light.png');
 }
 
 .Cloud svg svg text {
@@ -54,6 +55,7 @@
 
 .Cloud_Karriere svg svg path {
 	fill: #2B4053;
+	background-image: url('../images/noise-light.png');
 }
 
 .Cloud_Karriere svg svg text {
@@ -127,7 +129,8 @@
 	position: fixed;
 	width: 100%;
 	z-index: 999;
-	height: 75px; /* Feste Höhe für den Header */
+	height: 75px;
+	background-image: url('../images/noise-light.png');
 }
 
 .headerMainContainer {

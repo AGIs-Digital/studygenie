@@ -8,10 +8,11 @@
 </head>
 
 <body class="MainContainer backimage">
+<div class="headerSpacer"></div>
     @include('components.navbar')
-    @include('components.mathjax')
-    @include('components.save_modal')
-    @include('components.charts_and_svg')
+    @include('components.feedback')
+    @include('components.scripts')
+
 
     <section class="TextInspiration_sec">
         <div class="container-fluid">
@@ -102,9 +103,9 @@
             </div>
         </div>
     </section>
-    @include('components.feedback')
-    @include('components.scripts')
-    
+    @include('components.mathjax')
+    @include('components.save_modal')
+    @include('components.charts_and_svg')
     <script src="{{ asset('asset/js/typing.js') }}"></script>
 
     <script>
