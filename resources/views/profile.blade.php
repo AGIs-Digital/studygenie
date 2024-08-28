@@ -4,7 +4,6 @@
 <head>
     @section('title', Auth::check() ? auth()->user()->name . ' - Profil' : 'Profil')
     @include('components.head')
-    <link rel="stylesheet" href="{{ asset('asset/css/') }}">
     <script src="https://www.paypal.com/sdk/js?client-id=Abj-J9HxV5L4s1izmSlNl27AJLM0z71Z0BzLAVV4n7ClCYaxlBWEGdvfSBnSvY7beu-AhQv0YdMLOzcc&currency=EUR"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>

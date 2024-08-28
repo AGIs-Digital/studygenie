@@ -4,7 +4,7 @@
 <head>
     @section('title', 'Impressum')
     @include('components.head')
-    <link rel="stylesheet" href="{{ asset('asset/css/') }}">
+    
 </head>
 
 @include('components.navbar')
