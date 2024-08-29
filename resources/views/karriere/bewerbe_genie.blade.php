@@ -7,11 +7,10 @@
     <link rel="stylesheet" href="{{ asset('asset/css/clouds.css') }}">
 </head>
 
-@include('components.navbar')
-@include('components.feedback')
-
 <body class="MainContainer">
     <div class="headerSpacer"></div>
+    @include('components.navbar')
+    @include('components.feedback')
 
     <main class="mainContainer">
         <img src="{{ asset('asset/images/ab1.svg') }}" class="ab1" alt="">
@@ -81,7 +80,6 @@
             </a>
         </div>
     </main>
-    SKRIPTE!!
 
 </body>
 

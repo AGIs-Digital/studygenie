@@ -6,17 +6,20 @@
     @include('components.head')
      
 </head>
-@include('components.navbar')
-@include('components.feedback')
+
 <body class="MainContainer">
-@include('components.login-modal')
-    @include('components.signup-modal')
-    @include('components.forget-modal')
-    @include('components.tooglePasswordVisibility')
     <div class="headerSpacer"></div>
+    @include('components.navbar')
+    @include('components.feedback')
+    @include('components.arrowupbutton')
 
-@include('components.arrowupbutton')
-
+    @guest
+        @include('components.login-modal')
+        @include('components.signup-modal')
+        @include('components.forget-modal')
+        @include('components.tooglePasswordVisibility')
+    @endguest
+    
     <section class="blog_sec">
         <div class="container">
             <div class="row justify-content-center">

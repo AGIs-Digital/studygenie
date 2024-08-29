@@ -5,14 +5,13 @@
     @section('title', 'GenieAutor')
     @include('components.head')
     <link rel="stylesheet" href="{{ asset('asset/css/clouds.css') }}">
-    @include('components.toolsperre')
 </head>
-
-@include('components.navbar')
-@include('components.feedback')
 
 <body class="MainContainer">
     <div class="headerSpacer"></div>
+    @include('components.navbar')
+    @include('components.feedback')
+    @include('components.toolsperre')
 
     <main class="mainContainer">
         <img src="{{ asset('asset/images/ab1.svg') }}" class="ab1" alt="">
@@ -87,7 +86,7 @@
             </a>
         </div>
     </main>
-    SKRIPTE!!
+
 </body>
 
 </html>

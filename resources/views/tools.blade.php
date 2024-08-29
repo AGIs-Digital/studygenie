@@ -6,11 +6,11 @@
     @include('components.head')
     <link rel="stylesheet" href="{{ asset('asset/css/clouds.css') }}">
 </head>
-@include('components.navbar')
-SKRIPTE!!
-@include('components.feedback')
+
 <body class="MainContainer">
     <div class="headerSpacer"></div>
+    @include('components.navbar')
+    @include('components.feedback')
 
     <main class="mainContainer">
         <img src="{{ asset('asset/images/ab1.svg') }}" class="ab5" alt="">

@@ -4,14 +4,14 @@
 <head>
     @section('title', 'Lebenslauf')
     @include('components.head')
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
-
-@include('components.navbar')
-@include('components.feedback')
 
 <body class="MainContainer">
     <div class="headerSpacer"></div>
+    @include('components.navbar')
+    @include('components.feedback')
+
     <section class="archive_sec">
         <div class="container-fluid">
             <div class="row">
@@ -221,8 +221,6 @@
                 </div>
             </div>
     </section>
-
-    SKRIPTE!!
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {

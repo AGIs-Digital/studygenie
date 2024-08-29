@@ -170,7 +170,7 @@
                     var loginForm = document.getElementById("loginForm");
                     var resetFormHTML = `
                         <div class="emailInput">
-                            <label for="email" class="label">Email:</label>
+                            <label for="email_reset" class="label">Email:</label>
                             <input type="email" placeholder="Deine E-Mailadresse" name="email" id="email_reset" class="emailLogin" autocomplete="email">
                             <input type="submit" value="Zurücksetzen" class="emailLogin" id="resetButton">
                         </div>

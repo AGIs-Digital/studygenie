@@ -7,16 +7,18 @@
      
 </head>
 
-@include('components.navbar')
-@include('components.feedback')
 <body class="MainContainer">
-@include('components.login-modal')
-    @include('components.signup-modal')
-    @include('components.forget-modal')
-    @include('components.tooglePasswordVisibility')
-    @include('components.arrowupbutton')
     <div class="headerSpacer"></div>
+    @include('components.navbar')
+    @include('components.feedback')
+    @include('components.arrowupbutton')
 
+    @guest
+        @include('components.login-modal')
+        @include('components.signup-modal')
+        @include('components.forget-modal')
+        @include('components.tooglePasswordVisibility')
+    @endguest
 
     <main class="blog_sec">
         <div class="container">

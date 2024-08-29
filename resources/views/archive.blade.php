@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
-    @section('title', Auth::check() ? auth()->user()->name . 's - Archiv' : 'Archiv')
+    @section('title', 'Archiv')
     @include('components.head')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="{{ asset('asset/js/toast.js') }}"></script>
 </head>
-@include('components.navbar')
-@include('components.feedback')
+
 <body class="MainContainer">
     <div class="headerSpacer"></div>
+    @include('components.navbar')
+    @include('components.feedback')
     @include('components.arrowupbutton')
-    
+
     <div class="container">
         <div class="row">
             <div class="col-md-6">
@@ -29,7 +31,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="TextInspiration">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#BildungCollpasetool1" aria-expanded="false" aria-controls="BildungCollpasetool1">TextInspiration</button>
@@ -42,7 +43,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="BildungOne">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#BildungCollpasetool3" aria-expanded="false" aria-controls="BildungCollpasetool3">TextAnalyse</button>
@@ -55,7 +55,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="BildungMentor">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#BildungCollpasetool4" aria-expanded="false" aria-controls="BildungCollpasetool4">GenieTutor</button>
@@ -85,7 +84,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="headingJobInsider">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseJobInsider" aria-expanded="false" aria-controls="collapseJobInsider">JobInsider</button>
@@ -98,7 +96,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="headingKarriereMentor">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseKarriereMentor" aria-expanded="false" aria-controls="collapseKarriereMentor">KarriereMentor</button>
@@ -137,6 +134,8 @@
 
     @include('components.mathjax')
     @include('components.footer')
+
+    <script src="{{ asset('asset/js/toast.js') }}"></script>
     <script>
         $(document).ready(function() {
             var deleteId;

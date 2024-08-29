@@ -18,7 +18,7 @@
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-12">
-                <h1>
+                <h1 style="font-size: 28px;">
                     {{ auth()->user()->name }} - Einstellungen
                     <img src="{{ asset('asset/images/profile.svg') }}">
                 </h1>
@@ -60,6 +60,7 @@
                 <div class="row">
                     @include('components.plancards-section')
                 </div>
+                <br />
 
                 <!-- Account settings and password change -->
                 <div class="row">
@@ -73,7 +74,7 @@
                             <div class="col-md-4">
                                 <div class="input_group">
                                     <label for="old_password">Altes Passwort?</label>
-                                    <input type="password" name="old_password" class="form-control form-control-sm">
+                                    <input type="password" id="old_password" name="old_password" class="form-control form-control-sm">
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -98,7 +99,7 @@
                             <div class="col-md-4">
                                 <div class="input_group">
                                     <label for="new_confirm_password">Neues Passwort?</label>
-                                    <input type="password" name="new_confirm_password" class="form-control form-control-sm">
+                                    <input type="password" id="new_confirm_password" name="new_confirm_password" class="form-control form-control-sm">
                                 </div>
                             </div>
                         </div>
@@ -170,7 +171,6 @@
         </div>
     </div>
 
-    SKRIPTE!!
     <script src="{{ asset('asset/js/toast.js') }}"></script>
 
     <script>

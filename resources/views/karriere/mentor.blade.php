@@ -4,13 +4,16 @@
 <head>
     @section('title', 'KarriereMentor')
     @include('components.head')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
-@include('components.navbar')
-@include('components.feedback')
+
 <body class="MainContainer">
     <div class="headerSpacer"></div>
+    @include('components.navbar')
+    @include('components.feedback')
 
-	<section class="TextInspiration_sec">
+    <section class="TextInspiration_sec">
 		<div class="container-fluid">
 			<div class="row justify-content-center">
 
@@ -147,7 +150,6 @@
 		</div>
 	</section>
     @include('components.save_modal')
-	SKRIPTE!!
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
