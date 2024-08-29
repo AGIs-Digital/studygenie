@@ -16,7 +16,7 @@
     @guest
         @include('components.login-modal')
         @include('components.signup-modal')
-        @include('components.forget-modal')
+
         @include('components.tooglePasswordVisibility')
     @endguest
 
@@ -24,12 +24,13 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-8">
-                    <h1>Allgemeine Geschäftsbedingungen</h1>
+                <div class="headerSpacer"></div>
+                    <h2>Allgemeine Geschäftsbedingungen</h2>
                     <p>für die Erbringung von Dienstleistungen von Abeln Goltz GbR, Adalbert-Stifter-Straße 14, 30655
                         Hannover, E-Mail: info@agis.digital (nachfolgend „Auftragnehmer“) gegenüber seinen Kunden
                         (nachfolgend „Auftraggeber“)</p>
                         <br />
-                    <h2>1. Allgemeines</h2>
+                    <h4>1. Allgemeines</h2>
                     <p>1.1 Diese Allgemeinen Geschäftsbedingungen (AGB) für die Erbringung von Dienstleistungen gelten
                         für Verträge, die zwischen dem Auftraggeber und dem Auftragnehmer unter Einbeziehung dieser AGB
                         geschlossen werden.</p>
@@ -44,7 +45,7 @@
                     <p>1.4 Von diesen Geschäftsbedingungen abweichende AGB, die durch den Auftraggeber verwendet werden,
                         erkennt Auftragnehmer – vorbehaltlich einer ausdrücklichen Zustimmung – nicht an.</p>
                         <br />
-                        <h2>2. Vertragsgegenstand und Leistungsumfang</h2>
+                        <h4>2. Vertragsgegenstand und Leistungsumfang</h2>
                     <p>2.1 Der Auftragnehmer erbringt als selbständiger Unternehmer folgende Leistungen gegenüber dem
                         Auftraggeber:</p>
                     <p>Innovative und softwarebasierte Lösungen im Bereich der Künstlichen Intelligenz</p>
@@ -61,7 +62,7 @@
                         Die Leistungserbringung durch den Auftragnehmer erfolgt lediglich in Abstimmung und in
                         Koordination mit dem Auftraggeber.</p>
                         <br />
-                        <h2>3. Mitwirkungspflichten des Auftraggebers</h2>
+                        <h4>3. Mitwirkungspflichten des Auftraggebers</h2>
                     <p>Es obliegt dem Auftraggeber, die von ihm zum Zwecke der Leistungserfüllung zur Verfügung zu
                         stellenden Informationen, Daten und sonstigen Inhalte vollständig und korrekt mitzuteilen. Für
                         Verzögerungen und Verspätungen bei der Leistungserbringung, die durch eine verspätete und
@@ -69,7 +70,7 @@
                         in keinerlei Hinsicht verantwortlich; die Vorschriften unter der Überschrift
                         „Haftung/Freistellung“ bleiben hiervon unberührt.</p>
                         <br />
-                        <h2>4. Vergütung</h2>
+                        <h4>4. Vergütung</h2>
                     <p>4.1 Die Vergütung wird individualvertraglich vereinbart.</p>
                     <p>4.2 Die Vergütung ist nach der Leistung der Dienste zu entrichten. Ist die Vergütung nach
                         Zeitabschnitten bemessen, so ist sie nach dem Ablauf der einzelnen Zeitabschnitte zu entrichten
@@ -79,7 +80,7 @@
                         Post oder per E-Mail (z.B. als PDF). Die Vergütung ist innerhalb von 14 Tagen nach Zugang der
                         Rechnung zur Zahlung fällig.</p>
                         <br />
-                        <h2>5. Haftung / Freistellung</h2>
+                        <h4>5. Haftung / Freistellung</h2>
                     <p>5.1 Der Auftragnehmer haftet aus jedem Rechtsgrund uneingeschränkt bei Vorsatz oder grober
                         Fahrlässigkeit, bei vorsätzlicher oder fahrlässiger Verletzung des Lebens, des Körpers oder der
                         Gesundheit, aufgrund eines Garantieversprechens, soweit diesbezüglich nichts anderes geregelt
@@ -96,7 +97,7 @@
                         den Auftragnehmer aufgrund von Verstößen des Kunden gegen diese Vertragsbedingungen oder gegen
                         geltendes Recht geltend gemacht werden.</p>
                         <br />
-                        <h2>6. Vertragsdauer und Kündigung</h2>
+                        <h4>6. Vertragsdauer und Kündigung</h2>
                     <p>6.1 Die Vertragsdauer und die Fristen zur ordentlichen Kündigung vereinbaren die Parteien
                         individuell.</p>
                     <p>6.2 Das Recht beider Parteien zur fristlosen Kündigung aus wichtigem Grund bleibt unberührt.</p>
@@ -108,7 +109,7 @@
                         Aufbewahrungsfrist. Der Auftragnehmer hat dem Unternehmen auf dessen Verlangen die Löschung
                         schriftlich zu bestätigen.</p>
                         <br />
-                        <h2>7. Vertraulichkeit und Datenschutz</h2>
+                        <h4>7. Vertraulichkeit und Datenschutz</h2>
                     <p>7.1 Der Auftragnehmer wird alle ihm im Zusammenhang mit dem Auftrag zur Kenntnis gelangenden
                         Vorgänge streng vertraulich behandeln. Der Auftragnehmer verpflichtet sich, die
                         Geheimhaltungspflicht sämtlichen Angestellten und / oder Dritten, die Zugang zu den
@@ -118,7 +119,7 @@
                         datenschutzrechtlichen Vorschriften – insbesondere die Vorschriften der
                         Datenschutzgrundverordnung und des Bundesdatenschutzgesetzes – einzuhalten.</p>
                         <br />
-                        <h2>8. Schlussbestimmungen</h2>
+                        <h4>8. Schlussbestimmungen</h2>
                     <p>8.1 Es gilt das Recht der Bundesrepublik Deutschland unter Ausschluss des CISG.</p>
                     <p>8.2 Sollte eine Bestimmung dieser AGB unwirksam sein oder werden, so wird die Gültigkeit der AGB
                         im Übrigen hiervon nicht berührt.</p>
@@ -142,7 +143,7 @@
                         die beabsichtigte Änderung dieser AGB wird auf die Frist und die Folgen des Widerspruchs oder
                         seines Ausbleibens hinweisen.</p>
                         <br />
-                        <h2>9. Informationen zur Online-Streitbeilegung / Verbraucherschlichtung</h2>
+                        <h4>9. Informationen zur Online-Streitbeilegung / Verbraucherschlichtung</h2>
                     <p>Die EU-Kommission stellt im Internet unter folgendem Link eine Plattform zur
                         Online-Streitbeilegung bereit: <a href="https://ec.europa.eu/consumers/odr" target="_blank"
                             rel="noopener noreferrer">https://ec.europa.eu/consumers/odr</a></p>

@@ -11,13 +11,11 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\PayPalController;
-
 use App\Http\Controllers\Karriere\MentorController;
 use App\Http\Controllers\Karriere\LebenslaufController;
 use App\Http\Controllers\Karriere\JobInsiderController;
 use App\Http\Controllers\Karriere\JobMatchController;
 use App\Http\Controllers\Karriere\MotivationController;
-
 use App\Http\Controllers\Bildung\GenieCheckController;
 use App\Http\Controllers\Bildung\TextInspirationController;
 use App\Http\Controllers\Bildung\TextAnalysisController;
@@ -60,22 +58,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('profile', [UserController::class, 'show'])->name('profile');
 
     // Resources
-    // Route::resource('user', UserController::class)->except('show');
     Route::resource('archive', ArchiveController::class)->except(['create', 'store']);
 
-    ### SINGLE OPERATION ROUTES ###
-    Route::post('/update-tutorial-status', function () { // What does this route do? (FL)
-        $user = Auth::user();
-        $user->tutorial_shown = 1;
-        $user->save();
-
-        return response()->json(['status' => 'success']);
-    });
-
-    ### BILDUNG ROUTES
+    ### BILDUNG ROUTES ###
     Route::view('bildung', 'bildung')->name('bildung');
     Route::prefix('bildung')->name('bildung.')->group(function () {
-
         Route::get('geniecheck', [GenieCheckController::class, 'create'])->name('geniecheck.create');
         Route::resource('geniecheck', GenieCheckController::class)->except(['index', 'create', 'show', 'edit', 'update', 'destroy']);
 
@@ -86,18 +73,15 @@ Route::group(['middleware' => ['auth']], function () {
 
         // Bildung Routes which require gold or diamant subscription
         Route::middleware(['auth', 'check.subscription.expiry', 'check.subscription:gold,diamant'])->group(function () {
-
             Route::view('genieautor', 'bildung.genie_autor')->name('genieautor');
-
             Route::get('textinspiration', [TextInspirationController::class, 'create'])->name('textinspiration');
             Route::resource('textinspiration', TextInspirationController::class)->except(['index', 'create', 'show', 'edit', 'update', 'destroy']);
-
             Route::get('textanalyse', [TextAnalysisController::class, 'create'])->name('textanalysis');
             Route::resource('textanalysis', TextAnalysisController::class)->except(['index', 'create', 'show', 'edit', 'update', 'destroy']);
         });
     });
 
-    ### KARRIERE ROUTES
+    ### KARRIERE ROUTES ###
     Route::prefix('karriere')->name('karriere.')->group(function () {
         Route::view('/', 'karriere')->name('index');
 
@@ -130,12 +114,11 @@ Route::group(['middleware' => ['auth']], function () {
 
         Route::view('karrieregenie', 'karriere.karriere_genie')->name('karrieregenie');
 
-        ### JOB MATCH ROUTES
+        ### JOB MATCH ROUTES ###
         Route::get('jobmatch', [JobMatchController::class, 'create'])->name('jobmatch');
         Route::resource('jobmatch', JobMatchController::class)->except(['index', 'create', 'show', 'edit', 'update', 'destroy']);
 
-
-        ### JOB INSIDER ROUTES
+        ### JOB INSIDER ROUTES ###
         Route::get('jobinsider', [JobInsiderController::class, 'create'])->name('jobinsider');
         Route::resource('jobinsider', JobInsiderController::class)->except(['index', 'create', 'show', 'edit', 'update', 'destroy']);
     });
@@ -144,9 +127,7 @@ Route::group(['middleware' => ['auth']], function () {
 ### PAYPAL ROUTES ###
 Route::prefix('paypal')->name('paypal.')->group(function () {
     Route::view('/', 'paypal')->name('paypal');
-
     Route::get('payment/{name}', [PayPalController::class, 'payment'])->name('payment');
-
     Route::prefix('payment')->name('payment.')->group(function () {
         Route::get('success', [PayPalController::class, 'paymentSuccess'])->name('success');
         Route::get('cancel', [PayPalController::class, 'paymentCancel'])->name('cancel');
@@ -157,13 +138,11 @@ Route::prefix('paypal')->name('paypal.')->group(function () {
 Route::get('/setup-plans', [PayPalController::class, 'setupPlans'])->name('paypal.setupPlans');
 Route::post('/create-subscription', [PayPalController::class, 'createSubscription'])->name('paypal.createSubscription');
 Route::get('/update-subscription', [PayPalController::class, 'updateSubscription'])->name('paypal.updateSubscription');
-
 Route::post('/update-silber-subscription', [SubscriptionController::class, 'updateSilberSubscription'])->name('subscription.updateSilberSubscription');
 
 ### USER ROUTES ###
 Route::post('/postLogin', [LoginController::class, 'postLogin'])->name('login.post');
 Route::post('/postRegistration', [RegisterController::class, 'postRegistration'])->name('register.post');
-//Route::post('/register', [UserController::class, 'register'])->name('register.post');
 Route::post('change-password', [FrontController::class, 'changePassword'])->name('change.password');
 
 Route::prefix('user')->name('user.')->group(function () {
@@ -176,21 +155,17 @@ Auth::routes();
 Route::get('login/{provider}', [LoginController::class, 'redirectToProvider']);
 Route::get('auth/callback/{provider}', [LoginController::class, 'handleProviderCallback']);
 
-
-// Route for showing the password reset form
-Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
-
 // Route for sending the password reset link
-Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
-
-// Route for showing the password reset form with the token
-Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
-
-// Route for resetting the password
-Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
+Route::post('password/email', [ResetPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
 
 Route::post('/feedback', [FeedbackController::class, 'store'])->name('feedback.store');
 
 ### ADMIN ROUTES ###
 Route::get('/admin/feedbacks', [AdminFeedbackController::class, 'index'])->name('admin.feedbacks.index')->middleware('admin');
 Route::delete('/admin/feedbacks/{id}', [AdminFeedbackController::class, 'destroy'])->name('admin.feedbacks.destroy')->middleware('admin');
+
+// Route for showing the password reset form
+Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+
+// Route for resetting the password
+Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');

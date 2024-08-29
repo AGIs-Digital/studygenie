@@ -16,7 +16,7 @@
     @guest
         @include('components.login-modal')
         @include('components.signup-modal')
-        @include('components.forget-modal')
+
         @include('components.tooglePasswordVisibility')
     @endguest
     
@@ -24,7 +24,8 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-8">
-                    <h1>Impressum</h1>
+                <div class="headerSpacer"></div>
+                    <h2>Impressum</h2>
 
                     <p class="mb-2">Angaben gemäß § 5 TMG:</p>
 
@@ -35,29 +36,29 @@
                         Tom Niclas Abeln, Timo Goltz</p>
                     <br />
 
-                    <h2>Kontakt</h2>
+                    <h4>Kontakt</h4>
                     <p>Telefon: +49 155 60106486<br />
                         E-Mail: <a href="mailto:info@agis.digital">info@agis.digital</a></p>
                     <br />
 
-                    <h2>Umsatzsteuer-ID</h2>
+                    <h4>Umsatzsteuer-ID</h4>
                     <p>Umsatzsteuer-Identifikationsnummer gem&auml;&szlig; &sect; 27 a Umsatzsteuergesetz:<br />
                         25/235/00307</p>
                     <br />
 
-                    <h2>EU-Streitschlichtung</h2>
+                    <h4>EU-Streitschlichtung</h4>
                     <p>Die Europ&auml;ische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit: <a
                             href="https://ec.europa.eu/consumers/odr/" target="_blank"
                             rel="noopener noreferrer">https://ec.europa.eu/consumers/odr/</a>.<br /> Unsere
                         E-Mail-Adresse finden Sie oben im Impressum.</p>
                     <br />
 
-                    <h2>Verbraucher&shy;streit&shy;beilegung/Universal&shy;schlichtungs&shy;stelle</h2>
+                    <h4>Verbraucher&shy;streit&shy;beilegung/Universal&shy;schlichtungs&shy;stelle</h4>
                     <p>Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer
                         Verbraucherschlichtungsstelle teilzunehmen.</p>
                     <br />
 
-                    <h2>Zentrale Kontaktstelle nach dem Digital Services Act - DSA (Verordnung (EU) 2022/265)</h2>
+                    <h4>Zentrale Kontaktstelle nach dem Digital Services Act - DSA (Verordnung (EU) 2022/265)</h4>
                     <p>Unsere zentrale Kontaktstelle f&uuml;r Nutzer und Beh&ouml;rden nach Art. 11, 12 DSA erreichen
                         Sie wie folgt:</p>
                     <p>E-Mail: <a href="mailto:info@agis.digital">info@agis.digital</a><br />
