@@ -222,7 +222,7 @@
             </div>
     </section>
 
-    @include('components.scripts')
+    SKRIPTE!!
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {

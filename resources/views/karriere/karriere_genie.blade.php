@@ -23,14 +23,13 @@
             src="{{ asset('asset/images/ab3.svg') }}" class="ab3" alt=""> <img
             src="{{ asset('asset/images/ab4.svg') }}" class="ab4" alt="">
         <div class="headerMainContainer">
-            <div class="leftCon" onclick="window.location.href='/karriere'" style="cursor: pointer">
+            <div class="closetool" onclick="window.location.href='/karriere'" style="cursor: pointer">
                 <img id="closeIcon" src="{{ asset('asset/images/ic_close.png') }}" alt="closeIcon">
             </div>
             <div class="centerCon">
                 <h1 class="primary-Heading">KarriereGenie</h1><br />
                 <img id="StudyGenieImage" src="{{ asset('asset/images/ToolsImage.png') }}" alt="StudyGenieImage">
             </div>
-            <div class="rightCon"></div>
 
         </div>
 
@@ -112,7 +111,7 @@
             </a>
         </div>
     </main>
-    @include('components.scripts')
+    SKRIPTE!!
     
 </body>
 

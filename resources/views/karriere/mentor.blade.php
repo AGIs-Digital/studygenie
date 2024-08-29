@@ -1,14 +1,9 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
-@section('title', 'KarriereMentor')
-@include('components.head')
-<style>
-    #user_input:focus {
-        outline: none;
-        box-shadow: none;
-    }
-</style>
+    @section('title', 'KarriereMentor')
+    @include('components.head')
 </head>
 @include('components.navbar')
 @include('components.feedback')
@@ -77,12 +72,12 @@
                     <br />
 
                 <div class="form-group">
-                    <label for="beruf">Beruf:</label>
+                    <label for="beruf_input">Beruf:</label>
                     <input type="text" id="beruf_input" name="beruf" placeholder="z.B. Maurer">
                 </div>
 
                 <div class="form-group">
-                    <label for="unternehmen">Unternehmen:</label>
+                    <label for="unternehmen_input">Unternehmen:</label>
                     <input type="text" id="unternehmen_input" name="unternehmen" placeholder="z.B. Dieter GmbH">
                 </div>
             <br /> <br />
@@ -152,8 +147,7 @@
 		</div>
 	</section>
     @include('components.save_modal')
-	@include('components.scripts')
-    
+	SKRIPTE!!
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -163,7 +157,6 @@
             const formSubmitButton = document.getElementById('button_submit');
             const messageContainer = document.getElementById('all_content');
             const conversationForm = document.getElementById('form_user_input');
-            const saveForm = document.getElementById('saveForm');
             const saveFormButton = document.getElementById('saveFormButton');
             let conversation = {};
 
@@ -199,10 +192,10 @@
                     return;
                 }
 
-                userMessage = {
+                const userMessage = {
                     content: userValue,
                     role: 'user'
-                }
+                };
 
                 window.fns.addChatBubble(userMessage, messageContainer);
 
@@ -210,7 +203,7 @@
 
                 try {
                     // create an empty bot message
-                    const botMessageId = window.fns.addChatBubble({role: 'assistant', 'content': ''}, messageContainer);
+                    const botMessageId = window.fns.addChatBubble({role: 'assistant', content: ''}, messageContainer);
 
                     const data = await window.fns.sendMessage(userValue, conversation.id);
 
@@ -225,8 +218,10 @@
 
                     document.getElementById('save_val').value = messageContainer.innerHTML;
                 } catch (error) {
-                    console.log(error)
+                    console.log(error);
                     formSubmitButton.textContent = 'Senden';
+                    userInput.disabled = false;
+                    conversationForm.classList.remove('disabled');
                 }
             });
 

@@ -4,12 +4,6 @@
 <head>
     @section('title', 'genieTutor')
     @include('components.head')
-    <style>
-    #user_input:focus {
-        outline: none;
-        box-shadow: none;
-    }
-</style>
 </head>
 @include('components.navbar')
 @include('components.feedback')
@@ -69,13 +63,13 @@
                             </button></h3>
                         <br />
                         <div class="form-group">
-                            <label for="level">Level:</label>
+                            <label for="level_input">Level:</label>
                             <input type="text" id="level_input" name="level"
                                 placeholder="z.B. 9. Klasse Gymnasium">
                         </div>
 
                         <div class="form-group">
-                            <label for="thema">Thema:</label>
+                            <label for="thema_input">Thema:</label>
                             <input type="text" id="thema_input" name="thema"
                                 placeholder="z.B. Satz des Pythagoras">
                         </div>
@@ -160,7 +154,7 @@
     </section>
 
     @include('components.save_modal')
-    @include('components.scripts')
+    SKRIPTE!!
     @include('components.mathjax')
     
     <script>
@@ -172,7 +166,7 @@
             const formSubmitButton = document.getElementById('button_submit');
             const messageContainer = document.getElementById('all_content');
             const conversationForm = document.getElementById('form_user_input');
-            const saveForm = document.getElementById('saveForm');
+            const saveFormButton = document.getElementById('saveFormButton');
             let conversation = {};
 
             // Load an existing or create a new conversation
@@ -197,14 +191,10 @@
 
             conversationForm.addEventListener('submit', async (event) => {
 
-                // prevent default form submission
                 event.preventDefault();
 
-                // disable the user input form
                 userInput.disabled = true;
-                // add class "disabled" to the form
                 conversationForm.classList.add('disabled');
-                // remove focus
                 userInput.blur();
 
                 const userValue = userInput.value.trim();
@@ -225,10 +215,7 @@
 
                 try {
                     // create an empty bot message
-                    const botMessageId = window.fns.addChatBubble({
-                        role: 'assistant',
-                        'content': ''
-                    }, messageContainer);
+                    const botMessageId = window.fns.addChatBubble({role: 'assistant', content: ''}, messageContainer);
 
                     const data = await window.fns.sendMessage(userValue, conversation.id);
 
@@ -241,19 +228,19 @@
                     userInput.focus();
                     conversationForm.classList.remove('disabled');
 
-
                     document.getElementById('save_val').value = messageContainer.innerHTML;
 
                     // Render MathJax content
                     MathJax.typesetPromise([messageContainer]);
                 } catch (error) {
-                    console.log(error)
+                    console.log(error);
                     formSubmitButton.textContent = 'Senden';
+                    userInput.disabled = false;
+                    conversationForm.classList.remove('disabled');
                 }
             });
 
             // Speichern des Chatverlaufs
-            const saveFormButton = document.getElementById('saveFormButton');
             saveFormButton.addEventListener('click', async () => {
                 await window.fns.saveToArchive(
                     conversation.id,
@@ -275,10 +262,6 @@
             return new bootstrap.Tooltip(tooltipTriggerEl)
         });
 
-        /**
-         * Setzt den Wert des Eingabefeldes und löst das Absenden des Formulars aus.
-         * @param {string} value - Der Wert, der gesetzt werden soll.
-         */
         function setInputValue(value) {
             const userInput = document.getElementById('user_input');
             const levelInput = document.getElementById('level_input').value.trim();
@@ -298,10 +281,6 @@
             document.getElementById('form_user_input').dispatchEvent(event);
         }
 
-        /**
-         * Sendet den Wert an den Server.
-         * @param {string} value - Der Wert, der gesendet werden soll.
-         */
         function sendInput(value) {
             fetch('/submit-input', {
                     method: 'POST',

@@ -102,7 +102,7 @@
     </section>
 
     @include('components.save_modal')
-    @include('components.scripts')
+    SKRIPTE!!
     
     <script src="{{ asset('asset/js/typing.js') }}"></script>
     <script>

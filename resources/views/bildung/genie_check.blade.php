@@ -11,7 +11,7 @@
 <div class="headerSpacer"></div>
     @include('components.navbar')
     @include('components.feedback')
-    @include('components.scripts')
+    SKRIPTE!!
 
 
     <section class="TextInspiration_sec">

@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{{ asset('asset/css/clouds.css') }}">
 </head>
 @include('components.navbar')
-@include('components.scripts')
+SKRIPTE!!
 @include('components.feedback')
 <body class="MainContainer">
     <div class="headerSpacer"></div>
@@ -19,7 +19,7 @@
         <img src="{{ asset('asset/images/ab4.svg') }}" class="ab8" alt="">
 
         <div class="headerMainContainer">
-            <div class="leftCon" onclick="window.location.href='/tools'" style="cursor: pointer">
+            <div class="closetool" onclick="window.location.href='/tools'" style="cursor: pointer">
             </div>
             <div class="centerCon">
                 <h1 class="primary-Heading">Wobei kann ich dir helfen?</h1><br />
@@ -96,6 +96,7 @@
         </div>
     </main>
 
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             if (localStorage.getItem('subscription_updated') === 'true') {

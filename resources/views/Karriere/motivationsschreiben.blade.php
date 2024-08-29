@@ -207,7 +207,7 @@
             </div>
         </div>
     </div>
-    @include('components.scripts')
+    SKRIPTE!!
 
     <script>       
         document.addEventListener('DOMContentLoaded', () => {

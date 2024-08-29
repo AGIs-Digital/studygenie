@@ -32,8 +32,9 @@
 
         @if(Session::has('success'))
             <div class="alert alert-success mt-4">
-                <strong>{{Session::get('success')}}</strong>
+                <strong>{{ Session::get('success') }}</strong>
             </div>
+            <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
             <script>
                 document.addEventListener('DOMContentLoaded', function () {
                     confetti({
@@ -47,7 +48,7 @@
 
         @if(Session::has('error'))
             <div class="alert alert-danger mt-4">
-                <strong>{{Session::get('error')}}</strong>
+                <strong>{{ Session::get('error') }}</strong>
             </div>
         @endif
 
@@ -57,7 +58,7 @@
             <div class="content">
                 <!-- Subscription plans -->
                 <div class="row">
-                @include('components.plancards-section')
+                    @include('components.plancards-section')
                 </div>
 
                 <!-- Account settings and password change -->
@@ -68,50 +69,46 @@
                     </div>
 
                     <div id="passwordChangeForm" class="hidden mt-4">
-                    <div class="row changePasswordForm">
-                        <div class="col-md-4">
-                            <div class="input_group">
-                                <label for="old_password">Altes Passwort?</label>
-                                <input type="password" name="old_password" class="form-control form-control-sm">
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="input_group">
-                                <label for="new_password">Neues Passwort:</label>
-                                <div class="password-container">
-                                    <input type="password" id="new_password" name="new_password" class="form-control form-control-sm">
-                                    <span class="toggle-password" onclick="togglePasswordVisibility()">
-                                        <img src="{{ asset('asset/images/eye.svg') }}" alt="Toggle Password Visibility" width="25" height="25">
-                                    </span>
+                        <div class="row changePasswordForm">
+                            <div class="col-md-4">
+                                <div class="input_group">
+                                    <label for="old_password">Altes Passwort?</label>
+                                    <input type="password" name="old_password" class="form-control form-control-sm">
                                 </div>
-                                <div id="passwordCriteria" class="criteria-container mt-2">
-                                    <div class="criteria-row">
-                                        <p id="lengthCriteria" class="text-danger"><span class="checkmark">✘</span> 8 Zeichen</p>
-                                        <p id="uppercaseCriteria" class="text-danger"><span class="checkmark">✘</span> Großbuchstabe</p>
-                                        <p id="numberCriteria" class="text-danger"><span class="checkmark">✘</span> Zahl</p>
-                                        <p id="specialCharCriteria" class="text-danger"><span class="checkmark">✘</span> Sonderzeichen</p>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="input_group">
+                                    <label for="new_password">Neues Passwort:</label>
+                                    <div class="password-container">
+                                        <input type="password" id="new_password" name="new_password" class="form-control form-control-sm">
+                                        <span class="toggle-password" onclick="togglePasswordVisibility()">
+                                            <img src="{{ asset('asset/images/eye.svg') }}" alt="Toggle Password Visibility" width="25" height="25">
+                                        </span>
+                                    </div>
+                                    <div id="passwordCriteria" class="criteria-container mt-2">
+                                        <div class="criteria-row">
+                                            <p id="lengthCriteria" class="text-danger"><span class="checkmark">✘</span> 8 Zeichen</p>
+                                            <p id="uppercaseCriteria" class="text-danger"><span class="checkmark">✘</span> Großbuchstabe</p>
+                                            <p id="numberCriteria" class="text-danger"><span class="checkmark">✘</span> Zahl</p>
+                                            <p id="specialCharCriteria" class="text-danger"><span class="checkmark">✘</span> Sonderzeichen</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-md-4">
+                                <div class="input_group">
+                                    <label for="new_confirm_password">Neues Passwort?</label>
+                                    <input type="password" name="new_confirm_password" class="form-control form-control-sm">
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="input_group">
-                                <label for="new_confirm_password">Neues Passwort?</label>
-                                <input type="password" name="new_confirm_password" class="form-control form-control-sm">
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <button type="submit" class="btn btn-primary mt-2">Änderung speichern</button>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12 text-center">
-                            <button type="submit" class="btn btn-primary mt-2">Änderung speichern</button>
-                        </div>
-                    </div>
                 </div>
-
-
-                </div>
-
-
             </div>
         </form>
     </div>
@@ -173,7 +170,7 @@
         </div>
     </div>
 
-    @include('components.scripts')
+    SKRIPTE!!
     <script src="{{ asset('asset/js/toast.js') }}"></script>
 
     <script>
