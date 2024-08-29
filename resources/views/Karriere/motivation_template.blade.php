@@ -55,10 +55,20 @@
     <div class="container">
         <div class="address">
             <!-- Absenderadresse -->
-            <p>{{ $name }}<br>{{ $street }}<br>{{ $postal_city }} {{ $city }}@if (!empty($phone))<br>Tel:
-                {{ $phone }}@endif @if (!empty($email))<br>E-Mail: {{ $email }}@endif</p>
+            <p>
+                {{ $name }}<br>
+                {{ $street }}<br>
+                {{ $postal_city }} {{ $city }}
+                @if (!empty($phone))
+                    <br>Tel: {{ $phone }}
+                @endif
+                @if (!empty($email))
+                    <br>E-Mail: {{ $email }}
+                @endif
+            </p>
             <!-- Empfängeradresse -->
-            <p>{{ $adressat_company }}
+            <p>
+                {{ $adressat_company }}
                 @if (!empty($adressat_person))
                     <br>z.Hd. {{ $adressat_person }}
                 @endif

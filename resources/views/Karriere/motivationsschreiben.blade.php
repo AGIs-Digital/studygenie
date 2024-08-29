@@ -4,13 +4,15 @@
 <head>
     @section('title', 'Motivationsschreiben')
     @include('components.head')
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
-@include('components.navbar')
-@include('components.feedback')
 <body class="MainContainer">
     <div class="headerSpacer"></div>
+    @include('components.navbar')
+    @include('components.feedback')
+
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-2">
@@ -207,7 +209,6 @@
             </div>
         </div>
     </div>
-    @include('components.scripts')
 
     <script>       
         document.addEventListener('DOMContentLoaded', () => {

@@ -20,7 +20,7 @@
                     </div>
                     <div class="main">
                         <div class="emailInput">
-                            <label for="email" class="label">E-Mail:</label>
+                            <label for="email_reset" class="label">E-Mail:</label>
                             <input type="email" placeholder="Deine E-Mailadresse" name="email" id="email_reset" class="emailLogin" autocomplete="email">
                             <input type="submit" value="Zurücksetzen" class="emailLogin" id="resetButton">
                         </div>

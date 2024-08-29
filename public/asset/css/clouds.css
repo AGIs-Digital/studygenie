@@ -1,87 +1,66 @@
 *::-webkit-scrollbar {
-	width: 0px; /* width of the entire scrollbar */
+    width: 0px; /* width of the entire scrollbar */
 }
 
 *::-webkit-scrollbar-thumb {
-	background-color: #004639;
-	border-radius: 20px;
-	-webkit-border-radius: 20px;
-	-moz-border-radius: 20px;
-	-ms-border-radius: 20px;
-	-o-border-radius: 20px;
+    background-color: #004639;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
 }
 
 *::-webkit-scrollbar-track {
-	background: transparent; /* color of the tracking area */
+    background: transparent; /* color of the tracking area */
 }
 
-.Cloud, .Cloud_Karriere {
-	transition: 0.5s all ease-in-out;
+.Cloud,
+.Cloud_Karriere {
+    transition: 0.1s all ease-in-out; /* Geschwindigkeit des Hover-Effekts erhöht */
 }
 
-.Cloud.custom-hover:hover svg path {
-	fill: grey;
-}
-
-.Cloud svg svg path {
-	fill: #E09E50;
-	background-image: url('../images/noise-light.png');
-}
-
-.Cloud svg svg text {
-	fill: #FFFFFF;
-	font-size: 20.5px;
-}
-
-.Cloud.small svg svg text {
-	font-size: 16.5px;
-}
-
-.Cloud:hover {
-	transform: scale(1.2);
-	-webkit-transform: scale(1.2);
-	-moz-transform: scale(1.2);
-	-ms-transform: scale(1.2);
-	-o-transform: scale(1.2);
-}
-
-.Cloud:hover svg path {
-	fill: #E09E50;
-}
-
+.Cloud.custom-hover:hover svg path,
 .Cloud_Karriere.custom-hover:hover svg path {
-	fill: grey;
+    fill: grey;
 }
 
-.Cloud_Karriere svg svg path {
-	fill: #2B4053;
-	background-image: url('../images/noise-light.png');
+.Cloud svg svg path,
+.Cloud:hover svg path {
+    fill: #E09E50;
+    background-image: url('../images/noise-light.png');
 }
 
+.Cloud svg svg text,
 .Cloud_Karriere svg svg text {
-	fill: #FFFFFF;
-	font-size: 20.5px;
+    fill: #FFFFFF;
+    font-size: 20.5px;
 }
 
-.Cloud_Karriere.small svg svg text {
-	font-size: 16.5px;
+.Cloud.small svg svg text,
+.Cloud_Karriere.small svg svg text,
+.Cloud.twoClouds svg svg text {
+    font-size: 16.5px;
 }
 
+.Cloud:hover,
 .Cloud_Karriere:hover {
-	transform: scale(1.2);
-	-webkit-transform: scale(1.2);
-	-moz-transform: scale(1.2);
-	-ms-transform: scale(1.2);
-	-o-transform: scale(1.2);
+    transform: scale(1.2);
+    -webkit-transform: scale(1.2);
+    -moz-transform: scale(1.2);
+    -ms-transform: scale(1.2);
+    -o-transform: scale(1.2);
 }
 
+.Cloud_Karriere svg svg path,
 .Cloud_Karriere:hover svg path {
-	fill: #2B4053;
+    fill: #2B4053;
+    background-image: url('../images/noise-light.png');
 }
 
 #StudyGenieImage {
-	height: 190px;
-	width: 100px;
+    height: 190px;
+    width: 100px;
 }
 
 .centerCon {
@@ -89,156 +68,150 @@
 }
 
 .categoryClouds {
-	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
-	column-gap: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 2rem;
 }
 
 .categoryClouds a {
-	position: relative;
+    position: relative;
 }
 
 .categoryClouds a button {
-	position: absolute;
-	top: 37px;
-	right: 43px;
+    position: absolute;
+    top: 37px;
+    right: 43px;
 }
 
-.categoryClouds.tools{
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	column-gap: 2rem;
-}
-
+.categoryClouds.tools,
 .categoryClouds.twoClouds {
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	column-gap: 2rem;
-}
-
-.Cloud.twoClouds svg svg text {
-	font-size: 16.5px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 2rem;
 }
 
 .disabled-link {
-	pointer-events: none;
+    pointer-events: none;
 }
 
 .headerContainer {
-	background: #2d3e4e;
-	position: fixed;
-	width: 100%;
-	z-index: 999;
-	height: 75px;
-	background-image: url('../images/noise-light.png');
+    background: #2d3e4e;
+    position: fixed;
+    width: 100%;
+    z-index: 999;
+    height: 75px;
+    background-image: url('../images/noise-light.png');
 }
 
 .headerMainContainer {
-	width: 50rem;
-	margin-block: 1rem;
-	margin-inline: 5rem;
-	flex-direction: row;
-	justify-content: space-between;
+    width: 50rem;
+    margin-block: 1rem;
+    margin-inline: 5rem;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .headerSpacer {
-	height: 75px; /* Gleiche Höhe wie der Header */
+    height: 75px; /* Gleiche Höhe wie der Header */
 }
 
 .mainContainer {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	height: 90vh;
-	justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 90vh;
+    justify-content: center;
 }
 
 .mainContainer .ab1 {
-	position: absolute;
-	top: 0;
-	left: 0;
-	z-index: -1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
 }
 
 .mainContainer .ab2 {
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	z-index: -1;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
 }
 
 .mainContainer .ab3 {
-	position: absolute;
-	top: 20%;
-	right: 95px;
-	z-index: -1;
+    position: absolute;
+    top: 20%;
+    right: 95px;
+    z-index: -1;
 }
 
 .mainContainer .ab4 {
-	position: absolute;
-	bottom: 0;
-	right: 0;
-	z-index: -1;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: -1;
 }
 
 .mainContainer .ab5 {
-	position: absolute;
-	top: 0;
-	left: 0;
-	z-index: -1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
 }
 
 .mainContainer .ab6 {
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	z-index: -1;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
 }
 
 .mainContainer .ab7 {
-	position: absolute;
-	top: 20%;
-	right: 95px;
-	z-index: -1;
+    position: absolute;
+    top: 20%;
+    right: 95px;
+    z-index: -1;
 }
 
 .mainContainer .ab8 {
-	position: absolute;
-	bottom: 0;
-	right: 0;
-	z-index: -1;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: -1;
 }
 
 .navigationTags {
-	margin-block: 1rem;
-	color: black;
+    margin-block: 1rem;
+    color: black;
 }
 
 @media screen and (max-width: 820px) {
-	.headerMainContainer {
-		max-width: 100%;
-	}
-	.categoryClouds {
-		grid-template-columns: 1fr 1fr;
-	}
+    .headerMainContainer {
+        max-width: 100%;
+    }
+    .categoryClouds {
+        grid-template-columns: 1fr 1fr;
+    }
     .mainContainer {
         height: auto;
     }
-}
-
-@media screen and (max-width: 820px) {
-
-	.categoryClouds.tools{
-		flex-direction: column;
-		gap: 1rem;
-	}
+    .categoryClouds.tools {
+        flex-direction: column;
+        gap: 1rem;
+    }
 }
 
 @media screen and (max-width: 550px) {
-	.categoryClouds {
-		grid-template-columns: 1fr;
-	}
-	.mainContainer .ab1, .mainContainer .ab2, .mainContainer .ab3, .mainContainer .ab4, .mainContainer .ab5, .mainContainer .ab6, .mainContainer .ab7, .mainContainer .ab8 {
-		display: none;
-	}
+    .categoryClouds {
+        grid-template-columns: 1fr;
+    }
+    .mainContainer .ab1,
+    .mainContainer .ab2,
+    .mainContainer .ab3,
+    .mainContainer .ab4,
+    .mainContainer .ab5,
+    .mainContainer .ab6,
+    .mainContainer .ab7,
+    .mainContainer .ab8 {
+        display: none;
+    }
 }

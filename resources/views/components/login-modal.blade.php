@@ -20,11 +20,9 @@
                         <form method="POST" action="{{ route('login.post') }}" id="loginForm">
                             @csrf
                             <div class="emailInput">
-                                <div class="emailField">
-                                    <label class="label" for="email">E-Mail:</label>
-                                    <input type="email" placeholder="Deine E-Mailadresse" name="email" id="email_login" class="emailLogin" autocomplete="email" required>
-                                </div>
-                                <label class="label" for="password">Passwort:</label>
+                                <label class="label" for="email_login">E-Mail:</label>
+                                <input type="email" placeholder="Deine E-Mailadresse" name="email" id="email_login" class="emailLogin" autocomplete="email" required>
+                                <label class="label" for="password_login">Passwort:</label>
                                 <div class="password-field">
                                     <input type="password" placeholder="Dein Passwort" name="password" id="password_login" class="emailLogin" autocomplete="current-password" required>
                                     <span class="toggle-password" onclick="togglePasswordVisibility()">

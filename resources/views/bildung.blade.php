@@ -19,7 +19,7 @@
         <img src="{{ asset('asset/images/ab4.svg') }}" class="ab4" alt="">
 
         <div class="headerMainContainer">
-            <div class="leftCon" onclick="window.location.href='/tools'" style="cursor: pointer">
+            <div class="closetool" onclick="window.location.href='/tools'" style="cursor: pointer">
                 <img id="closeIcon" src="{{ asset('asset/images/ic_close.png') }}" alt="closeIcon">
             </div>
             <div class="centerCon">

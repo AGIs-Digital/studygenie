@@ -11,8 +11,7 @@
             margin: 20mm;
         }
 
-        html,
-        body {
+        html, body {
             height: auto;
             margin: 0;
             padding: 0;
@@ -140,12 +139,7 @@
                 </div>
             </div>
             <div class="main">
-                @if (
-                    !empty($experience_company) &&
-                        (array_filter($experience_company) ||
-                            array_filter($experience_position) ||
-                            array_filter($experience_period) ||
-                            array_filter($experience_description)))
+                @if (!empty($experience_company) && (array_filter($experience_company) || array_filter($experience_position) || array_filter($experience_period) || array_filter($experience_description)))
                     <div class="section">
                         <h2>Berufliche Erfahrungen</h2>
                         @foreach ($experience_company as $index => $company)
@@ -166,12 +160,7 @@
                     </div>
                 @endif
 
-                @if (
-                    !empty($school_form) &&
-                        (array_filter($school_form) ||
-                            array_filter($school_grade) ||
-                            array_filter($school_start) ||
-                            array_filter($school_end)))
+                @if (!empty($school_form) && (array_filter($school_form) || array_filter($school_grade) || array_filter($school_start) || array_filter($school_end)))
                     <div class="section">
                         <h2>Schulbildung</h2>
                         @foreach ($school_form as $index => $school)
@@ -210,12 +199,10 @@
                     <p><strong>Name</strong><br /> {{ $name }}</p><br />
                 @endif
                 @if (!empty($birthdate))
-                    <p><strong>Geburtsdatum</strong><br />{{ \Carbon\Carbon::parse($birthdate)->format('d.m.Y') }}</p>
-                    <br />
+                    <p><strong>Geburtsdatum</strong><br />{{ \Carbon\Carbon::parse($birthdate)->format('d.m.Y') }}</p><br />
                 @endif
                 @if (!empty($street))
-                    <p><strong>Adresse</strong><br />{{ $street }}<br />{{ $postal_city }} {{ $city }}
-                    </p><br />
+                    <p><strong>Adresse</strong><br />{{ $street }}<br />{{ $postal_city }} {{ $city }}</p><br />
                 @endif
                 @if (!empty($phone))
                     <p><strong>Telefon</strong><br />{{ $phone }}</p><br />
@@ -242,19 +229,14 @@
                 @foreach ($language_type as $index => $language)
                     <div class="skill">
                         @if (!empty($language))
-                            <p>{{ $language }} @if (!empty($language_level[$index]))
-                                    - {{ $language_level[$index] }}
-                                @endif
-                            </p>
+                            <p>{{ $language }} @if (!empty($language_level[$index])) - {{ $language_level[$index] }} @endif</p>
                         @endif
                     </div>
                 @endforeach
                 <br />
             @endif
 
-            @if (
-                !empty($volunteer_company) &&
-                    (array_filter($volunteer_company) || array_filter($volunteer_task) || array_filter($volunteer_period)))
+            @if (!empty($volunteer_company) && (array_filter($volunteer_company) || array_filter($volunteer_task) || array_filter($volunteer_period)))
                 <h2>Ehrenämter</h2>
                 @foreach ($volunteer_company as $index => $volunteer)
                     <div class="skill">

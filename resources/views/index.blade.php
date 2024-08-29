@@ -1,26 +1,24 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    @section('title', 'StudyGenie')
+    <title>StudyGenie</title>
     @include('components.head')
-    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('asset/js/toast.js') }}"></script>
 </head>
-
 @include('components.navbar')
 @include('components.feedback')
 <body class="MainContainer">
     <div class="headerSpacer"></div>
-    @include('components.arrowupbutton')
-    @include('components.login-modal')
-    @include('components.signup-modal')
-    @include('components.forget-modal')
-    @include('components.tooglePasswordVisibility')
-
     @include('components.heroimage-section')
     @include('components.learn-anything-section')
     @include('components.cookie-consent')
     @include('components.mathrix-section')
+    @include('components.arrowupbutton')
+    @include('components.login-modal')
+    @include('components.tooglePasswordVisibility')
+    @include('components.signup-modal')
+    @include('components.forget-modal')
     @include('components.witness-section')
     @include('components.tutorial-section')
 
@@ -53,10 +51,6 @@
     </div>
 
     @include('components.footer')
-    @include('components.scripts')
-    <script src="{{ asset('asset/js/index.js') }}"></script>
-    <script src="{{ asset('asset/js/toast.js') }}"></script>
-
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
@@ -80,7 +74,7 @@
                     .then(response => response.json())
                     .then(data => {
                         if (data.status === 'success') {
-                            showToast("Ein Link zum Zurücksetzen des Passworts wurde an Ihre E-Mail-Adresse gesendet.");
+                            showToast("Ein Link zum Zurücksetzen des Passworts wurde an Ihre E-Mail-Adresse gesendet.", 'success');
                             var forgetModal = bootstrap.Modal.getInstance(document.getElementById('forgetModal'));
                             forgetModal.hide();
                         } else {
@@ -91,13 +85,6 @@
                         console.error('Error:', error);
                     });
                 });
-            }
-
-            // Funktion zum Anzeigen des Fehler-Toasts
-            function showErrorToast(message) {
-                var errorToast = new bootstrap.Toast(document.getElementById('errorToast'));
-                document.getElementById('errorToastMessage').innerText = message;
-                errorToast.show();
             }
 
             // Login-Formular-Übermittlung
@@ -128,7 +115,7 @@
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    showErrorToast("Ein unerwarteter Fehler ist aufgetreten.");
+                    showToast("Ein unerwarteter Fehler ist aufgetreten.", 'error');
                 });
             });
 
@@ -163,46 +150,35 @@
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    showErrorToast("Ein unerwarteter Fehler ist aufgetreten.");
+                    showToast("Ein unerwarteter Fehler ist aufgetreten.", 'error');
                 });
             });
-
-            // Funktion zum Anzeigen der Konfetti-Animation
-            function showConfetti() {
-                confetti({
-                    particleCount: 100,
-                    spread: 70,
-                    origin: { y: 0.6 }
-                });
-            }
-
-            // Überprüfung auf Abonnement-Update
-            if (localStorage.getItem('subscription_updated') === 'true') {
-                showConfetti();
-                showSuccessMessage();
-                localStorage.removeItem('subscription_updated');
-            }
 
             // Google Login
-            document.getElementById('google-login').addEventListener('click', function() {
-                window.location.href = "{{ url('login/google') }}";
-            });
+            var googleLoginButton = document.getElementById('google-login');
+            if (googleLoginButton) {
+                googleLoginButton.addEventListener('click', function() {
+                    window.location.href = "{{ url('login/google') }}";
+                });
+            }
 
             // Passwort-Reset-Formular anzeigen
-            document.getElementById("forgotPasswordLink").addEventListener("click", function(e) {
-                e.preventDefault();
-                var loginForm = document.getElementById("loginForm");
-                var resetFormHTML = `
-                    <div class="emailInput">
-                        <label for="email" class="label">Email:</label>
-                        <input type="email" placeholder="Deine E-Mailadresse" name="email" id="email_reset" class="emailLogin" autocomplete="email">
-                        <input type="submit" value="Zurücksetzen" class="emailLogin" id="resetButton">
-                    </div>
-                `;
-                loginForm.innerHTML += resetFormHTML;
-            });
+            var forgotPasswordLink = document.getElementById("forgotPasswordLink");
+            if (forgotPasswordLink) {
+                forgotPasswordLink.addEventListener("click", function(e) {
+                    e.preventDefault();
+                    var loginForm = document.getElementById("loginForm");
+                    var resetFormHTML = `
+                        <div class="emailInput">
+                            <label for="email_reset" class="label">Email:</label>
+                            <input type="email" placeholder="Deine E-Mailadresse" name="email" id="email_reset" class="emailLogin" autocomplete="email">
+                            <input type="submit" value="Zurücksetzen" class="emailLogin" id="resetButton">
+                        </div>
+                    `;
+                    loginForm.innerHTML += resetFormHTML;
+                });
+            }
         });
     </script>
 </body>
-
 </html>

@@ -17,14 +17,14 @@
                             <br />
                             <div class="emailInput">
                                 <div class="emailField">
-                                    <label class="label" for="name">Name:</label>
+                                    <label class="label" for="name_register">Name:</label>
                                     <input type="text" placeholder="Wie heißt du?" name="name" id="name_register" class="emailLogin" autocomplete="name" required>
                                 </div>
                                 <div class="emailField">
-                                    <label class="label" for="email">E-Mail:</label>
+                                    <label class="label" for="email_register">E-Mail:</label>
                                     <input type="email" placeholder="Deine E-Mailadresse" name="email" id="email_register" class="emailLogin" autocomplete="email" required>
                                 </div>
-                                <label class="label" for="password">Passwort:</label>
+                                <label class="label" for="password_register">Passwort:</label>
                                 <div class="password-field">
                                     <input type="password" id="password_register" name="password" placeholder="Dein Wunschpasswort" class="emailLogin" required>
                                     <span class="toggle-password" onclick="togglePasswordVisibility()">

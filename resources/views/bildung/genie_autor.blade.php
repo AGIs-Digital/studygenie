@@ -5,14 +5,13 @@
     @section('title', 'GenieAutor')
     @include('components.head')
     <link rel="stylesheet" href="{{ asset('asset/css/clouds.css') }}">
-    @include('components.toolsperre')
 </head>
-
-@include('components.navbar')
-@include('components.feedback')
 
 <body class="MainContainer">
     <div class="headerSpacer"></div>
+    @include('components.navbar')
+    @include('components.feedback')
+    @include('components.toolsperre')
 
     <main class="mainContainer">
         <img src="{{ asset('asset/images/ab1.svg') }}" class="ab1" alt="">
@@ -21,14 +20,13 @@
         <img src="{{ asset('asset/images/ab4.svg') }}" class="ab4" alt="">
 
         <div class="headerMainContainer">
-            <div class="leftCon" onclick="window.location.href='/bildung'" style="cursor: pointer">
+            <div class="closetool" onclick="window.location.href='/bildung'" style="cursor: pointer">
                 <img id="closeIcon" src="{{ asset('asset/images/ic_close.png') }}" alt="closeIcon">
             </div>
             <div class="centerCon">
                 <h1 class="primary-Heading">GenieAutor</h1><br />
                 <img id="StudyGenieImage" src="{{ asset('asset/images/ToolsImage.png') }}" alt="StudyGenieImage">
             </div>
-            <div class="rightCon"></div>
         </div>
 
         <div class="categoryClouds twoClouds">
@@ -88,7 +86,7 @@
             </a>
         </div>
     </main>
-    @include('components.scripts')
+
 </body>
 
 </html>
