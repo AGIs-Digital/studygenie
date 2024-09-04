@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html lang="de">
-
 <head>
     @section('title', 'AGBs')
     @include('components.head')
-     
 </head>
 
 <body class="MainContainer">

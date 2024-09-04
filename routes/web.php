@@ -43,6 +43,10 @@ Route::get('/', function () {
     return view('index');
 })->name('home');
 
+Route::get('/home', function () {
+    return view('home');
+})->name('dashboard');
+
 ### CONVERSATION ROUTES ###
 Route::middleware('auth:sanctum')->prefix('conversation')->group(function () {
     Route::post('/create', [ConversationController::class, 'create']);
@@ -73,7 +77,7 @@ Route::group(['middleware' => ['auth']], function () {
 
         // Bildung Routes which require gold or diamant subscription
         Route::middleware(['auth', 'check.subscription.expiry', 'check.subscription:gold,diamant'])->group(function () {
-            Route::view('genieautor', 'bildung.genie_autor')->name('genieautor');
+            Route::view('texte', 'bildung.texte')->name('texte');
             Route::get('textinspiration', [TextInspirationController::class, 'create'])->name('textinspiration');
             Route::resource('textinspiration', TextInspirationController::class)->except(['index', 'create', 'show', 'edit', 'update', 'destroy']);
             Route::get('textanalyse', [TextAnalysisController::class, 'create'])->name('textanalysis');
@@ -93,8 +97,8 @@ Route::group(['middleware' => ['auth']], function () {
 
         // Routes which require gold or diamant subscription
         Route::middleware(['check.subscription.expiry', 'check.subscription:gold,diamant'])->group(function () {
-            // BewerbeGenie routes - only available to users with a gold or diamant subscription
-            Route::view('bewerbegenie', 'karriere.bewerbe_genie')->name('bewerbegenie');
+            // bewerbung routes - only available to users with a gold or diamant subscription
+            Route::view('bewerbung', 'karriere.bewerbung')->name('bewerbung');
 
             // Lebenslauf routes
             Route::get('lebenslauf', [LebenslaufController::class, 'create'])->name('lebenslauf');
@@ -112,7 +116,7 @@ Route::group(['middleware' => ['auth']], function () {
             });
         });
 
-        Route::view('karrieregenie', 'karriere.karriere_genie')->name('karrieregenie');
+        Route::view('berufe', 'karriere.berufe')->name('berufe');
 
         ### JOB MATCH ROUTES ###
         Route::get('jobmatch', [JobMatchController::class, 'create'])->name('jobmatch');
@@ -157,6 +161,8 @@ Route::get('auth/callback/{provider}', [LoginController::class, 'handleProviderC
 
 // Route for sending the password reset link
 Route::post('password/email', [ResetPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+
+Route::post('/password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
 
 Route::post('/feedback', [FeedbackController::class, 'store'])->name('feedback.store');
 

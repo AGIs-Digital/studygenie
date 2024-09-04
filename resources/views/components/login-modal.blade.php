@@ -80,6 +80,7 @@
 
         loginForm.addEventListener('submit', function(event) {
             event.preventDefault();
+            console.log('Login-Formular wird gesendet');
             const formData = new FormData(loginForm);
             fetch('{{ route('login.post') }}', {
                 method: 'POST',
@@ -91,13 +92,17 @@
             })
             .then(response => response.json())
             .then(data => {
+                console.log('Antwort vom Server:', data);
                 if (data.status === 'success') {
-                    showToast("Erfolgreich eingeloggt.", 'success');
+                    window.location.href = data.redirect_url;
                 } else {
                     showToast("Fehler beim Einloggen.", 'error');
                 }
             })
-            .catch(error => showToast('Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.', 'error'));
+            .catch(error => {
+                console.error('Fehler:', error);
+                showToast('Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.', 'error');
+            });
         });
 
         forgetForm.addEventListener('submit', function(event) {
