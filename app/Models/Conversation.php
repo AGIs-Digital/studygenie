@@ -142,8 +142,11 @@ class Conversation extends Model
 
     /**
      * Erstellt ein Payload für die OpenAI API.
+     *
+     * @param int $numberOfMessages
+     * @return array
      */
-    public function createPayload()
+    public function createPayload($numberOfMessages = 20): array
     {
         # First, load the global system prompt
         $globalSystemPrompt = new Prompt('prompts.system_prompt');
@@ -156,7 +159,9 @@ class Conversation extends Model
 
         $systemPrompt = $globalSystemPrompt->get() . "\n" . $contextualSystemPrompt;
 
-        $messages = $this->messages()->orderBy('created_at', 'asc')->get();
+        // Load all messages to conversation, limit to the last $numberOfMessages
+        $messages = $this->messages()->orderBy('created_at', 'desc')->limit($numberOfMessages)->get();
+
         $messages = $messages->map(function ($message) {
             return [
                 "role" => $message->role,
@@ -164,7 +169,7 @@ class Conversation extends Model
             ];
         });
 
-        # add system prompt as last message
+        # add system prompt as first message
         $messages->push([
             "role" => "system",
             "content" => $systemPrompt

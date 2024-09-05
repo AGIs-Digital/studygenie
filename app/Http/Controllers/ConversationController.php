@@ -96,7 +96,7 @@ class ConversationController extends Controller
             'content' => $request->input('content'),
         ]);
 
-        $payload = $conversation->createPayload();
+        $payload = $conversation->createPayload(numberOfMessages: config('genie.number_of_messages'));
 
         $result = OpenAI::chat()->create($payload);
 
