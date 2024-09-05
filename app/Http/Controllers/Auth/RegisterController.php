@@ -52,7 +52,7 @@ class RegisterController extends Controller
                 'min:8',
                 'regex:/[0-9]/',
                 'regex:/[A-Z]/',
-                'regex:/[@$!%*?&#]/'
+                'regex:/[!@#$%^&*(),.?":{}|<>]/'
             ],
         ]);
 
