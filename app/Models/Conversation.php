@@ -160,7 +160,7 @@ class Conversation extends Model
         $systemPrompt = $globalSystemPrompt->get() . "\n" . $contextualSystemPrompt;
 
         // Load all messages to conversation, limit to the last $numberOfMessages
-        $messages = $this->messages()->orderBy('created_at', 'desc')->limit($numberOfMessages)->get();
+        $messages = $this->messages()->orderBy('created_at', 'asc')->limit($numberOfMessages)->get();
 
         $messages = $messages->map(function ($message) {
             return [
