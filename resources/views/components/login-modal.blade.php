@@ -93,7 +93,7 @@
             .then(response => response.json())
             .then(data => {
                 console.log('Antwort vom Server:', data);
-                if (data.status === 'success') {
+                if (data.status === true) {
                     window.location.href = data.redirect_url;
                 } else {
                     showToast("Fehler beim Einloggen.", 'error');

@@ -108,7 +108,7 @@
 
         function showConfetti() {
             confetti({
-                particleCount: 300,
+                particleCount: 200,
                 spread: 200,
                 origin: {
                     y: 0.6
@@ -117,7 +117,7 @@
 
             setTimeout(() => {
                 confetti({
-                    particleCount: 800,
+                    particleCount: 400,
                     spread: 400,
                     origin: {
                         y: 0.6

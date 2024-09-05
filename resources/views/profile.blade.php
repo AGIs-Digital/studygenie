@@ -240,7 +240,8 @@
                     body: JSON.stringify({ subscription_name: 'silber' })
                 }).then(response => {
                     if (response.ok) {
-                        showToast('Du hast jetzt den Silber Status', 'error');
+                        showToast('Du hast jetzt den Silber Status', 'success');
+                        localStorage.setItem('subscription_updated', 'true'); // Setze nur bei erfolgreicher Antwort
                         location.reload();
                     } else {
                         console.error('Failed to update subscription');
