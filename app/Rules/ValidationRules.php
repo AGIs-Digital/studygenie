@@ -10,7 +10,14 @@ class ValidationRules
         return Validator::make($data, [
             'name' => 'required',
             'email' => 'required|email|unique:users',
-            'password' => 'required|min:6',
+            'password' => [
+                'required',
+                'string',
+                'min:8',
+                'regex:/[0-9]/', // Mindestens eine Zahl
+                'regex:/[A-Z]/', // Mindestens ein Großbuchstabe
+                'regex:/[!@#$%^&*(),.?":{}|<>]/' // Mindestens ein Sonderzeichen
+            ],
         ]);
     }
     

@@ -2,7 +2,7 @@
 <html lang="de">
 
 <head>
-    @section('title', 'KarriereGenie')
+    @section('title', 'Genie Berufe')
     @include('components.head')
     <link rel="stylesheet" href="{{ asset('asset/css/clouds.css') }}">
 </head>
@@ -23,7 +23,7 @@
                 <img id="closeIcon" src="{{ asset('asset/images/ic_close.png') }}" alt="closeIcon">
             </div>
             <div class="centerCon">
-                <h1 class="primary-Heading">KarriereGenie</h1><br />
+                <h1 class="primary-Heading">Genie Berufe</h1><br />
                 <img id="StudyGenieImage" src="{{ asset('asset/images/ToolsImage.png') }}" alt="StudyGenieImage">
             </div>
         </div>

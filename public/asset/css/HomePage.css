@@ -210,7 +210,7 @@ a {
 }
 
 .criteria-container {
-  width: 90%;
+/*   width: 90%; */
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -332,13 +332,6 @@ a {
   background-color: #e09e50;
   outline: none;
   border: none;
-}
-
-.nav-item button:hover {
-  background: transparent;
-  font-family: 'Milonga', sans-serif;
-  border: 1px solid white;
-  cursor: url('../images/G.png'), auto;
 }
 
 .sideAdaptSticker {
@@ -794,6 +787,36 @@ a {
   padding-top: 0.8rem;
 }
 
+.reset-container {
+  min-height: 80vh;
+}
+
+.reset-card {
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0px 0px 4px 4px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  position: relative;
+  z-index: 2;
+  background-color: white;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.reset-card-body .form-group {
+  margin-bottom: 1.5rem; /* Erhöht den Abstand zwischen den Formularfeldern */
+}
+
+.reset-card-body .form-control, .reset-card-body .btn {
+  width: 100%;
+}
+
+.reset-card-header, .reset-card-body {
+  text-align: center;
+}
+
 .plancardButton {
   width: 200px;
   height: 35px;
@@ -810,7 +833,6 @@ a {
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  background-image: url('../images/noise-light.png');
 }
 
 .plancardButton:hover {
@@ -1235,9 +1257,7 @@ a {
   .shadowOfCard3 {
     top: -30%;
   }
-  /* .witnessSection {
-    min-height: 59rem;
-  } */
+
   .cardsContainer {
     grid-template-columns: 1fr 1fr;
   }
@@ -1526,7 +1546,6 @@ input[type='submit'] {
   font-weight: 400;
   width: 90%;
   background-color: #e09e50;
-  background-image: url('../images/noise-light.png');
   font-family: 'Montserrat', sans-serif;
   font-weight: 600;
   font-size: 14px;
@@ -1837,17 +1856,6 @@ button[disabled] {
     align-items: center;
 }
 
-/* Hinzufügen der spezifischen Stile aus profile.css */
-h1 {
-  color: #2d3e4e;
-  font-family: Milonga;
-  font-size: 32px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 38px;
-  position: relative;
-}
-
 h1 img {
   position: absolute;
   top: -11px;
@@ -1863,24 +1871,6 @@ h1 img {
   padding: 20px;
   margin-top: 1rem;
   margin-bottom: 1rem;
-}
-
-h2 {
-  text-align: center;
-  color: #e09e50;
-  font-size: 32px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 38px;
-}
-
-h3 {
-  color: #2d3e4e;
-  font-family: Milonga;
-  font-size: 18px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
 }
 
 .input_group {

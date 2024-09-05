@@ -18,7 +18,6 @@
     @include('components.login-modal')
     @include('components.tooglePasswordVisibility')
     @include('components.signup-modal')
-    @include('components.forget-modal')
     @include('components.witness-section')
     @include('components.tutorial-section')
 
@@ -54,128 +53,11 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            // Passwort-Reset-Formular-Übermittlung
-            var resetButton = document.getElementById("resetButton");
-            if (resetButton) {
-                resetButton.addEventListener("click", function(e) {
-                    e.preventDefault();
-                    var email = document.getElementById("email_reset").value;
-                    var formData = new FormData();
-                    formData.append('email', email);
-                    formData.append('_token', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
-
-                    fetch("{{ route('password.email') }}", {
-                        method: "POST",
-                        body: formData,
-                        headers: {
-                            'X-Requested-With': 'XMLHttpRequest',
-                        },
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.status === 'success') {
-                            showToast("Ein Link zum Zurücksetzen des Passworts wurde an Ihre E-Mail-Adresse gesendet.", 'success');
-                            var forgetModal = bootstrap.Modal.getInstance(document.getElementById('forgetModal'));
-                            forgetModal.hide();
-                        } else {
-                            showToast("Fehler beim Senden des Links zum Zurücksetzen des Passworts.", 'error');
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                    });
-                });
-            }
-
-            // Login-Formular-Übermittlung
-            document.getElementById("loginForm").addEventListener("submit", function(e) {
-                e.preventDefault();
-                var formData = new FormData(this);
-                formData.append('_token', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
-                fetch("{{ route('login.post') }}", {
-                    method: "POST",
-                    body: formData,
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest',
-                    },
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.status === true) {
-                        window.location.href = data.redirect_url;
-                    } else {
-                        var errorsList = document.getElementById('errors-list2');
-                        errorsList.innerHTML = '';
-                        data.errors.forEach(function(error) {
-                            var li = document.createElement('li');
-                            li.textContent = error;
-                            errorsList.appendChild(li);
-                        });
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    showToast("Ein unerwarteter Fehler ist aufgetreten.", 'error');
-                });
-            });
-
-            // Registrierungs-Formular-Übermittlung
-            document.getElementById("registerForm").addEventListener("submit", function(e) {
-                e.preventDefault();
-                var formData = new FormData(this);
-                fetch("{{ route('register.post') }}", {
-                    method: "POST",
-                    body: formData,
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                    },
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.status === true) {
-                        if (data.subscription_updated) {
-                            localStorage.setItem('subscription_updated', 'true');
-                        }
-                        window.location.href = data.redirect;
-                    } else {
-                        var errorsList = document.getElementById('errors-list');
-                        errorsList.innerHTML = '';
-                        Object.values(data.errors).flat().forEach(function(error) {
-                            var li = document.createElement('li');
-                            li.textContent = error;
-                            errorsList.appendChild(li);
-                        });
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    showToast("Ein unerwarteter Fehler ist aufgetreten.", 'error');
-                });
-            });
-
             // Google Login
             var googleLoginButton = document.getElementById('google-login');
             if (googleLoginButton) {
                 googleLoginButton.addEventListener('click', function() {
                     window.location.href = "{{ url('login/google') }}";
-                });
-            }
-
-            // Passwort-Reset-Formular anzeigen
-            var forgotPasswordLink = document.getElementById("forgotPasswordLink");
-            if (forgotPasswordLink) {
-                forgotPasswordLink.addEventListener("click", function(e) {
-                    e.preventDefault();
-                    var loginForm = document.getElementById("loginForm");
-                    var resetFormHTML = `
-                        <div class="emailInput">
-                            <label for="email_reset" class="label">Email:</label>
-                            <input type="email" placeholder="Deine E-Mailadresse" name="email" id="email_reset" class="emailLogin" autocomplete="email">
-                            <input type="submit" value="Zurücksetzen" class="emailLogin" id="resetButton">
-                        </div>
-                    `;
-                    loginForm.innerHTML += resetFormHTML;
                 });
             }
         });

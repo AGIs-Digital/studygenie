@@ -5,6 +5,9 @@
     @section('title', 'StudyGenie')
     @include('components.head')
     <link rel="stylesheet" href="{{ asset('asset/css/clouds.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
 </head>
 
 <body class="MainContainer">
@@ -109,7 +112,7 @@
         function showConfetti() {
             confetti({
                 particleCount: 300,
-                spread: 200,
+                spread: 300,
                 origin: {
                     y: 0.6
                 }
@@ -117,13 +120,14 @@
 
             setTimeout(() => {
                 confetti({
-                    particleCount: 800,
-                    spread: 400,
+                    particleCount: 100,
+                    spread: 100,
                     origin: {
-                        y: 0.6
+                        x: 0,
+                        y: 0.8
                     }
                 });
-            }, 2000);
+            }, 1500);
         }
 
         function showSuccessMessage() {

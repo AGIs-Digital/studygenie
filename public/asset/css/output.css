@@ -992,42 +992,10 @@ input[type='text']:disabled {
   margin-bottom: 2rem;
 }
 
-.blog_sec h1 {
-  font-size: 34px;
-  font-weight: 600;
-  text-align: center;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-}
-
-.blog_sec h2 {
-  font-size: 28px;
-  font-weight: 600;
-  margin-bottom: 1rem;
-}
-
 .blog_sec p {
   margin-bottom: 0;
   font-size: 14px;
   font-weight: 400;
-}
-
-.blog_sec .gray {
-  color: gray;
-}
-
-.blog_sec h3 {
-  font-size: 17px;
-  font-weight: 600;
-  color: #504c4c;
-  margin-bottom: 0;
-  margin-top: 1rem;
-}
-
-.blog_sec h4 {
-  font-size: 20px;
-  font-weight: 600;
-  margin-top: 1rem;
 }
 
 .blog_sec .heading {
@@ -1042,13 +1010,6 @@ input[type='text']:disabled {
   font-weight: 600;
   margin-bottom: 0.5rem;
   display: inline-block;
-}
-
-.blog_sec h5 {
-  font-size: 24px;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  margin-top: 2rem;
 }
 
 .cv_box {

@@ -17,7 +17,7 @@
                             <br />
                             <div class="emailInput">
                                 <div class="emailField">
-                                    <label class="label" for="name_register">Name:</label>
+                                    <label class="label" for="name_register">Vorname:</label>
                                     <input type="text" placeholder="Wie heißt du?" name="name" id="name_register" class="emailLogin" autocomplete="name" required>
                                 </div>
                                 <div class="emailField">
@@ -81,7 +81,7 @@
                     showToast(errorMessages, 'error');
                 } else {
                     if (data.subscription_updated) {
-                        localStorage.setItem('subscription_updated', 'true');
+                        localStorage.setItem('subscription_updated', 'true'); // Setze nur bei erfolgreicher Antwort
                     }
                     window.location.href = data.redirect;
                 }
