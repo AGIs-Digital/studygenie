@@ -22,7 +22,7 @@
         <img src="{{ asset('asset/images/ab4.svg') }}" class="ab8" alt="">
 
         <div class="headerMainContainer">
-            <div class="closetool" onclick="window.location.href='/tools'" style="cursor: pointer">
+            <div class="closetool" style="height: 34px">
             </div>
             <div class="centerCon">
                 <h1 class="primary-Heading">Wobei kann ich dir helfen?</h1><br />
