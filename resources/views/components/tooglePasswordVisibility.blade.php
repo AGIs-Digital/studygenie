@@ -26,6 +26,7 @@ function togglePasswordVisibility() {
     const passwordRegisterInput = document.getElementById('password_register');
     const passwordLoginInput = document.getElementById('password_login');
     const passwordInput = document.getElementById('new_password');
+    const passwordResetInput = document.getElementById('password_reset');
     const toggleIcons = document.querySelectorAll('.toggle-password img');
 
     if (passwordRegisterInput) {
@@ -44,6 +45,12 @@ function togglePasswordVisibility() {
         const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
         passwordInput.setAttribute('type', type);
         toggleIcons[2].src = type === 'password' ? "{{ asset('asset/images/eye.svg') }}" : "{{ asset('asset/images/eye-off.svg') }}";
+    }
+
+    if (passwordResetInput) {
+        const type = passwordResetInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordResetInput.setAttribute('type', type);
+        toggleIcons[3].src = type === 'password' ? "{{ asset('asset/images/eye.svg') }}" : "{{ asset('asset/images/eye-off.svg') }}";
     }
 }
 </script>

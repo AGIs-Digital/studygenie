@@ -90,7 +90,7 @@ return [
         'users' => [
             'provider' => 'users',
             'table' => 'password_resets',
-            'expire' => 60,
+            'expire' => 60, // Token-Lebensdauer in Minuten (z.B. 60 Minuten)
             'throttle' => 60,
         ],
     ],

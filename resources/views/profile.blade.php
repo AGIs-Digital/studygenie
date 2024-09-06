@@ -38,8 +38,8 @@
             <script>
                 document.addEventListener('DOMContentLoaded', function () {
                     confetti({
-                        particleCount: 900,
-                        spread: 170,
+                        particleCount: 100,
+                        spread: 300,
                         origin: { x: 0.5, y: 0.5 }
                     });
                 });

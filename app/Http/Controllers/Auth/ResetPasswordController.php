@@ -20,12 +20,19 @@ class ResetPasswordController extends Controller
     {
         $request->validate(['email' => 'required|email']);
 
-        $response = Password::sendResetLink($request->only('email'));
+        try {
+            $response = Password::sendResetLink($request->only('email'));
 
-        if ($response == Password::RESET_LINK_SENT) {
-            return response()->json(['status' => 'success']);
-        } else {
-            return response()->json(['status' => 'error', 'message' => __($response)], 500);
+            if ($response == Password::RESET_LINK_SENT) {
+                return response()->json(['status' => 'success']);
+            } else {
+                return response()->json(['status' => 'error', 'message' => __($response)], 500);
+            }
+        } catch (\Exception $e) {
+            // Logge den Fehler für weitere Analysen
+            \Log::error('Fehler beim Senden des Passwort-Reset-Links: ' . $e->getMessage());
+
+            return response()->json(['status' => 'error', 'message' => 'Ein unerwarteter Fehler ist aufgetreten.'], 500);
         }
     }
 
