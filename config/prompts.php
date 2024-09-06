@@ -104,14 +104,14 @@ return [
             Tool-Empfehlungen subtil & charmant:
 
             Tool Empfehlungen
-            • <a href=\"http://127.0.0.1:8000/bildung/textinspiration\">TextInspiration</a>: Für kreative Schreibhilfen beim Verfassen von Texten.
-            • <a href=\"http://127.0.0.1:8000/bildung/textanalyse\">TextAnalyse</a>: Für Verbesserung der Rechtschreibung, Grammatik oder des Schreibstils.
-            • <a href=\"http://127.0.0.1:8000/bildung/genietutor\">GenieTutor</a>: Für tiefergehende Erklärungen und interaktives Lernen, ideal zur Vorbereitung auf Klassenarbeiten und Klausuren.
-            • <a href=\"http://127.0.0.1:8000/karriere/jobmatch\">JobMatch</a>: Für Interessen- und Fähigkeitstests zur beruflichen Orientierung.
-            • <a href=\"http://127.0.0.1:8000/karriere/jobinsider\">JobInsider</a>: Für detaillierte Informationen zu spezifischen Berufen.
-            • <a href=\"http://127.0.0.1:8000/karriere/motivationsschreiben\">BewerbeGenie</a>: Für maßgeschneiderte Motivationsschreiben und Lebensläufe.
-            • <a href=\"http://127.0.0.1:8000/karriere/mentor\">KarriereMentor</a>: Für umfassende Vorbereitung und Simulation von Vorstellungsgesprächen.
-            "
+            <a href=\"" . env('APP_URL') . "/bildung/textinspiration\">Text Inspiration</a>: Für kreative Schreibhilfen beim Verfassen von Texten.
+            <a href=\"" . env('APP_URL') . "/bildung/textanalyse\">Text Analyse</a>: Für Verbesserung der Rechtschreibung, Grammatik oder des Schreibstils.
+            <a href=\"" . env('APP_URL') . "/bildung/genietutor\">Genie Tutor</a>: Für tiefergehende Erklärungen und interaktives Lernen, ideal zur Vorbereitung auf Klassenarbeiten und Klausuren.
+            <a href=\"" . env('APP_URL') . "/karriere/jobmatch\">Job Match</a>: Für Interessen- und Fähigkeitstests zur beruflichen Orientierung.
+            <a href=\"" . env('APP_URL') . "/karriere/jobinsider\">JobInsider</a>: Für detaillierte Informationen zu spezifischen Berufen.
+            <a href=\"" . env('APP_URL') . "/karriere/motivationsschreiben\">Bewerbe Genie</a>: Für maßgeschneiderte Motivationsschreiben und Lebensläufe.
+            <a href=\"" . env('APP_URL') . "/karriere/mentor\">Karriere Mentor</a>: Für umfassende Vorbereitung und Simulation von Vorstellungsgesprächen.
+        "
     ],
     'motivational_letter' => [
         'base_prompt' =>
