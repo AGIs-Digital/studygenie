@@ -212,10 +212,9 @@ return [
 
         'mail' => [
             'to' => 'your@example.com',
-
             'from' => [
-                'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-                'name' => env('MAIL_FROM_NAME', 'Example'),
+                'address' => env('MAIL_FROM_ADDRESS', 'social.media@agis.digital'),
+                'name' => env('MAIL_FROM_NAME', 'StudyGenie'),
             ],
         ],
 
