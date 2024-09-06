@@ -26,7 +26,7 @@
                         <div id="BildungCollpasetool2" class="accordion-collapse collapse" aria-labelledby="Bildungcheck" data-bs-parent="#accordionBildung">
                             <div class="accordion-body">
                                 <div class="accordion accordion-flush" id="accordionFlushGenieCheck">
-                                    <?php createAccordion($Bildung, 'genie_check'); ?>
+                                    <?php createAccordion($bildung, 'genie_check'); ?>
                                 </div>
                             </div>
                         </div>
@@ -38,7 +38,7 @@
                         <div id="BildungCollpasetool1" class="accordion-collapse collapse" aria-labelledby="TextInspiration" data-bs-parent="#accordionBildung">
                             <div class="accordion-body">
                                 <div class="accordion accordion-flush" id="accordionFlushTextInspiration">
-                                    <?php createAccordion($Bildung, 'text_inspiration'); ?>
+                                    <?php createAccordion($bildung, 'text_inspiration'); ?>
                                 </div>
                             </div>
                         </div>
@@ -50,7 +50,7 @@
                         <div id="BildungCollpasetool3" class="accordion-collapse collapse" aria-labelledby="BildungOne" data-bs-parent="#accordionBildung">
                             <div class="accordion-body">
                                 <div class="accordion accordion-flush" id="accordionFlushTextAnalyse">
-                                    <?php createAccordion($Bildung, 'text_analysis'); ?>
+                                    <?php createAccordion($bildung, 'text_analysis'); ?>
                                 </div>
                             </div>
                         </div>
@@ -62,7 +62,7 @@
                         <div id="BildungCollpasetool4" class="accordion-collapse collapse" aria-labelledby="BildungMentor" data-bs-parent="#accordionBildung">
                             <div class="accordion-body">
                                 <div class="accordion accordion-flush" id="accordionFlushgenieTutor">
-                                    <?php createAccordion($Bildung, 'genie_tutor'); ?>
+                                    <?php createAccordion($bildung, 'genie_tutor'); ?>
                                 </div>
                             </div>
                         </div>
@@ -79,7 +79,7 @@
                         <div id="collapseJobMatch" class="accordion-collapse collapse" aria-labelledby="headingJobMatch" data-bs-parent="#accordionKarriere">
                             <div class="accordion-body">
                                 <div class="accordion accordion-flush" id="accordionFlushJobMatch">
-                                    <?php createAccordion($Karriere, 'job_match'); ?>
+                                    <?php createAccordion($karriere, 'job_match'); ?>
                                 </div>
                             </div>
                         </div>
@@ -91,7 +91,7 @@
                         <div id="collapseJobInsider" class="accordion-collapse collapse" aria-labelledby="headingJobInsider" data-bs-parent="#accordionKarriere">
                             <div class="accordion-body">
                                 <div class="accordion accordion-flush" id="accordionFlushJobInsider">
-                                    <?php createAccordion($Karriere, 'job_insider'); ?>
+                                    <?php createAccordion($karriere, 'job_insider'); ?>
                                 </div>
                             </div>
                         </div>
@@ -103,7 +103,7 @@
                         <div id="collapseKarriereMentor" class="accordion-collapse collapse" aria-labelledby="headingKarriereMentor" data-bs-parent="#accordionKarriere">
                             <div class="accordion-body">
                                 <div class="accordion accordion-flush" id="accordionFlushKarriereMentor">
-                                    <?php createAccordion($Karriere, 'karriere_mentor'); ?>
+                                    <?php createAccordion($karriere, 'karriere_mentor'); ?>
                                 </div>
                             </div>
                         </div>

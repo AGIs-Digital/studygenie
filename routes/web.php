@@ -70,12 +70,12 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('geniecheck', [GenieCheckController::class, 'create'])->name('geniecheck.create');
         Route::resource('geniecheck', GenieCheckController::class)->except(['index', 'create', 'show', 'edit', 'update', 'destroy']);
 
-        // Bildung Routes which require diamant subscription
+        // bildung Routes which require diamant subscription
         Route::middleware(['check.subscription.expiry', 'check.subscription:diamant'])->group(function () {
             Route::view('genietutor', 'bildung.genie_tutor')->name('genie_tutor.create');
         });
 
-        // Bildung Routes which require gold or diamant subscription
+        // bildung Routes which require gold or diamant subscription
         Route::middleware(['auth', 'check.subscription.expiry', 'check.subscription:gold,diamant'])->group(function () {
             Route::view('texte', 'bildung.texte')->name('texte');
             Route::get('textinspiration', [TextInspirationController::class, 'create'])->name('textinspiration');
