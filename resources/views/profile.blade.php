@@ -79,9 +79,9 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="input_group">
-                                    <label for="new_password">Neues Passwort:</label>
-                                    <div class="password-container">
-                                        <input type="password" id="new_password" name="new_password" class="form-control form-control-sm">
+                                    <label for="password">Neues Passwort:</label>
+                                    <div class="password-field">
+                                        <input type="password" id="password" name="password" class="form-control form-control-sm">
                                         <span class="toggle-password" onclick="togglePasswordVisibility()">
                                             <img src="{{ asset('asset/images/eye.svg') }}" alt="Toggle Password Visibility" width="25" height="25">
                                         </span>
@@ -225,6 +225,47 @@
             document.getElementById('deleteAccountButton').addEventListener('click', function() {
                 $("#deleteAccountModal").modal('show');
             });
+
+            function togglePasswordVisibility() {
+                const passwordFields = document.querySelectorAll('.password-field input');
+                const toggleIcons = document.querySelectorAll('.toggle-password img');
+
+                passwordFields.forEach((field, index) => {
+                    const type = field.getAttribute('type') === 'password' ? 'text' : 'password';
+                    field.setAttribute('type', type);
+                    toggleIcons[index].src = type === 'password' ? "{{ asset('asset/images/eye.svg') }}" : "{{ asset('asset/images/eye-off.svg') }}";
+                });
+            }
+
+            function updateCriteria() {
+                const criteria = [
+                    { id: 'specialCharCriteria', regex: /[!@#$%^&*(),.?":{}|<>]/ },
+                    { id: 'uppercaseCriteria', regex: /[A-Z]/ },
+                    { id: 'numberCriteria', regex: /[0-9]/ },
+                    { id: 'lengthCriteria', regex: /.{8,}/ }
+                ];
+
+                const password = document.getElementById('password').value;
+
+                criteria.forEach(({ id, regex }) => {
+                    const element = document.getElementById(id);
+                    if (regex.test(password)) {
+                        element.classList.remove('text-danger');
+                        element.classList.add('text-success');
+                        element.querySelector('.checkmark').textContent = '✔';
+                    } else {
+                        element.classList.remove('text-success');
+                        element.classList.add('text-danger');
+                        element.querySelector('.checkmark').textContent = '✘';
+                    }
+                });
+            }
+
+            document.getElementById('password').addEventListener('input', updateCriteria);
+
+            document.getElementById('changePasswordButton').addEventListener('click', function() {
+                document.getElementById('passwordChangeForm').classList.toggle('hidden');
+            });
         });
 
         // Confirmations
@@ -253,36 +294,6 @@
         function confirmDeletion() {
             return confirm('ACHTUNG: Diese Aktion wird Ihren Account und alle damit verbundenen Daten dauerhaft löschen. Diese Aktion kann nicht rückgängig gemacht werden. Sind Sie sicher, dass Sie fortfahren möchten?');
         }
-
-        function updateCriteria() {
-            const criteria = [
-                { id: 'specialCharCriteria', regex: /[!@#$%^&*(),.?":{}|<>]/ },
-                { id: 'uppercaseCriteria', regex: /[A-Z]/ },
-                { id: 'numberCriteria', regex: /[0-9]/ },
-                { id: 'lengthCriteria', regex: /.{8,}/ }
-            ];
-
-            const password = document.getElementById('new_password').value;
-
-            criteria.forEach(({ id, regex }) => {
-                const element = document.getElementById(id);
-                if (regex.test(password)) {
-                    element.classList.remove('text-danger');
-                    element.classList.add('text-success');
-                    element.querySelector('.checkmark').textContent = '✔';
-                } else {
-                    element.classList.remove('text-success');
-                    element.classList.add('text-danger');
-                    element.querySelector('.checkmark').textContent = '✘';
-                }
-            });
-        }
-
-        document.getElementById('new_password').addEventListener('input', updateCriteria);
-
-        document.getElementById('changePasswordButton').addEventListener('click', function() {
-            document.getElementById('passwordChangeForm').classList.toggle('hidden');
-        });
     </script>
 </body>
 

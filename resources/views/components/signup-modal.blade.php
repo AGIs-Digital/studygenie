@@ -88,33 +88,42 @@
             })
             .catch(error => showToast('Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.', 'error'));
         });
+
+        function togglePasswordVisibility() {
+            const passwordFields = document.querySelectorAll('.password-field input');
+            const toggleIcons = document.querySelectorAll('.toggle-password img');
+
+            passwordFields.forEach((field, index) => {
+                const type = field.getAttribute('type') === 'password' ? 'text' : 'password';
+                field.setAttribute('type', type);
+                toggleIcons[index].src = type === 'password' ? "{{ asset('asset/images/eye.svg') }}" : "{{ asset('asset/images/eye-off.svg') }}";
+            });
+        }
+
+        function updateCriteria() {
+            const criteria = [
+                { id: 'specialCharCriteria', regex: /[!@#$%^&*(),.?":{}|<>]/ },
+                { id: 'uppercaseCriteria', regex: /[A-Z]/ },
+                { id: 'numberCriteria', regex: /[0-9]/ },
+                { id: 'lengthCriteria', regex: /.{8,}/ }
+            ];
+
+            const password = document.getElementById('password_register').value;
+
+            criteria.forEach(({ id, regex }) => {
+                const element = document.getElementById(id);
+                if (regex.test(password)) {
+                    element.classList.remove('text-danger');
+                    element.classList.add('text-success');
+                    element.querySelector('.checkmark').textContent = '✔';
+                } else {
+                    element.classList.remove('text-success');
+                    element.classList.add('text-danger');
+                    element.querySelector('.checkmark').textContent = '✘';
+                }
+            });
+        }
+
+        document.getElementById('password_register').addEventListener('input', updateCriteria);
     });
-</script>
-
-<script>
-    function updateCriteria() {
-        const criteria = [
-            { id: 'specialCharCriteria', regex: /[!@#$%^&*(),.?":{}|<>]/ },
-            { id: 'uppercaseCriteria', regex: /[A-Z]/ },
-            { id: 'numberCriteria', regex: /[0-9]/ },
-            { id: 'lengthCriteria', regex: /.{8,}/ }
-        ];
-
-        const password = document.getElementById('password_register').value;
-
-        criteria.forEach(({ id, regex }) => {
-            const element = document.getElementById(id);
-            if (regex.test(password)) {
-                element.classList.remove('text-danger');
-                element.classList.add('text-success');
-                element.querySelector('.checkmark').textContent = '✔';
-            } else {
-                element.classList.remove('text-success');
-                element.classList.add('text-danger');
-                element.querySelector('.checkmark').textContent = '✘';
-            }
-        });
-    }
-
-    document.getElementById('password_register').addEventListener('input', updateCriteria);
 </script>

@@ -36,11 +36,11 @@ return [
     'mailers' => [
         'smtp' => [
             'transport' => 'smtp',
-            'host' => env('APP_ENV') === 'staging' ? env('STAGING_MAIL_HOST') : env('MAIL_HOST'),
-            'port' => env('APP_ENV') === 'staging' ? env('STAGING_MAIL_PORT') : env('MAIL_PORT'),
-            'encryption' => env('APP_ENV') === 'staging' ? env('STAGING_MAIL_ENCRYPTION') : env('MAIL_ENCRYPTION'),
-            'username' => env('APP_ENV') === 'staging' ? env('STAGING_MAIL_USERNAME') : env('MAIL_USERNAME'),
-            'password' => env('APP_ENV') === 'staging' ? env('STAGING_MAIL_PASSWORD') : env('MAIL_PASSWORD'),
+            'host' => env('APP_ENV') === 'staging#' ? env('STAGING_MAIL_HOST') : env('MAIL_HOST'),
+            'port' => env('APP_ENV') === 'staging#' ? env('STAGING_MAIL_PORT') : env('MAIL_PORT'),
+            'encryption' => env('APP_ENV') === 'staging#' ? env('STAGING_MAIL_ENCRYPTION') : env('MAIL_ENCRYPTION'),
+            'username' => env('APP_ENV') === 'staging#' ? env('STAGING_MAIL_USERNAME') : env('MAIL_USERNAME'),
+            'password' => env('APP_ENV') === 'staging#' ? env('STAGING_MAIL_PASSWORD') : env('MAIL_PASSWORD'),
             'timeout' => null,
             'auth_mode' => null,
         ],
@@ -92,8 +92,8 @@ return [
     */
 
     'from' => [
-        'address' => env('APP_ENV') === 'staging' ? env('STAGING_MAIL_FROM_ADDRESS') : env('MAIL_FROM_ADDRESS'),
-        'name' => env('APP_ENV') === 'staging' ? env('STAGING_MAIL_FROM_NAME') : env('MAIL_FROM_NAME'),
+        'address' => env('APP_ENV') === 'staging#' ? env('STAGING_MAIL_FROM_ADDRESS') : env('MAIL_FROM_ADDRESS'),
+        'name' => env('APP_ENV') === 'staging#' ? env('STAGING_MAIL_FROM_NAME') : env('MAIL_FROM_NAME'),
     ],
 
     /*

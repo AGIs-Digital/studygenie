@@ -11,28 +11,28 @@
                         @csrf
                         <input type="hidden" name="token" value="{{ $token }}">
 
-						<div class="emailInput">
+                        <div class="emailInput">
                             <label class="label" for="email_reset">E-Mail:</label>
                             <input type="email" placeholder="Deine E-Mailadresse" name="email" id="email_reset" class="emailLogin" autocomplete="email">
                             <label class="label" for="password_reset">Passwort:</label>
                             <div class="password-field">
-                                <input type="password" placeholder="Neues Passwort" name="password_reset" id="password_reset" class="emailLogin">
+                                <input type="password" placeholder="Neues Passwort" name="password" id="password_reset" class="emailLogin">
                                 <span class="toggle-password" onclick="togglePasswordVisibility()">
                                     <img src="{{ asset('asset/images/eye.svg') }}" alt="Toggle Password Visibility" width="25" height="25">
                                 </span>
                             </div>
-							<div id="passwordCriteria" class="criteria-container mt-2">
+                            <div id="passwordCriteria" class="criteria-container mt-2">
                                 <div class="criteria-row">
                                     <p id="lengthCriteria" class="text-danger"><span class="checkmark">✘</span> 8 Zeichen</p>
                                     <p id="uppercaseCriteria" class="text-danger"><span class="checkmark">✘</span> Großbuchstabe</p>
                                 </div>
                                 <div class="criteria-row">
-                                	<p id="numberCriteria" class="text-danger"><span class="checkmark">✘</span> Zahl</p>
+                                    <p id="numberCriteria" class="text-danger"><span class="checkmark">✘</span> Zahl</p>
                                     <p id="specialCharCriteria" class="text-danger"><span class="checkmark">✘</span> Sonderzeichen</p>
                                 </div>
                             </div>
-							<br />
-							<label class="label" for="password_confirm">Passwort bestätigen:</label>
+                            <br />
+                            <label class="label" for="password_confirm">Passwort bestätigen:</label>
                             <div class="password-field">
                                 <input type="password" name="password_confirmation" id="password_confirm" class="emailLogin">
                             </div>
@@ -49,7 +49,7 @@
         .reset-card {
             margin: 0 auto; /* Zentriert die Karte horizontal */
             float: none; /* Entfernt das floaten */
-			padding: 0;
+            padding: 0;
         }
 
         .reset-card-header {
@@ -85,48 +85,42 @@
                 .catch(error => showToast('Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.', 'error'));
             });
 
-			function togglePasswordVisibility() {
-            const passwordField = document.getElementById('password_reset');
-            const passwordFieldType = passwordField.getAttribute('type');
-            passwordField.setAttribute('type', passwordFieldType === 'password' ? 'text' : 'password');
-        }
+            function togglePasswordVisibility() {
+                const passwordFields = document.querySelectorAll('.password-field input');
+                const toggleIcons = document.querySelectorAll('.toggle-password img');
 
-        function updateCriteria() {
-            const criteria = [
-                { id: 'specialCharCriteria', regex: /[!@#$%^&*(),.?":{}|<>]/ },
-                { id: 'uppercaseCriteria', regex: /[A-Z]/ },
-                { id: 'numberCriteria', regex: /[0-9]/ },
-                { id: 'lengthCriteria', regex: /.{8,}/ }
-            ];
+                passwordFields.forEach((field, index) => {
+                    const type = field.getAttribute('type') === 'password' ? 'text' : 'password';
+                    field.setAttribute('type', type);
+                    toggleIcons[index].src = type === 'password' ? "{{ asset('asset/images/eye.svg') }}" : "{{ asset('asset/images/eye-off.svg') }}";
+                });
+            }
 
-            const password = document.getElementById('password_reset').value;
+            function updateCriteria() {
+                const criteria = [
+                    { id: 'specialCharCriteria', regex: /[!@#$%^&*(),.?":{}|<>]/ },
+                    { id: 'uppercaseCriteria', regex: /[A-Z]/ },
+                    { id: 'numberCriteria', regex: /[0-9]/ },
+                    { id: 'lengthCriteria', regex: /.{8,}/ }
+                ];
 
-            criteria.forEach(({ id, regex }) => {
-                const element = document.getElementById(id);
-                if (regex.test(password)) {
-                    element.classList.remove('text-danger');
-                    element.classList.add('text-success');
-                    element.querySelector('.checkmark').textContent = '✔';
-                } else {
-                    element.classList.remove('text-success');
-                    element.classList.add('text-danger');
-                    element.querySelector('.checkmark').textContent = '✘';
-                }
-            });
-        }
+                const password = document.getElementById('password_reset').value;
 
-        document.getElementById('password_reset').addEventListener('input', updateCriteria);
+                criteria.forEach(({ id, regex }) => {
+                    const element = document.getElementById(id);
+                    if (regex.test(password)) {
+                        element.classList.remove('text-danger');
+                        element.classList.add('text-success');
+                        element.querySelector('.checkmark').textContent = '✔';
+                    } else {
+                        element.classList.remove('text-success');
+                        element.classList.add('text-danger');
+                        element.querySelector('.checkmark').textContent = '✘';
+                    }
+                });
+            }
+
+            document.getElementById('password_reset').addEventListener('input', updateCriteria);
+        });
     </script>
-
-    @if ($errors->has('token'))
-        <div class="alert alert-danger">
-            {{ $errors->first('token') }}
-            <form method="POST" action="{{ route('password.email') }}">
-                @csrf
-                <input type="hidden" name="email" value="{{ old('email') }}">
-                <button type="submit" class="btn btn-primary">Neuen Token anfordern</button>
-            </form>
-        </div>
-    @endif
-
 @endsection

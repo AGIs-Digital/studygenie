@@ -23,34 +23,13 @@
 
 <script>
 function togglePasswordVisibility() {
-    const passwordRegisterInput = document.getElementById('password_register');
-    const passwordLoginInput = document.getElementById('password_login');
-    const passwordInput = document.getElementById('new_password');
-    const passwordResetInput = document.getElementById('password_reset');
+    const passwordFields = document.querySelectorAll('.password-field input');
     const toggleIcons = document.querySelectorAll('.toggle-password img');
 
-    if (passwordRegisterInput) {
-        const type = passwordRegisterInput.getAttribute('type') === 'password' ? 'text' : 'password';
-        passwordRegisterInput.setAttribute('type', type);
-        toggleIcons[0].src = type === 'password' ? "{{ asset('asset/images/eye.svg') }}" : "{{ asset('asset/images/eye-off.svg') }}";
-    }
-
-    if (passwordLoginInput) {
-        const type = passwordLoginInput.getAttribute('type') === 'password' ? 'text' : 'password';
-        passwordLoginInput.setAttribute('type', type);
-        toggleIcons[1].src = type === 'password' ? "{{ asset('asset/images/eye.svg') }}" : "{{ asset('asset/images/eye-off.svg') }}";
-    }
-
-    if (passwordInput) {
-        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-        passwordInput.setAttribute('type', type);
-        toggleIcons[2].src = type === 'password' ? "{{ asset('asset/images/eye.svg') }}" : "{{ asset('asset/images/eye-off.svg') }}";
-    }
-
-    if (passwordResetInput) {
-        const type = passwordResetInput.getAttribute('type') === 'password' ? 'text' : 'password';
-        passwordResetInput.setAttribute('type', type);
-        toggleIcons[3].src = type === 'password' ? "{{ asset('asset/images/eye.svg') }}" : "{{ asset('asset/images/eye-off.svg') }}";
-    }
+    passwordFields.forEach((field, index) => {
+        const type = field.getAttribute('type') === 'password' ? 'text' : 'password';
+        field.setAttribute('type', type);
+        toggleIcons[index].src = type === 'password' ? "{{ asset('asset/images/eye.svg') }}" : "{{ asset('asset/images/eye-off.svg') }}";
+    });
 }
 </script>
