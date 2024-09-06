@@ -22,7 +22,7 @@ class LebenslaufController extends Controller
      */
     public function create()
     {
-        return view('kurzz.lebenslauf');
+        return view('karriere.lebenslauf');
     }
 
     /**
@@ -37,7 +37,7 @@ class LebenslaufController extends Controller
         // \Log::info('cvPreview data:', $data); // Debugging-Ausgabe
 
         // Generiere das PDF
-        $pdf = PDF::loadView('kurzz.cv_template', $data)
+        $pdf = PDF::loadView('karriere.cv_template', $data)
                   ->setPaper('a4', 'portrait')
                   ->setOptions(['isHtml5ParserEnabled' => true, 'isPhpEnabled' => true]);
 
@@ -64,7 +64,7 @@ class LebenslaufController extends Controller
         });
 
         // Generiere das PDF nur mit den gefilterten Daten
-        $pdf = PDF::loadView('kurzz.cv_template', $filteredData)
+        $pdf = PDF::loadView('karriere.cv_template', $filteredData)
                   ->setPaper('a4', 'portrait')
                   ->setOptions(['isHtml5ParserEnabled' => true, 'isPhpEnabled' => true]);
         return $pdf->download('lebenslauf.pdf');
