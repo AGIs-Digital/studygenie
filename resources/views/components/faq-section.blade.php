@@ -20,7 +20,7 @@
                 Welche Daten werden gespeichert?
             </div>
             <div class="answerContentContainer">
-                Wir speichern lediglich den namen den du dir hier aussuchst, deine E-Mail-Adresse und das verschlüsselte Passwort. Zusätzlich werden die Antworten, die du in deinem Archiv ablegst, gesichert, um sie dir jederzeit zugänglich zu machen.
+                Wir speichern lediglich den Namen den du dir hier aussuchst, deine E-Mail-Adresse und das verschlüsselte Passwort. Zusätzlich werden die Antworten, die du in deinem Archiv ablegst, gesichert, um sie dir jederzeit zugänglich zu machen.
             </div>
 
         </div>

@@ -1,7 +1,7 @@
 <section class="learnAnythingSection">
     <img class="crownImg" src="{{ asset('asset/images/crownimage.png') }}" alt="Kronenbild" loading="lazy">
     <h1 class="secondary-Heading">Gemeinsam schaffen wir das</h1>
-    <p class="secondary-Paragraph">Wir unterstützen dich in der Schule, im Studium und im Berufsstart.</p>
+    <p class="secondary-Paragraph">Wir unterstützen dich in der Schule, im Studium und beim Start in den Beruf.</p>
     <div class="video_sec">
         <video controls id="home_video" loading="lazy" preload="metadata">
             <source src="{{ asset('asset/Videos/video_klein.mp4') }}" type="video/mp4">

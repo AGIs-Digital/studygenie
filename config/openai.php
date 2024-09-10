@@ -25,5 +25,15 @@ return [
     */
 
     'request_timeout' => env('OPENAI_REQUEST_TIMEOUT', 30),
-    'preferred_model' => 'gpt-4o'
+    'preferred_model' => 'gpt-4o',
+
+    'tools' => [
+        'genie_check' => [
+            'model' => 'gpt-4o-mini',
+        ],
+        'default' => [
+            'model' => 'gpt-4o',
+        ],
+        // Füge hier weitere Tools hinzu, falls nötig
+    ],
 ];
