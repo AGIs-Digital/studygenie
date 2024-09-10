@@ -6,6 +6,7 @@
     @include('components.head')
     <script src="https://www.paypal.com/sdk/js?client-id=Abj-J9HxV5L4s1izmSlNl27AJLM0z71Z0BzLAVV4n7ClCYaxlBWEGdvfSBnSvY7beu-AhQv0YdMLOzcc&currency=EUR"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 @include('components.navbar')
@@ -65,7 +66,7 @@
                 <!-- Account settings and password change -->
                 <div class="row">
                     <div class="col-12 d-flex justify-content-center">
-                        <button id="changePasswordButton" type="button" class="btn btn-outline-primary mx-2">Account Einstellungen</button>
+                        <button id="changePasswordButton" type="button" class="btn btn-outline-primary mx-2">Passwort ändern</button>
                         <button id="deleteAccountButton" type="button" class="btn btn-outline-danger mx-2">Account löschen</button>
                     </div>
 
