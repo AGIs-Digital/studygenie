@@ -67,7 +67,7 @@ class LebenslaufController extends Controller
         $pdf = PDF::loadView('karriere.cv_template', $filteredData)
                   ->setPaper('a4', 'portrait')
                   ->setOptions(['isHtml5ParserEnabled' => true, 'isPhpEnabled' => true]);
-        return $pdf->download('lebenslauf.pdf');
+        return $pdf->download('Lebenslauf_' . Carbon::now()->format('d_m_Y') . '.pdf');
     }
 
     /**

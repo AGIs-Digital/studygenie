@@ -17,11 +17,11 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <h2 style="color: #E09E50; font-family: Milonga; font-size: 32px; font-style: normal; font-weight: 400; line-height: 38px; position: relative; margin-top: 3rem;">Bildung</h2>
+                <h2 style="color: #E09E50; font-family: Milonga; font-size: 32px; font-style: normal; font-weight: 400; line-height: 38px; position: relative; margin-top: 3rem; text-align: center;">Bildung</h2>
                 <div class="accordion" id="accordionBildung">
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="Bildungcheck">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#BildungCollpasetool2" aria-expanded="false" aria-controls="BildungCollpasetool2">GenieCheck</button>
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#BildungCollpasetool2" aria-expanded="false" aria-controls="BildungCollpasetool2">Fragen</button>
                         </h2>
                         <div id="BildungCollpasetool2" class="accordion-collapse collapse" aria-labelledby="Bildungcheck" data-bs-parent="#accordionBildung">
                             <div class="accordion-body">
@@ -33,7 +33,7 @@
                     </div>
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="TextInspiration">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#BildungCollpasetool1" aria-expanded="false" aria-controls="BildungCollpasetool1">TextInspiration</button>
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#BildungCollpasetool1" aria-expanded="false" aria-controls="BildungCollpasetool1">Texte Inspiration</button>
                         </h2>
                         <div id="BildungCollpasetool1" class="accordion-collapse collapse" aria-labelledby="TextInspiration" data-bs-parent="#accordionBildung">
                             <div class="accordion-body">
@@ -45,7 +45,7 @@
                     </div>
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="BildungOne">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#BildungCollpasetool3" aria-expanded="false" aria-controls="BildungCollpasetool3">TextAnalyse</button>
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#BildungCollpasetool3" aria-expanded="false" aria-controls="BildungCollpasetool3">Texte Analyse</button>
                         </h2>
                         <div id="BildungCollpasetool3" class="accordion-collapse collapse" aria-labelledby="BildungOne" data-bs-parent="#accordionBildung">
                             <div class="accordion-body">
@@ -57,7 +57,7 @@
                     </div>
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="BildungMentor">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#BildungCollpasetool4" aria-expanded="false" aria-controls="BildungCollpasetool4">GenieTutor</button>
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#BildungCollpasetool4" aria-expanded="false" aria-controls="BildungCollpasetool4">Tutor</button>
                         </h2>
                         <div id="BildungCollpasetool4" class="accordion-collapse collapse" aria-labelledby="BildungMentor" data-bs-parent="#accordionBildung">
                             <div class="accordion-body">
@@ -70,11 +70,11 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <h2 style="color: #2D3E4E; font-family: Milonga; font-size: 32px; font-style: normal; font-weight: 400; line-height: 38px; position: relative; margin-top: 3rem;">Karriere</h2>
+                <h2 style="color: #2D3E4E; font-family: Milonga; font-size: 32px; font-style: normal; font-weight: 400; line-height: 38px; position: relative; margin-top: 3rem; text-align: center;">Karriere</h2>
                 <div class="accordion" id="accordionKarriere">
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="headingJobMatch">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseJobMatch" aria-expanded="false" aria-controls="collapseJobMatch">JobMatch</button>
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseJobMatch" aria-expanded="false" aria-controls="collapseJobMatch">Job Match</button>
                         </h2>
                         <div id="collapseJobMatch" class="accordion-collapse collapse" aria-labelledby="headingJobMatch" data-bs-parent="#accordionKarriere">
                             <div class="accordion-body">
@@ -86,7 +86,7 @@
                     </div>
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="headingJobInsider">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseJobInsider" aria-expanded="false" aria-controls="collapseJobInsider">JobInsider</button>
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseJobInsider" aria-expanded="false" aria-controls="collapseJobInsider">Job Insider</button>
                         </h2>
                         <div id="collapseJobInsider" class="accordion-collapse collapse" aria-labelledby="headingJobInsider" data-bs-parent="#accordionKarriere">
                             <div class="accordion-body">
@@ -98,7 +98,7 @@
                     </div>
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="headingKarriereMentor">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseKarriereMentor" aria-expanded="false" aria-controls="collapseKarriereMentor">KarriereMentor</button>
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseKarriereMentor" aria-expanded="false" aria-controls="collapseKarriereMentor">Karriere Mentor</button>
                         </h2>
                         <div id="collapseKarriereMentor" class="accordion-collapse collapse" aria-labelledby="headingKarriereMentor" data-bs-parent="#accordionKarriere">
                             <div class="accordion-body">
