@@ -40,7 +40,8 @@
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">@csrf</form>
                             </div>
                         @else
-                            <button class="plancardButton" data-bs-toggle="modal" data-bs-target="#loginModal" id="loginButton">Log In</button>
+                            <button class="registerButton" data-bs-toggle="modal" data-bs-target="#signupModal" id="registerButton">Registrieren</button>
+                            <button class="loginButton" data-bs-toggle="modal" data-bs-target="#loginModal" id="loginButton">Log In</button>
                         @endauth
                     </div>
                 </div>

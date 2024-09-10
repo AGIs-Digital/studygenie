@@ -183,7 +183,7 @@ input[type='radio'] {
   height: calc(100vh - 195px);
   background: #6ba292;
   background-image: url('../images/noise-light.png');
-  border: 11px solid #f7e463;
+  border: 10px solid dimgrey;
   border-radius: 18px;
 }
 
@@ -287,7 +287,7 @@ input[type='radio'] {
   border-radius: 10px;
   border: 1px solid #a7a7a7;
   width: 100%;
-  height: 99px;
+
   margin-top: 12px;
   background: transparent;
   padding: 12px;

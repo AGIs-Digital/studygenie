@@ -62,8 +62,8 @@
         <div class="contentPlanCard contentPlanCard1">
             <span class="highWeightSpan">20 € <span class="lowWeightSpan">/ Monat<span><br />Alles aus Gold +</span></span>
             <p class="planCardParagraph">
-                <span class="green-textmarker">✓ Lerncoach</span><br /> 
-                <span class="green-textmarker">✓ Bewerbungstrainer</span>
+                <span class="green-textmarker">✓ Tutor</span><br /> 
+                <span class="green-textmarker">✓ Karriere Mentor</span>
                 <br /><br />
             </p>
             </span>

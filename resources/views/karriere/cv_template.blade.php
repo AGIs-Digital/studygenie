@@ -187,9 +187,14 @@
                 @endif
             </div>
             <div style="position: absolute; bottom: 50px; width: 100%;">
-                @if (!empty($signature_town) || !empty($signature_date))
-                    <p>{{ $signature_town }}, {{ \Carbon\Carbon::parse($signature_date)->format('d.m.Y') }}</p>
-                @endif
+                <p>
+                    @if (!empty($signature_town))
+                        {{ $signature_town }}
+                    @endif
+                    @if (!empty($signature_date))
+                        {{ \Carbon\Carbon::parse($signature_date)->format('d.m.Y') }}
+                    @endif
+                </p>
             </div>
         </div>
         <div class="side-panel">

@@ -376,7 +376,7 @@
                         const url = window.URL.createObjectURL(blob);
                         const a = document.createElement('a');
                         a.href = url;
-                        a.download = 'lebenslauf.pdf';
+                        a.download = `Lebenslauf_${new Date().toLocaleDateString('de-DE').replace(/\./g, '_')}.pdf`;
                         document.body.appendChild(a);
                         a.click();
                         a.remove();
