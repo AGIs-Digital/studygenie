@@ -22,6 +22,7 @@ use App\Http\Controllers\Bildung\TextAnalysisController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\AdminFeedbackController;
 use App\Http\Controllers\SubscriptionController;
+use App\Http\Controllers\Bildung\GenieTutorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -72,7 +73,8 @@ Route::group(['middleware' => ['auth']], function () {
 
         // bildung Routes which require diamant subscription
         Route::middleware(['check.subscription.expiry', 'check.subscription:diamant'])->group(function () {
-            Route::view('genietutor', 'bildung.genie_tutor')->name('genie_tutor.create');
+            Route::get('genie_tutor', [GenieTutorController::class, 'create'])->name('genie_tutor.create');
+            Route::post('genie_tutor', [GenieTutorController::class, 'store'])->name('genie_tutor.store');
         });
 
         // bildung Routes which require gold or diamant subscription

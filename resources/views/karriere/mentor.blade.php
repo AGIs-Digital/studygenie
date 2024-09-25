@@ -202,6 +202,7 @@
                 window.fns.addChatBubble(userMessage, messageContainer);
 
                 formSubmitButton.textContent = 'lädt...';
+                formSubmitButton.disabled = true;
 
                 try {
                     // create an empty bot message
@@ -212,6 +213,7 @@
                     window.fns.updateChatBubble(botMessageId, data.data.content, messageContainer);
 
                     formSubmitButton.textContent = 'Senden';
+                    formSubmitButton.disabled = false;
 
                     userInput.value = '';
                     userInput.disabled = false;
@@ -222,6 +224,7 @@
                 } catch (error) {
                     console.log(error);
                     formSubmitButton.textContent = 'Senden';
+                    formSubmitButton.disabled = false;
                     userInput.disabled = false;
                     conversationForm.classList.remove('disabled');
                 }
