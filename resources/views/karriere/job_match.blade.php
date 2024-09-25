@@ -167,7 +167,7 @@
                 let formData = new FormData(form);
                 $("#save_data").val('x');
                 //Ladezeichen anzeigen
-                $("#submitForm").addClass('loading-button').text("Zaubert...");
+                $("#submitForm").addClass('loading-button').text("Zaubert...").prop('disabled', true);
                 $.ajax({
                     url: route('karriere.jobmatch.store'),
                     method: "POST",
@@ -178,7 +178,7 @@
                     success: function(response) {
                         conversation_id = response.message.conversation_id;
                         //Ladezeichen entfernen
-                        $("#submitForm").removeClass('loading-button').text("Absenden");
+                        $("#submitForm").removeClass('loading-button').text("Absenden").prop('disabled', false);
                         textToType = response.message.content.replace(/\n/g, " <br> ");
                         $('#typed-text').empty();
                         let checks = response.message.content.split('\n');
@@ -189,7 +189,7 @@
                     error: function(xhr, status, error) {
                         console.error("Ein Fehler ist aufgetreten: " + error);
                         //Ladezeichen entfernen
-                        $("#submitForm").removeClass('loading-button').text("Absenden");
+                        $("#submitForm").removeClass('loading-button').text("Absenden").prop('disabled', false);
                     }
                 });
             });

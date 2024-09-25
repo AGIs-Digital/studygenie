@@ -148,20 +148,19 @@ class Conversation extends Model
      */
     public function createPayload($numberOfMessages = 30): array
     {
-        # First, load the global system prompt
-        $globalSystemPrompt = new Prompt('prompts.system_prompt');
+        // Lade die Konfigurationen für das spezifische Tool oder verwende die Standardkonfiguration
+        $toolConfig = config('openai.tools.' . $this->tool_identifier, config('openai.tools.default'));
 
-        # Replace placeholders in the global system prompt
+        // Lade den globalen System-Prompt
+        $globalSystemPrompt = new Prompt('prompts.system_prompt');
         $globalSystemPrompt->replace('username', auth()->user()->name);
 
-        # Second, load the toll-specific system prompt
+        // Lade den tool-spezifischen System-Prompt
         $contextualSystemPrompt = $this->loadSystemPrompt(['replacements' => ['username' => auth()->user()->name]]);
-
         $systemPrompt = $globalSystemPrompt->get() . "\n" . $contextualSystemPrompt;
 
-        // Load all messages to conversation, limit to the last $numberOfMessages
+        // Lade alle Nachrichten der Konversation, begrenzt auf die letzten $numberOfMessages
         $messages = $this->messages()->orderBy('created_at', 'asc')->limit($numberOfMessages)->get();
-
         $messages = $messages->map(function ($message) {
             return [
                 "role" => $message->role,
@@ -169,18 +168,18 @@ class Conversation extends Model
             ];
         });
 
-        # add system prompt as first message
+        // Füge den System-Prompt als erste Nachricht hinzu
         $messages->push([
             "role" => "system",
             "content" => $systemPrompt
         ]);
 
+        // Erstelle das Payload-Array
         $payload = [
-            'model' => config('openai.preferred_model'),
-            'messages' => $messages
+            'model' => $toolConfig['model'],
+            'messages' => $messages,
         ];
 
         return $payload;
-
     }
 }

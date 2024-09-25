@@ -57,7 +57,7 @@
                         </div>
                         <br /> <br />
                         <div class="steuerungcontainer">
-                            <div onclick="setInputValue('/tutor')" class="steuerung">
+                            <div onclick="setInputValue('/Tutor')" class="steuerung">
                                 <div class="shop-now">Tutor</div>
                                 <button type="button" class="btn" data-bs-toggle="tooltip" data-bs-placement="top" title="Lerne einfach und effektiv">
                                     <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
@@ -73,7 +73,7 @@
                             </div>
                         </div>
                         <div class="steuerungcontainer">
-                            <div onclick="setInputValue('/mc')" class="steuerung">
+                            <div onclick="setInputValue('/MC-Test')" class="steuerung">
                                 <div class="shop-now">Multiple Choice</div>
                                 <button type="button" class="btn" data-bs-toggle="tooltip" data-bs-placement="top" title="Schnelle Wissensabfrage">
                                     <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
@@ -81,7 +81,7 @@
                             </div>
                         </div>
                         <div class="steuerungcontainer">
-                            <div onclick="setInputValue('/test')" class="steuerung">
+                            <div onclick="setInputValue('/Test')" class="steuerung">
                                 <div class="shop-now">Probeklausur</div>
                                 <button type="button" class="btn" data-bs-toggle="tooltip" data-bs-placement="top" title="Teste deinen Lernstand">
                                     <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
@@ -102,12 +102,12 @@
                                 <div class="all_content" id="all_content"></div>
                             </div>
                             <div class="user_input_form">
-                                <form id="form_user_input" style="display: flex; align-items: center; gap: 10px;">
+                                <form id="form_user_input" style="display: flex; align-items: center; gap: 10px;" method="POST" action="{{ route('bildung.genie_tutor.store') }}">
                                     @csrf
                                     <div class="save_folder left" id="save_folder" style="display: block" data-bs-toggle="modal" data-bs-target="#saveModal">
                                         <img src="{{ asset('asset/images/savefolder.svg') }}" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Speichern" width="40" height="40" alt="">
                                     </div>
-                                    <input type="text" id="user_input" name="user" required placeholder="Sende eine Nachricht an StudyGenie" style="flex: 1;">
+                                    <input type="text" id="user_input" name="text1" required placeholder="Sende eine Nachricht an StudyGenie" style="flex: 1;">
                                     <button type="submit" id="button_submit" style="background-color:#E09E50; flex-shrink: 0;">Senden</button>
                                 </form>
                             </div>
@@ -123,7 +123,6 @@
     @include('components.mathjax')
 
     <script>
-        // Initialisierung bei DOMContentLoaded
         document.addEventListener('DOMContentLoaded', () => {
             const toolIdentifier = 'genie_tutor';
 
@@ -174,6 +173,7 @@
                 window.fns.addChatBubble(userMessage, messageContainer);
 
                 formSubmitButton.textContent = 'lädt...';
+                formSubmitButton.disabled = true;
 
                 try {
                     // create an empty bot message
@@ -184,6 +184,7 @@
                     window.fns.updateChatBubble(botMessageId, data.data.content, messageContainer);
 
                     formSubmitButton.textContent = 'Senden';
+                    formSubmitButton.disabled = false;
 
                     userInput.value = '';
                     userInput.disabled = false;
@@ -197,6 +198,7 @@
                 } catch (error) {
                     console.log(error);
                     formSubmitButton.textContent = 'Senden';
+                    formSubmitButton.disabled = false;
                     userInput.disabled = false;
                     conversationForm.classList.remove('disabled');
                 }
