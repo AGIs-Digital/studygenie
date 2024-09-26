@@ -160,7 +160,10 @@ class Conversation extends Model
         $systemPrompt = $globalSystemPrompt->get() . "\n" . $contextualSystemPrompt;
 
         // Lade alle Nachrichten der Konversation, begrenzt auf die letzten $numberOfMessages
-        $messages = $this->messages()->orderBy('created_at', 'asc')->limit($numberOfMessages)->get();
+        $messages = $this->messages()->orderBy('created_at', 'desc')->limit($numberOfMessages)->get();
+
+        // Reihenfolge der Nachrichten umkehren um die Nachrichten in chronologischer Reihenfolge zu erhalten
+        $messages = $messages->reverse()->values();
         $messages = $messages->map(function ($message) {
             return [
                 "role" => $message->role,
