@@ -2,11 +2,11 @@
 <html lang="de">
 
 <head>
-    @section('title', Auth::check() ? auth()->user()->name . ' - Profil' : 'Profil')
-    @include('components.head')
-    <script src="https://www.paypal.com/sdk/js?client-id=Abj-J9HxV5L4s1izmSlNl27AJLM0z71Z0BzLAVV4n7ClCYaxlBWEGdvfSBnSvY7beu-AhQv0YdMLOzcc&currency=EUR"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=Ae9G4SKK4gDuWY0Yw7J_6irXsfPepGSudxvUktzRQlYbdnOKTaDp2xmuC1mCWS6GTvalCH9Owt-HUl4S&currency=EUR"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    @section('title', Auth::check() ? auth()->user()->name . ' - Profil' : 'Profil')
+    @include('components.head')
 </head>
 
 @include('components.navbar')
@@ -35,16 +35,7 @@
             <div class="alert alert-success mt-4">
                 <strong>{{ Session::get('success') }}</strong>
             </div>
-            <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
-            <script>
-                document.addEventListener('DOMContentLoaded', function () {
-                    confetti({
-                        particleCount: 100,
-                        spread: 300,
-                        origin: { x: 0.5, y: 0.5 }
-                    });
-                });
-            </script>
+            
         @endif
 
         @if(Session::has('error'))
@@ -176,36 +167,34 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            
             // PayPal Button Rendering
             function renderPayPalButton(route, plan) {
-                const container = document.getElementById('paypal-button-container');
-                container.innerHTML = '';
-
-                paypal.Buttons({
-                    createOrder: function(data, actions) {
-                        return fetch(route, {
-                            method: 'post',
-                            headers: {
-                                'content-type': 'application/json',
-                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                            },
-                            body: JSON.stringify({ plan_id: plan })
-                        }).then(res => res.json())
-                        .then(subscriptionData => {
-                            if (subscriptionData.plan_id) {
-                                return subscriptionData.plan_id;
-                            } else {
-                                console.error('Subscription creation failed:', subscriptionData);
-                            }
-                        }).catch(err => console.error('createSubscription error:', err));
+        paypal.Buttons({
+            createOrder: function(data, actions) {
+                return fetch(route, {
+                    method: 'post',
+                    headers: {
+                        'content-type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
                     },
-                    onApprove: function(data, actions) {
-                        showToast('Aboplan erfolgreich erstellt');
-                        $("#payment_modal").modal('hide');
-                        location.reload();
+                    body: JSON.stringify({ plan_id: plan })
+                }).then(res => res.json())
+                .then(subscriptionData => {
+                    if (subscriptionData.plan_id) {
+                        return subscriptionData.plan_id;
+                    } else {
+                        console.error('Subscription creation failed:', subscriptionData);
                     }
-                }).render('#paypal-button-container');
+                }).catch(err => console.error('createSubscription error:', err));
+            },
+            onApprove: function(data, actions) {
+                showToast('Aboplan erfolgreich erstellt');
+                $("#payment_modal").modal('hide');
+                location.reload();
             }
+        }).render('#paypal-button-container');
+    }
 
             // Event Listeners
             document.querySelectorAll('.plancardButton').forEach(button => {

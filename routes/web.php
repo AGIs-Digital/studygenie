@@ -24,17 +24,6 @@ use App\Http\Controllers\AdminFeedbackController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\Bildung\GenieTutorController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Hier können Sie Web-Routen für Ihre Anwendung registrieren. Diese
-| Routen werden von RouteServiceProvider in einer Gruppe geladen, die
-| das "web" Middleware-Gruppe enthält. Jetzt erstellen Sie etwas Tolles!
-|
-*/
-
 ### PUBLIC VIEW ROUTES ###
 Route::view('impressum', 'impressum')->name('impressum');
 Route::view('agb', 'agb')->name('agb');
@@ -130,22 +119,6 @@ Route::group(['middleware' => ['auth']], function () {
     });
 });
 
-### PAYPAL ROUTES ###
-Route::prefix('paypal')->name('paypal.')->group(function () {
-    Route::view('/', 'paypal')->name('paypal');
-    Route::get('payment/{name}', [PayPalController::class, 'payment'])->name('payment');
-    Route::prefix('payment')->name('payment.')->group(function () {
-        Route::get('success', [PayPalController::class, 'paymentSuccess'])->name('success');
-        Route::get('cancel', [PayPalController::class, 'paymentCancel'])->name('cancel');
-    });
-});
-
-// PayPal Checkout routes
-Route::get('/setup-plans', [PayPalController::class, 'setupPlans'])->name('paypal.setupPlans');
-Route::post('/create-subscription', [PayPalController::class, 'createSubscription'])->name('paypal.createSubscription');
-Route::get('/update-subscription', [PayPalController::class, 'updateSubscription'])->name('paypal.updateSubscription');
-Route::post('/update-silber-subscription', [SubscriptionController::class, 'updateSilberSubscription'])->name('subscription.updateSilberSubscription');
-
 ### USER ROUTES ###
 Route::post('/postLogin', [LoginController::class, 'postLogin'])->name('login.post');
 Route::post('/postRegistration', [RegisterController::class, 'postRegistration'])->name('register.post');
@@ -177,3 +150,5 @@ Route::get('password/reset/{token}', [ResetPasswordController::class, 'showReset
 
 // Route for resetting the password
 Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
+
+Route::post('subscriptions/update', [SubscriptionController::class, 'updateSubscription'])->name('subscriptions.update');

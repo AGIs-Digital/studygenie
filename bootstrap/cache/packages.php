@@ -107,17 +107,6 @@
       'Signal' => 'Spatie\\SignalAwareCommand\\Facades\\Signal',
     ),
   ),
-  'srmklive/paypal' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'Srmklive\\PayPal\\Providers\\PayPalServiceProvider',
-    ),
-    'aliases' => 
-    array (
-      'PayPal' => 'Srmklive\\PayPal\\Facades\\PayPal',
-    ),
-  ),
   'tightenco/ziggy' => 
   array (
     'providers' => 
