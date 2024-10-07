@@ -16,10 +16,13 @@
         "vite": "^4.5.5"
     },
     "dependencies": {
+        "cookie": "^0.7.2",
+        "express": "^4.21.0",
         "ftp-deploy": "^2.4.7",
         "g": "^2.0.1",
         "npm": "^10.8.2",
         "openai": "^4.56.0",
+        "webpack-dev-server": "^5.1.0",
         "ws": "^8.16.0",
         "ziggy-js": "^2.1.0"
     }
