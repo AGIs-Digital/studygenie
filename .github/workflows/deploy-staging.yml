@@ -51,6 +51,9 @@ jobs:
           sed -i 's#^DB_USERNAME=.*#DB_USERNAME=${{ secrets.STAGING_DB_USERNAME }}#' .env
           sed -i 's#^DB_PASSWORD=.*#DB_PASSWORD=${{ secrets.STAGING_DB_PASSWORD }}#' .env
           sed -i 's#^OPENAI_API_KEY=.*#OPENAI_API_KEY="${{ secrets.OPENAI_APIKEY }}"#' .env
+          sed -i 's#^GOOGLE_REDIRECT_URL=.*#GOOGLE_REDIRECT_URL=${{ secrets.STAGING_GOOGLE_REDIRECT_URL }}#' .env
+          sed -i 's#^PAYPAL_SANDBOX_CLIENT_ID=.*#PAYPAL_SANDBOX_CLIENT_ID=${{ secrets.PAYPAL_SANDBOX_CLIENT_ID }}#' .env
+          sed -i 's#^PAYPAL_SANDBOX_SECRET=.*#PAYPAL_SANDBOX_SECRET=${{ secrets.PAYPAL_SANDBOX_SECRET }}#' .env
 
       - name: 🔐 Run Laravel specific commands
         run: |
