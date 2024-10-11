@@ -3,6 +3,7 @@
 <head>
     <title>StudyGenie</title>
     @include('components.head')
+    <meta http-equiv="Permissions-Policy" content="picture-in-picture=(self)">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('asset/js/toast.js') }}"></script>
 </head>
@@ -51,17 +52,5 @@
     </section>
 
     @include('components.footer')
-
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-    // Google Login
-    var googleLoginButton = document.getElementById('google-login');
-    if (googleLoginButton) {
-        googleLoginButton.addEventListener('click', function() {
-            window.location.href = "{{ url('login/google') }}";
-        });
-    }
-});
-</script>
 </body>
 </html>

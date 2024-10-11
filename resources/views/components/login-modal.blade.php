@@ -27,10 +27,10 @@
                                     @csrf
                                     <div class="emailInput">
                                         <label class="label" for="email_login">E-Mail:</label>
-                                        <input type="email" placeholder="Deine E-Mailadresse" name="email" id="email_login" class="emailLogin" autocomplete="email">
+                                        <input type="email" placeholder="Deine E-Mailadresse" name="email" id="email_login" class="emailLogin" autocomplete="email" required>
                                         <label class="label" for="password_login">Passwort:</label>
                                         <div class="password-field">
-                                            <input type="password" placeholder="Dein Passwort" name="password" id="password_login" class="emailLogin" autocomplete="current-password">
+                                            <input type="password" placeholder="Dein Passwort" name="password" id="password_login" class="emailLogin" autocomplete="current-password" required>
                                             <span class="toggle-password" onclick="togglePasswordVisibility()">
                                                 <img src="{{ asset('asset/images/eye.svg') }}" alt="Toggle Password Visibility" width="25" height="25">
                                             </span>
@@ -63,24 +63,13 @@
     </div>
 </div>
 
-<style>
-    .nav-tabs {
-        justify-content: center; /* Zentriert die Tab-Überschriften */
-    }
-    .tab-pane {
-        min-height: 300px; /* Setzt eine Mindesthöhe für beide Tab-Fenster */
-    }
-</style>
-
 <script src="{{ asset('asset/js/toast.js') }}"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const loginForm = document.getElementById('loginForm');
-        const forgetForm = document.getElementById('forgetForm');
 
         loginForm.addEventListener('submit', function(event) {
             event.preventDefault();
-            console.log('Login-Formular wird gesendet');
             const formData = new FormData(loginForm);
             fetch('{{ route('login.post') }}', {
                 method: 'POST',
@@ -92,7 +81,6 @@
             })
             .then(response => response.json())
             .then(data => {
-                console.log('Antwort vom Server:', data);
                 if (data.status === true) {
                     window.location.href = data.redirect_url;
                 } else {
@@ -105,40 +93,15 @@
             });
         });
 
-        forgetForm.addEventListener('submit', function(event) {
-            event.preventDefault();
-            const formData = new FormData(forgetForm);
-            fetch('{{ route('password.email') }}', {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                    'Accept': 'application/json'
-                }
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Netzwerkantwort war nicht ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                if (data.status === 'success') {
-                    showToast("Ein Link zum Zurücksetzen des Passworts wurde an Ihre E-Mail-Adresse gesendet.", 'success');
-                } else {
-                    showToast("Fehler beim Senden des Links zum Zurücksetzen des Passworts.", 'error');
-                }
-            })
-            .catch(error => showToast('Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.', 'error'));
-        });
-    });
-</script>
+        // Google Login
+        const googleLoginButton = document.getElementById('google-login');
+        if (googleLoginButton) {
+            googleLoginButton.addEventListener('click', function() {
+                window.location.href = "{{ url('login/google') }}";
+            });
+        }
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
         const loginModal = document.getElementById('loginModal');
-        const signupModal = document.getElementById('signupModal');
-
         loginModal.addEventListener('hidden.bs.modal', function () {
             document.body.classList.remove('modal-open');
             const backdrop = document.querySelector('.modal-backdrop');
@@ -146,14 +109,5 @@
                 backdrop.remove();
             }
         });
-
-        signupModal.addEventListener('hidden.bs.modal', function () {
-            document.body.classList.remove('modal-open');
-            const backdrop = document.querySelector('.modal-backdrop');
-            if (backdrop) {
-                backdrop.remove();
-            }
-        });
     });
-</script>
 </script>

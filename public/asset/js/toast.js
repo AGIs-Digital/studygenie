@@ -28,7 +28,7 @@ function showToast(message, type) {
     // Berechne die Position basierend auf der Anzahl der sichtbaren Toasts
     const visibleToasts = document.querySelectorAll('.toast-message').length;
     if (visibleToasts === 0) {
-        toast.style.top = '50%'; // Zentriert im Viewport
+        toast.style.top = '20%';
         toast.style.transform = 'translate(-50%, -50%)'; // Zentriert im Viewport
     } else {
         toast.style.top = `${20 + visibleToasts * 20}px`; // Abstand von 20px zum vorherigen Toast

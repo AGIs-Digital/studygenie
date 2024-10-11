@@ -31,7 +31,7 @@
                 Wie sicher sind meine Daten?
             </div>
             <div class="answerContentContainer">
-                Die Sicherheit deiner Daten ist uns sehr wichtig. Deine Daten, Fragen und Antworten werden nicht zum Training für KI's benutzt. Deine daten sind bei uns durch modernste Verschlüsselungstechnologien gesichert. So kannst du sicher sein, dass deine Daten bei StudyGenie bestens geschützt sind.
+                Die Sicherheit deiner Daten ist uns sehr wichtig. Deine Daten, Fragen und Antworten werden nicht zum Training für KI's benutzt. Deine Daten sind bei uns durch modernste Verschlüsselungstechnologien gesichert. So kannst du sicher sein, dass deine Daten bei StudyGenie bestens geschützt sind.
             </div>
 
         </div>

@@ -11,6 +11,7 @@
                     <div class="text-center">
                         <img src="{{ asset('asset/images/Logo_(2).png') }}" width="133" height="77" alt="Logo" loading="lazy">
                     </div>
+                    
                     <div class="main">
                         <form method="POST" action="{{ route('register.post') }}" id="registerForm">
                             @csrf
@@ -89,14 +90,11 @@
         });
 
         function togglePasswordVisibility() {
-            const passwordFields = document.querySelectorAll('.password-field input');
-            const toggleIcons = document.querySelectorAll('.toggle-password img');
-
-            passwordFields.forEach((field, index) => {
-                const type = field.getAttribute('type') === 'password' ? 'text' : 'password';
-                field.setAttribute('type', type);
-                toggleIcons[index].src = type === 'password' ? "{{ asset('asset/images/eye.svg') }}" : "{{ asset('asset/images/eye-off.svg') }}";
-            });
+            const passwordField = document.getElementById('password_register');
+            const toggleIcon = document.querySelector('.toggle-password img');
+            const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordField.setAttribute('type', type);
+            toggleIcon.src = type === 'password' ? "{{ asset('asset/images/eye.svg') }}" : "{{ asset('asset/images/eye-off.svg') }}";
         }
 
         function updateCriteria() {

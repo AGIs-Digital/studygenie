@@ -143,30 +143,30 @@
         }
     });
 
-function showConfetti() {
-    // Zufällige Werte für particleCount und spread zwischen 100 und 400
-    const particleCount1 = Math.floor(Math.random() * 301) + 100; // 100-400
-    const spread1 = Math.floor(Math.random() * 301) + 100;
-    const origin1 = { x: Math.random(), y: Math.random() };
-
-    confetti({
-        particleCount: particleCount1,
-        spread: spread1,
-        origin: origin1
-    });
-
-    setTimeout(() => {
-        const particleCount2 = Math.floor(Math.random() * 301) + 100;
-        const spread2 = Math.floor(Math.random() * 301) + 100;
-        const origin2 = { x: Math.random(), y: Math.random() };
+    function showConfetti() {
+        // Zufällige Werte für particleCount und spread zwischen 100 und 400
+        const particleCount1 = Math.floor(Math.random() * 301) + 100; // 100-400
+        const spread1 = Math.floor(Math.random() * 301) + 100;
+        const origin1 = { x: Math.random(), y: Math.random() };
 
         confetti({
-            particleCount: particleCount2,
-            spread: spread2,
-            origin: origin2
+            particleCount: particleCount1,
+            spread: spread1,
+            origin: origin1
         });
-    }, 1500);
-}
+
+        setTimeout(() => {
+            const particleCount2 = Math.floor(Math.random() * 301) + 100;
+            const spread2 = Math.floor(Math.random() * 301) + 100;
+            const origin2 = { x: Math.random(), y: Math.random() };
+
+            confetti({
+                particleCount: particleCount2,
+                spread: spread2,
+                origin: origin2
+            });
+        }, 1500);
+    }
 
     function showSuccessMessage(plan_name) {
         const modalHTML = `
@@ -227,10 +227,13 @@ function showConfetti() {
     createPayPalButton('{{ config('services.paypal.diamant_plan_id') }}', 'diamant', '#paypal-button-diamant');
 
     document.addEventListener('DOMContentLoaded', function() {
-        // Event Listener für den Silber-Button
-        document.getElementById('silberButton').addEventListener('click', function() {
-            $('#confirmSilberModal').modal('show');
-        });
+        // Überprüfen, ob der Silber-Button existiert, bevor der Event Listener hinzugefügt wird
+        const silberButton = document.getElementById('silberButton');
+        if (silberButton) {
+            silberButton.addEventListener('click', function() {
+                $('#confirmSilberModal').modal('show');
+            });
+        }
 
         // Event Listener für den Bestätigungsbutton im Modal
         document.getElementById('confirmSilberButton').addEventListener('click', function() {

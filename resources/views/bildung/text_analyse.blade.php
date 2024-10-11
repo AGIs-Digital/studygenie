@@ -59,7 +59,7 @@
                                         <span id="charCount" style="font-size: 12px;">0 / 2000</span>
                                     </div>
                                     <div class="group-box textarea-container">
-                                        <textarea name="text6" id="field6" rows="17" style="width:100%;" maxlength="2000" oninput="this.style.height = '';this.style.height = this.scrollHeight + 'px'" placeholder="Deinen aktuellen Text hier eingeben" oninput="updateCharCount();"></textarea>
+                                        <textarea name="text1" id="field1" rows="17" style="width:100%;" maxlength="2000" oninput="this.style.height = ''; this.style.height = this.scrollHeight + 'px'; updateCharCount();" placeholder="Deinen aktuellen Text hier eingeben"></textarea>
                                     </div>
                                 </div>
                                 <div class="text-center" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">

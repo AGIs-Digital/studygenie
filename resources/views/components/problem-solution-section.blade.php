@@ -1,6 +1,6 @@
 <section class="problem-solutionSection">
     <img class="crownImg" src="{{ asset('asset/images/crowngrafiti.png') }}" alt="Kronenbild" loading="lazy">
-    <h2>Gemeinsam schaffen wir das</h2>
+    <h2>Bildung & Karriere neu gedacht, mit Genie gemacht!</h2>
     <p>Wir unterstützen dich in der Schule, im Studium und beim Start in den Beruf.</p>
     <div class="video_sec">
         <video controls id="home_video" loading="lazy" preload="metadata">
