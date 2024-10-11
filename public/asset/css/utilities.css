@@ -57,11 +57,11 @@
 .entry input,
 .entry textarea {
 	width: 100%;
-	padding: 0.5rem;
-	margin-top: 0.25rem;
+	padding: 6px;
+	margin-bottom: 0.5rem;
 	border: 1px solid #ccc;
-	border-radius: 4px;
-	font-size: 0.8rem;
+	border-radius: 10px;
+	font-size: 16px;
 }
 
 .accordion-body {

@@ -1,17 +1,13 @@
 <div class="heroimage-section">
-    <div class="mainImageContantContainer">
-        <div class="contentContainer">
-            <h1 class="primary-heading">
-            Bildung & Karriere</br>
-            Neu gedacht?<br>
-            Mit Genie gemacht!
+    <div class="heroimage-section-content">
+        <img src="{{ asset('asset/images/Logo_(2).png') }}" alt="logo" loading="lazy">
+        <div style="position: relative; z-index: 1; color: white; text-align: left;">
+            <h1>Unterstützt <span class="blue-textmarker">Bildung.</span><br/>
+                Fördert <span class="pink-textmarker">Karriere.</span>
             </h1>
-            <p class="primary-paragraph">Chancengleichheit in Schule,</br>Studium und Karriere</p>
-            <img src="{{ asset('asset/images/23.1.png') }}" alt="Z Design Illustration" loading="lazy">
+            <p>Die neue und innovative Art zu lernen</p>
         </div>
-        <div class="heroimageContainer">
-            <img src="{{ asset('asset/images/landingpage/heroImage.svg') }}" alt="Hauptbild" loading="lazy">
-        </div>
+        <img src="{{ asset('asset/images/yes.png') }}" alt="Z Design Illustration" loading="lazy" style="position: absolute; top: 40%; left: 20%;"> <!-- Freischwebend -->
     </div>
     <div class="headerDesign">
         <img src="{{ asset('asset/images/Group_391.png') }}" alt="Haupt Hintergrundbild" loading="lazy">

@@ -2,9 +2,9 @@
 
 .anchorTagsContainer a {
 	color: white;
-	font-family: 'Milonga', cursive;
-	font-size: 1rem;
-	font-weight: 400;
+	font-family: 'Milonga';
+	font-size: 24px;
+	font-weight: 500;
 	margin-inline: 1rem;
 	text-decoration: none;
 }
@@ -32,9 +32,9 @@
 
 .CenterAnchorTagsContainer a {
 	color: white;
-	font-family: "Milonga";
-	font-size: 1.25rem;
-	font-weight: 400;
+	font-family: 'Milonga';
+	font-size: 24px;
+	font-weight: 500;
 	margin-inline: 1rem;
 	text-decoration: none;
 }

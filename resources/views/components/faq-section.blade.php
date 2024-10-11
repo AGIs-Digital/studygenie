@@ -1,6 +1,6 @@
 <section class="frequentlyAskedQuestionSection">
-    <img src="{{ asset('asset/images/23.png') }}" alt="Z Design" loading="lazy">
-    <h1 class="secondary-Heading">Wissenswertes über StudyGenie</h1>
+    <img src="{{ asset('asset/images/fragezeichenorange.png') }}" alt="Z Design" loading="lazy">
+    <h2>Wissenswertes über StudyGenie</h2>
     <div class="questionsContainer">
         <div class="question">
             <div class="questionContentContainer">
@@ -31,7 +31,7 @@
                 Wie sicher sind meine Daten?
             </div>
             <div class="answerContentContainer">
-                Die Sicherheit deiner Daten ist uns sehr wichtig. Deine Daten, Fragen und Antworten werden nicht zum Training für KI's benutzt. Deine daten sind bei uns durch modernste Verschlüsselungstechnologien gesichert. So kannst du sicher sein, dass deine Daten bei StudyGenie bestens geschützt sind.
+                Die Sicherheit deiner Daten ist uns sehr wichtig. Deine Daten, Fragen und Antworten werden nicht zum Training für KI's benutzt. Deine Daten sind bei uns durch modernste Verschlüsselungstechnologien gesichert. So kannst du sicher sein, dass deine Daten bei StudyGenie bestens geschützt sind.
             </div>
 
         </div>

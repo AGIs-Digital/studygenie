@@ -49,11 +49,11 @@
                         <br />
                         <div class="form-group">
                             <label for="level_input">Level:</label>
-                            <input type="text" id="level_input" name="level" placeholder="z.B. 9. Klasse Gymnasium">
+                            <input type="text" id="level_input" name="level" placeholder="z.B. 9. Klasse Gymnasium" required>
                         </div>
                         <div class="form-group">
                             <label for="thema_input">Thema:</label>
-                            <input type="text" id="thema_input" name="thema" placeholder="z.B. Satz des Pythagoras">
+                            <input type="text" id="thema_input" name="thema" placeholder="z.B. Satz des Pythagoras" required>
                         </div>
                         <br /> <br />
                         <div class="steuerungcontainer">
@@ -237,7 +237,6 @@
                 userInput.value = value;
             }
 
-            // Trigger the submit event programmatically
             const event = new Event('submit', {
                 'bubbles': true,
                 'cancelable': true

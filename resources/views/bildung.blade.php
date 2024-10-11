@@ -5,12 +5,14 @@
     @section('title', 'Bildung')
     @include('components.head')
     <link rel="stylesheet" href="{{ asset('asset/css/clouds.css') }}">
-    @include('components.toolsperre')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
-@include('components.navbar')
-@include('components.feedback')
+
 <body class="MainContainer">
     <div class="headerSpacer"></div>
+    @include('components.navbar')
+    @include('components.feedback')
+    @include('components.toolsperre')
 
     <main class="mainContainer">
         <img src="{{ asset('asset/images/ab1.svg') }}" class="ab1" alt="">
@@ -23,7 +25,7 @@
                 <img id="closeIcon" src="{{ asset('asset/images/ic_close.png') }}" alt="closeIcon">
             </div>
             <div class="centerCon">
-                <h1 class="primary-Heading">Genie Bildung</h1><br />
+                <h1>Genie Bildung</h1><br />
                 <img id="StudyGenieImage" src="{{ asset('asset/images/ToolsImage.png') }}" alt="StudyGenieImage">
             </div>
         </div>
@@ -246,9 +248,6 @@
 
         </div>
     </main>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-    
-    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script> 
 </body>
-
 </html>

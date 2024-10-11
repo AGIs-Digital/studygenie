@@ -141,11 +141,11 @@
   position: fixed;
   width: 100%;
   z-index: 999;
-  height: 75px; /* Feste Höhe für den Header */
+  height: 75px; 
 }
 
 .headerSpacer {
-  height: 75px; /* Gleiche Höhe wie der Header */
+  height: 75px; 
   padding-bottom: 75px;
 }
 
@@ -159,9 +159,13 @@ a {
   bottom: -1%;
 }
 
+.row {
+  margin-bottom: 2rem; 
+}
+
 .arrow-up {
   position: fixed;
-  bottom: 20%;
+  bottom: 7%;
   left: 50%;
   transform: translateX(-50%);
   width: 50px;
@@ -192,6 +196,7 @@ a {
 
 .text-danger {
   color: red;
+  animation: highlight 0.5s ease-in-out;
 }
 
 
@@ -210,18 +215,21 @@ a {
 }
 
 .criteria-container {
-/*   width: 90%; */
+  width: 90%;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   margin: 0px auto;
-  font-size: 12px;
+  font-size: 14px;
+  line-height: 1.6;
+  flex-wrap: nowrap;
 }
 
-.criteria-row p {
+.criteria p {
   margin: 0;
   white-space: nowrap;
   width: 100%;
+  margin-right: 10px;
 }
 
 .text-success .checkmark {
@@ -242,6 +250,58 @@ a {
 
 .arrow-up:hover {
   opacity: 1;
+}
+
+.heroimage-section-content {
+  display: grid;
+  grid-template-rows: auto auto;
+  align-items: center;
+  justify-items: center;
+  text-align: center;
+  margin: 3rem auto; 
+  gap: 1rem; 
+}
+
+.green-textmarker {
+	display: inline-block;
+	background: linear-gradient(
+		100deg,
+		#b8ffaf00 1%,
+		#b8ffaf 2.5%,
+		#b8ffaf80 5.7%,
+		#b8ffaf1a 93%,
+		#b8ffafb4 95%,
+		#b8ffaf00 98%
+	),
+	linear-gradient(182deg, #b8ffaf00, #b8ffaf4d 8%, #b8ffaf00 15%);
+}
+
+.pink-textmarker {
+	display: inline-block;
+	background: linear-gradient(
+		100deg,
+		#ffafd400 1%,
+		#ffafd4 2.5%,
+		#ffafd480 5.7%,
+		#ffafd41a 93%,
+		#ffafd4b4 95%,
+		#ffafd400 98%
+	),
+	linear-gradient(182deg, #ffafd400, #ffafd44d 8%, #ffafd400 15%);
+}
+
+.blue-textmarker {
+	display: inline-block;
+	background: linear-gradient(
+		100deg,
+		#afd7ff00 1%,
+		#afd7ff 2.5%,
+		#afd7ff80 5.7%,
+		#afd7ff1a 93%,
+		#afd7ffb4 95%,
+		#afd7ff00 98%
+	),
+	linear-gradient(182deg, #afd7ff00, #afd7ff4d 8%, #afd7ff00 15%);
 }
 
 .arrow-up img {
@@ -298,7 +358,6 @@ a {
   font-weight: 400;
   font-size: 1rem;
   cursor: pointer;
-  line-height: 24px;
   background-color: #e09e50;
 }
 
@@ -352,15 +411,8 @@ a {
 .description {
   font-family: 'Montserrat', sans-serif;
   font-weight: 600;
-  font-size: 14px;
+  font-size: 16px;
   color: white;
-}
-
-.mainImageContantContainer {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  height: 70vh;
 }
 
 .heroimageContainer {
@@ -384,46 +436,94 @@ a {
 }
 
 .heroimage-section {
-  background-color: #2d3e4e;
+  background-color: slategray;
   background-image: url('../images/noise-light.png');
 }
 
-.primary-heading {
-  font-family: 'Milonga';
-  font-weight: 400;
+h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
   color: white;
-  font-size: 2rem;
   position: relative;
   z-index: 1;
+  font-size: 60px;
+  line-height: 1.2;
 }
 
-.primary-paragraph {
-  font-weight: 400;
-  font-size: 1rem;
-  color: #e09e50;
+h1 ~ p {
   font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  color: whitesmoke;
+  position: relative;
+  z-index: 1;
+  font-size: 20px;
+  line-height: 1.6;
 }
 
-.secondary-Heading {
-  font-family: 'Milonga';
-  font-weight: 400;
-  font-size: 1.5rem;
+h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 48px;
   color: #000;
+  line-height: 1.2;
 }
 
-.secondary-Paragraph {
+h2 ~ p {
   font-family: 'Montserrat', sans-serif;
-  font-weight: 300;
-  font-size: 1.2rem;
-  color: rgba(40, 41, 41, 1);
+  font-weight: 500;
+  font-size: 18px;
+  color: black;
+  line-height: 1.6;
 }
 
-.learnAnythingSection {
-  margin-block: 4rem;
+h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 24px;
+  color: #000;
+  line-height: 1.6;
+}
+
+h3 ~ p {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  color: #000;
+  line-height: 1.6;
+}
+
+h4 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  color: #000;
+  line-height: 1.6;
+}
+
+h4 ~ p {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  color: #000;
+  line-height: 1.6;
+}
+
+.nav-tabs {
+  justify-content: center;
+}
+
+.tab-pane {
+  min-height: 300px;
+}
+
+.problem-solutionSection {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
+  justify-items: center;
+  text-align: center;
+  margin: 3rem auto; 
+  gap: 1rem; 
 }
 
 .buttonContainer {
@@ -433,73 +533,122 @@ a {
   gap: 1rem;
 }
 
-#knowYouMoreBtn,
-#JoinNowBtn {
-  background-color: #e09e50;
-  color: white;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 600;
-  font-size: 14px;
-  text-align: center;
-  outline: none;
-  border: none;
-  padding: 0.5rem 2.5rem;
-  width: 11.5rem;
-  border-radius: 7px;
-}
-
-#JoinNowBtn {
-  width: 11.5rem;
-}
-
-.MathrixButtonContainer {
+.benefitsButtonContainer {
   margin: 1.5rem;
 }
 
-.MathrixSection {
+.benefitsSection {
   background-image: url('../images/bg.png');
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
-  padding-bottom: 5rem;
-  margin-bottom: 1rem;
+  justify-items: center;
+  text-align: center;
+  margin: 3rem 0; 
+  gap: 1rem; 
   background-repeat: no-repeat;
   background-position: center;
   background-size: 100% 100%;
 }
 
-.testomnialDivision {
+.benefitsContainer {
   display: flex;
-  flex-direction: row;
-  gap: 2.5rem;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin: 0.5rem 10rem 0.5rem 10rem;
+  gap: 2rem;
 }
 
-.testimonialCard {
-  display: flex;
+.benefit {
+  flex: 1;
+  padding: 1rem 3rem 1rem 3rem;
+  text-align: center;
+}
+
+.benefit p {
+  display: block;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  text-align: justify;
+  white-space: normal;
+  padding: 2% 10% 0 10%;
+}
+
+.benefit img {
+  width: 225px;
+  height: 225px;
+  height: auto;
+}
+
+.testimonialsSection {
+  align-items: center;
+  justify-items: center;
+  text-align: center;
+  margin: 3rem auto; 
+  gap: 1rem; 
+}
+
+.carousel {
+  position: relative;
+  overflow: hidden;
+  height: 250px;
+}
+
+.carousel-inner {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.1s ease;
+}
+
+.carousel-item {
+  display: none;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
+  justify-content: center;
 }
 
-.testimonialCard img {
-  height: 250px;
-  width: 250px;
+.carousel-item.active {
+  display: flex;
+  width: 350px;
 }
 
-.CardThumbnailSpan {
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 400;
-  font-size: 1.2rem;
-  color: #2d3e4e;
+.carousel-item img {
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  margin-bottom: 10px;
 }
 
-.witnessSection {
-  position: relative;
+.carousel-item p {
+  font-size: 20px;
   text-align: center;
-  padding-bottom: 7rem;
-  padding-top: 2rem;
-  min-height: 41rem;
+  margin: 10px 0;
+}
+
+.carousel-item h4 {
+  font-size: 18px;
+  margin: 0;
+}
+
+.navigation {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.navigation button {
+  background-color: #333;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 0 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.navigation button:hover {
+  background-color: #555;
 }
 
 .MainCardsContainer {
@@ -586,17 +735,28 @@ a {
   color: black;
 }
 
-.tutorialSection {
+.toolpreviewSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
   text-align: center;
+  margin: 3rem 0; 
+  gap: 1rem; 
+ background-image: url('../images/videosectionbackground.png');
+ background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 70%;
 }
 
+
 .crownImg {
-  width: 4rem;
+  width: 7rem;
   align-self: center;
 }
 
-.tutorialSection h1,
-.tutorialSection p {
+.toolpreviewSection h1,
+.toolpreviewSection p {
   align-self: center;
 }
 
@@ -608,7 +768,7 @@ a {
   max-width: 960px; /* Maximale Breite des Containers, anpassbar */
 }
 
-.tutorialCard {
+.toolpreviewCard {
   width: 260px;
   padding: 1rem;
   display: flex;
@@ -619,65 +779,32 @@ a {
   box-shadow: 7px 7px 2px 1px rgb(9, 12, 15);
 }
 
-.cardPara {
+.cardtext {
   font-family: 'Montserrat', sans-serif;
   font-weight: 400;
   font-size: 1rem;
-  color: rgba(40, 41, 41, 1);
+  color: black;
+  padding: 0.5rem 1rem 1rem 1rem;
+  margin: 0;
+  text-align: left;
 }
 
-.cards.img {
-  height: 50px;
-  width: 50px;
-}
-
-.cards {
-  display: block;
-  position: absolute;
-  width: 200px;
-  height: 150px;
-  background-color: rgba(45, 62, 78, 1);
-  clip-path: polygon(51% 4%, 99% 1%, 100% 1%, 100% 80%, 100% 99%, 48% 96%, 1% 99%, 0 0);
-  border-radius: 30px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  padding: 14px;
-}
-
-.parent-card {
-  width: 220px;
-  height: 220px;
-  filter: drop-shadow(-4px -6px 3px rgba(45, 62, 78, 0.2));
-  display: inline-block;
-  position: relative;
-  margin: 13px;
-}
-
-.cards::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 98%;
-  height: 98%;
-  border-radius: 30px;
-  background-color: white;
-  z-index: -1;
-  clip-path: polygon(51% 4%, 99% 1%, 100% 1%, 100% 80%, 100% 99%, 48% 96%, 1% 99%, 0 0);
+.cardheader {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 1.1rem;
+  color: #e09e50;
+  padding: 0.5rem;
+  margin: 0;
+  text-align: center;
 }
 
 .planCardsSection {
   display: flex;
   flex-direction: column;
-  position: relative;
-}
-
-.planCardsSection img {
-  width: 4rem;
-  align-self: center;
+  align-items: center;
+  gap: 1rem; 
+  margin: 3rem auto; 
 }
 
 .planCardsContainer {
@@ -689,6 +816,7 @@ a {
   background-position: center;
   background-size: contain;
   position: relative;
+  margin: 2rem auto;
 }
 
 #upperDesign {
@@ -720,14 +848,10 @@ a {
 
 .planCard.back {
   background: linear-gradient(261.11deg, #3e5972 0%, #2a3f51 90.84%);
-}
-
-.planCard.back .highWeightSpan,
-.planCard.back .planCardParagraph {
   color: #fff;
 }
 
-.headerPlanCard {
+.plancardHeader {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -736,55 +860,45 @@ a {
   border-top-left-radius: 1rem;
   border-top-right-radius: 1rem;
   width: 100%;
-  padding: 0.5rem 1rem;
+  padding: 1rem 1rem 0.5rem 1rem;
 }
 
-.planCardHeading {
-  align-self: center;
-  text-align: center;
-}
-
-.headerPlanCard h6 {
-  font-family: 'Milonga';
-  font-weight: 400;
-  font-size: 1.2rem;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.4rem;
-}
-
-.contentPlanCard ul {
-  padding-left: 0;
-}
-
-.contentPlanCard ul li {
-  font-family: 'Milonga';
-  font-weight: 400;
-  font-size: 1rem;
-  color: black;
-}
-
-.highWeightSpan {
-  font-weight: 700;
-  font-size: 1.8rem;
-  color: black;
-}
-
-.lowWeightSpan {
+.plancardbenefit {
   font-family: 'Montserrat', sans-serif;
   font-weight: 600;
-  font-size: 1rem;
-}
-
-.planCardParagraph {
-  font-weight: 450;
-  font-size: 1.1rem;
+  font-size: 18px;
   text-align: left;
   color: black;
   width: 100%;
-  padding-top: 0.8rem;
+}
+
+.plancardContent {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.highSpan {
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 1.5;
+}
+
+.lowSpan {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.5;
+  text-align: left;
+}
+
+.planCardParagraph { 
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  text-align: left;
+  color: black;
+  width: 100%;
 }
 
 .reset-container {
@@ -819,20 +933,16 @@ a {
 
 .plancardButton {
   width: 200px;
-  height: 35px;
+  height: 40px;
   border-radius: 6px;
   background-color: #e09e50;
   color: white !important;
   font-family: 'Montserrat', sans-serif;
   font-weight: 600;
   text-align: center;
-  outline: none;
   border: none;
-  text-decoration: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
+  font-size: 20px;
+  margin-bottom: 3rem;
 }
 
 .plancardButton:hover {
@@ -848,6 +958,7 @@ a {
   height: 35px;
   border-radius: 6px;
   background-color: #e09e50;
+  font-size: 20px;
   color: white !important;
   font-family: 'Montserrat', sans-serif;
   font-weight: 600;
@@ -855,7 +966,6 @@ a {
   outline: none;
   border: none;
   text-decoration: none;
-/*   display: flex; */
   justify-content: center;
   align-items: center;
   cursor: pointer;
@@ -894,53 +1004,33 @@ a {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.contentPlanCard {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-}
-
-.contentPlanCard2,
-.contentPlanCard3 {
-  padding-top: 3.2rem;
-}
-
-.videoCardsSection {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-  padding-block: 1rem;
-  background-image: url('../images/videos\ Background.png');
-  background-repeat: no-repeat;
-  background-size: contain;
-  overflow: hidden;
-  background-position: center;
-}
-
 #dotsDesign {
   position: absolute;
   left: -5%;
   top: -5%;
 }
 
-.videosCards {
+.videoCardsContainer {
   display: flex;
   flex-direction: row;
-  gap: 1rem;
-  position: relative;
+  flex-wrap: wrap;
+  gap: 2.5rem;
+  padding: 1rem 8rem 1rem 8rem;
 }
 
 .videoCard {
+  border-radius: 1rem;
+  box-shadow: 2px 2px 2px 1px rgb(9, 12, 15);
+  text-align: center;
   overflow: hidden;
-  position: relative;
-  width: 250px;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  align-items: center;
-  margin-block: 2rem;
+  max-width: 30%;
+  background-color: white;
+}
+
+@media (max-width: 768px) {
+  .videoCard {
+      flex: 1 1 100%;
+  }
 }
 
 .thumbnailshow,
@@ -969,15 +1059,15 @@ a {
 }
 
 .frequentlyAskedQuestionSection,
-.joinNowSection {
+.call-to-actionSection {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
+  gap: 1.5rem;
   margin-block: 2rem;
 }
 
-.JoinNowButton {
+.call-to-actionButton {
   background-color: #e09e50;
   color: white;
   font-family: 'Montserrat', sans-serif;
@@ -998,15 +1088,15 @@ a {
   gap: 1rem;
 }
 
-
-
 .questionContentContainer {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 1rem;
   font-family: 'Montserrat', sans-serif;
-  color: rgba(40, 41, 41, 1);
+  color: black;
+  font-weight: 500;
+  font-size: 18px;
   cursor: pointer;
   padding: 1rem;
   border: 1px solid #e09e50;
@@ -1015,14 +1105,17 @@ a {
 }
 
 .questionContentContainer:hover {
-  background-color: #f3f5f6;
+  background-color: lightgrey;
 }
 
 .answerContentContainer {
   font-family: 'Montserrat', sans-serif;
-  color: rgba(40, 41, 41, 1);
+  color: black;
+  font-weight: 400;
+  font-size: 16px;
   display: none;
-  margin: 5px 0px 0px 35px;
+  margin: 1rem;
+  line-height: 1.6;
 }
 
 .showAnswerDiv {
@@ -1054,14 +1147,6 @@ a {
   border: 1px solid black;
 }
 
-.footerHeading {
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 400;
-  font-size: 1rem;
-  color: rgba(40, 41, 41, 1) !important;
-  text-decoration: none;
-}
-
 .anchorTags a {
   font-family: 'Montserrat', sans-serif;
   font-weight: 400;
@@ -1086,8 +1171,8 @@ a {
 }
 
 #footerLogo {
-  width: 133px;
-  height: 77px;
+  width: 110px;
+  height: 63px;
 }
 
 .footerUpperSection {
@@ -1184,20 +1269,14 @@ a {
   .RightContainer {
     gap: 1rem;
   }
-  .mainImageContantContainer {
-    flex-direction: column;
-    align-items: center;
-    height: auto;
-  }
+
   .contentContainer {
     text-align: center;
     margin-left: 1.5rem;
     margin-block: 1rem;
     padding-block: 1rem;
   }
-  .primary-paragraph {
-    width: 95%;
-  }
+
   .contentContainer img {
     left: 45%;
     top: 13%;
@@ -1211,18 +1290,8 @@ a {
     max-width: 100%;
     width: 480px;
     height: 446px;
-    /* text-align: center; */
   }
-  .MathrixSection {
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-  }
-  .testomnialDivision {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1rem;
-  }
+
   .MainCardsContainer {
     flex-wrap: wrap;
     justify-content: center;
@@ -1233,9 +1302,7 @@ a {
   .shadowOfCard2 {
     top: 6%;
   }
-  /* .witnessSection {
-    min-height: 41rem;
-  } */
+
   .cardsContainer {
     grid-template-columns: 1fr 1fr 1fr;
   }
@@ -1247,13 +1314,13 @@ a {
   #lowerDesign {
     bottom: -5%;
   }
-  .videoCardsSection {
-    background-size: cover;
-  }
+
+
   .videoCardsContainer {
     flex-wrap: wrap;
     justify-content: center;
   }
+
   .videoCard {
     gap: 1rem;
     margin-block: 1rem;
@@ -1264,9 +1331,7 @@ a {
   .buttonContainerNav {
     display: none;
   }
-  /* .anchorTagsContainer {
-    display: none;
-  } */
+
   .barIconContainer {
     display: block;
   }
@@ -1290,15 +1355,8 @@ a {
   .RightContainer {
     gap: 1rem;
   }
-  .testomnialDivision {
-    flex-direction: column;
-    justify-content: center;
-  }
-  .card {
-    top: 10%;
-    left: 2%;
-  }
-  .CardDiv {
+
+.CardDiv {
     margin-block: 3.5rem;
   }
   .shadowOfCard {
@@ -1312,7 +1370,7 @@ a {
   .cardsContainer {
     grid-template-columns: 1fr 1fr;
   }
-  .buttonContainerJoinNowSec img {
+  .buttonContainercall-to-actionSec img {
     display: none;
   }
   .questionContentContainer {
@@ -1332,10 +1390,10 @@ a {
     grid-template-columns: 1fr;
     place-items: center;
   }
-  .joinNowSection {
+  .call-to-actionSection {
     padding: 1rem;
   }
-  .buttonContainerJoinNowSec {
+  .buttonContainercall-to-actionSec {
     flex-direction: column;
     justify-content: center;
   }
@@ -1421,10 +1479,11 @@ a {
   align-items: flex-start;
   font-family: 'Montserrat', sans-serif;
   font-weight: 400;
-  font-size: 14px;
-  color: rgba(40, 41, 41, 1);
+  color: black;
   margin-left: auto;
   margin-right: auto;
+  margin-top: 0.5rem;
+  padding: 0.5rem;
 }
 
 .primary-heading-forget {
@@ -1483,13 +1542,6 @@ a {
   display: none;
 }
 
-.primary-heading-login {
-  font-family: 'Milonga';
-  font-weight: 400;
-  font-size: 28px;
-  color: black;
-}
-
 #haveaccountSpan {
   font-family: 'Montserrat', sans-serif;
 }
@@ -1517,13 +1569,6 @@ a {
   right: 7%;
 }
 
-.emailInput {
-  margin-top: 0.5rem;
-  padding: 0.5rem;
-  display: flex;
-  flex-direction: column;
-}
-
 .emailField,
 .password-field,
 .forgot-password {
@@ -1532,8 +1577,8 @@ a {
   position: relative;
   font-family: 'Montserrat', sans-serif;
   font-weight: 400;
-  font-size: 14px;
-  color: rgba(40, 41, 41, 1);
+  font-size: 16px;
+  color: black;
 }
 
 .password-field {
@@ -1549,7 +1594,7 @@ a {
 
 .emailLogin {
   display: block;
-  padding: 0.6rem;
+  padding: 0.4rem;
   border-radius: 10px;
   margin: 0.5rem auto;
   width: 90%;
@@ -1594,13 +1639,10 @@ input[type='password'] {
 
 input[type='submit'] {
   color: white;
-  font-weight: 400;
-  width: 90%;
   background-color: #e09e50;
   font-family: 'Montserrat', sans-serif;
-  font-weight: 600;
-  font-size: 14px;
-  color: white;
+  font-weight: 500;
+  font-size: 18px;
 }
 
 .sign-form > p {
@@ -1706,11 +1748,6 @@ input[type='submit'] {
   }
 }
 
-.carousel-item {
-  background-color: #fff;
-  height: 100vh;
-}
-
 .image_box_first {
   width: 922px;
   height: 624px;
@@ -1755,7 +1792,7 @@ input[type='submit'] {
   position: absolute;
 }
 
-.tutorial_sec {
+.toolpreview_sec {
   place-items: center;
   position: fixed;
   z-index: 2;
@@ -1766,7 +1803,7 @@ input[type='submit'] {
   display: none;
 }
 
-.tutorial_sec .content_box {
+.toolpreview_sec .content_box {
   position: relative;
 }
 
@@ -1822,7 +1859,7 @@ button[disabled] {
   text-decoration: none;
   color: #fff;
   margin-bottom: 1rem;
-  font-size: 21px;
+  font-size: 20px;
   border-radius: 11px;
 }
 
@@ -1857,7 +1894,7 @@ button[disabled] {
   height: 326px;
 }
 
-.learnAnythingImage {
+.problem-solutionImage {
   width: 900px;
   height: 449px;
 }
@@ -1866,7 +1903,7 @@ button[disabled] {
   .video_sec {
     height: 314px;
   }
-  .learnAnythingImage {
+  .problem-solutionImage {
     width: 700px;
     height: 329px;
   }
@@ -1884,7 +1921,7 @@ button[disabled] {
   .video_sec {
     height: auto;
   }
-  .learnAnythingImage {
+  .problem-solutionImage {
     /* width: 300px;
         height: 329px; */
     display: none;
@@ -1935,9 +1972,8 @@ h1 img {
   font-size: 14px;
   font-style: normal;
   font-weight: 600;
-  line-height: normal;
   letter-spacing: -0.014px;
-  line-height: 1.5;
+  line-height: 1.6;
   margin-bottom: 0.5rem;
 }
 
@@ -1948,120 +1984,14 @@ h1 img {
   height: 30px;
 }
 
-.sup_plan {
-  border-radius: 20px;
-  background: rgba(232, 129, 40, 0.15);
-  position: relative;
-  overflow: hidden;
-  padding: 31px;
-  text-align: center;
-}
-
-.sup_plan .p1 {
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-.sup_plan .p2 {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-}
-
-.geni_image {
-  display: block;
-  width: 87px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.sup_plan .head {
-  color: #2d3e4e;
-  font-family: Milonga;
-  font-size: 24px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 38px;
-  letter-spacing: -0.763px;
-  display: block;
-}
-
-.sup_plan .sub_head {
-  color: #e09e50;
-  text-align: center;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 300;
-  line-height: 24.85px;
-  letter-spacing: -0.15px;
-}
-
-.planCard {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-  width: 280px;
-  box-shadow: 0px 0px 4px 4px rgba(0, 0, 0, 0.1);
-  border-top-left-radius: 1rem;
-  border-top-right-radius: 1rem;
-  margin: 1rem;
-  background-color: white;
-  position: relative;
-  z-index: 1;
-}
-
-.headerPlanCard {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-  background: linear-gradient(261.11deg, #3e5972 0%, #2a3f51 90.84%);
-  border-top-left-radius: 1rem;
-  border-top-right-radius: 1rem;
-  width: 100%;
-  padding: 0.5rem 1rem;
-}
-
-.headerPlanCard img {
+.plancardHeader img {
   width: 64px;
   height: 64px;
-}
-
-.planCardHeading {
-  align-self: center;
-  text-align: center;
-}
-
-.headerPlanCard h6 {
-  font-family: 'Milonga', cursive;
-  font-weight: 400;
-  font-size: 1.5rem;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: left;
-  gap: 0.4rem;
-}
-
-.contentPlanCard ul {
-  padding-left: 0;
-}
-
-.contentPlanCard ul li {
-  font-family: 'Milonga', cursive;
-  font-weight: 400;
-  font-size: 1rem;
-  color: black;
 }
 
 .hidden {
   display: none;
 }
-
-
 
 .text-success {
   color: green;
@@ -2089,19 +2019,6 @@ h1 img {
   height: 23px;
 }
 
-.criteria-row {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.8em;
-  line-height: 1.2;
-  flex-wrap: nowrap;
-}
-
-.criteria-row p {
-  margin-right: 10px;
-  white-space: nowrap;
-}
-
 .text-success .checkmark {
   color: green;
   animation: highlight 0.5s ease-in-out;
@@ -2117,31 +2034,6 @@ h1 img {
   100% { transform: scale(1); }
 }
 
-.highWeightSpan {
-  font-weight: 700;
-  font-size: 1.8rem;
-  color: black;
-}
-
-.lowWeightSpan {
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 600;
-  font-size: 1rem;
-}
-
-.planCardParagraph {
-  font-family: 'Montserrat', sans-serif;
-  text-align: left;
-  width: 100%;
-}
-
-.contentPlanCard {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-}
-
 .submit_button {
   border-radius: 10px;
   background: #e09e50;
@@ -2149,7 +2041,6 @@ h1 img {
   font-size: 16px;
   font-style: normal;
   font-weight: 600;
-  line-height: normal;
   letter-spacing: -0.014px;
   border: none;
   padding: 14px 40px;
@@ -2195,11 +2086,6 @@ footer.mainFooterContainer {
   bottom: 0;
   width: 100%;
   margin-top: auto;
-}
-
-#footerLogo {
-  width: 133px;
-  height: 77px;
 }
 
 .footerUpperSection {
@@ -2275,24 +2161,31 @@ footer.mainFooterContainer {
 
 .footerHeading {
   font-family: 'Montserrat', sans-serif;
-  font-weight: 400;
-  font-size: 1rem;
-  color: rgba(40, 41, 41, 1) !important;
+  font-weight: 500;
+  font-size: 16px;
+  color: black;
   text-decoration: none;
 }
 
-.anchorTags a {
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 400;
-  font-size: 14px;
-  color: rgba(83, 83, 83, 1);
-  text-decoration: none;
+.password-field {
+  position: relative;
 }
 
-.anchorTags a:hover {
-  color: #f28816;
+.password-field input {
+  padding-right: 10px; /* Platz für das Auge-Symbol, 15px mehr als vorher */
+}
+
+.password-field .toggle-password {
+  position: absolute;
+  top: 50%;
+  right: 25px; /* 15px weiter nach links verschoben */
+  transform: translateY(-50%);
   cursor: pointer;
-  text-decoration: underline;
+}
+
+.password-field .toggle-password img {
+  width: 21px;
+  height: 21px;
 }
 
 button:disabled,
@@ -2333,15 +2226,6 @@ button[disabled] {
   margin-bottom: 1rem;
   font-size: 21px;
   border-radius: 11px;
-}
-
-.planCard.back {
-  background: linear-gradient(261.11deg, #3e5972 0%, #2a3f51 90.84%);
-}
-
-.planCard.back .highWeightSpan,
-.planCard.back .planCardParagraph {
-  color: #fff;
 }
 
 *::-webkit-scrollbar {

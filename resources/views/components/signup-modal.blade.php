@@ -11,6 +11,7 @@
                     <div class="text-center">
                         <img src="{{ asset('asset/images/Logo_(2).png') }}" width="133" height="77" alt="Logo" loading="lazy">
                     </div>
+                    
                     <div class="main">
                         <form method="POST" action="{{ route('register.post') }}" id="registerForm">
                             @csrf
@@ -33,13 +34,12 @@
                                 </div>
                                 <div id="passwordCriteria" class="criteria-container mt-2">
                                     <div class="criteria-row">
-                                    <p id="lengthCriteria" class="text-danger"><span class="checkmark">✘</span> 8 Zeichen</p>
-                                        
-                                        <p id="uppercaseCriteria" class="text-danger"><span class="checkmark">✘</span> Großbuchstabe</p>
+                                        <span id="lengthCriteria" class="text-danger"><span class="checkmark">✘</span> 8 Zeichen</span><br>
+                                        <span id="uppercaseCriteria" class="text-danger"><span class="checkmark">✘</span> Großbuchstabe</span><br>
                                     </div>
                                     <div class="criteria-row">
-                                        <p id="numberCriteria" class="text-danger"><span class="checkmark">✘</span> Zahl</p>
-                                        <p id="specialCharCriteria" class="text-danger"><span class="checkmark">✘</span> Sonderzeichen</p>
+                                        <span id="numberCriteria" class="text-danger"><span class="checkmark">✘</span> Zahl</span><br>
+                                        <span id="specialCharCriteria" class="text-danger"><span class="checkmark">✘</span> Sonderzeichen</span><br>
                                     </div>
                                 </div>
                                 <input type="submit" value="Registrieren" class="emailLogin">
@@ -90,14 +90,11 @@
         });
 
         function togglePasswordVisibility() {
-            const passwordFields = document.querySelectorAll('.password-field input');
-            const toggleIcons = document.querySelectorAll('.toggle-password img');
-
-            passwordFields.forEach((field, index) => {
-                const type = field.getAttribute('type') === 'password' ? 'text' : 'password';
-                field.setAttribute('type', type);
-                toggleIcons[index].src = type === 'password' ? "{{ asset('asset/images/eye.svg') }}" : "{{ asset('asset/images/eye-off.svg') }}";
-            });
+            const passwordField = document.getElementById('password_register');
+            const toggleIcon = document.querySelector('.toggle-password img');
+            const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordField.setAttribute('type', type);
+            toggleIcon.src = type === 'password' ? "{{ asset('asset/images/eye.svg') }}" : "{{ asset('asset/images/eye-off.svg') }}";
         }
 
         function updateCriteria() {

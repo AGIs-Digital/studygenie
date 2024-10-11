@@ -1,27 +1,25 @@
-<!-- Fügen Sie den PayPal SDK ein -->
 <script src="https://www.paypal.com/sdk/js?client-id=Ae9G4SKK4gDuWY0Yw7J_6irXsfPepGSudxvUktzRQlYbdnOKTaDp2xmuC1mCWS6GTvalCH9Owt-HUl4S&vault=true&intent=subscription"></script>
 <script src="{{ asset('asset/js/toast.js') }}"></script>
 
 <div class="planCardsContainer">
     <img id="upperDesign" src="{{ asset('asset/images/patterns.png') }}" alt="Oberes Design" loading="lazy">
-    
-    <div class="planCard">
-        <div class="headerPlanCard">
-            <img class="crownImg" src="{{ asset('asset/images/landingpage/silber.png') }}" alt="Kronenbild Silber" loading="lazy">
-            <h1 class="secondary-Heading" style="color: #fff">Silber</h1>
-        </div>
-        <div class="contentPlanCard contentPlanCard1">
-            <span class="highWeightSpan">Kostenlos<span class="lowWeightSpan"><span><br />Du bekommst:</span></span>
-            <p class="planCardParagraph">
 
+    <div class="planCard">
+        <div class="plancardHeader">
+            <img class="crownImg" src="{{ asset('asset/images/landingpage/silber.png') }}" alt="Kronenbild Silber" loading="lazy">
+            <h2 style="color: #fff">Silber</h2>
+        </div>
+        <div class="plancardContent">
+            <span class="highSpan">Kostenlos<span class="lowSpan"><br /></span></span>
+            <p class="plancardbenefit">Du bekommst:</p>
+            <p class="planCardParagraph">
                 <span class="textmarker">✓ Intelligente Soforthilfe</span><br />
                 <span class="textmarker">✓ Traumberuf finden</span><br />
-                <span class="textmarker">✓ Berufsinformationen</span><br /> 
+                <span class="textmarker">✓ Berufsinformationen</span><br />
             </p>
-            </span>
         </div>
         @guest
-            <button data-bs-toggle="modal" data-bs-target="#loginModal" class="plancardButton">Kostenlos</button>
+            <button data-bs-toggle="modal" data-bs-target="#signupModal" class="plancardButton">Kostenlos</button>
         @else
             @if(auth()->user()->subscription_name == 'silber')
                 <button class="plancardButton" disabled>Aktueller Status</button>
@@ -30,22 +28,40 @@
             @endif
         @endguest
     </div>
-    
-    <div class="planCard">
-        <div class="headerPlanCard">
-            <img class="crownImg" src="{{ asset('asset/images/landingpage/gold.png') }}" alt="Kronenbild Gold" loading="lazy">
-            <h1 class="secondary-Heading" style="color: #fff">Gold</h1>
+    <!-- Bestätigungsmodal für Silber -->
+    <div class="modal fade" id="confirmSilberModal" tabindex="-1" aria-labelledby="confirmSilberModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="confirmSilberModalLabel">Abo zu Silber wechseln</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Möchtest du wirklich zu Silber wechseln? Du hast dann nach Ablauf deines jetzigen Plans keinen Zugriff auf manche Tools mehr.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Abo behalten</button>
+                        <button type="button" class="btn btn-danger" id="confirmSilberButton">Silber</button>
+                    </div>
+                </div>
         </div>
-        <div class="contentPlanCard contentPlanCard1">
-            <span class="highWeightSpan">10 € <span class="lowWeightSpan">/ Monat<span><br />Alles aus Silber +</span></span>
+    </div>
+
+    <div class="planCard">
+        <div class="plancardHeader">
+            <img class="crownImg" src="{{ asset('asset/images/landingpage/gold.png') }}" alt="Kronenbild Gold" loading="lazy">
+            <h2 style="color: #fff">Gold</h2>
+        </div>
+        <div class="plancardContent">
+            <span class="highSpan">10 € <span class="lowSpan">/ Monat<br /></span></span>
+            <p class="plancardbenefit">Alles aus Silber +</p>
             <p class="planCardParagraph">
-                <span class="blue-textmarker">✓ Textinspirationen</span><br /> 
-                <span class="blue-textmarker">✓ Textanalysen</span><br /> 
-                <span class="blue-textmarker">✓ Bewerbungsunterlagen</span><br /> 
+                <span class="blue-textmarker">✓ Textinspirationen</span><br />
+                <span class="blue-textmarker">✓ Textanalysen</span><br />
+                <span class="blue-textmarker">✓ Bewerbungsunterlagen</span><br />
             </p>
-            </span>
             @guest
-                <button data-bs-toggle="modal" data-bs-target="#loginModal" class="plancardButton">Hol dir Gold</button>
+                <button data-bs-toggle="modal" data-bs-target="#signupModal" class="plancardButton">Hol dir Gold</button>
             @else
                 @if(auth()->user()->subscription_name == 'gold')
                     <button class="plancardButton" disabled>Aktueller Status</button>
@@ -54,9 +70,8 @@
                 @endif
             @endguest
         </div>
-        <br />
     </div>
-    
+
     <!-- Modal für PayPal Gold -->
     <div class="modal fade" id="paypalModalGold" tabindex="-1" aria-labelledby="paypalModalGoldLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -71,23 +86,23 @@
             </div>
         </div>
     </div>
-    
+
     <div class="planCard">
-        <div class="headerPlanCard">
+        <div class="plancardHeader">
             <div class="ribbon ribbon-top-left"><span>Empfohlen</span></div>
             <img class="crownImg" src="{{ asset('asset/images/landingpage/diamant.png') }}" alt="Kronenbild Diamant" loading="lazy">
-            <h1 class="secondary-Heading" style="color: #fff">Diamant</h1>
+            <h2 style="color: #fff">Diamant</h2>
         </div>
-        <div class="contentPlanCard contentPlanCard1">
-            <span class="highWeightSpan">20 € <span class="lowWeightSpan">/ Monat<span><br />Alles aus Gold +</span></span>
+        <div class="plancardContent">
+            <span class="highSpan">20 € <span class="lowSpan">/ Monat<br /></span></span>
+            <p class="plancardbenefit">Alles aus Gold ++</p>
             <p class="planCardParagraph">
-                <span class="green-textmarker">✓ Tutor</span><br /> 
+                <span class="green-textmarker">✓ Tutor</span><br />
                 <span class="green-textmarker">✓ Karriere Mentor</span>
                 <br /><br />
             </p>
-            </span>
             @guest
-                <button data-bs-toggle="modal" data-bs-target="#loginModal" class="plancardButton">Hol dir Diamant</button>
+                <button data-bs-toggle="modal" data-bs-target="#signupModal" class="plancardButton">Hol dir Diamant</button>
             @else
                 @if(auth()->user()->subscription_name == 'diamant')
                     <button class="plancardButton" disabled>Aktueller Status</button>
@@ -97,7 +112,7 @@
             @endguest
         </div>
     </div>
-    
+
     <!-- Modal für PayPal Diamant -->
     <div class="modal fade" id="paypalModalDiamant" tabindex="-1" aria-labelledby="paypalModalDiamantLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -112,131 +127,113 @@
             </div>
         </div>
     </div>
-    
+
     <img id="lowerDesign" src="{{ asset('asset/images/patterns1.png') }}" alt="Unteres Design" loading="lazy">
 </div>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
 <script>
-    function showToast(message, type) {
-        // Implementiere die Toast-Anzeige hier
-        console.log(message);
+    document.addEventListener('DOMContentLoaded', function() {
+        const subscription_name = @json(auth()->check() ? auth()->user()->subscription_name : '');
+        if (localStorage.getItem('subscription_updated') === 'true') {
+            showSuccessMessage(subscription_name);
+            if (subscription_name !== 'silber' && subscription_name !== '') {
+                showConfetti();
+            }
+            localStorage.removeItem('subscription_updated');
+        }
+    });
+
+    function showConfetti() {
+        // Zufällige Werte für particleCount und spread zwischen 100 und 400
+        const particleCount1 = Math.floor(Math.random() * 301) + 100; // 100-400
+        const spread1 = Math.floor(Math.random() * 301) + 100;
+        const origin1 = { x: Math.random(), y: Math.random() };
+
+        confetti({
+            particleCount: particleCount1,
+            spread: spread1,
+            origin: origin1
+        });
+
+        setTimeout(() => {
+            const particleCount2 = Math.floor(Math.random() * 301) + 100;
+            const spread2 = Math.floor(Math.random() * 301) + 100;
+            const origin2 = { x: Math.random(), y: Math.random() };
+
+            confetti({
+                particleCount: particleCount2,
+                spread: spread2,
+                origin: origin2
+            });
+        }, 1500);
     }
-    function showSuccessMessage() {
-            const modalHTML = `
+
+    function showSuccessMessage(plan_name) {
+        const modalHTML = `
             <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-body text-center">
-                            <p>Herzlichen Glückwunsch! Du hast ein Diamant-Abonnement erhalten.</p>
+                            <p>${plan_name === 'silber' ? `Du bist jetzt wieder ${plan_name} Abonnent.` : `Herzlichen Glückwunsch! Du bist jetzt ${plan_name} Abonnent.`}</p>
                         </div>
                     </div>
                 </div>
             </div>
         `;
-            document.body.insertAdjacentHTML('beforeend', modalHTML);
-            const successModal = new bootstrap.Modal(document.getElementById('successModal'));
-            successModal.show();
+        document.body.insertAdjacentHTML('beforeend', modalHTML);
+        const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+        successModal.show();
 
-            setTimeout(() => {
-                $('#successModal').fadeOut(4000, () => {
-                    successModal.hide();
-                    document.getElementById('successModal').remove();
+        setTimeout(() => {
+            $('#successModal').fadeOut(4000, () => {
+                successModal.hide();
+                document.getElementById('successModal').remove();
+            });
+        }, 2000);
+    }
+
+    // Funktion zum Erstellen und Rendern von PayPal-Buttons
+    function createPayPalButton(planId, planName, buttonId) {
+        paypal.Buttons({
+            createSubscription: function(data, actions) {
+                return actions.subscription.create({
+                    'plan_id': planId
                 });
-            }, 2000);
-        }
-
-    function showConfetti() {
-        // Implementiere die Konfetti-Animation hier
-        console.log('Confetti animation');
+            },
+            onApprove: function(data, actions) {
+                fetch('{{ route('subscriptions.update') }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify({ plan_name: planName })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.message === 'Subscription updated successfully') {
+                        location.reload();
+                        localStorage.setItem('subscription_updated', 'true');
+                        showToast(`Herzlichen Glückwunsch, du bist nun ein ${planName}-Abonnent!`, 'success');
+                        showConfetti();
+                    }
+                });
+            }
+        }).render(buttonId);
     }
 
-    // Render PayPal buttons for Gold and Diamant subscriptions
-    paypal.Buttons({
-        createSubscription: function(data, actions) {
-            return actions.subscription.create({
-                'plan_id': '{{ config('services.paypal.gold_plan_id') }}'
-            });
-        },
-        onApprove: function(data, actions) {
-            fetch('{{ route('subscriptions.update') }}', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                },
-                body: JSON.stringify({ plan_name: 'gold' })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.message === 'Subscription updated successfully') {
-                    location.reload();
-                    showToast('Herzlichen Glückwunsch, du bist nun ein Gold-Abonnent!', 'success');
-                    showConfetti();
-
-                }
-            });
-        }
-    }).render('#paypal-button-gold');
-
-    paypal.Buttons({
-        createSubscription: function(data, actions) {
-            return actions.subscription.create({
-                'plan_id': '{{ config('services.paypal.diamant_plan_id') }}'
-            });
-        },
-        onApprove: function(data, actions) {
-            fetch('{{ route('subscriptions.update') }}', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                },
-                body: JSON.stringify({ plan_name: 'diamant' })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.message === 'Subscription updated successfully') {
-                    location.reload();
-                    showToast('Herzlichen Glückwunsch, du bist nun ein Diamant-Abonnent!', 'success');
-                    showConfetti();
-                }
-            });
-        }
-    }).render('#paypal-button-diamant');
-</script>
-<!-- Bestätigungsmodal für Silber -->
-<div class="modal fade" id="confirmSilberModal" tabindex="-1" aria-labelledby="confirmSilberModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="confirmSilberModalLabel">Abo zu Silber wechseln</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                Möchtest du wirklich zu Silber wechseln? Du hast dann nach Ablauf deines jetzigen Plans keinen Zugriff auf manche Tools mehr.
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Abo behalten</button>
-                <button type="button" class="btn btn-danger" id="confirmSilberButton">Silber</button>
-            </div>
-        </div>
-    </div>
-</div>
-<script>
-    function showToast(message, type) {
-        // Implementiere die Toast-Anzeige hier
-        console.log(message);
-    }
-
-    function showConfetti() {
-        // Implementiere die Konfetti-Animation hier
-        console.log('Confetti animation');
-    }
+    // PayPal-Buttons für Gold und Diamant rendern
+    createPayPalButton('{{ config('services.paypal.gold_plan_id') }}', 'gold', '#paypal-button-gold');
+    createPayPalButton('{{ config('services.paypal.diamant_plan_id') }}', 'diamant', '#paypal-button-diamant');
 
     document.addEventListener('DOMContentLoaded', function() {
-        // Event Listener für den Silber-Button
-        document.getElementById('silberButton').addEventListener('click', function() {
-            $('#confirmSilberModal').modal('show');
-        });
+        // Überprüfen, ob der Silber-Button existiert, bevor der Event Listener hinzugefügt wird
+        const silberButton = document.getElementById('silberButton');
+        if (silberButton) {
+            silberButton.addEventListener('click', function() {
+                $('#confirmSilberModal').modal('show');
+            });
+        }
 
         // Event Listener für den Bestätigungsbutton im Modal
         document.getElementById('confirmSilberButton').addEventListener('click', function() {
@@ -251,15 +248,11 @@
             .then(response => response.json())
             .then(data => {
                 if (data.message === 'Subscription updated successfully') {
-                    location.reload(); // Seite neu laden
+                    location.reload();
+                    localStorage.setItem('subscription_updated', 'true');
+                    showToast(`Herzlichen Glückwunsch, du bist nun ein Silber-Abonnent!`, 'success');
                 }
             });
         });
-
-        // Überprüfen, ob die Seite neu geladen wurde
-        if (performance.navigation.type === 1) {
-            showToast('Du hast jetzt den Silber Status', 'success');
-            showConfetti();
-        }
     });
 </script>

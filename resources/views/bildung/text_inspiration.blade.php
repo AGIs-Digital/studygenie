@@ -93,29 +93,28 @@
                                         <div class="col-md-6">
                                             <label>
                                                 <input type="radio" name="field5" value="Inhaltsverzeichnis">
-                                                <i>Inhaltsverzeichnis</i>
+                                                Inhaltsverzeichnis
                                             </label>
                                         </div>
                                         <div class="col-md-6">
                                             <label>
                                                 <input type="radio" name="field5" value="Einleitung">
-                                                <i>Einleitung</i>
+                                                Einleitung
                                             </label>
                                         </div>
                                         <div class="col-md-6">
                                             <label>
                                                 <input type="radio" name="field5" value="Hauptteil">
-                                                <i>Hauptteil</i>
+                                                Hauptteil
                                             </label>
                                         </div>
                                         <div class="col-md-6">
                                             <label>
                                                 <input type="radio" name="field5" value="Schluss">
-                                                <i>Schluss</i>
+                                                Schluss
                                             </label>
                                         </div>
                                     </div>
-                                    <br>
                                     <div class="group-box">
                                         <span class="small_text_font">Bisheriger Text:
                                             <strong type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Gib deinen Text ein, um ihn weiterformulieren zu lassen.">
@@ -124,7 +123,7 @@
                                         </span>
                                         <textarea name="field6" id="field_6" rows="10" style="width:100%;" oninput="this.style.height = '';this.style.height = this.scrollHeight + 'px'" placeholder="Deinen aktuellen Text hier eingeben"></textarea>
                                     </div>
-                                    <br>
+
                                 </div>
                                 <div class="text-center" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
                                     <button type="button" class="send_button" id="submitForm">Absenden</button>
