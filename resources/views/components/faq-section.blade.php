@@ -1,6 +1,6 @@
 <section class="frequentlyAskedQuestionSection">
-    <img src="{{ asset('asset/images/23.png') }}" alt="Z Design" loading="lazy">
-    <h1 class="secondary-Heading">Wissenswertes über StudyGenie</h1>
+    <img src="{{ asset('asset/images/fragezeichenorange.png') }}" alt="Z Design" loading="lazy">
+    <h2>Wissenswertes über StudyGenie</h2>
     <div class="questionsContainer">
         <div class="question">
             <div class="questionContentContainer">

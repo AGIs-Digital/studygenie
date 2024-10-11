@@ -19,14 +19,14 @@
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-12">
-                <h1 style="font-size: 28px;">
+                <h1>
                     {{ auth()->user()->name }} - Einstellungen
                     <img src="{{ asset('asset/images/profile.svg') }}">
                 </h1>
             </div>
         </div>
 
-        <!-- Display errors and success messages -->
+        <!-- Fehler und Erfolgsmeldungen anzeigen -->
         @foreach ($errors->all() as $error)
             <p class="text-danger">{{ $error }}</p>
         @endforeach
@@ -35,7 +35,6 @@
             <div class="alert alert-success mt-4">
                 <strong>{{ Session::get('success') }}</strong>
             </div>
-            
         @endif
 
         @if(Session::has('error'))
@@ -44,17 +43,17 @@
             </div>
         @endif
 
-        <!-- Password change form -->
+        <!-- Passwort ändern Formular -->
         <form method="POST" action="{{ route('change.password') }}">
             @csrf
             <div class="content">
-                <!-- Subscription plans -->
+                <!-- Abonnement-Pläne -->
                 <div class="row">
                     @include('components.plancards-section')
                 </div>
                 <br />
 
-                <!-- Account settings and password change -->
+                <!-- Kontoeinstellungen und Passwort ändern -->
                 <div class="row">
                     <div class="col-12 d-flex justify-content-center">
                         <button id="changePasswordButton" type="button" class="btn btn-outline-primary mx-2">Passwort ändern</button>
@@ -64,34 +63,37 @@
                     <div id="passwordChangeForm" class="hidden mt-4">
                         <div class="row changePasswordForm">
                             <div class="col-md-4">
-                                <div class="input_group">
-                                    <label for="old_password">Altes Passwort?</label>
-                                    <input type="password" id="old_password" name="old_password" class="form-control form-control-sm">
+                                <div class="emailField">
+                                    <label class="label" for="old_password">Altes Passwort?</label>
+                                    <input type="password" id="old_password" name="old_password" class="emailLogin">
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <div class="input_group">
-                                    <label for="password">Neues Passwort:</label>
+                                <div class="emailField">
+                                    <label class="label" for="password">Neues Passwort:</label>
                                     <div class="password-field">
-                                        <input type="password" id="password" name="password" class="form-control form-control-sm">
+                                        <input type="password" id="password" name="password" class="emailLogin">
                                         <span class="toggle-password" onclick="togglePasswordVisibility()">
                                             <img src="{{ asset('asset/images/eye.svg') }}" alt="Toggle Password Visibility" width="25" height="25">
                                         </span>
                                     </div>
+
                                     <div id="passwordCriteria" class="criteria-container mt-2">
                                         <div class="criteria-row">
-                                            <p id="lengthCriteria" class="text-danger"><span class="checkmark">✘</span> 8 Zeichen</p>
-                                            <p id="uppercaseCriteria" class="text-danger"><span class="checkmark">✘</span> Großbuchstabe</p>
-                                            <p id="numberCriteria" class="text-danger"><span class="checkmark">✘</span> Zahl</p>
-                                            <p id="specialCharCriteria" class="text-danger"><span class="checkmark">✘</span> Sonderzeichen</p>
+                                            <span id="lengthCriteria" class="text-danger"><span class="checkmark">✘</span> 8 Zeichen</span><br>
+                                            <span id="uppercaseCriteria" class="text-danger"><span class="checkmark">✘</span> Großbuchstabe</span><br>
+                                        </div>
+                                        <div class="criteria-row">
+                                            <span id="numberCriteria" class="text-danger"><span class="checkmark">✘</span> Zahl</span><br>
+                                            <span id="specialCharCriteria" class="text-danger"><span class="checkmark">✘</span> Sonderzeichen</span><br>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <div class="input_group">
-                                    <label for="new_confirm_password">Neues Passwort?</label>
-                                    <input type="password" id="new_confirm_password" name="new_confirm_password" class="form-control form-control-sm">
+                                <div class="emailField">
+                                    <label class="label" for="new_confirm_password">Neues Passwort?</label>
+                                    <input type="password" id="new_confirm_password" name="new_confirm_password" class="emailLogin">
                                 </div>
                             </div>
                         </div>
@@ -108,7 +110,7 @@
 
     @include('components.footer')
 
-    <!-- Payment Modal -->
+    <!-- Zahlungs Modal -->
     <div class="modal fade" id="payment_modal" tabindex="-1" aria-labelledby="payment_modalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -121,7 +123,7 @@
         </div>
     </div>
 
-    <!-- Delete Account Modal -->
+    <!-- Account löschen Modal -->
     <div class="modal fade" id="deleteAccountModal" tabindex="-1" aria-labelledby="deleteAccountModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -130,7 +132,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    Bist du sicher, dass dein Account und alle damit verbundenen Daten dauerhaft gelösch werden soll? Das kann nicht rückgängig gemacht werden!
+                    Bist du sicher, dass dein Account und alle damit verbundenen Daten dauerhaft gelöscht werden sollen? Das kann nicht rückgängig gemacht werden!
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Abbrechen</button>
@@ -144,61 +146,42 @@
         </div>
     </div>
 
-    <!-- Silber confirmation -->
-    <div class="modal fade" id="confirmSilberModal" tabindex="-1" aria-labelledby="confirmSilberModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="confirmSilberModalLabel">Abo zu Silber wechseln</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    Möchtest du wirklich zu Silber wechseln? Du hast dann nach Ablauf deines jetzigen Plans keinen Zugriff auf manche Tools mehr.
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">Abo behalten</button>
-                    <button type="button" class="btn btn-danger" id="confirmSilberButton">Silber</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <script src="{{ asset('asset/js/toast.js') }}"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            
+
             // PayPal Button Rendering
             function renderPayPalButton(route, plan) {
-        paypal.Buttons({
-            createOrder: function(data, actions) {
-                return fetch(route, {
-                    method: 'post',
-                    headers: {
-                        'content-type': 'application/json',
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                paypal.Buttons({
+                    createOrder: function (data, actions) {
+                        return fetch(route, {
+                            method: 'post',
+                            headers: {
+                                'content-type': 'application/json',
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                            },
+                            body: JSON.stringify({ plan_id: plan })
+                        }).then(res => res.json())
+                            .then(subscriptionData => {
+                                if (subscriptionData.plan_id) {
+                                    return subscriptionData.plan_id;
+                                } else {
+                                    console.error('Subscription creation failed:', subscriptionData);
+                                }
+                            }).catch(err => console.error('createSubscription error:', err));
                     },
-                    body: JSON.stringify({ plan_id: plan })
-                }).then(res => res.json())
-                .then(subscriptionData => {
-                    if (subscriptionData.plan_id) {
-                        return subscriptionData.plan_id;
-                    } else {
-                        console.error('Subscription creation failed:', subscriptionData);
+                    onApprove: function (data, actions) {
+                        showToast('Aboplan erfolgreich erstellt');
+                        $("#payment_modal").modal('hide');
+                        location.reload();
                     }
-                }).catch(err => console.error('createSubscription error:', err));
-            },
-            onApprove: function(data, actions) {
-                showToast('Aboplan erfolgreich erstellt');
-                $("#payment_modal").modal('hide');
-                location.reload();
+                }).render('#paypal-button-container');
             }
-        }).render('#paypal-button-container');
-    }
 
-            // Event Listeners
+            // Event Listener
             document.querySelectorAll('.plancardButton').forEach(button => {
-                button.addEventListener('click', function(event) {
+                button.addEventListener('click', function (event) {
                     event.preventDefault();
                     const plan = button.getAttribute('data-paypal-plan');
                     const route = button.getAttribute('data-paypal-route');
@@ -212,7 +195,7 @@
                 });
             });
 
-            document.getElementById('deleteAccountButton').addEventListener('click', function() {
+            document.getElementById('deleteAccountButton').addEventListener('click', function () {
                 $("#deleteAccountModal").modal('show');
             });
 
@@ -253,15 +236,15 @@
 
             document.getElementById('password').addEventListener('input', updateCriteria);
 
-            document.getElementById('changePasswordButton').addEventListener('click', function() {
+            document.getElementById('changePasswordButton').addEventListener('click', function () {
                 document.getElementById('passwordChangeForm').classList.toggle('hidden');
             });
         });
 
-        // Confirmations
+        // Bestätigungen
         function confirmSilberStatus(url) {
             $('#confirmSilberModal').modal('show');
-            document.getElementById('confirmSilberButton').onclick = function() {
+            document.getElementById('confirmSilberButton').onclick = function () {
                 fetch(url, {
                     method: 'POST',
                     headers: {

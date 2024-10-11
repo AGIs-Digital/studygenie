@@ -24,7 +24,7 @@
                 <img id="closeIcon" src="{{ asset('asset/images/ic_close.png') }}" alt="closeIcon">
             </div>
             <div class="centerCon">
-                <h1 class="primary-Heading">Genie Texte</h1><br />
+                <h1>Genie Texte</h1><br />
                 <img id="StudyGenieImage" src="{{ asset('asset/images/ToolsImage.png') }}" alt="StudyGenieImage">
             </div>
         </div>
