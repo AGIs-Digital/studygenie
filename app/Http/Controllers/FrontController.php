@@ -52,7 +52,6 @@ class FrontController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'tutorial_shown' => false, // Ensure tutorial_shown is set to false for new users
             'expire_date' => Carbon::now()->addYear(100), // Set expire_date to null for unlimited duration
             'subscription_name' => 'silber'
         ]);

@@ -11,28 +11,23 @@
 <body class="MainContainer">
     <div class="headerSpacer"></div>
     @include('components.heroimage-section')
-    @include('components.learn-anything-section')
+    @include('components.problem-solution-section')
     @include('components.cookie-consent')
-    @include('components.mathrix-section')
+    @include('components.benefits-section')
     @include('components.arrowupbutton')
     @include('components.login-modal')
     @include('components.tooglePasswordVisibility')
     @include('components.signup-modal')
-    @include('components.witness-section')
-    @include('components.tutorial-section')
+    @include('components.testimonials-section')
+    @include('components.toolpreview-section')
 
-    <div align="center">
-        <img src="{{ asset('asset/images/23.png') }}" alt="Ein zentriertes Bild" loading="lazy">
+    <div align="center" style="padding-top: 50px; padding-bottom: 35px;">
+        <img src="{{ asset('asset/images/swoosh1.png') }}" alt="swoosh1" loading="lazy">
     </div>
 
-    <h1 class="secondary-Heading planCardHeading">Dein persönlicher Genie</h1>
-    @include('components.plancards-section')
-
-    <section class="joinNowSection">
-        <img src="{{ asset('asset/images/crownimage.png') }}" alt="Kronenbild" loading="lazy">
-        <h1 class="secondary-Heading">Worauf wartest du?</h1>
-        <p class="secondary-Paragraph">Starte jetzt kostenlos und mach dir das Leben leichter.</p>
-        <button data-bs-toggle="modal" data-bs-target="#signupModal" class="plancardButton">Jetzt ausprobieren</button>
+    <section class="planCardsSection">
+        <h2>Dein persönlicher Genie</h2>
+        @include('components.plancards-section')
     </section>
 
     @include('components.faq-section')
@@ -49,18 +44,24 @@
         </div>
     </div>
 
+    <section class="call-to-actionSection">
+        <h2>Worauf wartest du?</h2>
+        <p>Starte jetzt kostenlos durch und mach dir das Leben leichter 🚀</p>
+        <button data-bs-toggle="modal" data-bs-target="#signupModal" class="plancardButton">Jetzt ausprobieren</button>
+    </section>
+
     @include('components.footer')
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // Google Login
-            var googleLoginButton = document.getElementById('google-login');
-            if (googleLoginButton) {
-                googleLoginButton.addEventListener('click', function() {
-                    window.location.href = "{{ url('login/google') }}";
-                });
-            }
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+    // Google Login
+    var googleLoginButton = document.getElementById('google-login');
+    if (googleLoginButton) {
+        googleLoginButton.addEventListener('click', function() {
+            window.location.href = "{{ url('login/google') }}";
         });
-    </script>
+    }
+});
+</script>
 </body>
 </html>

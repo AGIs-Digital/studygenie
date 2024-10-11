@@ -7,7 +7,7 @@ html, body {
 }
 
 #main-body {
-  font-family: 'Milonga', cursive;
+  font-family: 'Milonga';
   height: 90vh;
   background-image: url('../images/WhatsApp\ Image\ 2023-09-18\ at\ 9.41.22\ AM.jpeg');
   background-position: center;
@@ -27,17 +27,16 @@ input[type='radio'] {
   cursor: pointer;
 }
 
-/* Input fields styling --> Anpassen nur für Steuerungsfelder */
 .form-group input[type='text'] {
-  /* "text" ändern"*/
   width: calc(100% - 10px);
-  padding: 7px;
+  padding: 6px;
   border: 1px solid #cccccc;
-  border-radius: 4px;
+  border-radius: 10px;
   box-sizing: border-box;
   background-color: #ffffff;
   color: #000000;
   margin-bottom: 15px;
+  font-size: 16px;
 }
 
 .steuerungcontainer {
@@ -56,19 +55,21 @@ input[type='radio'] {
   background-color: #ffffff;
   color: #000000;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 18px;
   border: none;
-  border-radius: 5px;
-  box-shadow: 0 6px 30px -10px grey;
+  border-radius: 10px;
+  box-shadow: 0 6px 20px -10px grey;
   transition: all 0.3s;
   position: relative;
   text-align: center;
   overflow: hidden;
+  font-weight: 600;
 }
 
 .legende label {
-  font-family: 'Milonga';
-  font-size: 20px;
+  font-family: 'Milonga', sans-serif;
+  font-size: 24px;
+  font-weight: 500;
 }
 
 .legende .steuerung:last-child {
@@ -230,8 +231,7 @@ input[type='radio'] {
   font-size: 16px;
   font-style: normal;
   font-weight: 600;
-  line-height: normal;
-  letter-spacing: -0.014px;
+  line-height: 1.5;
   border: none;
   padding: 9px 20px;
   margin-top: 0rem;
@@ -254,8 +254,7 @@ input[type='radio'] {
   font-size: 16px;
   font-style: normal;
   font-weight: 600;
-  line-height: normal;
-  letter-spacing: -0.014px;
+  line-height: 1.5;
   border: none;
   margin-top: 2rem;
   transition: background-color 0.3s, transform 0.2s;
@@ -272,13 +271,11 @@ input[type='radio'] {
 }
 
 .group-box span {
-  color: #404040;
+  color: black;
   text-align: center;
-  font-size: 14px;
-  font-style: normal;
+  font-size: 18px;
   font-weight: 400;
-  line-height: 24px;
-  letter-spacing: 1px;
+  line-height: 1.5;
   display: block;
   margin-top: 12px;
 }
@@ -287,11 +284,10 @@ input[type='radio'] {
   border-radius: 10px;
   border: 1px solid #a7a7a7;
   width: 100%;
-
   margin-top: 12px;
   background: transparent;
   padding: 12px;
-  color: #404040;
+  color: black;
   resize: none;
 }
 
@@ -299,20 +295,19 @@ input[type='radio'] {
   border-radius: 10px;
   border: 1px solid #cbcdcd;
   width: 400px;
-  height: 44px;
   margin-top: 12px;
+  margin-bottom: 12px;
   background: transparent;
-  padding: 12px;
-  color: #404040;
+  padding: 6px;
+  color: black;
 }
 
 .group-box input::placeholder {
   color: #b0b0b0;
-  font-size: 12px;
+  font-size: 16px;
   font-style: normal;
   font-weight: 400;
-  line-height: 24px;
-  letter-spacing: 1px;
+  line-height: 1.5;
 }
 
 #Bildung-text {
@@ -332,7 +327,7 @@ input[type='radio'] {
 .TextInspiration_sec .group-box span {
   text-align: left;
   margin-top: 20px;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .TextInspiration_sec .group-box input {
@@ -504,8 +499,8 @@ input[type='radio'] {
 }
 
 .small_text_font {
-  font-size: 14px !important;
-  line-height: 16px !important;
+  font-size: 16px !important;
+  line-height: 1.5 !important;
 }
 
 .radio_button_box {
@@ -519,24 +514,22 @@ input[type='radio'] {
 }
 
 .radio_button_box label {
-  color: #404040;
+  color: black;
   font-size: 14px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 20px;
-  letter-spacing: 1px;
+  font-weight: 500;
+  line-height: 1.5;
   display: block;
   margin-top: 12px;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .col-md-12 > label {
-  font-size: 14px;
+  font-size: 16px;
   text-align: left;
-}
-
-label > i {
-  font-size: 12px;
-  font-weight: 400;
+  font-weight: 600;
+  line-height: 1.5;
+  color: black;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .user_input_form {
@@ -562,6 +555,7 @@ label > i {
   background: transparent;
   border: none;
   padding-left: 54px;
+  font-size: 18px;
 }
 
 .user_input_form button {
@@ -589,7 +583,7 @@ label > i {
   margin-top: 3px;
   margin-bottom: 6px;
   border-radius: 12px;
-  font-size: 14px;
+  font-size: 16px;
   color: #000;
   position: relative;
 }
@@ -691,14 +685,13 @@ input[type='text']:disabled {
 }
 
 .section .button button {
-  width: 156px;
-  font-size: 12px;
-  padding: 8px 7px;
+  font-size: 16px;
+  padding: 0.5rem;
   border: none;
   color: #fff;
+  font-weight: 600;
   background: #e09e50;
-  border-radius: 7px;
-  margin-top: 10px;
+  border-radius: 10px;
 }
 
 .cv_box {
@@ -758,7 +751,7 @@ input[type='text']:disabled {
   display: block;
   font-size: 11px;
   font-weight: 400;
-  line-height: 15px;
+  line-height: 1.5;
 }
 
 .cv_box h3 {
@@ -791,7 +784,7 @@ input[type='text']:disabled {
   display: block;
   font-size: 12px;
   font-weight: 700;
-  line-height: 14px;
+  line-height: 1.5;
 }
 
 .cv_box .location_edu {
@@ -827,7 +820,7 @@ input[type='text']:disabled {
   margin-top: 3px;
   margin-bottom: 6px;
   border-radius: 12px;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .accordion-body .left_box {
@@ -843,7 +836,7 @@ input[type='text']:disabled {
   margin-top: 3px;
   margin-bottom: 6px;
   border-radius: 12px;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .accordion-body .left_box span:last-child {

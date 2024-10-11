@@ -23,8 +23,6 @@ class CreateUsersTable extends Migration
             $table->date('expire_date')->nullable();
             $table->string('remember_token', 100)->nullable();
             $table->timestamps();
-            $table->string('birthdate', 15)->nullable();
-            $table->boolean('tutorial_shown')->default(false);
         });
     }
 

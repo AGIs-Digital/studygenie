@@ -6,17 +6,7 @@
     @include('components.head')
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <style>
-        .textarea-container {
-            position: relative;
-        }
-        .textarea-container textarea {
-            width: 100%;
-            font-size: 12px;
-            resize: none;
-            overflow-y: auto;
-        }
-    </style>
+
 </head>
 
 <body class="MainContainer backimage">
@@ -69,9 +59,8 @@
                                         <span id="charCount" style="font-size: 12px;">0 / 2000</span>
                                     </div>
                                     <div class="group-box textarea-container">
-                                        <textarea name="text1" id="field1" rows="22" maxlength="2000" placeholder="Deinen aktuellen Text hier eingeben" onfocus="this.style.fontSize='14px';" onblur="this.style.fontSize='12px';" oninput="updateCharCount();"></textarea>
+                                        <textarea name="text6" id="field6" rows="17" style="width:100%;" maxlength="2000" oninput="this.style.height = '';this.style.height = this.scrollHeight + 'px'" placeholder="Deinen aktuellen Text hier eingeben" oninput="updateCharCount();"></textarea>
                                     </div>
-                                    <script></script>
                                 </div>
                                 <div class="text-center" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
                                     <button type="button" class="send_button" id="submitForm">Absenden</button>

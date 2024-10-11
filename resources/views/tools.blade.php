@@ -25,7 +25,7 @@
             <div class="closetool" style="height: 34px">
             </div>
             <div class="centerCon">
-                <h1 class="primary-Heading">Wobei kann ich dir helfen?</h1><br />
+                <h1 >Wobei kann ich dir helfen?</h1><br />
                 <img id="StudyGenieImage" src="{{ asset('asset/images/ToolsImage.png') }}" alt="StudyGenieImage">
             </div>
         </div>
@@ -102,57 +102,65 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            if (localStorage.getItem('subscription_updated') === 'true') {
-                showConfetti();
-                showSuccessMessage();
-                localStorage.removeItem('subscription_updated');
-            }
-        });
+        const subscription_name = '{{ auth()->user()->subscription_name }}';
+        if (localStorage.getItem('subscription_updated') === 'true') {
+            showSuccessMessage(subscription_name);
+                // Start of Selection
+                if (subscription_name !== 'silber') {
+                    showConfetti();
+                }
+            localStorage.removeItem('subscription_updated');
+        }
+    });
 
         function showConfetti() {
-            confetti({
-                particleCount: 300,
-                spread: 300,
-                origin: {
-                    y: 0.6
-                }
-            });
+            // Zufällige Werte für particleCount und spread zwischen 100 und 400
+            const particleCount1 = Math.floor(Math.random() * 301) + 100; // 100-400
+            const spread1 = Math.floor(Math.random() * 301) + 100;
+            const origin1 = { x: Math.random(), y: Math.random() };
 
-            setTimeout(() => {
-                confetti({
-                    particleCount: 100,
-                    spread: 100,
-                    origin: {
-                        x: 0,
-                        y: 0.8
-                    }
-                });
+    confetti({
+        particleCount: particleCount1,
+        spread: spread1,
+        origin: origin1
+    });
+
+    setTimeout(() => {
+        const particleCount2 = Math.floor(Math.random() * 301) + 100;
+        const spread2 = Math.floor(Math.random() * 301) + 100;
+        const origin2 = { x: Math.random(), y: Math.random() };
+
+        confetti({
+            particleCount: particleCount2,
+            spread: spread2,
+            origin: origin2
+        });
             }, 1500);
         }
 
-        function showSuccessMessage() {
-            const modalHTML = `
+        function showSuccessMessage(subscription_name) {
+        const modalHTML = `
             <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-body text-center">
-                            <p>Herzlichen Glückwunsch! Du hast ein lebenslanges Diamant-Abonnement erhalten.</p>
+                            <p>${subscription_name === 'silber' ? `Du bist jetzt wieder ${subscription_name} Abonnent.` : `Herzlichen Glückwunsch! Du bist jetzt ${subscription_name} Abonnent.`}</p>
                         </div>
                     </div>
                 </div>
             </div>
         `;
-            document.body.insertAdjacentHTML('beforeend', modalHTML);
-            const successModal = new bootstrap.Modal(document.getElementById('successModal'));
-            successModal.show();
+        document.body.insertAdjacentHTML('beforeend', modalHTML);
+        const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+        successModal.show();
 
-            setTimeout(() => {
-                $('#successModal').fadeOut(4000, () => {
-                    successModal.hide();
-                    document.getElementById('successModal').remove();
-                });
-            }, 2000);
-        }
+        setTimeout(() => {
+            $('#successModal').fadeOut(4000, () => {
+                successModal.hide();
+                document.getElementById('successModal').remove();
+            });
+        }, 2000);
+    }
     </script>
 </body>
 

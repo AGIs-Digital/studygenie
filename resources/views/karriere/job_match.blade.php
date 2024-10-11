@@ -67,29 +67,43 @@
                                     </div>
                                     <div class="row radio_button_box">
                                         <div class="col-md-12">
-                                            <br>
                                             <label for="field5_wichtig">Entscheidungsfreiheit & Kontrolle: <strong type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Wie wichtig sind dir Entscheidungsfreiheit und Kontrolle bei Aufgaben?"><img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt=""></strong></label>
                                         </div>
-                                        <div class="col-md-3">
-                                            <label for="field5_wichtig"> <input type="radio" id="field5_wichtig" name="field5" value="wichtig"><i>wichtig</i></label>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <label for="field5_neutral"> <input type="radio" id="field5_neutral" name="field5" value="neutral"><i>neutral</i></label>
+                                        <div class="col-md-4">
+                                            <label for="field5_wichtig">
+                                                <input type="radio" id="field5_wichtig" name="field5" value="wichtig">
+                                                wichtig
+                                            </label>
                                         </div>
                                         <div class="col-md-4">
-                                            <label for="field5_unwichtig"> <input type="radio" id="field5_unwichtig" name="field5" value="unwichtig"><i>unwichtig</i></label>
+                                            <label for="field5_neutral">
+                                                <input type="radio" id="field5_neutral" name="field5" value="neutral">
+                                                neutral
+                                            </label>
                                         </div>
-                                        <br><br><br>
+                                        <div class="col-md-4">
+                                            <label for="field5_unwichtig">
+                                                <input type="radio" id="field5_unwichtig" name="field5" value="unwichtig">
+                                                unwichtig
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="row radio_button_box">
                                         <div class="col-md-12">
                                             <label for="field6_introvertiert">Persönlichkeitstyp: <strong type="button" class="" data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top" title="Introvertiert: Mag Ruhe, ist gern alleine<br>Extrovertiert: Mag Action, ist gern unter Menschen"><img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt=""></strong></label>
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="field6_introvertiert"> <input type="radio" id="field6_introvertiert" name="field6" value="introvertiert"><i>Introvertiert</i></label>
+                                            <label for="field6_introvertiert">
+                                                <input type="radio" id="field6_introvertiert" name="field6" value="introvertiert">
+                                                Introvertiert
+                                            </label>
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="field6_extrovertiert"> <input type="radio" id="field6_extrovertiert" name="field6" value="extrovertiert"><i>Extrovertiert</i></label>
+                                            <label for="field6_extrovertiert">
+                                                <input type="radio" id="field6_extrovertiert" name="field6" value="extrovertiert">
+                                                Extrovertiert
+                                            </label>
                                         </div>
-                                        <br><br>
                                     </div>
                                 </div>
                                 <div class="text-center" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">

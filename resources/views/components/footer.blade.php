@@ -1,7 +1,6 @@
 <footer class="mainFooterContainer">
         <div class="footerContainer">
-            <img id="footerLogo" src="{{ asset('asset/images/Logo_(2).png') }}" width="133" height="77"
-                alt="Logo " loading="lazy">
+            <img id="footerLogo" src="{{ asset('asset/images/Logo_(2).png') }}" alt="Logo" loading="lazy">
             <div class="CenterContainer">
                 <div class="anchorTagsFooterContainer">
                     <a href="{{ route('impressum') }}" class="footerHeading"> Impressum </a>

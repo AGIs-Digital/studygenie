@@ -132,10 +132,12 @@
                                 <div class="accordion-body">
                                     <div class="section" id="qualification">
                                         <div class="entry">
-                                            <p>Relevante Abschlüsse:
+                                        <span class="small_text_font">Relevante Abschlüsse:
                                                 <strong type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title=" Trage hier deine relevantesten Abschlüsse chronologisch ein.">
                                                 <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
-                                                </strong><input type="text" name="qualification_grade" placeholder="Architektin B.Sc., Ausbildung Maurer, etc."></p>
+                                                </strong>
+                                                <input type="text" name="qualification_grade" placeholder="Architektin B.Sc., Ausbildung Maurer, etc.">
+                                            </span>
                                             <p>Beruflicher Werdegang:
                                             <strong type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Falls du bereits in Unternehmen gearbeitet hast, gebe hier, beginnend mit dem letzten, das Unternehmen und deine Position ein.">
                                                 <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">

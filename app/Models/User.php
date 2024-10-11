@@ -22,7 +22,6 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'tutorial_shown',
         'provider',
         'provider_id',
         'subscription_name',
@@ -44,7 +43,6 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'tutorial_shown' => 'boolean',
     ];
 
     // Relation to Archives. User can have multiple archives
