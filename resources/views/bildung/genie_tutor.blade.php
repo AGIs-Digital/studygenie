@@ -154,6 +154,14 @@
             conversationForm.addEventListener('submit', async (event) => {
                 event.preventDefault();
 
+                const levelInput = document.getElementById('level_input').value.trim();
+
+                if (!levelInput) {
+                    showToast('Bitte gib dein Level an', 'error');
+                    return;
+                }
+
+                // Bestehender Code bleibt unverändert
                 userInput.disabled = true;
                 conversationForm.classList.add('disabled');
                 userInput.blur();
