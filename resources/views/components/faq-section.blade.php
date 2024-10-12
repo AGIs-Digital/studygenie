@@ -1,5 +1,5 @@
 <section class="frequentlyAskedQuestionSection">
-    <img src="{{ asset('asset/images/fragezeichenorange.png') }}" alt="Z Design" loading="lazy">
+    <img src="{{ asset('asset/images/fragezeicheno.png') }}" alt="fragezeichen" loading="lazy">
     <h2>Wissenswertes über StudyGenie</h2>
     <div class="questionsContainer">
         <div class="question">
