@@ -51,7 +51,7 @@
                                 <div class="left_scroll">
                                     <div class="group-box">
                                         <span>Deine Frage: <strong type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Worum geht es? Matheaufgaben, Textaufgaben ich kann alles prüfen!">
-                                                <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
+                                                <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="" loading="lazy">
                                             </strong>
                                         </span>
                                         <textarea name="text1" id="field1" rows="20" style="width:100%;" placeholder="Was möchtest du wissen?" oninput="this.style.height = '';this.style.height = this.scrollHeight + 'px'"></textarea>

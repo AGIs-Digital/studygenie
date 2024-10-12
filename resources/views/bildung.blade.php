@@ -15,10 +15,10 @@
     @include('components.toolsperre')
 
     <main class="mainContainer">
-        <img src="{{ asset('asset/images/ab1.svg') }}" class="ab1" alt="">
-        <img src="{{ asset('asset/images/ab2.svg') }}" class="ab2" alt="">
-        <img src="{{ asset('asset/images/ab3.svg') }}" class="ab3" alt="">
-        <img src="{{ asset('asset/images/ab4.svg') }}" class="ab4" alt="">
+        <img src="{{ asset('asset/images/ab1.svg') }}" class="ab1" alt="" loading="lazy">
+        <img src="{{ asset('asset/images/ab2.svg') }}" class="ab2" alt="" loading="lazy">
+        <img src="{{ asset('asset/images/ab3.svg') }}" class="ab3" alt="" loading="lazy">
+        <img src="{{ asset('asset/images/ab4.svg') }}" class="ab4" alt="" loading="lazy">
 
         <div class="headerMainContainer">
             <div class="closetool" onclick="window.location.href='/tools'" style="cursor: pointer">
@@ -34,7 +34,7 @@
             <a href="{{ route('bildung.geniecheck.create') }}" class="Cloud">
                 <button type="button" class="btn" data-bs-toggle="tooltip" data-bs-placement="top"
                     title="Soforthilfe für alle deine Fragen">
-                    <img src="{{ asset('asset/images/info.svg') }}" width="20" alt="">
+                    <img src="{{ asset('asset/images/info.svg') }}" width="20" alt="" loading="lazy">
                 </button>
                 <svg xmlns="http://www.w3.org/2000/svg" width="245" height="167" viewBox="0 0 245 167"
                     fill="none">
@@ -86,7 +86,7 @@
                 <a href="{{ route('bildung.texte') }}" class="Cloud">
                     <button type="button" class="btn" data-bs-toggle="tooltip" data-bs-placement="top"
                         title="Textkorrekturen und -inspiration für Grammatik, Stil und mehr">
-                        <img src="{{ asset('asset/images/info.svg') }}" width="20" alt="">
+                        <img src="{{ asset('asset/images/info.svg') }}" width="20" alt="" loading="lazy">
                     </button>
                     <svg xmlns="http://www.w3.org/2000/svg" width="245" height="167" viewBox="0 0 245 167"
                         fill="none">
@@ -126,7 +126,7 @@
                 <a onclick="showDialog();" class="Cloud custom-hover">
                     <button type="button" class="btn" data-bs-toggle="tooltip" data-bs-placement="top"
                         title="Textkorrekturen und -inspiration für Grammatik, Stil und mehr">
-                        <img src="{{ asset('asset/images/info.svg') }}" width="20" alt="">
+                        <img src="{{ asset('asset/images/info.svg') }}" width="20" alt="" loading="lazy">
                     </button>
                     <svg xmlns="http://www.w3.org/2000/svg" width="245" height="167" viewBox="0 0 245 167"
                         fill="none">
@@ -168,7 +168,7 @@
                 <a href="{{ route('bildung.genie_tutor.create') }}" class="Cloud">
                     <button type="button" class="btn" data-bs-toggle="tooltip" data-bs-placement="top"
                         title="Dein Lerncoach für deine Fragen, Übungen und Lernpläne.">
-                        <img src="{{ asset('asset/images/info.svg') }}" width="20" alt="">
+                        <img src="{{ asset('asset/images/info.svg') }}" width="20" alt="" loading="lazy">
                     </button>
                     <svg xmlns="http://www.w3.org/2000/svg" width="245" height="167" viewBox="0 0 245 167"
                         fill="none">
@@ -208,7 +208,7 @@
                 <a onclick="showDialog();" class="Cloud custom-hover">
                     <button type="button" class="btn" data-bs-toggle="tooltip" data-bs-placement="top"
                         title="Dein Lerncoach für deine Fragen, Übungen und Lernpläne.">
-                        <img src="{{ asset('asset/images/info.svg') }}" width="20" alt="">
+                        <img src="{{ asset('asset/images/info.svg') }}" width="20" alt="" loading="lazy">
                     </button>
                     <svg xmlns="http://www.w3.org/2000/svg" width="245" height="167" viewBox="0 0 245 167"
                         fill="none">

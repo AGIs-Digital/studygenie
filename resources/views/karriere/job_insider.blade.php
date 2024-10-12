@@ -54,7 +54,7 @@
                                     <div class="group-box">
                                         <span class="small_text_font">Welcher Beruf interessiert dich?
                                             <strong type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Gib hier den Beruf ein zu dem du eine Übersicht möchtest">
-                                                <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
+                                                <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="" loading="lazy">
                                             </strong>
                                         </span>
                                         <input type="text" name="field1" id="field1" placeholder="Maurer, Hundefriseur, etc.">

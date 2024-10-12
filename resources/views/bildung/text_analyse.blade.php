@@ -53,7 +53,7 @@
                                     <div class="group-box" style="display: flex; justify-content: space-between; align-items: center;">
                                         <span>Dein Text: 
                                             <strong type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Bei längeren Texten empfehlen wir, jeden Absatz einzeln zu prüfen.">
-                                                <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
+                                                <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="" loading="lazy">
                                             </strong>
                                         </span>
                                         <span id="charCount" style="font-size: 12px;">0 / 2000</span>

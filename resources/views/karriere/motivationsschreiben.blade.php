@@ -49,7 +49,7 @@
                     <h2 style="color: #2D3E4E; font-family: Milonga; font-size: 24px; font-style: normal; font-weight: 500; line-height: 38px; position: relative; margin-top: 3rem;">
                         Motivationsschreiben
                         <strong type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Je mehr Informationen du uns gibst, desto persönlicher wird das Ergebnis. Trage hier nur Infos ein, die für die Bewerbung auf diese Stelle relevant sind.">
-                            <img src="{{ asset('asset/images/info-tools.svg') }}" width="20" alt="">
+                            <img src="{{ asset('asset/images/info-tools.svg') }}" width="20" alt="" loading="lazy">
                         </strong>
                     </h2>
                     <p style="font-size: 12px; color: gray; text-align: center; margin: 0;">Mehrere Versuche können das Ergebnis verbessern.</p>
@@ -107,11 +107,11 @@
                                         <div class="entry">
                                             <p>Job/Studiengang:
                                             <strong type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Trage hier ein wofür du dich bewirbst.">
-                                                <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
+                                                <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="" loading="lazy">
                                                 </strong><input type="text" name="stellenbezeichnung_job" placeholder="Webentwicklerin, etc."></p>
                                             <p>Stellenbeschreibung:
                                             <strong type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Trage hier die relevanten Abschnitte wir 'was du mitbringst' 'was wir suchen' etc. ein.">
-                                                <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
+                                                <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="" loading="lazy">
                                                 </strong><textarea name="stellenbezeichnung_stellenbeschreibung" rows="10" placeholder="Das zeichnet Sie aus: Sie haben Ihre Allgemeine Hochschulreife (Abitur) erworben oder sind kurz vor Ihrem Abschluss. Sie können sich sicher in Englisch und Deutsch verständigen"></textarea></p>
                                         </div>
                                     </div>
@@ -134,25 +134,25 @@
                                         <div class="entry">
                                         <span class="small_text_font">Relevante Abschlüsse:
                                                 <strong type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title=" Trage hier deine relevantesten Abschlüsse chronologisch ein.">
-                                                <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
+                                                <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="" loading="lazy">
                                                 </strong>
                                                 <input type="text" name="qualification_grade" placeholder="Architektin B.Sc., Ausbildung Maurer, etc.">
                                             </span>
                                             <p>Beruflicher Werdegang:
                                             <strong type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Falls du bereits in Unternehmen gearbeitet hast, gebe hier, beginnend mit dem letzten, das Unternehmen und deine Position ein.">
-                                                <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
+                                                <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="" loading="lazy">
                                                 </strong><input type="text" name="qualification_jobs" placeholder="Projektleitung bei Google, etc."></p>
                                             <p>Aktuelle Aufgaben:
                                             <strong type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Trage hier die Aufgaben ein, die du derzeit ausführst.">
-                                                <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
+                                                <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="" loading="lazy">
                                                 </strong><input type="text" name="qualification_tasks_now" placeholder="PHP programmieren, Kundenservice, etc."></p>
                                             <p>Frühere Aufgaben:
                                             <strong type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Tätigkeiten die du in anderen Jobs ausgeübt hast und die für die jetzige Bewerbung von Wert sind.">
-                                                <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
+                                                <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="" loading="lazy">
                                                 </strong><input type="text" name="qualification_tasks_earlier" placeholder="Präsentationen, Meetings organisieren, etc."></p>
                                             <p>Persönliche Stärken:
                                             <strong type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Was macht dich zur idealen Stellenbesetzung?">
-                                                <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
+                                                <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="" loading="lazy">
                                                 </strong><input type="text" name="qualification_skills" placeholder="Strukturiertes Arbeiten, Empathie, etc."></p>
                                         </div>
                                     </div>
@@ -175,19 +175,19 @@
                                         <div class="entry">
                                             <p>Karriereziele:
                                             <strong type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Was möchtest du persönlich in diesem Job lernen oder erreichen?">
-                                                <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
+                                                <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="" loading="lazy">
                                                 </strong><input type="text" name="motivationen_type" placeholder="Teamleitung, Aufstiegschancen etc."></p>
                                             <p>Persönliche Interessen:
                                             <strong type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Hobbies oder Leidenschaften von dir.">
-                                                <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
+                                                <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="" loading="lazy">
                                                 </strong><input type="text" name="motivationen_level" placeholder="Mannschaftssport, Schülersprecher*in, etc."></p>
                                             <p>Stil:
                                             <strong type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Welchen Eindruck möchtest du mit deiner Bewerbung von dir vermitteln?">
-                                                <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
+                                                <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="" loading="lazy">
                                                 </strong><input type="text" name="motivationen_style" placeholder=" Professionell, kreativ, sebstbewusst, etc."></p>
                                             <p>Freitextfeld:
                                             <strong type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Alles, woran wir nicht gedacht haben, dir aber wichtig ist :-)">
-                                                <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
+                                                <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="" loading="lazy">
                                                 </strong><input type="text" name="motivationen_freitext" placeholder="Lust auf neue Aufgaben, etc."></p>
                                         </div>
                                     </div>
