@@ -18,7 +18,7 @@
             <div class="row">
                 <div class="col-md-2">
                     <div class="leftCon" style="cursor: pointer">
-                        <img id="closeIcon" onclick="window.location.href='/bildung/texte'" src="{{ asset('asset/images/ic_close.png') }}" alt="closeIcon">
+                        <img id="closeIcon" onclick="window.location.href='/bildung/texte'" src="{{ asset('asset/images/ic_close.png') }}" alt="closeIcon" loading="lazy">
 
                         <svg xmlns="http://www.w3.org/2000/svg" width="134" height="113" viewBox="0 0 245 167" fill="none">
                             <g filter="url(#filter0_d_168_754)">
@@ -53,7 +53,7 @@
                                     <div class="group-box">
                                         <span class="small_text_font">Aufgabenart:
                                             <strong type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Aufsatz, Inhaltsangaben, Bachelorarbeit, etc.">
-                                                <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
+                                                <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="" loading="lazy">
                                             </strong>
                                         </span>
                                         <input type="text" placeholder="Aufsatz, Inhaltsangaben, Bachelorarbeit, etc." id="field_1" name="field1">
@@ -62,7 +62,7 @@
                                     <div class="group-box">
                                         <span class="small_text_font">Level:
                                             <strong type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="9. Klasse Realschule, Oberstufe, Studium, etc.">
-                                                <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
+                                                <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="" loading="lazy">
                                             </strong>
                                         </span>
                                         <input type="text" placeholder="9. Klasse Realschule, Oberstufe, Studium, etc." id="field_2" name="field2">
@@ -71,7 +71,7 @@
                                     <div class="group-box">
                                         <span class="small_text_font">Thema:
                                             <strong type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Zu welchem Thema willst du etwas schreiben?">
-                                                <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
+                                                <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="" loading="lazy">
                                             </strong>
                                         </span>
                                         <input type="text" placeholder="Bildungsreform im digitalen Zeitalter, etc." id="field_3" name="field3">
@@ -80,7 +80,7 @@
                                     <div class="group-box">
                                         <span class="small_text_font">Besonderen Anforderungen/Interessen:
                                             <strong type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Wortanzahl, Text in einer anderen Sprache als deutsch, etc.">
-                                                <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
+                                                <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="" loading="lazy">
                                             </strong>
                                         </span>
                                         <input type="text" placeholder="300 Worte, in Englisch, etc." id="field_4" name="field4">
@@ -118,7 +118,7 @@
                                     <div class="group-box">
                                         <span class="small_text_font">Bisheriger Text:
                                             <strong type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Gib deinen Text ein, um ihn weiterformulieren zu lassen.">
-                                                <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
+                                                <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="" loading="lazy">
                                             </strong>
                                         </span>
                                         <textarea name="field6" id="field_6" rows="10" style="width:100%;" oninput="this.style.height = '';this.style.height = this.scrollHeight + 'px'" placeholder="Deinen aktuellen Text hier eingeben"></textarea>

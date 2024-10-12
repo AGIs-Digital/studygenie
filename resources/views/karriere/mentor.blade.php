@@ -121,9 +121,11 @@
 					<div class="output">
 
 						<div class="content-written message">
-                            <img src="{{ asset('asset/images/ab2.svg') }}" class="ab1" alt="">
-                            <img src="{{ asset('asset/images/ab2.svg') }}" class="ab2" alt=""> <img src="{{ asset('asset/images/ab3.svg') }}" class="ab3" alt=""> <img src="{{ asset('asset/images/ab4.svg') }}" class="ab4" alt="">
-                            <img src="{{ asset('asset/images/ToolsImage.png') }}" class="ab5" alt="">
+                            <img src="{{ asset('asset/images/ab2.svg') }}" class="ab1" alt="ab2" loading="lazy">
+                            <img src="{{ asset('asset/images/ab2.svg') }}" class="ab2" alt="ab2" loading="lazy">
+                            <img src="{{ asset('asset/images/ab3.svg') }}" class="ab3" alt="ab3" loading="lazy">
+                            <img src="{{ asset('asset/images/ab4.svg') }}" class="ab4" alt="ab4" loading="lazy">
+                            <img src="{{ asset('asset/images/ToolsImage.png') }}" class="ab5" alt="ToolsImage" loading="lazy">
 							<div class="typing-container d-block">
 								<div class="all_content" id="all_content">
 

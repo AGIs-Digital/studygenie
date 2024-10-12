@@ -50,24 +50,24 @@
                             <div class="content-written left brain">
                                 <div class="left_scroll">
                                     <div class="group-box">
-                                        <span class="small_text_font">Fähigkeiten & Stärken: <strong type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Was kannst du deiner Meinung nach besonders gut?"> <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt=""></strong></span>
+                                        <span class="small_text_font">Fähigkeiten & Stärken: <strong type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Was kannst du deiner Meinung nach besonders gut?"> <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="" loading="lazy"></strong></span>
                                         <input type="text" placeholder="Analytisches Denken, Kommunikationsfähigkeit, etc." id="field_1" name="field1">
                                     </div>
                                     <div class="group-box">
-                                        <span class="small_text_font">Interessen & Leidenschaften: <strong type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Welche Hobbies hast du, was begeistert dich?"> <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt=""></strong></span>
+                                        <span class="small_text_font">Interessen & Leidenschaften: <strong type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Welche Hobbies hast du, was begeistert dich?"> <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="" loading="lazy"></strong></span>
                                         <input type="text" placeholder="Technologie, Wissensvermittlung, etc." id="field_2" name="field2">
                                     </div>
                                     <div class="group-box">
-                                        <span class="small_text_font">Diese Fähigkeiten möchte ich erlernen: <strong type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Verhandeln, Kommunikation, etc."> <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt=""></strong></span>
+                                        <span class="small_text_font">Diese Fähigkeiten möchte ich erlernen: <strong type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Verhandeln, Kommunikation, etc."> <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="" loading="lazy"></strong></span>
                                         <input type="text" id="field_3" name="field3" placeholder="Verhandeln, Kommunikation, etc.">
                                     </div>
                                     <div class="group-box">
-                                        <span class="small_text_font">Bevorzugte Arbeitsumgebung: <strong type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Wie bist du am produktivsten? In Gruppen? Alleine? Draußen? etc."><img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt=""></strong></span>
+                                        <span class="small_text_font">Bevorzugte Arbeitsumgebung: <strong type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Wie bist du am produktivsten? In Gruppen? Alleine? Draußen? etc."> <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="" loading="lazy"></strong></span>
                                         <input type="text" id="field_4" name="field4" placeholder="In Teams, Alleine, etc.">
                                     </div>
                                     <div class="row radio_button_box">
                                         <div class="col-md-12">
-                                            <label for="field5_wichtig">Entscheidungsfreiheit & Kontrolle: <strong type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Wie wichtig sind dir Entscheidungsfreiheit und Kontrolle bei Aufgaben?"><img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt=""></strong></label>
+                                            <label for="field5_wichtig">Entscheidungsfreiheit & Kontrolle: <strong type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Wie wichtig sind dir Entscheidungsfreiheit und Kontrolle bei Aufgaben?"> <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="" loading="lazy"></strong></label>
                                         </div>
                                         <div class="col-md-4">
                                             <label for="field5_wichtig">

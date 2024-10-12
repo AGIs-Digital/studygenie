@@ -5,22 +5,22 @@
         <div class="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="{{ asset('asset/images/landingpage/testimonial1.png') }}" alt="Sophia B.">
+                    <img src="{{ asset('asset/images/landingpage/testimonial1.png') }}" alt="Sophia B." loading="lazy">
                     <p>"Ich fühle mich jetzt viel sicherer in meiner Karriereplanung!", wunderbar!</p>
                     <h4>Otto B.</h4>
                 </div>
                 <div class="carousel-item">
-                    <img src="{{ asset('asset/images/landingpage/testimonial3.png') }}" alt="Max M.">
+                    <img src="{{ asset('asset/images/landingpage/testimonial3.png') }}" alt="Max M." loading="lazy">
                     <p>"Die Unterstützung war unglaublich!, sehr hilfreich!"</p>
                     <h4>Max M.</h4>
                 </div>
                 <div class="carousel-item">
-                    <img src="{{ asset('asset/images/landingpage/testimonial2.png') }}" alt="Kim M.">
+                    <img src="{{ asset('asset/images/landingpage/testimonial2.png') }}" alt="Kim M." loading="lazy">
                     <p>"Wow, das mit der Bewerbung ging ja schnell!"</p>
                     <h4>Sophia M.</h4>
                 </div>
                 <div class="carousel-item">
-                    <img src="{{ asset('asset/images/landingpage/testimonial3.png') }}" alt="Anna K.">
+                    <img src="{{ asset('asset/images/landingpage/testimonial3.png') }}" alt="Anna K." loading="lazy">
                     <p>"Ich habe viel gelernt und fühle mich bereit, danke!"</p>
                     <h4>Kim K.</h4>
                 </div>
