@@ -25,7 +25,15 @@ jobs:
         run: npm install
 
       - name: 🚀 Compile Frontend stuff
-        run: npm run build
+        run: |
+          npm run build
+          cp public/mix-manifest.json storage/app/mix-manifest.json
+
+      - name: 🔧 Minify JavaScript and CSS
+        run: |
+          npm install -g uglify-js uglifycss
+          find public/js -name '*.js' -exec uglifyjs {} -o {} \;
+          find public/css -name '*.css' -exec uglifycss {} -o {} \;
 
       - name: 🐘 Set up PHP
         uses: shivammathur/setup-php@v2
@@ -49,7 +57,7 @@ jobs:
           sed -i 's#^DB_USERNAME=.*#DB_USERNAME=${{ secrets.PRODUCTION_DB_USERNAME }}#' .env
           sed -i 's#^DB_PASSWORD=.*#DB_PASSWORD=${{ secrets.PRODUCTION_DB_PASSWORD }}#' .env
           sed -i 's#^OPENAI_API_KEY=.*#OPENAI_API_KEY="${{ secrets.OPENAI_APIKEY }}"#' .env
-          sed -i 's#^GOOGLE_REDIRECT_URL=.*#GOOGLE_REDIRECT_URL=${{ secrets.PRODUCTION_GOOGLE_REDIRECT_URL }}#' .env
+          sed -i 's#^GOOGLE_REDIRECT_URI=.*#GOOGLE_REDIRECT_URI=${{ secrets.PRODUCTION_GOOGLE_REDIRECT_URI }}#' .env
           sed -i 's#^PAYPAL_LIVE_CLIENT_ID=.*#PAYPAL_LIVE_CLIENT_ID=${{ secrets.PAYPAL_LIVE_CLIENT_ID }}#' .env
           sed -i 's#^PAYPAL_LIVE_SECRET=.*#PAYPAL_LIVE_SECRET=${{ secrets.PAYPAL_LIVE_SECRET }}#' .env
 
@@ -135,6 +143,7 @@ jobs:
             php8.2-cli artisan route:cache
             php8.2-cli artisan view:cache
             php8.2-cli artisan migrate --force
+            cp storage/app/mix-manifest.json public/mix-manifest.json
 
       - name: 🟢 Maintenance Mode OFF
         uses: appleboy/ssh-action@v1.0.3

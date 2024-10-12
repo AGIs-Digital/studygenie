@@ -27,3 +27,5 @@
 <meta name="theme-color" content="#ffffff">
 @routes
 @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+<link rel="stylesheet" href="{{ \App\Helpers\AssetHelper::version('css/app.css') }}">
+<script src="{{ \App\Helpers\AssetHelper::version('js/app.js') }}" defer></script>
