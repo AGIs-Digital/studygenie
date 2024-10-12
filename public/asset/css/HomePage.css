@@ -7,7 +7,6 @@
   box-shadow: 0 0 15px rgba(0,0,0,.1);
 }
 
-/* common */
 .ribbon {
   width: 150px;
   height: 150px;
@@ -39,7 +38,6 @@
   font-weight: 700;
 }
 
-/* top left*/
 .ribbon-top-left {
   top: -10px;
   left: -10px;
@@ -63,7 +61,6 @@
   transform: rotate(-45deg);
 }
 
-/* top right*/
 .ribbon-top-right {
   top: -10px;
   right: -10px;
@@ -87,7 +84,6 @@
   transform: rotate(45deg);
 }
 
-/* bottom left*/
 .ribbon-bottom-left {
   bottom: -10px;
   left: -10px;
@@ -111,7 +107,6 @@
   transform: rotate(225deg);
 }
 
-/* bottom right*/
 .ribbon-bottom-right {
   bottom: -10px;
   right: -10px;
@@ -568,10 +563,10 @@ h4 ~ p {
 .benefit p {
   display: block;
   max-width: 100%;
-  overflow-wrap: break-word;
   text-align: justify;
   white-space: normal;
   padding: 2% 10% 0 10%;
+  hyphens: auto;
 }
 
 .benefit img {
@@ -762,10 +757,10 @@ h4 ~ p {
 
 .cardsContainer {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* Erstellt 4 Spalten mit gleicher Breite */
-  gap: 0px; /* Abstand zwischen den Elementen */
-  margin: 0 auto; /* Zentriert den Container horizontal */
-  max-width: 960px; /* Maximale Breite des Containers, anpassbar */
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0px;
+  margin: 0 auto;
+  max-width: 960px;
 }
 
 .toolpreviewCard {
@@ -787,6 +782,7 @@ h4 ~ p {
   padding: 0.5rem 1rem 1rem 1rem;
   margin: 0;
   text-align: left;
+  hyphens: auto;
 }
 
 .cardheader {
@@ -832,7 +828,7 @@ h4 ~ p {
 }
 
 .planCard {
-  position: relative; /* Ensure the planCard is the reference for absolute positioning */
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -920,7 +916,7 @@ h4 ~ p {
 }
 
 .reset-card-body .form-group {
-  margin-bottom: 1.5rem; /* Erhöht den Abstand zwischen den Formularfeldern */
+  margin-bottom: 1.5rem;
 }
 
 .reset-card-body .form-control, .reset-card-body .btn {
@@ -1167,7 +1163,7 @@ h4 ~ p {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  align-items: center; /* Added to vertically center the content within the footer */
+  align-items: center;
 }
 
 #footerLogo {
@@ -1207,7 +1203,7 @@ h4 ~ p {
   flex-direction: row;
   padding-block: 2rem;
   gap: 2.5rem;
-  align-items: center; /* Added to vertically center the content within the footer */
+  align-items: center;
 }
 
 .anchorTagsFooterContainer {
@@ -1347,7 +1343,6 @@ h4 ~ p {
   .heroimageContainer img {
     width: 300px;
     height: 300px;
-    /* text-align: center; */
   }
   .navContainer {
     padding: 1.5rem;
@@ -1864,11 +1859,11 @@ button[disabled] {
 }
 
 *::-webkit-scrollbar {
-  width: 0px; /* width of the entire scrollbar */
+  width: 0px;
 }
 
 *::-webkit-scrollbar-track {
-  background: transparent; /* color of the tracking area */
+  background: transparent;
 }
 
 *::-webkit-scrollbar-thumb {
@@ -1922,8 +1917,6 @@ button[disabled] {
     height: auto;
   }
   .problem-solutionImage {
-    /* width: 300px;
-        height: 329px; */
     display: none;
   }
   .video_sec video {
@@ -2051,7 +2044,7 @@ h1 img {
 .MainContainer {
   display: flex;
   flex-direction: column;
-  min-height: 90vh; /* Minimale Höhe des Viewports */
+  min-height: 90vh;
   flex: 1;
 }
 
@@ -2076,7 +2069,7 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  align-items: center; /* Added to vertically center the content within the footer */
+  align-items: center;
 }
 
 footer.mainFooterContainer {
@@ -2116,7 +2109,7 @@ footer.mainFooterContainer {
   flex-direction: row;
   padding-block: 2rem;
   gap: 2.5rem;
-  align-items: center; /* Added to vertically center the content within the footer */
+  align-items: center;
 }
 
 .anchorTagsFooterContainer {
@@ -2172,13 +2165,13 @@ footer.mainFooterContainer {
 }
 
 .password-field input {
-  padding-right: 10px; /* Platz für das Auge-Symbol, 15px mehr als vorher */
+  padding-right: 10px;
 }
 
 .password-field .toggle-password {
   position: absolute;
   top: 50%;
-  right: 25px; /* 15px weiter nach links verschoben */
+  right: 25px;
   transform: translateY(-50%);
   cursor: pointer;
 }
@@ -2229,11 +2222,11 @@ button[disabled] {
 }
 
 *::-webkit-scrollbar {
-  width: 0px; /* width of the entire scrollbar */
+  width: 0px;
 }
 
 *::-webkit-scrollbar-track {
-  background: transparent; /* color of the tracking area */
+  background: transparent;
 }
 
 *::-webkit-scrollbar-thumb {
