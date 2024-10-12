@@ -5,24 +5,22 @@
         <div class="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="{{ asset('asset/images/landingpage/testimonial1.png') }}" alt="Sophia B." loading="lazy">
-                    <p>"Ich fühle mich jetzt viel sicherer in meiner Karriereplanung!", wunderbar!</p>
-                    <h4>Otto B.</h4>
+                    <img src="{{ asset('asset/images/landingpage/testimonial1.jpg') }}" alt="testimonial1" loading="lazy">
+                    <h4>Kevin</h4>
+                    <p>"Mit StudyGenie konnte ich meine Schwierigkeiten in Mathe überwinden und habe nun eine 2 geschrieben."</p>
+                    
                 </div>
                 <div class="carousel-item">
-                    <img src="{{ asset('asset/images/landingpage/testimonial3.png') }}" alt="Max M." loading="lazy">
-                    <p>"Die Unterstützung war unglaublich!, sehr hilfreich!"</p>
-                    <h4>Max M.</h4>
+                    <img src="{{ asset('asset/images/landingpage/testimonial3.jpg') }}" alt="testimonial2" loading="lazy">
+                    <h4>Arthur</h4>
+                    <p>"Dank StudyGenie waren meine Bewerbungsunterlagen perfekt und ich war optimal auf das Vorstellungsgespräch vorbereitet."</p>
+                    
                 </div>
                 <div class="carousel-item">
-                    <img src="{{ asset('asset/images/landingpage/testimonial2.png') }}" alt="Kim M." loading="lazy">
-                    <p>"Wow, das mit der Bewerbung ging ja schnell!"</p>
-                    <h4>Sophia M.</h4>
-                </div>
-                <div class="carousel-item">
-                    <img src="{{ asset('asset/images/landingpage/testimonial3.png') }}" alt="Anna K." loading="lazy">
-                    <p>"Ich habe viel gelernt und fühle mich bereit, danke!"</p>
-                    <h4>Kim K.</h4>
+                    <img src="{{ asset('asset/images/landingpage/testimonial2.jpg') }}" alt="testimonial3" loading="lazy">
+                    <h4>Sophie</h4>
+                    <p>"Cool - das stufenweise Heranführen über Fragen und das Checken, welches Wissen tatsächlich bereits vorhanden ist!! So wird jeder individuell abgeholt. TOP"</p>
+                    
                 </div>
             </div>
         </div>
@@ -44,6 +42,6 @@
             items[currentItem].classList.add('active');
         }
 
-        setInterval(showNextItem, 3500); // Change item every 3 seconds
+        setInterval(showNextItem, 4500);
     });
 </script>
