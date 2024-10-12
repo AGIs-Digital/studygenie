@@ -27,8 +27,16 @@ jobs:
         run: npm install
 
       - name: 🚀 Compile Frontend stuff
-        run: npm run build
+        run: |
+          npm run build
+          cp public/mix-manifest.json storage/app/mix-manifest.json
 
+      - name: 🔧 Minify JavaScript and CSS
+        run: |
+          npm install -g uglify-js uglifycss
+          find public/js -name '*.js' -exec uglifyjs {} -o {} \;
+          find public/css -name '*.css' -exec uglifycss {} -o {} \;
+          
       - name: 🐘 Set up PHP
         uses: shivammathur/setup-php@v2
         with:
@@ -51,7 +59,7 @@ jobs:
           sed -i 's#^DB_USERNAME=.*#DB_USERNAME=${{ secrets.STAGING_DB_USERNAME }}#' .env
           sed -i 's#^DB_PASSWORD=.*#DB_PASSWORD=${{ secrets.STAGING_DB_PASSWORD }}#' .env
           sed -i 's#^OPENAI_API_KEY=.*#OPENAI_API_KEY="${{ secrets.OPENAI_APIKEY }}"#' .env
-          sed -i 's#^GOOGLE_REDIRECT_URL=.*#GOOGLE_REDIRECT_URL=${{ secrets.STAGING_GOOGLE_REDIRECT_URL }}#' .env
+          sed -i 's#^GOOGLE_REDIRECT_URI=.*#GOOGLE_REDIRECT_URI=${{ secrets.STAGING_GOOGLE_REDIRECT_URI }}#' .env
           sed -i 's#^PAYPAL_SANDBOX_CLIENT_ID=.*#PAYPAL_SANDBOX_CLIENT_ID=${{ secrets.PAYPAL_SANDBOX_CLIENT_ID }}#' .env
           sed -i 's#^PAYPAL_SANDBOX_SECRET=.*#PAYPAL_SANDBOX_SECRET=${{ secrets.PAYPAL_SANDBOX_SECRET }}#' .env
 
@@ -124,10 +132,14 @@ jobs:
             php8.2-cli composer.phar install
             php8.2-cli artisan key:generate
             php8.2-cli artisan cache:clear
-            php8.2-cli artisan config:clear
+            php8.2-cli artisan config:cache
             php8.2-cli artisan route:cache
             php8.2-cli artisan view:cache
             php8.2-cli artisan migrate:fresh --seed --force
+            cp storage/app/mix-manifest.json public/mix-manifest.json
+            php8.2-cli artisan config:cache
+            php8.2-cli artisan route:cache
+            php8.2-cli artisan view:cache
 
       - name: 🟢 Maintenance Mode OFF
         uses: appleboy/ssh-action@v1.0.3
