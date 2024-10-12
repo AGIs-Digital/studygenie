@@ -34,8 +34,10 @@ jobs:
       - name: 🔧 Minify JavaScript and CSS
         run: |
           npm install -g uglify-js uglifycss
-          find public/asset/js -name '*.js' -exec uglifyjs {} -o {} \; || true
-          find public/asset/css -name '*.css' -exec uglifycss {} -o {} \; || true
+          # Minifiziere JavaScript-Dateien im Verzeichnis public/asset/js
+          find public/asset/js -name '*.js' -exec sh -c 'uglifyjs "$1" -o "$1"' _ {} \; || true
+          # Minifiziere CSS-Dateien im Verzeichnis public/asset/css
+          find public/asset/css -name '*.css' -exec sh -c 'uglifycss "$1" > "$1.min" && mv "$1.min" "$1"' _ {} \; || true
           
       - name: 🐘 Set up PHP
         uses: shivammathur/setup-php@v2
