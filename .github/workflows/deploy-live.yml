@@ -27,7 +27,7 @@ jobs:
       - name: 🚀 Compile Frontend stuff
         run: |
           npm run build
-          cp public/mix-manifest.json storage/app/mix-manifest.json
+          cp public/build/manifest.json storage/app/manifest.json
 
       - name: 🔧 Minify JavaScript and CSS
         run: |
@@ -100,7 +100,7 @@ jobs:
           port: 22
           script: |
             cd studygenie.de/
-            rm -rf node_modules vendor public/js public/css public/mix-manifest.json
+            rm -rf node_modules vendor public/js public/css public/build/manifest.json
             find . -type f -name '*.php' -exec rm -f {} +
             echo "Non-essential directories and files removed"
 
@@ -143,7 +143,7 @@ jobs:
             php8.2-cli artisan route:cache
             php8.2-cli artisan view:cache
             php8.2-cli artisan migrate --force
-            cp storage/app/mix-manifest.json public/mix-manifest.json
+            cp storage/app/manifest.json public/build/manifest.json
 
       - name: 🟢 Maintenance Mode OFF
         uses: appleboy/ssh-action@v1.0.3
