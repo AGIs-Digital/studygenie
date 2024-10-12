@@ -616,7 +616,6 @@ h4 ~ p {
 }
 
 .carousel-item p {
-  font-size: 20px;
   text-align: center;
   margin: 10px 0;
 }
@@ -741,7 +740,7 @@ h4 ~ p {
  background-image: url('../images/videosectionbackground.png');
  background-repeat: no-repeat;
   background-position: center;
-  background-size: 100% 70%;
+  background-size: 100% 100%;
 }
 
 
@@ -779,7 +778,7 @@ h4 ~ p {
   font-weight: 400;
   font-size: 1rem;
   color: black;
-  padding: 0.5rem 1rem 1rem 1rem;
+  padding: 0.5rem 1.5rem 1rem 1.5rem;
   margin: 0;
   text-align: left;
   hyphens: auto;
