@@ -43,7 +43,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-md-3" id="cv-form-container">
                     <form id="cv-form">
                         @csrf
                         <h2 style="color: #2D3E4E; font-family: Milonga; font-size: 32px; font-style: normal; font-weight: 400; line-height: 38px; position: relative; margin-top: 3rem;">
@@ -206,7 +206,7 @@
                             </div>
                         </div>
                         <br />
-                        <div class="text-center" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                        <div id="cv-form-buttons" class="text-center" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
                             <button type="button" id="preview-button" class="send_button">Vorschau</button>
                             <button type="submit" class="send_button">Download</button>
                         </div>
@@ -214,7 +214,7 @@
                     </form>
                 </div>
 
-                <div class="col-md-7">
+                <div class="col-md-7" id="cv-preview-container">
                     <div class="cv_box_sec preview-container" id="cv_appnd">
                         <!-- Vorschau des Lebenslaufs wird hier angezeigt -->
                     </div>

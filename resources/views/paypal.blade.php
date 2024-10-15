@@ -32,7 +32,7 @@
                             @endif
 
                             <center>
-                                <a href="{{ route('paypal.payment', 'silber') }}" class="btn btn-success">Pay with PayPal
+                                <a href="{{ route('paypal.payment', 'Silber') }}" class="btn btn-success">Pay with PayPal
                                 </a>
                             </center>
 

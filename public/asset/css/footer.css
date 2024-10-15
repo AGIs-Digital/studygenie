@@ -1,0 +1,65 @@
+.mainFooterContainer {
+    display: flex;
+    justify-content: space-between; /* Container gleichmäßig verteilen */
+    align-items: center;
+    padding: 0rem 5rem;
+    background-color: #d8dcdf;
+    background-image: url('../images/noise-light.png');
+}
+
+.footerContainer {
+    display: flex;
+    flex: 1; /* Container nimmt den verfügbaren Platz ein */
+    justify-content: space-between; /* Container gleichmäßig verteilen */
+    align-items: center;
+}
+
+.footerContainer a {
+    text-decoration: none;
+    color: black;
+}
+
+.logoContainer {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+#footerLogo {
+    width: 110px;
+    height: 63px;
+}
+
+.linksContainer {
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
+    padding-block: 2rem;
+    gap: 2.5rem;
+    align-items: center;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    color: black;
+    text-decoration: none;
+}
+
+.socialContainer {
+    flex: 1; /* Gleiche Breite für alle Container */
+    display: flex;
+    justify-content: center; /* Zentriert die Icons */
+    gap: 2rem;
+}
+
+.socialContainer img {
+    width: 55px;
+    height: 55px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .footerContainer {
+        flex-direction: column; /* Container untereinander bei kleinen Bildschirmen */
+        align-items: center;
+    }
+}

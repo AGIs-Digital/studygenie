@@ -8,14 +8,14 @@ use App\Models\Conversation;
 use App\Models\Message;
 use OpenAI\Laravel\Facades\OpenAI;
 
-class GenieTutorController extends Controller
+class TutorController extends Controller
 {
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        return view('bildung.genie_tutor');
+        return view('bildung.tutor');
     }
 
     /**
@@ -24,7 +24,7 @@ class GenieTutorController extends Controller
     public function store(Request $request): \Illuminate\Http\JsonResponse
     {
         try {
-            $toolIdentifier = 'genie_tutor';
+            $toolIdentifier = 'tutor';
 
             # make sure, $request->text1 is set and not empty
             if (!isset($request->text1) || empty($request->text1)) {

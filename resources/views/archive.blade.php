@@ -61,8 +61,8 @@
                         </h2>
                         <div id="BildungCollpasetool4" class="accordion-collapse collapse" aria-labelledby="BildungMentor" data-bs-parent="#accordionBildung">
                             <div class="accordion-body">
-                                <div class="accordion accordion-flush" id="accordionFlushgenieTutor">
-                                    <?php createAccordion($Bildung, 'genie_tutor'); ?>
+                                <div class="accordion accordion-flush" id="accordionFlushTutor">
+                                    <?php createAccordion($Bildung, 'tutor'); ?>
                                 </div>
                             </div>
                         </div>

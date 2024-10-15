@@ -75,14 +75,14 @@
                 $date = auth()->user()->expire_date;
                 $subscriptionName = auth()->user()->subscription_name;
                 if (
-                    $subscriptionName == 'diamant' ||
+                    $subscriptionName == 'Diamant' ||
                     ($date != null && \Carbon\Carbon::parse($date)->gt(\Carbon\Carbon::now()))
                 ) {
                     $check = true;
                 }
             @endphp
 
-            @if ((auth()->user()->subscription_name == 'gold' || auth()->user()->subscription_name == 'diamant') && $check)
+            @if ((auth()->user()->subscription_name == 'Gold' || auth()->user()->subscription_name == 'Diamant') && $check)
                 <a href="{{ route('bildung.texte') }}" class="Cloud">
                     <button type="button" class="btn" data-bs-toggle="tooltip" data-bs-placement="top"
                         title="Textkorrekturen und -inspiration für Grammatik, Stil und mehr">
@@ -164,8 +164,8 @@
                 </a>
             @endif
 
-            @if (auth()->user()->subscription_name == 'diamant' && $check)
-                <a href="{{ route('bildung.genie_tutor.create') }}" class="Cloud">
+            @if (auth()->user()->subscription_name == 'Diamant' && $check)
+                <a href="{{ route('bildung.tutor.create') }}" class="Cloud">
                     <button type="button" class="btn" data-bs-toggle="tooltip" data-bs-placement="top"
                         title="Dein Lerncoach für deine Fragen, Übungen und Lernpläne.">
                         <img src="{{ asset('asset/images/info.svg') }}" width="20" alt="" loading="lazy">

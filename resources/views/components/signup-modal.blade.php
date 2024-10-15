@@ -3,11 +3,11 @@
         <div class="modal-content">
             <div class="modal-body p-0">
                 <div class="login_sec p-4 position-relative">
-                    <img class="login_m1" src="{{ asset('asset/images/m1.svg') }}" alt="" loading="lazy">
+                    <img class="login_m1" src="{{ asset('asset/images/p1.svg') }}" alt="" loading="lazy">
                     <img class="login_m2" src="{{ asset('asset/images/m2.svg') }}" alt="" loading="lazy">
-                    <img class="login_m3" src="{{ asset('asset/images/m3.svg') }}" alt="" loading="lazy">
+                    <img class="login_m3" src="{{ asset('asset/images/p2.svg') }}" alt="" loading="lazy">
                     <img class="login_m4" src="{{ asset('asset/images/m4.svg') }}" alt="" loading="lazy">
-                    <img class="close-icon" data-bs-dismiss="modal" aria-label="Close" src="{{ asset('asset/images/ic_close1.png') }}" alt="Close" loading="lazy">
+                    <img class="close-icon" data-bs-dismiss="modal" aria-label="Close" src="{{ asset('asset/images/ic_close.png') }}" alt="Close" loading="lazy">
                     <div class="text-center">
                         <img src="{{ asset('asset/images/Logo_(2).png') }}" width="133" height="77" alt="Logo" loading="lazy">
                     </div>

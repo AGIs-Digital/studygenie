@@ -1,6 +1,6 @@
 <!-- Feedback Button -->
 <div id="feedback-button" style="position: fixed; bottom: 20px; right: 20px; cursor: pointer; z-index: 9999;">
-    <img src="{{ asset('asset/images/feedback-icon.png') }}" alt="Feedback" width="50" height="50">
+    <img src="{{ asset('asset/images/feedback-icon.png') }}" alt="Feedback" width="30" height="30">
 </div>
 
 <!-- Feedback Modal -->

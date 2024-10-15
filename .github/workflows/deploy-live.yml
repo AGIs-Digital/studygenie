@@ -58,10 +58,16 @@ jobs:
           sed -i 's#^DB_DATABASE=.*#DB_DATABASE=${{ secrets.PRODUCTION_DB_DBNAME }}#' .env
           sed -i 's#^DB_USERNAME=.*#DB_USERNAME=${{ secrets.PRODUCTION_DB_USERNAME }}#' .env
           sed -i 's#^DB_PASSWORD=.*#DB_PASSWORD=${{ secrets.PRODUCTION_DB_PASSWORD }}#' .env
+          sed -i 's#^MAIL_PASSWORD=.*#MAIL_PASSWORD=${{ secrets.STUDYGENIE_MAIL_PASSWORD }}#' .env
           sed -i 's#^OPENAI_API_KEY=.*#OPENAI_API_KEY="${{ secrets.OPENAI_APIKEY }}"#' .env
+          sed -i 's#^PAYPAL_MODE=.*#PAYPAL_MODE=live#' .env
+          sed -i 's#^PAYPAL_CLIENT_ID=.*#PAYPAL_CLIENT_ID=${{ secrets.PRODUCTION_PAYPAL_CLIENT_ID }}#' .env
+          sed -i 's#^PAYPAL_SECRET=.*#PAYPAL_SECRET=${{ secrets.PRODUCTION_PAYPAL_SECRET }}#' .env
+          sed -i 's#^PAYPAL_GOLD_PLAN_ID=.*#PAYPAL_GOLD_PLAN_ID=${{ secrets.PAYPAL_GOLD_PLAN_ID }}#' .env
+          sed -i 's#^PAYPAL_DIAMANT_PLAN_ID=.*#PAYPAL_DIAMANT_PLAN_ID=${{ secrets.PAYPAL_DIAMANT_PLAN_ID }}#' .env
+          sed -i 's#^GOOGLE_CLIENT_ID=.*#GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}#' .env
+          sed -i 's#^GOOGLE_CLIENT_SECRET=.*#GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}#' .env
           sed -i 's#^GOOGLE_REDIRECT_URI=.*#GOOGLE_REDIRECT_URI=${{ secrets.PRODUCTION_GOOGLE_REDIRECT_URI }}#' .env
-          sed -i 's#^PAYPAL_LIVE_CLIENT_ID=.*#PAYPAL_LIVE_CLIENT_ID=${{ secrets.PAYPAL_LIVE_CLIENT_ID }}#' .env
-          sed -i 's#^PAYPAL_LIVE_SECRET=.*#PAYPAL_LIVE_SECRET=${{ secrets.PAYPAL_LIVE_SECRET }}#' .env
 
       - name: 🔐 Run Laravel specific commands
         run: |

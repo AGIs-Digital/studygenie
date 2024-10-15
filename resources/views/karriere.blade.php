@@ -63,12 +63,12 @@
                 $check = false;
                 $date = auth()->user()->expire_date;
                 $subscriptionName = auth()->user()->subscription_name;
-                if ($subscriptionName == 'diamant' || ($date != null && \Carbon\Carbon::parse($date)->gt(\Carbon\Carbon::now()))) {
+                if ($subscriptionName == 'Diamant' || ($date != null && \Carbon\Carbon::parse($date)->gt(\Carbon\Carbon::now()))) {
                     $check = true;
                 }
             @endphp
 
-            @if ((auth()->user()->subscription_name == 'gold' || auth()->user()->subscription_name == 'diamant') && $check)
+            @if ((auth()->user()->subscription_name == 'Gold' || auth()->user()->subscription_name == 'Diamant') && $check)
                 <a href="{{ route('karriere.bewerbung') }}" class="Cloud_Karriere">
                     <button type="button" class="btn" data-bs-toggle="tooltip" data-bs-placement="top" title="Erstelle blitzschnell individuelle Bewerbungsunterlagen">
                         <img src="{{ asset('asset/images/info.svg') }}" width="20" alt="">
@@ -134,7 +134,7 @@
                 </a>
             @endif
 
-            @if (auth()->user()->subscription_name == 'diamant' && $check)
+            @if (auth()->user()->subscription_name == 'Diamant' && $check)
                 <a href="{{ route('karriere.mentor') }}" class="Cloud_Karriere">
                     <button type="button" class="btn" data-bs-toggle="tooltip" data-bs-placement="top" 
                         title="Trainiere für Vorstellungsgespräche mit Tipps und Übungen für mehr Selbstsicherheit.">

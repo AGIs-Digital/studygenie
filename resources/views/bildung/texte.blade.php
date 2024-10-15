@@ -11,7 +11,7 @@
     <div class="headerSpacer"></div>
     @include('components.navbar')
     @include('components.feedback')
-    @include('components.toolsperre')
+
 
     <main class="mainContainer">
         <img src="{{ asset('asset/images/ab1.svg') }}" class="ab1" alt="">

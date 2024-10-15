@@ -20,8 +20,9 @@
         <div class="row">
             <div class="col-md-12">
                 <h1>
+                <img  height="70px" src="{{ asset('asset/images/blitzneu.png') }}">
                     {{ auth()->user()->name }} - Einstellungen
-                    <img src="{{ asset('asset/images/profile.svg') }}">
+                <img  height="70px" src="{{ asset('asset/images/blitzneu.png') }}">
                 </h1>
             </div>
         </div>
@@ -186,7 +187,7 @@
                     const plan = button.getAttribute('data-paypal-plan');
                     const route = button.getAttribute('data-paypal-route');
 
-                    if (plan === 'silber') {
+                    if (plan === 'Silber') {
                         confirmSilberStatus(route);
                     } else if (plan) {
                         renderPayPalButton(route, plan);
@@ -251,7 +252,7 @@
                         'Content-Type': 'application/json',
                         'X-CSRF-TOKEN': '{{ csrf_token() }}'
                     },
-                    body: JSON.stringify({ subscription_name: 'silber' })
+                    body: JSON.stringify({ subscription_name: 'Silber' })
                 }).then(response => {
                     if (response.ok) {
                         showToast('Du hast jetzt den Silber Status', 'success');
