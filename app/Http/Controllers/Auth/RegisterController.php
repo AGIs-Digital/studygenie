@@ -11,6 +11,9 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Socialite;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Log;
 
 class RegisterController extends Controller
 {
@@ -57,6 +60,7 @@ class RegisterController extends Controller
         ]);
 
         if ($validator->fails()) {
+            Log::warning('Failed registration attempt.', ['email' => $request->email]);
             return response()->json([
                 "status" => false,
                 "errors" => $validator->errors()->all()
@@ -66,9 +70,11 @@ class RegisterController extends Controller
         $data = $request->all();
         $user = $this->create($data);
 
+        Log::info('User registered successfully.', ['email' => $user->email]);
+
         $subscriptionUpdated = false;
-        $userCount = User::count(); // Anzahl der Benutzer in der Datenbank zählen
-        if ($userCount <= 103) { //103, weil es 3 AdminUser in der DB gibt
+        $userCount = User::count();
+        if ($userCount <= 103) {
             $user->subscription_name = 'diamant';
             $user->expire_date = Carbon::now()->addYear(100);
             $user->save();
@@ -82,5 +88,42 @@ class RegisterController extends Controller
             'subscription_updated' => $subscriptionUpdated,
             'redirect' => route('tools')
         ]);
+    }
+
+    public function redirectToProvider($provider)
+    {
+        return Socialite::driver($provider)->redirect();
+    }
+
+    public function handleProviderCallback($provider): \Illuminate\Http\RedirectResponse
+    {
+        try {
+            $socialUser = Socialite::driver($provider)->user();
+        } catch (\Exception $e) {
+            return redirect('/login')->withErrors(['message' => 'Fehler bei der Authentifizierung.']);
+        }
+
+        $user = $this->findOrCreateUser($socialUser, $provider);
+        Auth::login($user, true);
+
+        return redirect('/tools');
+    }
+
+    public function findOrCreateUser($socialUser, $provider)
+    {
+        $user = User::where('email', $socialUser->getEmail())->first();
+
+        if (!$user) {
+            $user = User::create([
+                'name' => $socialUser->getName(),
+                'email' => $socialUser->getEmail(),
+                'provider' => $provider,
+                'provider_id' => $socialUser->getId(),
+                'password' => Hash::make(Str::random(16)),
+                'subscription_name' => 'silber',
+            ]);
+        }
+
+        return $user;
     }
 }

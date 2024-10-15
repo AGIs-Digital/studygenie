@@ -120,7 +120,7 @@ Route::group(['middleware' => ['auth']], function () {
 });
 
 ### USER ROUTES ###
-Route::post('/postLogin', [LoginController::class, 'postLogin'])->name('login.post');
+Route::post('/postLogin', [LoginController::class, 'postLogin'])->middleware('throttle:5,1')->name('login.post');
 Route::post('/postRegistration', [RegisterController::class, 'postRegistration'])->name('register.post');
 Route::post('change-password', [FrontController::class, 'changePassword'])->name('change.password');
 
@@ -152,3 +152,6 @@ Route::get('password/reset/{token}', [ResetPasswordController::class, 'showReset
 Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
 
 Route::post('subscriptions/update', [SubscriptionController::class, 'updateSubscription'])->name('subscriptions.update');
+
+Route::get('auth/google/redirect', [LoginController::class, 'redirectToGoogle'])->name('google.redirect');
+Route::get('auth/google/callback', [LoginController::class, 'handleGoogleCallback']);
