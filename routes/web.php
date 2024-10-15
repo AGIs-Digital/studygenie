@@ -23,6 +23,7 @@ use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\AdminFeedbackController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\Bildung\GenieTutorController;
+use App\Http\Controllers\WebhookController;
 
 ### PUBLIC VIEW ROUTES ###
 Route::view('impressum', 'impressum')->name('impressum');
@@ -155,3 +156,5 @@ Route::post('subscriptions/update', [SubscriptionController::class, 'updateSubsc
 
 Route::get('auth/google/redirect', [LoginController::class, 'redirectToGoogle'])->name('google.redirect');
 Route::get('auth/google/callback', [LoginController::class, 'handleGoogleCallback']);
+
+Route::post('/webhook/paypal', [WebhookController::class, 'handle']);
