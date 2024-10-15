@@ -45,7 +45,7 @@
                                 <input type="submit" value="Registrieren" class="emailLogin">
                                 <div class="or">
                                     oder registrieren mit
-                                    <a href="{{ url('login/google') }}" id="googleLogin">
+                                    <a href="{{ route('google.redirect') }}" id="googleLogin">
                                         <img src="{{ asset('asset/images/google.svg') }}" alt="Google" loading="lazy">
                                     </a>
                                 </div>

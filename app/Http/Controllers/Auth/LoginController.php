@@ -13,6 +13,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Log;
 
 class LoginController extends Controller
 {
@@ -30,9 +31,13 @@ class LoginController extends Controller
         return Socialite::driver($provider)->redirect();
     }
 
-    public function handleProviderCallback($provider)
+    public function handleProviderCallback($provider): \Illuminate\Http\RedirectResponse
     {
-        $socialUser = Socialite::driver($provider)->stateless()->user();
+        try {
+            $socialUser = Socialite::driver($provider)->user();
+        } catch (\Exception $e) {
+            return redirect('/login')->withErrors(['message' => 'Fehler bei der Authentifizierung.']);
+        }
 
         $user = $this->findOrCreateUser($socialUser, $provider);
         Auth::login($user, true);
@@ -63,17 +68,19 @@ class LoginController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
+            Log::info('User logged in successfully.', ['email' => $request->email]);
             $userId = Auth::user()->id;
             $frontController = new FrontController();
             $frontController->startNewSessionWithCustomInstructions($userId);
 
             return redirect('/tools');
         } else {
+            Log::warning('Failed login attempt.', ['email' => $request->email]);
             return response()->json(['status' => false, 'message' => 'Ungültige Anmeldedaten']);
         }
     }
 
-    public function postLogin(Request $request)
+    public function postLogin(Request $request): \Illuminate\Http\JsonResponse
     {
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
@@ -100,5 +107,19 @@ class LoginController extends Controller
                 "Benutzername oder Passwort falsch"
             ]
         ]);
+    }
+
+    public function redirectToGoogle(): \Illuminate\Http\RedirectResponse
+    {
+        return Socialite::driver('google')->redirect();
+    }
+
+    public function handleGoogleCallback(): \Illuminate\Http\RedirectResponse
+    {
+        $socialUser = Socialite::driver('google')->user();
+        $user = $this->findOrCreateUser($socialUser, 'google');
+
+        Auth::login($user, true);
+        return redirect('/tools');
     }
 }

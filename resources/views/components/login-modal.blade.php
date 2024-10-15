@@ -37,8 +37,8 @@
                                         </div>
                                         <input type="submit" value="Login" class="emailLogin">
                                         <div class="or">
-                                            oder anmelden über
-                                            <a href="{{ url('login/google') }}" id="google-login">
+                                            oder anmelden mit
+                                            <a href="{{ route('google.redirect') }}" id="google-login">
                                                 <img src="{{ asset('asset/images/google.svg') }}" alt="Google" loading="lazy">
                                             </a>
                                         </div>
@@ -92,14 +92,6 @@
                 showToast('Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.', 'error');
             });
         });
-
-        // Google Login
-        const googleLoginButton = document.getElementById('google-login');
-        if (googleLoginButton) {
-            googleLoginButton.addEventListener('click', function() {
-                window.location.href = "{{ url('login/google') }}";
-            });
-        }
 
         const loginModal = document.getElementById('loginModal');
         loginModal.addEventListener('hidden.bs.modal', function () {
