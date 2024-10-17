@@ -75,7 +75,7 @@ class RegisterController extends Controller
         $subscriptionUpdated = false;
         $userCount = User::count();
         if ($userCount <= 103) {
-            $user->subscription_name = 'diamant';
+            $user->subscription_name = 'Diamant';
             $user->expire_date = Carbon::now()->addYear(100);
             $user->save();
             $subscriptionUpdated = true;
@@ -120,7 +120,7 @@ class RegisterController extends Controller
                 'provider' => $provider,
                 'provider_id' => $socialUser->getId(),
                 'password' => Hash::make(Str::random(16)),
-                'subscription_name' => 'silber',
+                'subscription_name' => 'Silber',
             ]);
         }
 

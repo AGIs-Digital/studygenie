@@ -54,10 +54,10 @@ class User extends Authenticatable
     /**
      * Update the subscription status of the user
      */
-    public function updateSubscriptionStatus($status, $expire_date)
+    public function updateSubscriptionStatus($status, $expireDate)
     {
-        $this->subscription_name = $status;
-        $this->expire_date = $expire_date;
+        $this->subscription_status = $status;
+        $this->expire_date = $expireDate;
         $this->save();
     }
 

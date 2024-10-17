@@ -75,8 +75,13 @@
 	margin-top: 6rem;
 	margin-right: 3rem;
 	background-color: #f8f8f8;
-	height: 100%;
-	overflow-y: auto;
+	height: 80vh;
+	overflow: hidden;
+}
+
+#accordionFlushExample {
+	height: 70vh;
+	overflow: auto; /* Scrollbar wird angezeigt, wenn Overflow existiert */
 }
 
 @keyframes spin {

@@ -13,7 +13,7 @@ return [
             Dein Name: {{username}}. Alter: 12-20.
             "
         ,
-    'genie_tutor' => [
+    'tutor' => [
         'base_prompt' => "
             Du bist ein interaktiver Lern-Tutor, der mir hilft, mich auf Klausuren vorzubereiten und mein Verständnis in verschiedenen Themen zu vertiefen. Entsprechend meiner Anfrage, kannst du in unterschiedlichen Modi agieren:
             /Tutor
@@ -47,7 +47,7 @@ return [
 
             Du kannst jederzeit auf meine Aufforderung hin den Modus wechseln.
         ",
-            'first_message' => "Hallo {{username}}, ich bin dein Tutor. Damit wir gemeinsam starten können, tippe links dein Level und das Thema ein, um das es geht, und klicke anschließend auf den gewünschten Modus. Im Laufe unseres Gesprächs kannst du den Modus jederzeit wechseln. Klicke dazu links auf einen anderen Button."
+            'first_message' => "Hallo {{username}}, ich bin dein Tutor. Um loszulegen, gib links dein Level und das Thema ein, das du behandeln möchtest, und wähle dann den passenden Modus. Du kannst den Modus jederzeit während unseres Gesprächs ändern, indem du links auf einen anderen Button klickst."
     ],
     'karriere_mentor' => [
         'base_prompt' => "
@@ -80,7 +80,7 @@ return [
         Du kannst jederzeit auf meine Aufforderung hin den Modus wechseln.
         Unterstütze mich dabei, durch gezielte Fragen, Übungen und Erklärungen, bestmöglich auf das Bewerbungsgespräch vorbereitet zu sein.
         ",
-            'first_message' => "Hi {{username}}, hier ist dein Karriere-Mentor. Damit wir gemeinsam starten können, tippe links den Beruf und, sofern du dich speziell vorbereiten willst, das Unternehmen ein, bei dem du dich bewirbst. Klicke anschließend auf den gewünschten Modus. Im Laufe unseres Gesprächs kannst du den Modus jederzeit wechseln. Klicke dazu links auf einen anderen Button."
+            'first_message' => "Hi {{username}}, hier ist dein Karriere-Mentor. Um loszulegen, gib einfach links deinen Beruf ein und, falls du dich gezielt vorbereiten möchtest, das Unternehmen, bei dem du dich bewirbst. Wähle anschließend den passenden Modus aus. Du kannst den Modus während unseres Gesprächs jederzeit ändern, indem du links auf einen anderen Button klickst."
     ],
     'text_inspiration' => [
         'base_prompt' => "
@@ -180,7 +180,7 @@ return [
             4. Basierend auf dem Inhalt und der Richtung der Nutzerfrage, entscheide, welches StudyGenie-Tool für den Nutzer am hilfreichsten sein könnte. Empfehle subtil und charmant eines der folgenden Tools, indem du einen direkten Link einfügst:
             Textinspiration: <a href=\"" . env('APP_URL') . "/bildung/textinspiration\">Textinspiration</a> für Unterstützung beim kreativen Schreiben.
             Textanalyse: <a href=\"" . env('APP_URL') . "/bildung/textanalyse\">Textanalyse</a> für Verbesserungen bei Rechtschreibung, Grammatik oder Schreibstil.
-            Genie Tutor: <a href=\"" . env('APP_URL') . "/bildung/genietutor\">Genie Tutor</a> für tiefgehende Erklärungen und interaktives Lernen, ideal zur Prüfungsvorbereitung.
+            Genie Tutor: <a href=\"" . env('APP_URL') . "/bildung/tutor\">Genie Tutor</a> für tiefgehende Erklärungen und interaktives Lernen, ideal zur Prüfungsvorbereitung.
             Job Match: <a href=\"" . env('APP_URL') . "/karriere/jobmatch\">Job Match</a> für Interessen- und Fähigkeitsanalysen zur Berufsorientierung.
             Job Insider: <a href=\"" . env('APP_URL') . "/karriere/jobinsider\">Job Insider</a> für detaillierte Informationen über spezifische Berufe.
             Bewerbe Genie: <a href=\"" . env('APP_URL') . "/karriere/motivationsschreiben\">Application Genius</a> für maßgeschneiderte Anschreiben und Lebensläufe.

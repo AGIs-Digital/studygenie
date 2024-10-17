@@ -56,7 +56,7 @@ class LoginController extends Controller
                 'provider' => $provider,
                 'provider_id' => $socialUser->getId(),
                 'password' => Hash::make(Str::random(16)),
-                'subscription_name' => 'silber',
+                'subscription_name' => 'Silber',
             ]);
         }
 

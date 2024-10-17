@@ -21,7 +21,7 @@
         @guest
             <button data-bs-toggle="modal" data-bs-target="#signupModal" class="plancardButton">Kostenlos</button>
         @else
-            @if(auth()->user()->subscription_name == 'silber')
+            @if(auth()->user()->subscription_name == 'Silber')
                 <button class="plancardButton" disabled>Aktueller Status</button>
             @else
                 <button class="plancardButton" id="silberButton">Kostenlos</button>
@@ -63,7 +63,7 @@
             @guest
                 <button data-bs-toggle="modal" data-bs-target="#signupModal" class="plancardButton">Hol dir Gold</button>
             @else
-                @if(auth()->user()->subscription_name == 'gold')
+                @if(auth()->user()->subscription_name == 'Gold')
                     <button class="plancardButton" disabled>Aktueller Status</button>
                 @else
                     <button class="plancardButton" data-bs-toggle="modal" data-bs-target="#paypalModalGold">Hol dir Gold</button>
@@ -104,7 +104,7 @@
             @guest
                 <button data-bs-toggle="modal" data-bs-target="#signupModal" class="plancardButton">Hol dir Diamant</button>
             @else
-                @if(auth()->user()->subscription_name == 'diamant')
+                @if(auth()->user()->subscription_name == 'Diamant')
                     <button class="plancardButton" disabled>Aktueller Status</button>
                 @else
                     <button class="plancardButton" data-bs-toggle="modal" data-bs-target="#paypalModalDiamant">Hol dir Diamant</button>
@@ -136,7 +136,7 @@
         const subscription_name = @json(auth()->check() ? auth()->user()->subscription_name : '');
         if (localStorage.getItem('subscription_updated') === 'true') {
             showSuccessMessage(subscription_name);
-            if (subscription_name !== 'silber' && subscription_name !== '') {
+            if (subscription_name !== 'Silber' && subscription_name !== '') {
                 showConfetti();
             }
             localStorage.removeItem('subscription_updated');
@@ -174,7 +174,7 @@
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-body text-center">
-                            <p>${plan_name === 'silber' ? `Du bist jetzt wieder ${plan_name} Abonnent.` : `Herzlichen Glückwunsch! Du bist jetzt ${plan_name} Abonnent.`}</p>
+                            <p>${plan_name === 'Silber' ? `Du bist jetzt wieder ${plan_name} Abonnent.` : `Herzlichen Glückwunsch! Du bist jetzt ${plan_name} Abonnent.`}</p>
                         </div>
                     </div>
                 </div>
@@ -223,8 +223,8 @@
     }
 
     // PayPal-Buttons für Gold und Diamant rendern
-    createPayPalButton('{{ config('services.paypal.gold_plan_id') }}', 'gold', '#paypal-button-gold');
-    createPayPalButton('{{ config('services.paypal.diamant_plan_id') }}', 'diamant', '#paypal-button-diamant');
+    createPayPalButton('{{ config('services.paypal.gold_plan_id') }}', 'Gold', '#paypal-button-gold');
+    createPayPalButton('{{ config('services.paypal.diamant_plan_id') }}', 'Diamant', '#paypal-button-diamant');
 
     document.addEventListener('DOMContentLoaded', function() {
         // Überprüfen, ob der Silber-Button existiert, bevor der Event Listener hinzugefügt wird
@@ -243,7 +243,7 @@
                     'Content-Type': 'application/json',
                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
                 },
-                body: JSON.stringify({ plan_name: 'silber' })
+                body: JSON.stringify({ plan_name: 'Silber' })
             })
             .then(response => response.json())
             .then(data => {

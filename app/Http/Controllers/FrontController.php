@@ -53,7 +53,7 @@ class FrontController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'expire_date' => Carbon::now()->addYear(100), // Set expire_date to null for unlimited duration
-            'subscription_name' => 'silber'
+            'subscription_name' => 'Silber'
         ]);
 
         $user->save();

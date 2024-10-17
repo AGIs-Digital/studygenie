@@ -106,7 +106,7 @@
         if (localStorage.getItem('subscription_updated') === 'true') {
             showSuccessMessage(subscription_name);
                 // Start of Selection
-                if (subscription_name !== 'silber') {
+                if (subscription_name !== 'Silber') {
                     showConfetti();
                 }
             localStorage.removeItem('subscription_updated');
@@ -144,7 +144,7 @@
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-body text-center">
-                            <p>${subscription_name === 'silber' ? `Du bist jetzt wieder ${subscription_name} Abonnent.` : `Herzlichen Glückwunsch! Du bist jetzt ${subscription_name} Abonnent.`}</p>
+                            <p>${subscription_name === 'Silber' ? `Du bist jetzt wieder ${subscription_name} Abonnent.` : `Herzlichen Glückwunsch! Du bist jetzt ${subscription_name} Abonnent.`}</p>
                         </div>
                     </div>
                 </div>

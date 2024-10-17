@@ -22,8 +22,9 @@ use App\Http\Controllers\Bildung\TextAnalysisController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\AdminFeedbackController;
 use App\Http\Controllers\SubscriptionController;
-use App\Http\Controllers\Bildung\GenieTutorController;
+use App\Http\Controllers\Bildung\TutorController;
 use App\Http\Controllers\WebhookController;
+use App\Http\Controllers\PayPalWebhookController;
 
 ### PUBLIC VIEW ROUTES ###
 Route::view('impressum', 'impressum')->name('impressum');
@@ -61,14 +62,14 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('geniecheck', [GenieCheckController::class, 'create'])->name('geniecheck.create');
         Route::resource('geniecheck', GenieCheckController::class)->except(['index', 'create', 'show', 'edit', 'update', 'destroy']);
 
-        // bildung Routes which require diamant subscription
-        Route::middleware(['check.subscription.expiry', 'check.subscription:diamant'])->group(function () {
-            Route::get('genie_tutor', [GenieTutorController::class, 'create'])->name('genie_tutor.create');
-            Route::post('genie_tutor', [GenieTutorController::class, 'store'])->name('genie_tutor.store');
+        // bildung Routes which require Diamant subscription
+        Route::middleware(['check.subscription.expiry', 'check.subscription:Diamant'])->group(function () {
+            Route::get('tutor', [TutorController::class, 'create'])->name('tutor.create');
+            Route::post('tutor', [TutorController::class, 'store'])->name('tutor.store');
         });
 
-        // bildung Routes which require gold or diamant subscription
-        Route::middleware(['auth', 'check.subscription.expiry', 'check.subscription:gold,diamant'])->group(function () {
+        // bildung Routes which require gold or Diamant subscription
+        Route::middleware(['auth', 'check.subscription.expiry', 'check.subscription:Gold,Diamant'])->group(function () {
             Route::view('texte', 'bildung.texte')->name('texte');
             Route::get('textinspiration', [TextInspirationController::class, 'create'])->name('textinspiration');
             Route::resource('textinspiration', TextInspirationController::class)->except(['index', 'create', 'show', 'edit', 'update', 'destroy']);
@@ -81,15 +82,15 @@ Route::group(['middleware' => ['auth']], function () {
     Route::prefix('karriere')->name('karriere.')->group(function () {
         Route::view('/', 'karriere')->name('index');
 
-        // Karriere-Mentor routes - only available to users with a diamant subscription
-        Route::middleware(['check.subscription.expiry', 'check.subscription:diamant'])->group(function () {
+        // Karriere-Mentor routes - only available to users with a Diamant subscription
+        Route::middleware(['check.subscription.expiry', 'check.subscription:Diamant'])->group(function () {
             Route::get('mentor', [MentorController::class, 'create'])->name('mentor');
             Route::resource('mentor', MentorController::class)->except(['index', 'create', 'show', 'edit', 'update', 'destroy']);
         });
 
-        // Routes which require gold or diamant subscription
-        Route::middleware(['check.subscription.expiry', 'check.subscription:gold,diamant'])->group(function () {
-            // bewerbung routes - only available to users with a gold or diamant subscription
+        // Routes which require Gold or Diamant subscription
+        Route::middleware(['check.subscription.expiry', 'check.subscription:Gold,Diamant'])->group(function () {
+            // bewerbung routes - only available to users with a Gold or Diamant subscription
             Route::view('bewerbung', 'karriere.bewerbung')->name('bewerbung');
 
             // Lebenslauf routes
@@ -158,3 +159,9 @@ Route::get('auth/google/redirect', [LoginController::class, 'redirectToGoogle'])
 Route::get('auth/google/callback', [LoginController::class, 'handleGoogleCallback']);
 
 Route::post('/webhook/paypal', [WebhookController::class, 'handle']);
+
+Route::post('/paypal/webhook', [PayPalWebhookController::class, 'handle']);
+
+Route::get('/subscription/expired', function () {
+    return view('subscription.expired');
+})->name('subscription.expired');
