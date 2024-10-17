@@ -331,6 +331,11 @@
                 // Leere den Vorschau-Container
                 previewContainer.innerHTML = '';
 
+                // Timer für den Toast
+                let toastTimer = setTimeout(() => {
+                    showToast("Unsere Server brauchen gerade etwas länger. Bitte haben Sie einen Moment Geduld.");
+                }, 20000);
+
                 // Sende die Formulardaten per AJAX an den Server
                 fetch(route('karriere.lebenslauf.preview'), {
                         method: 'POST',
@@ -341,6 +346,7 @@
                     })
                     .then(response => response.json())
                     .then(data => {
+                        clearTimeout(toastTimer); // Timer löschen
                         console.log('Server Response:', data); // Debugging-Ausgabe
 
                         // Erstelle ein eingebettetes PDF-Element
@@ -354,7 +360,10 @@
                         // Füge das eingebettete PDF-Element in den Vorschau-Container ein
                         previewContainer.appendChild(pdfEmbed);
                     })
-                    .catch(error => console.error('Error:', error));
+                    .catch(error => {
+                        clearTimeout(toastTimer); // Timer löschen
+                        console.error('Error:', error);
+                    });
             });
 
             // Download-Funktionalität
@@ -362,6 +371,11 @@
                 event.preventDefault();
                 const form = document.getElementById('cv-form');
                 const formData = new FormData(form);
+
+                // Timer für den Toast
+                let toastTimer = setTimeout(() => {
+                    showToast("Unsere Server brauchen gerade etwas länger. Bitte haben Sie einen Moment Geduld.");
+                }, 20000);
 
                 // Sende die Formulardaten per AJAX an den Server
                 fetch(route('karriere.lebenslauf.download'), {
@@ -373,6 +387,7 @@
                     })
                     .then(response => response.blob())
                     .then(blob => {
+                        clearTimeout(toastTimer); // Timer löschen
                         const url = window.URL.createObjectURL(blob);
                         const a = document.createElement('a');
                         a.href = url;
@@ -381,7 +396,10 @@
                         a.click();
                         a.remove();
                     })
-                    .catch(error => console.error('Error:', error));
+                    .catch(error => {
+                        clearTimeout(toastTimer); // Timer löschen
+                        console.error('Error:', error);
+                    });
             });
         });
     </script>

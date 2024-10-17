@@ -87,28 +87,28 @@
 
     <div class="steuerungcontainer">
         <div onclick="setInputValue('/motivation')" class="steuerung">
-        <div class="shop-now">Motivation</div>
+        <div>Motivation</div>
         <button type="button" class="btn" data-bs-toggle="tooltip" data-bs-placement="top" title="Überwinde deine Ängste und Sorgen">
 				<img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
         </div>
     </div>
     <div class="steuerungcontainer">
         <div onclick="setInputValue('/insides')" class="steuerung">
-        <div class="shop-now">Insider</div>
+        <div>Insider</div>
         <button type="button" class="btn" data-bs-toggle="tooltip" data-bs-placement="top" title="Tauche ein in branchenspezifische Infos und Fragen">
 				<img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
         </div>
     </div>
     <div class="steuerungcontainer">
         <div onclick="setInputValue('/tipps')" class="steuerung">
-        <div class="shop-now">Tipps</div>
+        <div>Tipps</div>
         <button type="button" class="btn" data-bs-toggle="tooltip" data-bs-placement="top" title="Erhalte professionelle Tipps zur Vorbereitung">
 				<img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
         </div>
     </div>
     <div class="steuerungcontainer">
         <div onclick="setInputValue('/interview')" class="steuerung">
-        <div class="shop-now">Interview</div>
+        <div>Interview</div>
         <button type="button" class="btn" data-bs-toggle="tooltip" data-bs-placement="top" title="Simuliere Vorstellungsgespräche und erhalte Feedback">
 				<img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
         </div>
@@ -206,11 +206,18 @@
                 formSubmitButton.textContent = 'lädt...';
                 formSubmitButton.disabled = true;
 
+                // Timer für den Toast
+                let toastTimer = setTimeout(() => {
+                    showToast("Unsere Server brauchen gerade etwas länger. Bitte haben Sie einen Moment Geduld.");
+                }, 20000);
+
                 try {
                     // create an empty bot message
                     const botMessageId = window.fns.addChatBubble({role: 'assistant', content: ''}, messageContainer);
 
                     const data = await window.fns.sendMessage(userValue, conversation.id);
+
+                    clearTimeout(toastTimer); // Timer löschen
 
                     window.fns.updateChatBubble(botMessageId, data.data.content, messageContainer);
 
@@ -224,6 +231,7 @@
 
                     document.getElementById('save_val').value = messageContainer.innerHTML;
                 } catch (error) {
+                    clearTimeout(toastTimer); // Timer löschen
                     console.log(error);
                     formSubmitButton.textContent = 'Senden';
                     formSubmitButton.disabled = false;

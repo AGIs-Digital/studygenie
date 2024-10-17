@@ -135,6 +135,12 @@
                 $("#save_data").val('x');
                 //Ladezeichen anzeigen
                 $("#submitForm").addClass('loading-button').text("Zaubert...").prop('disabled', true);
+
+                // Timer für den Toast
+                let toastTimer = setTimeout(() => {
+                    showToast("Unsere Server brauchen gerade etwas länger. Bitte haben Sie einen Moment Geduld.");
+                }, 20000);
+
                 $.ajax({
                     url: route('bildung.geniecheck.store'),
                     method: "POST",
@@ -143,6 +149,7 @@
                     cache: false,
                     processData: false,
                     success: function(response) {
+                        clearTimeout(toastTimer); // Timer löschen
                         conversation_id = response.message.conversation_id;
                         //Ladezeichen entfernen
                         $("#submitForm").removeClass('loading-button').text("Absenden").prop('disabled', false);
@@ -157,6 +164,7 @@
                         $("#field1").val('');
                     },
                     error: function(xhr, status, error) {
+                        clearTimeout(toastTimer); // Timer löschen
                         console.error("Ein Fehler ist aufgetreten: " + error);
                         //Ladezeichen entfernen
                         $("#submitForm").removeClass('loading-button').text("Absenden").prop('disabled', false);

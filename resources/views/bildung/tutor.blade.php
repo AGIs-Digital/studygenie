@@ -58,7 +58,7 @@
                         <br /> <br />
                         <div class="steuerungcontainer">
                             <div onclick="setInputValue('/Tutor')" class="steuerung">
-                                <div class="shop-now">Tutor</div>
+                                <div>Tutor</div>
                                 <button type="button" class="btn" data-bs-toggle="tooltip" data-bs-placement="top" title="Lerne einfach und effektiv">
                                     <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="" loading="lazy">
                                 </button>
@@ -66,7 +66,7 @@
                         </div>
                         <div class="steuerungcontainer">
                             <div onclick="setInputValue('/Sokrates')" class="steuerung">
-                                <div class="shop-now">Sokrates</div>
+                                <div>Sokrates</div>
                                 <button type="button" class="btn" data-bs-toggle="tooltip" data-bs-placement="top" title="Denke selbstständig">
                                     <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="" loading="lazy">
                                 </button>
@@ -74,7 +74,7 @@
                         </div>
                         <div class="steuerungcontainer">
                             <div onclick="setInputValue('/MC-Test')" class="steuerung">
-                                <div class="shop-now">Multiple Choice</div>
+                                <div>Multiple Choice</div>
                                 <button type="button" class="btn" data-bs-toggle="tooltip" data-bs-placement="top" title="Schnelle Wissensabfrage">
                                     <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="" loading="lazy">
                                 </button>
@@ -82,7 +82,7 @@
                         </div>
                         <div class="steuerungcontainer">
                             <div onclick="setInputValue('/Test')" class="steuerung">
-                                <div class="shop-now">Probeklausur</div>
+                                <div>Probeklausur</div>
                                 <button type="button" class="btn" data-bs-toggle="tooltip" data-bs-placement="top" title="Teste deinen Lernstand">
                                     <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="" loading="lazy">
                                 </button>
@@ -183,11 +183,18 @@
                 formSubmitButton.textContent = 'lädt...';
                 formSubmitButton.disabled = true;
 
+                // Timer für den Toast
+                let toastTimer = setTimeout(() => {
+                    showToast("Unsere Server brauchen gerade etwas länger. Bitte haben Sie einen Moment Geduld.");
+                }, 20000);
+
                 try {
                     // create an empty bot message
                     const botMessageId = window.fns.addChatBubble({ role: 'assistant', content: '' }, messageContainer);
 
                     const data = await window.fns.sendMessage(userValue, conversation.id);
+
+                    clearTimeout(toastTimer); // Timer löschen
 
                     window.fns.updateChatBubble(botMessageId, data.data.content, messageContainer);
 
@@ -204,6 +211,7 @@
                     // Render MathJax content
                     MathJax.typesetPromise([messageContainer]);
                 } catch (error) {
+                    clearTimeout(toastTimer); // Timer löschen
                     console.log(error);
                     formSubmitButton.textContent = 'Senden';
                     formSubmitButton.disabled = false;

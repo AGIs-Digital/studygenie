@@ -99,27 +99,6 @@
     pointer-events: none;
 }
 
-.headerContainer {
-    background: #2d3e4e;
-    position: fixed;
-    width: 100%;
-    z-index: 999;
-    height: 75px;
-    background-image: url('../images/noise-light.png');
-}
-
-.headerMainContainer {
-    width: 50rem;
-    margin-block: 1rem;
-    margin-inline: 5rem;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.headerSpacer {
-    height: 75px; /* Gleiche Höhe wie der Header */
-}
-
 .mainContainer {
     display: flex;
     flex-direction: column;

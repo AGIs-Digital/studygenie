@@ -3,9 +3,9 @@
         <div class="modal-content">
             <div class="modal-body p-0">
                 <div class="login_sec p-4 position-relative">
-                    <img class="login_m1" src="{{ asset('asset/images/p1.svg') }}" alt="" loading="lazy">
+                    <img class="login_m1" src="{{ asset('asset/images/m1.svg') }}" alt="" loading="lazy">
                     <img class="login_m2" src="{{ asset('asset/images/m2.svg') }}" alt="" loading="lazy">
-                    <img class="login_m3" src="{{ asset('asset/images/p2.svg') }}" alt="" loading="lazy">
+                    <img class="login_m3" src="{{ asset('asset/images/m3.svg') }}" alt="" loading="lazy">
                     <img class="login_m4" src="{{ asset('asset/images/m4.svg') }}" alt="" loading="lazy">
                     <img class="close-icon" data-bs-dismiss="modal" aria-label="Close" src="{{ asset('asset/images/ic_close.png') }}" alt="Close" loading="lazy">
                     <div class="text-center">
@@ -57,6 +57,7 @@
                             </div>
                         </div>
                     </div>
+                    
                 </div>
             </div>
         </div>
@@ -100,6 +101,35 @@
             if (backdrop) {
                 backdrop.remove();
             }
+        });
+
+        const forgetForm = document.getElementById('forgetForm');
+        
+        forgetForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = new FormData(forgetForm);
+            fetch('{{ route('password.email') }}', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    window.location.href = data.redirect; // Weiterleitung zur Homepage
+                    setTimeout(() => {
+                        showToast('E-Mail zum Zurücksetzen des Passworts wurde gesendet.', 'success');
+                    }, 1500); // Verzögerung von 500ms
+                } else {
+                    const errorMessages = data.errors.join('<br>');
+                    setTimeout(() => {
+                        showToast(errorMessages, 'error');
+                    }, 1500); // Verzögerung von 500ms
+                }
+            })
+            .catch(error => showToast('Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.', 'error'));
         });
     });
 </script>

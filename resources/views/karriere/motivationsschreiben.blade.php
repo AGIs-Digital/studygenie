@@ -238,7 +238,7 @@
                     var form = document.getElementById("motivation-form");
                     var formData = new FormData(form);
                     // Ladezeichen anzeigen
-                    $("#preview-button").addClass('loading-button').text("Zaubert...");
+                    $("#preview-button").addClass('loading-button').text("Zaubert...").prop('disabled', true);
                     $.ajax({
                         url: route('karriere.motivation.generate'),
                         type: "POST",
@@ -247,7 +247,7 @@
                         contentType: false,
                         success: function(data) {
                             // Ladezeichen entfernen
-                            $("#preview-button").removeClass('loading-button').text("Vorschau");
+                            $("#preview-button").removeClass('loading-button').text("Vorschau").prop('disabled', false);
 
                             if (data.status) {
                                 // Füge die OpenAI-Antwort zu den Formulardaten hinzu
