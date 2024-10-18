@@ -87,28 +87,28 @@
 
     <div class="steuerungcontainer">
         <div onclick="setInputValue('/motivation')" class="steuerung">
-        <div class="shop-now">Motivation</div>
+        <div>Motivation</div>
         <button type="button" class="btn" data-bs-toggle="tooltip" data-bs-placement="top" title="Überwinde deine Ängste und Sorgen">
 				<img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
         </div>
     </div>
     <div class="steuerungcontainer">
         <div onclick="setInputValue('/insides')" class="steuerung">
-        <div class="shop-now">Insider</div>
+        <div>Insider</div>
         <button type="button" class="btn" data-bs-toggle="tooltip" data-bs-placement="top" title="Tauche ein in branchenspezifische Infos und Fragen">
 				<img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
         </div>
     </div>
     <div class="steuerungcontainer">
         <div onclick="setInputValue('/tipps')" class="steuerung">
-        <div class="shop-now">Tipps</div>
+        <div>Tipps</div>
         <button type="button" class="btn" data-bs-toggle="tooltip" data-bs-placement="top" title="Erhalte professionelle Tipps zur Vorbereitung">
 				<img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
         </div>
     </div>
     <div class="steuerungcontainer">
         <div onclick="setInputValue('/interview')" class="steuerung">
-        <div class="shop-now">Interview</div>
+        <div>Interview</div>
         <button type="button" class="btn" data-bs-toggle="tooltip" data-bs-placement="top" title="Simuliere Vorstellungsgespräche und erhalte Feedback">
 				<img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="">
         </div>
