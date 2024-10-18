@@ -15,7 +15,7 @@ class SubscriptionController extends Controller
                 return response()->json(['message' => 'User not authenticated'], 401);
             }
 
-            $user->subscription_name = 'silber';
+            $user->subscription_name = 'Silber';
             $user->save();
 
             return response()->json(['message' => 'Silber status']);
