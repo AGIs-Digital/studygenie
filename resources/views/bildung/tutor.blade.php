@@ -211,7 +211,9 @@
                     // Render MathJax content
                     MathJax.typesetPromise([messageContainer]);
                 } catch (error) {
+
                     clearTimeout(toastTimer); // Timer löschen
+
                     console.log(error);
                     formSubmitButton.textContent = 'Senden';
                     formSubmitButton.disabled = false;
@@ -275,5 +277,5 @@
         }
     </script>
 </body>
-
 </html>
+
