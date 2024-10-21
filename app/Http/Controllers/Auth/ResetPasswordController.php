@@ -24,9 +24,12 @@ class ResetPasswordController extends Controller
             $response = Password::sendResetLink($request->only('email'));
 
             if ($response == Password::RESET_LINK_SENT) {
-                return response()->json(['status' => 'success']);
+                // Toast-Nachricht für den Erfolg
+                return response()->json(['status' => 'success', 'redirect' => route('home')]);
+                showToast('Schau in deine E-Mails, dort findest du den Link zum Passwort-Reset.', 'success');
             } else {
-                return response()->json(['status' => 'error', 'message' => __($response)], 500);
+                return response()->json(['status' => 'error', 'message' => __($response)], 500, ['redirect' => route('home')]);
+                showToast('Fehler beim Senden des Passwort-Reset-Links.', 'error');
             }
         } catch (\Exception $e) {
             // Logge den Fehler für weitere Analysen

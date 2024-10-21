@@ -26,24 +26,9 @@
         <img src="{{ asset('asset/images/swoosh1.png') }}" alt="swoosh1" loading="lazy">
     </div>
 
-    <section class="planCardsSection">
-        <h2>Dein persönlicher Genie</h2>
-        @include('components.plancards-section')
-    </section>
-
+    <h2 class="text-center">Dein persönlicher Genie</h2>
+    @include('components.plancards-section')
     @include('components.faq-section')
-
-    <div class="modal fade" id="payment_modal" tabindex="-1" aria-labelledby="payment_modalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-body p-0">
-                    <div class="button_payment_box">
-                        <a href="#" id="paypal_btn">Bezahlen mit <span>Pay</span><span>pal</span></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <section class="call-to-actionSection">
         <h2>Worauf wartest du?</h2>

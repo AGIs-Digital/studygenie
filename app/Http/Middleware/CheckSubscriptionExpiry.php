@@ -5,17 +5,9 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
-use App\Services\SubscriptionService;
 
 class CheckSubscriptionExpiry
 {
-    protected $subscriptionService;
-
-    public function __construct(SubscriptionService $subscriptionService)
-    {
-        $this->subscriptionService = $subscriptionService;
-    }
-
     /**
      * Handle an incoming request.
      *
@@ -28,15 +20,12 @@ class CheckSubscriptionExpiry
         $user = auth()->user();
 
         if ($user) {
-            $currentDate = Carbon::now();
-            $expireDate = Carbon::create($user->expire_date);
+            $newDateTime = Carbon::create($user->expire_date)->format('m/d/Y H:i:s');
+            $date1 = Carbon::createFromFormat('m/d/Y H:i:s', $newDateTime);
+            $date2 = Carbon::createFromFormat('m/d/Y H:i:s', Carbon::create(Carbon::now())->format('m/d/Y H:i:s'));
 
-            if ($expireDate->lte($currentDate)) {
-                $isRenewed = $this->subscriptionService->renewSubscription($user);
-
-                if (!$isRenewed) {
-                    $user->updateSubscriptionStatus('silber', null);
-                }
+            if ($date1->lte($date2)) {
+                $user->updateSubscriptionStatus('silber', null);
             }
         }
 

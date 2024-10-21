@@ -19,10 +19,10 @@
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-12">
-                <h1>
-                <img  height="70px" src="{{ asset('asset/images/blitzneu.png') }}">
-                    {{ auth()->user()->name }} - Einstellungen
-                <img  height="70px" src="{{ asset('asset/images/blitzneu.png') }}">
+                <h1 class="d-flex align-items-center justify-content-center flex-wrap">
+                    <img class="img-fluid" style="max-height: 70px; width: auto;" src="{{ asset('asset/images/blitzneu.png') }}" alt="Blitz">
+                    <span class="mx-2 text-center">{{ auth()->user()->name }} - Einstellungen</span>
+                    <img class="img-fluid" style="max-height: 70px; width: auto;" src="{{ asset('asset/images/blitzneu.png') }}" alt="Blitz">
                 </h1>
             </div>
         </div>
@@ -52,7 +52,6 @@
                 <div class="row">
                     @include('components.plancards-section')
                 </div>
-                <br />
 
                 <!-- Kontoeinstellungen und Passwort ändern -->
                 <div class="row">
@@ -110,19 +109,6 @@
     </div>
 
     @include('components.footer')
-
-    <!-- Zahlungs Modal -->
-    <div class="modal fade" id="payment_modal" tabindex="-1" aria-labelledby="payment_modalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-body p-0">
-                    <div class="button_payment_box d-flex justify-content-center align-items-center" style="height: 100%;">
-                        <div id="paypal-button-container"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Account löschen Modal -->
     <div class="modal fade" id="deleteAccountModal" tabindex="-1" aria-labelledby="deleteAccountModalLabel" aria-hidden="true">

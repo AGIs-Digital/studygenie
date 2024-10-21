@@ -102,5 +102,34 @@
                 backdrop.remove();
             }
         });
+
+        const forgetForm = document.getElementById('forgetForm');
+        
+        forgetForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = new FormData(forgetForm);
+            fetch('{{ route('password.email') }}', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    window.location.href = data.redirect; // Weiterleitung zur Homepage
+                    setTimeout(() => {
+                        showToast('E-Mail zum Zurücksetzen des Passworts wurde gesendet.', 'success');
+                    }, 1500); // Verzögerung von 500ms
+                } else {
+                    const errorMessages = data.errors.join('<br>');
+                    setTimeout(() => {
+                        showToast(errorMessages, 'error');
+                    }, 1500); // Verzögerung von 500ms
+                }
+            })
+            .catch(error => showToast('Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.', 'error'));
+        });
     });
 </script>

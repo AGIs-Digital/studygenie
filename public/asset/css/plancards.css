@@ -1,0 +1,245 @@
+.planCardsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  background-image: url('../images/PlanCardsBg.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  position: relative;
+  margin: auto;
+  max-width: 1200px;
+  width: 100%;
+  padding: 1rem;
+  gap: 1rem;
+  padding: 2rem 1rem;
+}
+
+.planCardsSection {
+  padding: 2rem;
+}
+
+#upperDesign, #lowerDesign {
+  position: absolute;
+  max-width: 20%;
+  height: auto;
+}
+
+#upperDesign {
+  top: -5%;
+  right: 1%;
+}
+
+#lowerDesign {
+  bottom: -5%;
+  left: 1%;
+}
+
+.planCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  max-width: 280px;
+  box-shadow: 0px 0px 4px 4px rgba(0, 0, 0, 0.1);
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+  margin: 1rem;
+  background-color: white;
+  z-index: 1;
+}
+
+.planCard.back {
+  background: linear-gradient(261.11deg, #3e5972 0%, #2a3f51 90.84%);
+  color: #fff;
+}
+
+.plancardHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(261.11deg, #3e5972 0%, #2a3f51 90.84%);
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+  width: 100%;
+  padding: 1rem 1rem 0.5rem 1rem;
+}
+
+.plancardHeader img {
+  width: 64px;
+  height: 64px;
+}
+
+.plancardContent {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.plancardbenefit,
+.planCardParagraph {
+  font-family: 'Montserrat', sans-serif;
+  text-align: left;
+  color: black;
+  width: 100%;
+}
+
+.plancardbenefit {
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.planCardParagraph {
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.highSpan {
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 1.5;
+}
+
+.lowSpan {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1.5;
+  text-align: left;
+}
+
+.ribbon {
+  width: 150px;
+  height: 150px;
+  overflow: hidden;
+  position: absolute;
+}
+
+.ribbon::before,
+.ribbon::after {
+  position: absolute;
+  z-index: -1;
+  content: '';
+  display: block;
+  border: 5px solid gray;
+}
+
+.ribbon span {
+  position: absolute;
+  display: block;
+  width: 225px;
+  padding: 15px 0;
+  background-color: #4CAF50;
+  background-image: url('../images/noise-light.png');
+  box-shadow: 0 5px 10px rgba(0,0,0,.1);
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  text-shadow: 0 1px 1px rgba(0,0,0,.2);
+  text-transform: uppercase;
+  text-align: center;
+  font-weight: 700;
+}
+
+.ribbon-top-left {
+  top: -10px;
+  left: -10px;
+}
+
+.ribbon-top-left::before,
+.ribbon-top-left::after {
+  border-top-color: transparent;
+  border-left-color: transparent;
+}
+
+.ribbon-top-left::before {
+  top: 0;
+  right: 0;
+}
+
+.ribbon-top-left::after {
+  bottom: 0;
+  left: 0;
+}
+
+.ribbon-top-left span {
+  right: -25px;
+  top: 30px;
+  transform: rotate(-45deg);
+}
+
+.crownImg {
+  width: 5rem;
+  max-width: 100%;
+  height: auto;
+}
+
+@media (min-width: 576px) {
+  .planCard {
+    width: calc(50% - 2rem);
+  }
+}
+
+@media (min-width: 768px) {
+  .planCard {
+    width: calc(33.333% - 2rem);
+  }
+  
+  .planCardParagraph {
+    font-size: 16px;
+  }
+  
+  .highSpan {
+    font-size: 28px;
+  }
+  
+  .lowSpan {
+    font-size: 16px;
+  }
+}
+
+@media (min-width: 992px) {
+  .planCardsContainer {
+    background-size: 450px;
+  }
+  
+  #upperDesign, #lowerDesign {
+    max-width: 15%;
+  }
+  
+  .crownImg {
+    width: 7rem;
+  }
+  
+  .highSpan {
+    font-size: 30px;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 991px) {
+  .planCardsContainer {
+    justify-content: space-around;
+  }
+
+  .planCard {
+    width: calc(50% - 1rem);
+    max-width: none;
+  }
+}
+
+@media (min-width: 992px) {
+  .planCard {
+    width: calc(33.333% - 1rem);
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 575px) {
+  .planCard {
+    width: 100%;
+    max-width: 300px;
+  }
+}
