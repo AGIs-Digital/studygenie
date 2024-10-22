@@ -62,12 +62,12 @@
     <footer class="fixed-bottom">
     @include('components.footer')
     </footer>
-    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const resetForm = document.getElementById('resetForm');
             const passwordField = document.getElementById('password_reset');
             const submitButton = document.getElementById('submitButton');
+            const resetForm = document.querySelector('form[action="{{ route('password.update') }}"]');
 
             resetForm.addEventListener('submit', function(event) {
                 event.preventDefault();
