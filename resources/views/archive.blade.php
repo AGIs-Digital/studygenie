@@ -9,13 +9,13 @@
 </head>
 
 <body class="MainContainer">
-    <div class="headerSpacer"></div>
-    @include('components.navbar')
-    @include('components.feedback')
-    @include('components.arrowupbutton')
+        <div class="headerSpacer"></div>
+        @include('components.navbar')
+        @include('components.feedback')
+        @include('components.arrowupbutton')
 
-    <div class="container">
-        <div class="row">
+        <div class="container">
+            <div class="row">
             <div class="col-md-6">
                 <h2 style="color: #E09E50; font-family: Milonga; font-size: 32px; font-style: normal; font-weight: 400; line-height: 38px; position: relative; margin-top: 3rem; text-align: center;">Bildung</h2>
                 <div class="accordion" id="accordionBildung">
@@ -133,7 +133,6 @@
     </div>
 
     @include('components.mathjax')
-    @include('components.footer')
 
     <script src="{{ asset('asset/js/toast.js') }}"></script>
     <script>
