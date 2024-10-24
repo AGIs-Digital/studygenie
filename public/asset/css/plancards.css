@@ -10,13 +10,8 @@
   margin: auto;
   max-width: 1200px;
   width: 100%;
-  padding: 1rem;
   gap: 1rem;
   padding: 2rem 1rem;
-}
-
-.planCardsSection {
-  padding: 2rem;
 }
 
 #upperDesign, #lowerDesign {

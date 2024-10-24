@@ -65,14 +65,14 @@ class FrontController extends Controller
     {
         $validationResult = $this->validatePasswordUpdate($request);
         if ($validationResult !== true) {
-            return redirect()->back()->withErrors($validationResult);
+            return response()->json(['message' => 'Das hat nicht geklappt. Bitte versuche es erneut.', 'status' => 'error']);
         }
 
         User::find(auth()->user()->id)->update([
             'password' => Hash::make($request->new_password)
         ]);
 
-        return redirect()->back()->with('success', 'Passwort erfolgreich geändert');
+        return response()->json(['message' => 'Passwort erfolgreich geändert', 'status' => 'success']);
     }
 
     private function validatePasswordUpdate($request)

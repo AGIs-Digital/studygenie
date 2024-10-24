@@ -16,7 +16,7 @@
     <div class="headerSpacer"><br><br></div>
     @include('components.tooglePasswordVisibility')
 
-    <div class="container mt-5">
+    <div class="mainContent container mt-5">
         <div class="row">
             <div class="col-md-12">
                 <h1 class="d-flex align-items-center justify-content-center flex-wrap">
@@ -45,7 +45,7 @@
         @endif
 
         <!-- Passwort ändern Formular -->
-        <form method="POST" action="{{ route('change.password') }}">
+        <form id="passwordChangeForm" method="POST" action="{{ route('change.password') }}">
             @csrf
             <div class="content">
                 <!-- Abonnement-Pläne -->
@@ -60,7 +60,7 @@
                         <button id="deleteAccountButton" type="button" class="btn btn-outline-danger mx-2">Account löschen</button>
                     </div>
 
-                    <div id="passwordChangeForm" class="hidden mt-4">
+                    <div id="passwordChangeFormFields" class="hidden mt-4">
                         <div class="row changePasswordForm">
                             <div class="col-md-4">
                                 <div class="emailField">
@@ -70,9 +70,9 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="emailField">
-                                    <label class="label" for="password">Neues Passwort:</label>
+                                    <label class="label" for="new_password">Neues Passwort:</label>
                                     <div class="password-field">
-                                        <input type="password" id="password" name="password" class="emailLogin">
+                                        <input type="password" id="new_password" name="new_password" class="emailLogin">
                                         <span class="toggle-password" onclick="togglePasswordVisibility()">
                                             <img src="{{ asset('asset/images/eye.svg') }}" alt="Toggle Password Visibility" width="25" height="25">
                                         </span>
@@ -92,8 +92,10 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="emailField">
-                                    <label class="label" for="new_confirm_password">Neues Passwort?</label>
-                                    <input type="password" id="new_confirm_password" name="new_confirm_password" class="emailLogin">
+                                    <div class="password-field">
+                                        <label class="label" for="new_confirm_password">Neues Passwort?</label>
+                                        <input type="password" id="new_confirm_password" name="new_confirm_password" class="emailLogin">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -205,7 +207,7 @@
                     { id: 'lengthCriteria', regex: /.{8,}/ }
                 ];
 
-                const password = document.getElementById('password').value;
+                const password = document.getElementById('new_password').value;
 
                 criteria.forEach(({ id, regex }) => {
                     const element = document.getElementById(id);
@@ -221,10 +223,37 @@
                 });
             }
 
-            document.getElementById('password').addEventListener('input', updateCriteria);
+            document.getElementById('new_password').addEventListener('input', updateCriteria);
 
             document.getElementById('changePasswordButton').addEventListener('click', function () {
-                document.getElementById('passwordChangeForm').classList.toggle('hidden');
+                document.getElementById('passwordChangeFormFields').classList.toggle('hidden');
+            });
+
+            document.getElementById('passwordChangeForm').addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                const form = document.getElementById('passwordChangeForm');
+                const formData = new FormData(form);
+
+                fetch('{{ route('change.password') }}', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        showToast(data.message, 'success');
+                        document.getElementById('passwordChangeFormFields').classList.add('hidden');
+                    } else {
+                        showToast(data.message, 'error');
+                    }
+                })
+                .catch(error => {
+                    showToast('Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.', 'error');
+                });
             });
         });
 
@@ -241,13 +270,13 @@
                     body: JSON.stringify({ subscription_name: 'Silber' })
                 }).then(response => {
                     if (response.ok) {
-                        showToast('Du hast jetzt den Silber Status', 'success');
-                        localStorage.setItem('subscription_updated', 'true'); // Setze nur bei erfolgreicher Antwort
+                        showToast('Du hast jetzt wieder den Silber Status', 'success');
+                        localStorage.setItem('subscription_updated', 'true');
                         location.reload();
                     } else {
-                        console.error('Failed to update subscription');
+                        console.error('Fehler beim Aktualisieren des Abonnements');
                     }
-                }).catch(error => console.error('Error:', error));
+                }).catch(error => console.error('Fehler:', error));
             };
         }
 

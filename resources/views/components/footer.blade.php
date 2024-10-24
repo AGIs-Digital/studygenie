@@ -1,5 +1,5 @@
 <link rel="stylesheet" href="{{ asset('asset/css/footer.css') }}">
-<footer class="mainFooterContainer">
+<footer class="mainFooterContainer fixed-bottom">
     <div class="footerContainer">
         <!-- Logo Bereich -->
         <div class="logoContainer">

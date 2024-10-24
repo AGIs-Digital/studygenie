@@ -26,8 +26,8 @@ a {
 
 .arrow-up {
   position: fixed;
-  bottom: 7%;
-  left: 50%;
+  bottom: 8%;
+  left: 49.9%;
   transform: translateX(-50%);
   width: 50px;
   height: 50px;
@@ -37,13 +37,22 @@ a {
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  opacity: 0.7;
-  transition: opacity 0.3s ease;
+  opacity: 0.5;
+  transition: opacity 0.1s ease;
   z-index: 1000;
+}
+
+.arrow-up img {
+  width: 30px;
+  height: 30px;
 }
 
 .arrow-up.hidden {
   display: none;
+}
+
+.arrow-up:hover {
+  opacity: 1;
 }
 
 .hidden {
@@ -109,10 +118,6 @@ a {
   100% { transform: scale(1); }
 }
 
-.arrow-up:hover {
-  opacity: 1;
-}
-
 .heroimage-section-content {
   display: grid;
   grid-template-rows: auto auto;
@@ -165,10 +170,7 @@ a {
 	linear-gradient(182deg, #afd7ff00, #afd7ff4d 8%, #afd7ff00 15%);
 }
 
-.arrow-up img {
-  width: 30px;
-  height: 30px;
-}
+
 
 .navbar {
   position: relative;
@@ -244,21 +246,6 @@ a {
   background-color: #e09e50;
   outline: none;
   border: none;
-}
-
-.sideAdaptSticker {
-  padding: 0.5rem 1rem;
-  margin-block: 0.5rem;
-  border-top-right-radius: 1.5rem;
-  border-bottom-right-radius: 1.5rem;
-  width: 15rem;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 1rem;
-  background-color: rgba(185, 212, 208, 0.2);
-  opacity: 0.7;
-  box-shadow: 2px 0px 10px 0px rgba(185, 212, 208, 0.2);
 }
 
 .description {
@@ -626,22 +613,18 @@ h4 ~ p {
 }
 
 .reset-card {
-  width: 100%;
   max-width: 500px;
   box-shadow: 0px 0px 4px 4px rgba(0, 0, 0, 0.1);
-  padding: 1rem;
-  position: absolute;
-  z-index: 2;
   background-color: white;
   border-radius: 16px;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  padding: 0;
+  padding: 0 auto;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 4rem;
 }
+
 .reset-card-body .form-group {
   margin-bottom: 1.5rem;
 }

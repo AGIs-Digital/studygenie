@@ -3,22 +3,19 @@
 <head>
     @section('title', 'Passwort zurücksetzen')
     @include('components.head')
-</head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
+</head>
+@include('components.navbar')
+@include('components.feedback')
 <body class="MainContainer">
     <div class="headerSpacer"></div>
-    @include('components.navbar')
-    @include('components.feedback')
-    @include('components.arrowupbutton')
-
-    @guest
         @include('components.login-modal')
-        @include('components.signup-modal')
         @include('components.tooglePasswordVisibility')
-    @endguest
+    @include('components.signup-modal')
 
-    <main class="blog_sec">
-        <div class="container">
+
+    <div class="container mt-5">
             <div class="reset-card">
                 <div class="card-header reset-card-header">{{ __('Passwort zurücksetzen') }}</div>
                 <div class="card-body reset-card-body">
@@ -32,7 +29,7 @@
 
                             <label class="label" for="password_reset">Passwort:</label>
                             <div class="password-field">
-                                <input type="password" placeholder="Neues Passwort" name="password" id="password_reset" class="emailLogin">
+                            <input type="password" id="password_reset" name="password" placeholder="Neues Passwort" class="emailLogin" required>
                                 <span class="toggle-password" onclick="togglePasswordVisibility(this)">
                                     <img src="{{ asset('asset/images/eye.svg') }}" alt="Toggle Password Visibility" width="25" height="25">
                                 </span>
@@ -40,14 +37,12 @@
 
                             <div id="passwordCriteria" class="criteria-container mt-2">
                                 <div class="criteria-row">
-                                    <span id="lengthCriteria" class="text-danger">
-                                        <span class="checkmark">✘</span> 8 Zeichen
-                                    </span><br>
-                                    <span id="uppercaseCriteria" class="text-danger"><span class="checkmark">✘</span> Großbuchstabe</span><br>
+        <span id="lengthCriteria" class="text-danger"><span class="checkmark">✗</span> 8 Zeichen</span>
+        <span id="uppercaseCriteria" class="text-danger"><span class="checkmark">✗</span> Großbuchstabe</span>
                                 </div>
                                 <div class="criteria-row">
-                                    <span id="numberCriteria" class="text-danger"><span class="checkmark">✘</span> Zahl</span><br>
-                                    <span id="specialCharCriteria" class="text-danger"><span class="checkmark">✘</span> Sonderzeichen</span><br>
+        <span id="numberCriteria" class="text-danger"><span class="checkmark">✗</span> Zahl</span>
+        <span id="specialCharCriteria" class="text-danger"><span class="checkmark">✗</span> Sonderzeichen</span>
                                 </div>
                             </div>
 
@@ -63,14 +58,16 @@
                 </div>
             </div>
         </div>
-    </main>
+
+    <footer class="fixed-bottom">
     @include('components.footer')
-    
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const resetForm = document.getElementById('resetForm');
             const passwordField = document.getElementById('password_reset');
             const submitButton = document.getElementById('submitButton');
+            const resetForm = document.querySelector('form[action="{{ route('password.update') }}"]');
 
             resetForm.addEventListener('submit', function(event) {
                 event.preventDefault();
