@@ -31,7 +31,7 @@ class ResetPassword extends Notification
         ], false));
 
         return (new MailMessage)
-                    ->subject('Passwort zurücksetzen')
+                    ->subject('🔑 StudyGenie - Passwort zurücksetzen')
                     ->markdown('emails.password_reset', ['url' => $url]);
     }
 }

@@ -37,7 +37,7 @@
 									fill="rgba(41,58,74,1)"></path>
                                 <text class="textStyle" x="50%" y="65" text-anchor="middle"
 									font-family: 'Milonga', cursive; font-size="24" fill="#FFFFFF"
-									font-weight="400">KarriereMentor</text>
+									font-weight="400">Mentor</text>
                                 </svg>
 
 

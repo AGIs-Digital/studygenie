@@ -109,10 +109,14 @@ return [
 
     'markdown' => [
         'theme' => 'default',
-
         'paths' => [
             resource_path('views/vendor/mail'),
         ],
     ],
 
+    'logo' => [
+        'path' => public_path('asset/images/Logo_(2).png'),
+        'width' => 133,
+        'height' => 77,
+    ],
 ];

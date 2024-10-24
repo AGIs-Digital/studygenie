@@ -86,9 +86,9 @@ class FrontController extends Controller
                 'required',
                 'string',
                 'min:8',
-                'regex:/[0-9]/', // Mindestens eine Zahl
-                'regex:/[A-Z]/', // Mindestens ein Großbuchstabe
-                'regex:/[!@#$%^&*(),.?":{}|<>]/' // Mindestens ein Sonderzeichen
+                'regex:/[0-9]/',
+                'regex:/[A-Z]/',
+                'regex:/[!@#$%^&*(),.?":{}|<>]/'
             ],
             'new_confirm_password' => 'same:new_password'
         ]);

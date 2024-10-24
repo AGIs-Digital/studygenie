@@ -93,7 +93,7 @@
                             <div class="col-md-4">
                                 <div class="emailField">
                                     <div class="password-field">
-                                        <label class="label" for="new_confirm_password">Neues Passwort?</label>
+                                        <label class="label" for="new_confirm_password">Neues Passwort bestätigen:</label>
                                         <input type="password" id="new_confirm_password" name="new_confirm_password" class="emailLogin">
                                     </div>
                                 </div>

@@ -24,18 +24,14 @@ class ResetPasswordController extends Controller
             $response = Password::sendResetLink($request->only('email'));
 
             if ($response == Password::RESET_LINK_SENT) {
-                // Toast-Nachricht für den Erfolg
-                return response()->json(['status' => 'success', 'redirect' => route('home')]);
-                showToast('Schau in deine E-Mails, dort findest du den Link zum Passwort-Reset.', 'success');
+                return response()->json(['message' => 'Schau in deine E-Mails, dort findest du den Link zum Passwort-Reset.', 'status' => 'success']);
             } else {
-                return response()->json(['status' => 'error', 'message' => __($response)], 500, ['redirect' => route('home')]);
-                showToast('Fehler beim Senden des Passwort-Reset-Links.', 'error');
+                return response()->json(['message' => 'Fehler beim Senden des Passwort-Reset-Links', 'status' => 'error']);
             }
         } catch (\Exception $e) {
-            // Logge den Fehler für weitere Analysen
             \Log::error('Fehler beim Senden des Passwort-Reset-Links: ' . $e->getMessage());
 
-            return response()->json(['status' => 'error', 'message' => 'Ein unerwarteter Fehler ist aufgetreten.'], 500);
+            return response()->json(['message' => 'Ein unerwarteter Fehler ist aufgetreten.', 'status' => 'error']);
         }
     }
 
@@ -55,9 +51,9 @@ class ResetPasswordController extends Controller
                 'required',
                 'string',
                 'min:8',
-                'regex:/[0-9]/', // Mindestens eine Zahl
-                'regex:/[A-Z]/', // Mindestens ein Großbuchstabe
-                'regex:/[!@#$%^&*(),.?":{}|<>]/' // Mindestens ein Sonderzeichen
+                'regex:/[0-9]/',
+                'regex:/[A-Z]/',
+                'regex:/[!@#$%^&*(),.?":{}|<>]/'
             ],
             'password_confirmation' => 'required|same:password',
         ]);
@@ -68,17 +64,11 @@ class ResetPasswordController extends Controller
                 $user->forceFill([
                     'password' => Hash::make($password)
                 ])->save();
-
-                $user->setRememberToken(Str::random(60));
-
-                event(new PasswordReset($user));
             }
         );
 
-        if ($status == Password::PASSWORD_RESET) {
-            return response()->json(['status' => 'success']);
-        }
-
-        return response()->json(['status' => 'error', 'errors' => [__($status)]], 500);
+        return $status == Password::PASSWORD_RESET
+            ? response()->json(['message' => 'Passwort erfolgreich zurückgesetzt', 'status' => 'success'])
+            : response()->json(['message' => 'Fehler beim Zurücksetzen des Passworts', 'status' => 'error']);
     }
 }
