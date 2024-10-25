@@ -25,6 +25,7 @@ use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\Bildung\TutorController;
 use App\Http\Controllers\WebhookController;
 use App\Http\Controllers\PayPalWebhookController;
+use App\Http\Controllers\PayPalSandboxTestController;
 
 ### PUBLIC VIEW ROUTES ###
 Route::view('impressum', 'impressum')->name('impressum');
@@ -160,8 +161,17 @@ Route::get('auth/google/callback', [LoginController::class, 'handleGoogleCallbac
 
 Route::post('/webhook/paypal', [WebhookController::class, 'handle']);
 
-Route::post('/paypal/webhook', [PayPalWebhookController::class, 'handle']);
+Route::post('paypal/webhook', [PayPalWebhookController::class, 'handleWebhook'])
+    ->name('paypal.webhook')
+    ->middleware('api');
 
 Route::get('/subscription/expired', function () {
     return view('subscription.expired');
 })->name('subscription.expired');
+
+// Nur für Sandbox/Entwicklung!
+if (config('app.env') !== 'production') {
+    Route::get('/test-paypal-webhook', [PayPalSandboxTestController::class, 'simulateWebhook'])
+        ->middleware('auth')
+        ->name('test.paypal.webhook');
+}

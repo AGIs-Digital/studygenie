@@ -238,3 +238,15 @@
     max-width: 300px;
   }
 }
+
+.modal {
+  z-index: 1050;
+}
+
+#paypalModalGold, #paypalModalDiamant {
+  z-index: 1060;
+}
+
+.modal-backdrop {
+  z-index: 1;
+}
