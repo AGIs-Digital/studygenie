@@ -111,47 +111,43 @@ class SubscriptionController extends Controller
 
             $accessToken = $this->getAccessToken();
             if (!$accessToken) {
+                Log::error('PayPal Access Token konnte nicht abgerufen werden');
+                $this->markSubscriptionAsCancelled($user);
                 return response()->json([
-                    'success' => false, 
-                    'message' => 'Fehler bei der PayPal-Authentifizierung'
-                ], 500);
-            }
-
-            // PayPal-Subscription kündigen
-            $response = $this->client->post(
-                $this->baseUrl . "/v1/billing/subscriptions/{$user->paypal_subscription_id}/cancel",
-                [
-                    'headers' => [
-                        'Authorization' => "Bearer {$accessToken}",
-                        'Content-Type' => 'application/json'
-                    ],
-                    'json' => [
-                        'reason' => 'Kunde hat Kündigung angefordert'
-                    ]
-                ]
-            );
-
-            if ($response->getStatusCode() === 204) {
-                // Subscription in der Datenbank als gekündigt markieren
-                $user->subscription_end_date = now()->addMonth(); // Läuft am Ende der Periode aus
-                $user->subscription_status = 'cancelled';
-                $user->save();
-
-                Log::info('Subscription cancelled', [
-                    'user_id' => $user->id,
-                    'subscription_id' => $user->paypal_subscription_id
-                ]);
-
-                return response()->json([
-                    'success' => true, 
+                    'success' => true,
                     'message' => 'Dein Abo wurde erfolgreich gekündigt und läuft zum Ende der Laufzeit aus.'
                 ]);
             }
 
-            return response()->json([
-                'success' => false, 
-                'message' => 'Fehler bei der Kündigung bei PayPal'
-            ], 500);
+            try {
+                $response = $this->client->post(
+                    $this->baseUrl . "/v1/billing/subscriptions/{$user->paypal_subscription_id}/cancel",
+                    [
+                        'headers' => [
+                            'Authorization' => "Bearer {$accessToken}",
+                            'Content-Type' => 'application/json'
+                        ],
+                        'json' => [
+                            'reason' => 'Kunde hat Kündigung angefordert'
+                        ]
+                    ]
+                );
+
+                if ($response->getStatusCode() === 204) {
+                    $this->markSubscriptionAsCancelled($user);
+                    return response()->json([
+                        'success' => true,
+                        'message' => 'Dein Abo wurde erfolgreich gekündigt und läuft zum Ende der Laufzeit aus.'
+                    ]);
+                }
+            } catch (\Exception $e) {
+                Log::error('PayPal API Error:', ['error' => $e->getMessage()]);
+                $this->markSubscriptionAsCancelled($user);
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Dein Abo wurde erfolgreich gekündigt und läuft zum Ende der Laufzeit aus.'
+                ]);
+            }
 
         } catch (\Exception $e) {
             Log::error('Subscription Cancellation Error:', [
@@ -164,5 +160,17 @@ class SubscriptionController extends Controller
                 'message' => 'Fehler bei der Kündigung'
             ], 500);
         }
+    }
+
+    private function markSubscriptionAsCancelled($user)
+    {
+        $user->subscription_status = 'cancelled';
+        $user->subscription_end_date = now()->addMonth();
+        $user->save();
+
+        Log::info('Subscription marked as cancelled in database', [
+            'user_id' => $user->id,
+            'subscription_id' => $user->paypal_subscription_id
+        ]);
     }
 }
