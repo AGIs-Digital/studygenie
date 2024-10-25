@@ -1,5 +1,5 @@
 @component('mail::message')
-# 🔑 Passwort zurücksetzen
+# Passwort zurücksetzen
 
 Du erhältst diese E-Mail, weil wir eine Anfrage zum Zurücksetzen des Passworts für dein Konto erhalten haben.
 
@@ -7,9 +7,8 @@ Du erhältst diese E-Mail, weil wir eine Anfrage zum Zurücksetzen des Passworts
 Passwort zurücksetzen
 @endcomponent
 
-✔️ Wenn du das nicht angefordert hast, kannst du diese E-Mail ignorieren.
+Wenn du das nicht angefordert hast, kannst du diese E-Mail ignorieren.
 
 Bis gleich!<br>
-Dein {{ config('app.name') }}<br>
-<img src="{{ asset('images/Logo_(2).png') }}" alt="Logo" width="133" height="77">
+Dein StudyGenie
 @endcomponent

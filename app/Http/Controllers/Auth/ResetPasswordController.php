@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Illuminate\Auth\Events\PasswordReset;
 
 class ResetPasswordController extends Controller
 {
@@ -24,14 +25,18 @@ class ResetPasswordController extends Controller
             $response = Password::sendResetLink($request->only('email'));
 
             if ($response == Password::RESET_LINK_SENT) {
-                return response()->json(['message' => 'Schau in deine E-Mails, dort findest du den Link zum Passwort-Reset.', 'status' => 'success']);
+                // Toast-Nachricht für den Erfolg
+                return response()->json(['status' => 'success', 'redirect' => route('home')]);
+                showToast('Schau in deine E-Mails, dort findest du den Link zum Passwort-Reset.', 'success');
             } else {
-                return response()->json(['message' => 'Fehler beim Senden des Passwort-Reset-Links', 'status' => 'error']);
+                return response()->json(['status' => 'error', 'message' => __($response)], 500, ['redirect' => route('home')]);
+                showToast('Fehler beim Senden des Passwort-Reset-Links.', 'error');
             }
         } catch (\Exception $e) {
+            // Logge den Fehler für weitere Analysen
             \Log::error('Fehler beim Senden des Passwort-Reset-Links: ' . $e->getMessage());
 
-            return response()->json(['message' => 'Ein unerwarteter Fehler ist aufgetreten.', 'status' => 'error']);
+            return response()->json(['status' => 'error', 'message' => 'Ein unerwarteter Fehler ist aufgetreten.'], 500);
         }
     }
 
@@ -51,9 +56,9 @@ class ResetPasswordController extends Controller
                 'required',
                 'string',
                 'min:8',
-                'regex:/[0-9]/',
-                'regex:/[A-Z]/',
-                'regex:/[!@#$%^&*(),.?":{}|<>]/'
+                'regex:/[0-9]/', // Mindestens eine Zahl
+                'regex:/[A-Z]/', // Mindestens ein Großbuchstabe
+                'regex:/[!@#$%^&*(),.?":{}|<>]/' // Mindestens ein Sonderzeichen
             ],
             'password_confirmation' => 'required|same:password',
         ]);
@@ -65,14 +70,23 @@ class ResetPasswordController extends Controller
                     'password' => Hash::make($password)
                 ])->save();
 
-            $user->setRememberToken(Str::random(60));
+                $user->setRememberToken(Str::random(60));
 
                 event(new PasswordReset($user));
             }
         );
 
-        return $status == Password::PASSWORD_RESET
-            ? response()->json(['message' => 'Passwort erfolgreich zurückgesetzt', 'status' => 'success'])
-            : response()->json(['message' => 'Fehler beim Zurücksetzen des Passworts', 'status' => 'error']);
+        if ($status == Password::PASSWORD_RESET) {
+            return response()->json([
+                'status' => 'success',
+                'message' => __($status),
+                'redirect' => route('login')
+            ]);
+        }
+
+        return response()->json([
+            'status' => 'error',
+            'errors' => [__($status)]
+        ], 422);
     }
 }
