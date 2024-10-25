@@ -11,5 +11,5 @@ Passwort zurücksetzen
 
 Bis gleich!<br>
 Dein {{ config('app.name') }}<br>
-<img src="{{ asset('asset/images/Logo_(2).png') }}" alt="Logo" width="133" height="77">
+<img src="{{ asset('images/Logo_(2).png') }}" alt="Logo" width="133" height="77">
 @endcomponent
