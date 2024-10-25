@@ -14,9 +14,9 @@
         </nav>
         <!-- Social Media Bereich -->
         <div class="socialContainer">
-            <a href="#"><img width="45" height="45" src="{{ asset('asset/images/instagram.svg') }}" alt="Instagram" loading="lazy"></a>
-            <a href="#"><img width="45" height="45" src="{{ asset('asset/images/tiktok.svg') }}" alt="TikTok" loading="lazy"></a>
-            <a href="#"><img width="45" height="45" src="{{ asset('asset/images/linkedin.svg') }}" alt="LinkedIn" loading="lazy"></a>
+            <a href="https://www.instagram.com/study__genie/"><img width="45" height="45" src="{{ asset('asset/images/instagram.svg') }}" alt="Instagram" loading="lazy"></a>
+            <a href="https://www.tiktok.com/@study_genie"><img width="45" height="45" src="{{ asset('asset/images/tiktok.svg') }}" alt="TikTok" loading="lazy"></a>
+            <a href="https://www.linkedin.com/company/105268227"><img width="45" height="45" src="{{ asset('asset/images/linkedin.svg') }}" alt="LinkedIn" loading="lazy"></a>
         </div>
     </div>
 </footer>

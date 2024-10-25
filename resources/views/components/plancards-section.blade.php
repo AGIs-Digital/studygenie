@@ -66,7 +66,14 @@
                     <button data-bs-toggle="modal" data-bs-target="#signupModal" class="plancardButton">Hol dir Gold</button>
                 @else
                     @if(auth()->user()->subscription_name == 'Gold')
-                        <button class="plancardButton" disabled>Aktueller Status</button>
+                        @if(auth()->user()->subscription_status == 'cancelled')
+                            <div class="alert alert-warning">
+                                Dein Abo läuft am {{ auth()->user()->subscription_end_date->format('d.m.Y') }} aus
+                            </div>
+                            <button class="plancardButton" disabled>Gekündigt</button>
+                        @else
+                            <button class="plancardButton cancel-subscription" data-plan="Gold">Abo kündigen</button>
+                        @endif
                     @else
                         <button class="plancardButton" data-bs-toggle="modal" data-bs-target="#paypalModalGold">Hol dir Gold</button>
                     @endif
@@ -107,7 +114,7 @@
                     <button data-bs-toggle="modal" data-bs-target="#signupModal" class="plancardButton">Hol dir Diamant</button>
                 @else
                     @if(auth()->user()->subscription_name == 'Diamant')
-                        <button class="plancardButton" disabled>Aktueller Status</button>
+                        <button class="plancardButton cancel-subscription" data-plan="Diamant">Abo kündigen</button>
                     @else
                         <button class="plancardButton" data-bs-toggle="modal" data-bs-target="#paypalModalDiamant">Hol dir Diamant</button>
                     @endif
@@ -125,6 +132,26 @@
                     </div>
                     <div class="modal-body">
                         <div id="paypal-button-diamant"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal für Abo-Kündigung -->
+        <div class="modal fade" id="cancelSubscriptionModal" tabindex="-1" aria-labelledby="cancelSubscriptionModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="cancelSubscriptionModalLabel">Abo kündigen</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Möchtest du dein <span id="planType"></span>-Abo wirklich kündigen?</p>
+                        <p>Das Abo läuft noch bis zum Ende der aktuellen Periode und wird dann nicht verlängert.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Abbrechen</button>
+                        <button type="button" class="btn btn-danger" id="confirmCancelButton">Abo kündigen</button>
                     </div>
                 </div>
             </div>
@@ -262,6 +289,44 @@
                 });
             });
         });
+
+        // Event Listener für Kündigungs-Buttons
+        document.querySelectorAll('.cancel-subscription').forEach(button => {
+            button.addEventListener('click', function() {
+                const planType = this.getAttribute('data-plan');
+                document.getElementById('planType').textContent = planType;
+                const modal = new bootstrap.Modal(document.getElementById('cancelSubscriptionModal'));
+                modal.show();
+            });
+        });
+
+        // Event Listener für Kündigungs-Bestätigung
+        document.getElementById('confirmCancelButton').addEventListener('click', function() {
+            fetch('{{ route('subscriptions.cancel') }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    location.reload();
+                    localStorage.setItem('subscription_updated', 'true');
+                    showToast('Dein Abo wurde erfolgreich gekündigt und läuft zum Ende der Laufzeit aus.', 'success');
+                } else {
+                    showToast('Es gab einen Fehler bei der Kündigung. Bitte versuche es später erneut.', 'error');
+                }
+            });
+            
+            bootstrap.Modal.getInstance(document.getElementById('cancelSubscriptionModal')).hide();
+        });
     </script>
 </section>
+
+
+
+
+
 

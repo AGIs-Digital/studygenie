@@ -10,6 +10,12 @@ class PayPalWebhookController extends Controller
 {
     public function handleWebhook(Request $request)
     {
+        // Verifiziere den PayPal Webhook
+        if (!$this->verifyWebhookSignature($request)) {
+            Log::error('Ungültiger PayPal Webhook-Aufruf');
+            return response()->json(['error' => 'Ungültige Signatur'], 400);
+        }
+
         // Debugging für Sandbox
         \Log::channel('daily')->info('PayPal Webhook aufgerufen', [
             'headers' => $request->headers->all(),
@@ -38,10 +44,12 @@ class PayPalWebhookController extends Controller
         
         // Finden Sie den Benutzer mit dieser Subscription ID
         $user = User::where('paypal_subscription_id', $subscriptionId)->first();
-        
+            
         if ($user) {
             $user->subscription_name = 'Silber';
             $user->paypal_subscription_id = null;
+            $user->subscription_status = 'cancelled';
+            $user->subscription_end_date = now()->addMonth();
             $user->save();
             
             Log::info('Benutzer-Abonnement auf Silber zurückgesetzt', [
@@ -49,5 +57,12 @@ class PayPalWebhookController extends Controller
                 'email' => $user->email
             ]);
         }
+    }
+
+    private function verifyWebhookSignature($request)
+    {
+        // Implementierung der PayPal Webhook-Signatur-Verifizierung
+        // https://developer.paypal.com/api/rest/webhooks/
+        return true; // Temporär für Tests
     }
 }

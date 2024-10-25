@@ -175,3 +175,7 @@ if (config('app.env') !== 'production') {
         ->middleware('auth')
         ->name('test.paypal.webhook');
 }
+
+Route::post('subscriptions/cancel', [SubscriptionController::class, 'cancelSubscription'])
+    ->name('subscriptions.cancel')
+    ->middleware('auth');
