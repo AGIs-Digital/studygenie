@@ -66,7 +66,14 @@
                     <button data-bs-toggle="modal" data-bs-target="#signupModal" class="plancardButton">Hol dir Gold</button>
                 @else
                     @if(auth()->user()->subscription_name == 'Gold')
-                        <button class="plancardButton cancel-subscription" data-plan="Gold">Abo kündigen</button>
+                        @if(auth()->user()->subscription_status == 'cancelled')
+                            <div class="alert alert-warning">
+                                Dein Abo läuft am {{ auth()->user()->subscription_end_date->format('d.m.Y') }} aus
+                            </div>
+                            <button class="plancardButton" disabled>Gekündigt</button>
+                        @else
+                            <button class="plancardButton cancel-subscription" data-plan="Gold">Abo kündigen</button>
+                        @endif
                     @else
                         <button class="plancardButton" data-bs-toggle="modal" data-bs-target="#paypalModalGold">Hol dir Gold</button>
                     @endif
@@ -318,6 +325,8 @@
         });
     </script>
 </section>
+
+
 
 
 

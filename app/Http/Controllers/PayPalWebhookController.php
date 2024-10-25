@@ -44,10 +44,12 @@ class PayPalWebhookController extends Controller
         
         // Finden Sie den Benutzer mit dieser Subscription ID
         $user = User::where('paypal_subscription_id', $subscriptionId)->first();
-        
+            
         if ($user) {
             $user->subscription_name = 'Silber';
             $user->paypal_subscription_id = null;
+            $user->subscription_status = 'cancelled';
+            $user->subscription_end_date = now()->addMonth();
             $user->save();
             
             Log::info('Benutzer-Abonnement auf Silber zurückgesetzt', [
