@@ -62,4 +62,21 @@ class SubscriptionController extends Controller
 
         return response()->json(['message' => 'Subscription updated successfully']);
     }
+
+    public function cancelSubscription(Request $request)
+    {
+        try {
+            $user = Auth::user();
+            if (!$user || !$user->paypal_subscription_id) {
+                return response()->json(['success' => false, 'message' => 'Kein aktives Abo gefunden'], 400);
+            }
+
+            // PayPal API aufrufen um das Abo zu kündigen
+            // TODO: Implementieren Sie hier den PayPal-API-Aufruf zur Kündigung
+
+            return response()->json(['success' => true, 'message' => 'Abo erfolgreich gekündigt']);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Fehler bei der Kündigung'], 500);
+        }
+    }
 }

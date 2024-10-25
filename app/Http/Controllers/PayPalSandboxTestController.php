@@ -4,16 +4,21 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use App\Models\User;
 
 class PayPalSandboxTestController extends Controller
 {
     public function simulateWebhook()
     {
-        // Simuliere einen Webhook-Aufruf
+        $user = auth()->user();
+        if (!$user || !$user->paypal_subscription_id) {
+            return response()->json(['error' => 'Keine gültige Subscription-ID gefunden'], 400);
+        }
+
         $testPayload = [
             'event_type' => 'BILLING.SUBSCRIPTION.CANCELLED',
             'resource' => [
-                'id' => auth()->user()->paypal_subscription_id ?? 'TEST_ID'
+                'id' => $user->paypal_subscription_id
             ]
         ];
 
@@ -23,4 +28,3 @@ class PayPalSandboxTestController extends Controller
         return $webhookController->handleWebhook(new Request($testPayload));
     }
 }
-

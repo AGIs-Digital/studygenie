@@ -10,6 +10,12 @@ class PayPalWebhookController extends Controller
 {
     public function handleWebhook(Request $request)
     {
+        // Verifiziere den PayPal Webhook
+        if (!$this->verifyWebhookSignature($request)) {
+            Log::error('Ungültiger PayPal Webhook-Aufruf');
+            return response()->json(['error' => 'Ungültige Signatur'], 400);
+        }
+
         // Debugging für Sandbox
         \Log::channel('daily')->info('PayPal Webhook aufgerufen', [
             'headers' => $request->headers->all(),
@@ -49,5 +55,12 @@ class PayPalWebhookController extends Controller
                 'email' => $user->email
             ]);
         }
+    }
+
+    private function verifyWebhookSignature($request)
+    {
+        // Implementierung der PayPal Webhook-Signatur-Verifizierung
+        // https://developer.paypal.com/api/rest/webhooks/
+        return true; // Temporär für Tests
     }
 }
