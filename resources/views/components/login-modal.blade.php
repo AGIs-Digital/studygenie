@@ -118,15 +118,9 @@
             .then(response => response.json())
             .then(data => {
                 if (data.status === 'success') {
-                    window.location.href = data.redirect; // Weiterleitung zur Homepage
-                    setTimeout(() => {
-                        showToast('E-Mail zum Zurücksetzen des Passworts wurde gesendet.', 'success');
-                    }, 1500); // Verzögerung von 500ms
+                    showToast(data.message, 'success');
                 } else {
-                    const errorMessages = data.errors.join('<br>');
-                    setTimeout(() => {
-                        showToast(errorMessages, 'error');
-                    }, 1500); // Verzögerung von 500ms
+                    showToast(data.message, 'error');
                 }
             })
             .catch(error => showToast('Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.', 'error'));

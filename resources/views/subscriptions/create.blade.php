@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Subscribe</title>
+    <title>Abonnement</title>
     <script src="https://www.paypal.com/sdk/js?client-id=Ae9G4SKK4gDuWY0Yw7J_6irXsfPepGSudxvUktzRQlYbdnOKTaDp2xmuC1mCWS6GTvalCH9Owt-HUl4S&vault=true&intent=subscription"></script>
 </head>
 <body>
-    <h1>Choose Your Subscription</h1>
-    <button id="paypal-button-gold">Subscribe to Gold - €10/month</button>
-    <button id="paypal-button-diamant">Subscribe to Diamant - €20/month</button>
+    <h1>Wähle deinen Abo</h1>
+    <button id="paypal-button-gold">Gold - €10/Monat</button>
+    <button id="paypal-button-diamant">Diamant - €20/Monat</button>
 
     <script>
         paypal.Buttons({
@@ -17,7 +17,7 @@
                 });
             },
             onApprove: function(data, actions) {
-                alert('Subscription successful! ID: ' + data.subscriptionID);
+                alert('Abonnement erfolgreich! ID: ' + data.subscriptionID);
                 window.location.href = "{{ route('subscriptions.success') }}";
             }
         }).render('#paypal-button-gold');
@@ -29,7 +29,7 @@
                 });
             },
             onApprove: function(data, actions) {
-                alert('Subscription successful! ID: ' + data.subscriptionID);
+                alert('Abonnement erfolgreich! ID: ' + data.subscriptionID);
                 window.location.href = "{{ route('subscriptions.success') }}";
             }
         }).render('#paypal-button-diamant');

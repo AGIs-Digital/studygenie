@@ -146,8 +146,7 @@
         });
 
         function showConfetti() {
-            // Zufällige Werte für particleCount und spread zwischen 100 und 400
-            const particleCount1 = Math.floor(Math.random() * 301) + 100; // 100-400
+            const particleCount1 = Math.floor(Math.random() * 301) + 100;
             const spread1 = Math.floor(Math.random() * 301) + 100;
             const origin1 = { x: Math.random(), y: Math.random() };
 
