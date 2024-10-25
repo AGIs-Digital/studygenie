@@ -1,5 +1,5 @@
 <section class="problem-solutionSection">
-    <img class="crownImg" width="100" height="100" src="{{ asset('asset/images/crowngrafiti.png') }}" alt="Kronenbild" loading="lazy">
+    <img class="crownImg" width="120px" height="120px" src="{{ asset('asset/images/crowngrafiti.png') }}" alt="Kronenbild" loading="lazy">
     <h2>Bildung & Karriere neu gedacht, mit Genie gemacht!</h2>
     <p>Wir unterstützen dich in der Schule, im Studium und beim Start in den Beruf.</p>
     <div class="video_sec">

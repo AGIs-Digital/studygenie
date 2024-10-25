@@ -195,32 +195,39 @@
 
         // Funktion zum Erstellen und Rendern von PayPal-Buttons
         function createPayPalButton(planId, planName, buttonId) {
-            paypal.Buttons({
-                createSubscription: function(data, actions) {
-                    return actions.subscription.create({
-                        'plan_id': planId
-                    });
-                },
-                onApprove: function(data, actions) {
-                    fetch('{{ route('subscriptions.update') }}', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                        },
-                        body: JSON.stringify({ plan_name: planName })
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.message === 'Subscription updated successfully') {
-                            location.reload();
-                            localStorage.setItem('subscription_updated', 'true');
-                            showToast(`Herzlichen Glückwunsch, du bist nun ein ${planName}-Abonnent!`, 'success');
-                            showConfetti();
-                        }
-                    });
-                }
-            }).render(buttonId);
+            // Warten bis das Modal vollständig geöffnet ist
+            $(`#paypalModal${planName}`).on('shown.bs.modal', function () {
+                paypal.Buttons({
+                    createSubscription: function(data, actions) {
+                        return actions.subscription.create({
+                            'plan_id': planId
+                        });
+                    },
+                    onApprove: function(data, actions) {
+                        fetch('{{ route('subscriptions.update') }}', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                            },
+                            body: JSON.stringify({ 
+                                plan_name: planName,
+                                subscription_id: data.subscriptionID 
+                            })
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.message === 'Subscription updated successfully') {
+                                $(`#paypalModal${planName}`).modal('hide');
+                                location.reload();
+                                localStorage.setItem('subscription_updated', 'true');
+                                showToast(`Herzlichen Glückwunsch, du bist nun ein ${planName}-Abonnent!`, 'success');
+                                showConfetti();
+                            }
+                        });
+                    }
+                }).render(buttonId);
+            });
         }
 
         // PayPal-Buttons für Gold und Diamant rendern
@@ -257,3 +264,4 @@
         });
     </script>
 </section>
+
