@@ -52,7 +52,12 @@ class SubscriptionController extends Controller
         }
 
         $planName = $request->input('plan_name');
+        $subscriptionId = $request->input('subscription_id');
+
         $user->subscription_name = $planName;
+        if ($subscriptionId) {
+            $user->paypal_subscription_id = $subscriptionId;
+        }
         $user->save();
 
         return response()->json(['message' => 'Subscription updated successfully']);
