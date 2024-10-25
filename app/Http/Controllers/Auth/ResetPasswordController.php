@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Illuminate\Auth\Events\PasswordReset;
 
 class ResetPasswordController extends Controller
 {
@@ -76,9 +77,16 @@ class ResetPasswordController extends Controller
         );
 
         if ($status == Password::PASSWORD_RESET) {
-            return response()->json(['status' => 'success']);
+            return response()->json([
+                'status' => 'success',
+                'message' => __($status),
+                'redirect' => route('login')
+            ]);
         }
 
-        return response()->json(['status' => 'error', 'errors' => [__($status)]], 500);
+        return response()->json([
+            'status' => 'error',
+            'errors' => [__($status)]
+        ], 422);
     }
 }

@@ -9,6 +9,6 @@ Passwort zurücksetzen
 
 Wenn du das nicht angefordert hast, kannst du diese E-Mail ignorieren.
 
-Danke,<br>
-{{ config('app.name') }}
+Bis gleich!<br>
+Dein StudyGenie
 @endcomponent
