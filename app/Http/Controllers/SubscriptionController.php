@@ -81,21 +81,52 @@ class SubscriptionController extends Controller
 
     public function updateSubscription(Request $request)
     {
-        $user = Auth::user();
-        if (!$user) {
-            return response()->json(['message' => 'User not authenticated'], 401);
+        try {
+            $user = Auth::user();
+            if (!$user) {
+                return response()->json(['message' => 'Benutzer nicht authentifiziert'], 401);
+            }
+
+            $planName = $request->input('plan_name');
+            if (!$planName) {
+                return response()->json(['message' => 'Plan Name ist erforderlich'], 400);
+            }
+
+            $subscriptionId = $request->input('subscription_id');
+            
+            // Zurücksetzen des Kündigungsstatus und Enddatums bei neuem Abo
+            $user->subscription_name = $planName;
+            $user->subscription_status = null;        // Kündigungsstatus zurücksetzen
+            $user->subscription_end_date = null;      // Enddatum zurücksetzen
+            
+            if ($subscriptionId) {
+                $user->paypal_subscription_id = $subscriptionId;
+            }
+            
+            $user->save();
+
+            Log::info('Abonnement aktualisiert und Kündigungsstatus zurückgesetzt', [
+                'user_id' => $user->id,
+                'new_plan' => $planName,
+                'subscription_id' => $subscriptionId
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Abonnement erfolgreich aktualisiert'
+            ]);
+            
+        } catch (\Exception $e) {
+            Log::error('Fehler bei Abonnement-Aktualisierung:', [
+                'error' => $e->getMessage(),
+                'user_id' => auth()->id()
+            ]);
+            
+            return response()->json([
+                'success' => false,
+                'message' => 'Ein Fehler ist aufgetreten bei der Aktualisierung des Abonnements'
+            ], 500);
         }
-
-        $planName = $request->input('plan_name');
-        $subscriptionId = $request->input('subscription_id');
-
-        $user->subscription_name = $planName;
-        if ($subscriptionId) {
-            $user->paypal_subscription_id = $subscriptionId;
-        }
-        $user->save();
-
-        return response()->json(['message' => 'Subscription updated successfully']);
     }
 
     public function cancelSubscription(Request $request)
@@ -170,7 +201,8 @@ class SubscriptionController extends Controller
 
         Log::info('Subscription marked as cancelled in database', [
             'user_id' => $user->id,
-            'subscription_id' => $user->paypal_subscription_id
+            'subscription_id' => $user->paypal_subscription_id,
+            'end_date' => $user->subscription_end_date->format('Y-m-d H:i:s')
         ]);
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 
 class CheckSubscriptionExpiry
 {
@@ -19,14 +20,22 @@ class CheckSubscriptionExpiry
     {
         $user = auth()->user();
 
-        if ($user) {
-            $newDateTime = Carbon::create($user->expire_date)->format('m/d/Y H:i:s');
-            $date1 = Carbon::createFromFormat('m/d/Y H:i:s', $newDateTime);
-            $date2 = Carbon::createFromFormat('m/d/Y H:i:s', Carbon::create(Carbon::now())->format('m/d/Y H:i:s'));
+        if ($user && 
+            $user->subscription_status === 'cancelled' && 
+            $user->subscription_end_date && 
+            $user->subscription_end_date <= now() &&
+            $user->subscription_name !== 'Silber') {
+            
+            $user->subscription_name = 'Silber';
+            $user->subscription_status = null;
+            $user->subscription_end_date = null;
+            $user->paypal_subscription_id = null;
+            $user->save();
 
-            if ($date1->lte($date2)) {
-                $user->updateSubscriptionStatus('silber', null);
-            }
+            Log::info('Benutzer-Abonnement auf Silber zurückgesetzt (Middleware)', [
+                'user_id' => $user->id,
+                'email' => $user->email
+            ]);
         }
 
         return $next($request);

@@ -82,7 +82,7 @@
                 }
             @endphp
 
-            @if ((auth()->user()->subscription_name == 'Gold' || auth()->user()->subscription_name == 'Diamant') && $check)
+            @if (SubscriptionHelper::hasActiveSubscription(auth()->user()))
                 <a href="{{ route('bildung.texte') }}" class="Cloud">
                     <button type="button" class="btn" data-bs-toggle="tooltip" data-bs-placement="top"
                         title="Textkorrekturen und -inspiration für Grammatik, Stil und mehr">

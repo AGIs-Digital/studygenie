@@ -44,6 +44,19 @@
   margin: 1rem;
   background-color: white;
   z-index: 1;
+  height: 100%;
+}
+
+.subscription-alert {
+  background-color: #fff3cd;
+  border: 1px solid #ffeeba;
+  color: #856404;
+  padding: 0.75rem 1.25rem;
+  margin-top: 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .planCard.back {
@@ -71,7 +84,9 @@
 .plancardContent {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  flex: 1;
+  gap: 0.5rem;
+  padding-bottom: 2rem;
 }
 
 .plancardbenefit,
@@ -250,3 +265,4 @@
 .modal-backdrop {
   z-index: 1;
 }
+
