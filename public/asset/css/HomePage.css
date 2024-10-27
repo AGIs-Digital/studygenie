@@ -20,10 +20,6 @@ a {
   bottom: -1%;
 }
 
-.row {
-  margin-bottom: 2rem; 
-}
-
 .arrow-up {
   position: fixed;
   bottom: 8%;
@@ -657,7 +653,6 @@ h4 ~ p {
   text-align: center;
   border: none;
   font-size: 20px;
-  margin-bottom: 3rem;
 }
 
 .plancardButton:hover {

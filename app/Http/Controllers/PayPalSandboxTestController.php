@@ -15,16 +15,26 @@ class PayPalSandboxTestController extends Controller
             return response()->json(['error' => 'Keine gültige Subscription-ID gefunden'], 400);
         }
 
+        // Simuliere PayPal Webhook Payload
         $testPayload = [
             'event_type' => 'BILLING.SUBSCRIPTION.CANCELLED',
             'resource' => [
-                'id' => $user->paypal_subscription_id
-            ]
+                'id' => $user->paypal_subscription_id,
+                'status' => 'CANCELLED',
+                'status_update_time' => now()->format('Y-m-d\TH:i:s\Z')
+            ],
+            'summary' => 'Subscription cancelled',
+            'create_time' => now()->format('Y-m-d\TH:i:s\Z')
         ];
 
         Log::info('Simuliere PayPal Webhook', $testPayload);
 
+        // Erstelle Request-Objekt mit Payload
+        $request = new Request();
+        $request->merge($testPayload);
+
+        // Rufe PayPal Webhook Controller auf
         $webhookController = new PayPalWebhookController();
-        return $webhookController->handleWebhook(new Request($testPayload));
+        return $webhookController->handleWebhook($request);
     }
 }

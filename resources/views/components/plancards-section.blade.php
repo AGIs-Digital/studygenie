@@ -11,15 +11,14 @@
                 <h2 style="color: #fff">Silber</h2>
             </div>
             <div class="plancardContent">
-                <span class="highSpan">Kostenlos<span class="lowSpan"><br /></span></span>
+                <span class="highSpan">Kostenlos<span class="lowSpan">Immer<br /></span></span>
                 <p class="plancardbenefit">Du bekommst:</p>
                 <p class="planCardParagraph">
                     <span class="textmarker">✓ Intelligente Soforthilfe</span><br />
                     <span class="textmarker">✓ Traumberuf finden</span><br />
                     <span class="textmarker">✓ Berufsinformationen</span><br />
                 </p>
-            </div>
-            @guest
+                @guest
                 <button data-bs-toggle="modal" data-bs-target="#signupModal" class="plancardButton">Kostenlos</button>
             @else
                 @if(auth()->user()->subscription_name == 'Silber')
@@ -28,6 +27,8 @@
                     <button class="plancardButton" id="silberButton">Kostenlos</button>
                 @endif
             @endguest
+            </div>
+
         </div>
 
         <!-- Bestätigungsmodal für Silber -->
@@ -66,13 +67,13 @@
                     <button data-bs-toggle="modal" data-bs-target="#signupModal" class="plancardButton">Hol dir Gold</button>
                 @else
                     @if(auth()->user()->subscription_name == 'Gold')
-                        @if(auth()->user()->subscription_status == 'cancelled')
-                            <div class="alert alert-warning">
-                                Dein Abo läuft am {{ auth()->user()->subscription_end_date->format('d.m.Y') }} aus
-                            </div>
+                        @if(auth()->user()->subscription_status === 'cancelled')
                             <button class="plancardButton" disabled>Gekündigt</button>
+                            <div class="alert alert-warning subscription-alert">
+                                Läuft am {{ auth()->user()->subscription_end_date ? auth()->user()->subscription_end_date->format('d.m.Y') : now()->addMonth()->format('d.m.Y') }} aus
+                            </div>
                         @else
-                            <button class="plancardButton cancel-subscription" data-plan="Gold">Abo kündigen</button>
+                            <button class="plancardButton cancel-subscription" data-plan="{{ auth()->user()->subscription_name }}">Abo kündigen</button>
                         @endif
                     @else
                         <button class="plancardButton" data-bs-toggle="modal" data-bs-target="#paypalModalGold">Hol dir Gold</button>
@@ -114,7 +115,14 @@
                     <button data-bs-toggle="modal" data-bs-target="#signupModal" class="plancardButton">Hol dir Diamant</button>
                 @else
                     @if(auth()->user()->subscription_name == 'Diamant')
-                        <button class="plancardButton cancel-subscription" data-plan="Diamant">Abo kündigen</button>
+                        @if(auth()->user()->subscription_status === 'cancelled')    
+                            <button class="plancardButton" disabled>Gekündigt</button>
+                            <div class="alert alert-warning subscription-alert">
+                                Läuft am {{ auth()->user()->subscription_end_date ? auth()->user()->subscription_end_date->format('d.m.Y') : now()->addMonth()->format('d.m.Y') }} aus
+                            </div>
+                        @else
+                            <button class="plancardButton cancel-subscription" data-plan="Diamant">Abo kündigen</button>
+                        @endif
                     @else
                         <button class="plancardButton" data-bs-toggle="modal" data-bs-target="#paypalModalDiamant">Hol dir Diamant</button>
                     @endif
@@ -163,7 +171,11 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const subscription_name = @json(auth()->check() ? auth()->user()->subscription_name : '');
-            if (localStorage.getItem('subscription_updated') === 'true') {
+            
+            if (localStorage.getItem('subscription_cancelled') === 'true') {
+                showToast('Dein Abo wurde erfolgreich gekündigt und läuft zum Ende der Laufzeit aus.', 'success');
+                localStorage.removeItem('subscription_cancelled');
+            } else if (localStorage.getItem('subscription_updated') === 'true') {
                 showSuccessMessage(subscription_name);
                 if (subscription_name !== 'Silber' && subscription_name !== '') {
                     showConfetti();
@@ -221,9 +233,18 @@
             }, 2000);
         }
 
-        // Funktion zum Erstellen und Rendern von PayPal-Buttons
+        function determineSubscriptionChange(oldPlan, newPlan) {
+            const planHierarchy = {
+                'Silber': 1,
+                'Gold': 2,
+                'Diamant': 3
+            };
+            
+            return planHierarchy[newPlan] > planHierarchy[oldPlan] ? 'upgrade' : 'downgrade';
+        }
+
+        // Modifizieren Sie die PayPal-Button-Logik
         function createPayPalButton(planId, planName, buttonId) {
-            // Warten bis das Modal vollständig geöffnet ist
             $(`#paypalModal${planName}`).on('shown.bs.modal', function () {
                 paypal.Buttons({
                     createSubscription: function(data, actions) {
@@ -232,6 +253,9 @@
                         });
                     },
                     onApprove: function(data, actions) {
+                        const currentPlan = '{{ auth()->user()->subscription_name }}';
+                        const changeType = determineSubscriptionChange(currentPlan, planName);
+                        
                         fetch('{{ route('subscriptions.update') }}', {
                             method: 'POST',
                             headers: {
@@ -243,15 +267,31 @@
                                 subscription_id: data.subscriptionID 
                             })
                         })
-                        .then(response => response.json())
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Netzwerk-Antwort war nicht ok');
+                            }
+                            return response.json();
+                        })
                         .then(data => {
-                            if (data.message === 'Subscription updated successfully') {
+                            if (data.success) {
                                 $(`#paypalModal${planName}`).modal('hide');
                                 location.reload();
                                 localStorage.setItem('subscription_updated', 'true');
-                                showToast(`Herzlichen Glückwunsch, du bist nun ein ${planName}-Abonnent!`, 'success');
-                                showConfetti();
+                                
+                                if (changeType === 'upgrade') {
+                                    showToast(`Herzlichen Glückwunsch, du bist nun ein ${planName}-Abonnent!`, 'success');
+                                    showConfetti();
+                                } else {
+                                    showToast(`Dein Abonnement wurde auf ${planName} geändert.`, 'info');
+                                }
+                            } else {
+                                showToast(data.message || 'Ein Fehler ist aufgetreten', 'error');
                             }
+                        })
+                        .catch(error => {
+                            console.error('Fehler:', error);
+                            showToast('Ein Fehler ist aufgetreten bei der Aktualisierung des Abonnements', 'error');
                         });
                     }
                 }).render(buttonId);
@@ -281,12 +321,23 @@
                     },
                     body: JSON.stringify({ plan_name: 'Silber' })
                 })
-                .then(response => response.json())
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Netzwerk-Antwort war nicht ok');
+                    }
+                    return response.json();
+                })
                 .then(data => {
-                    if (data.message === 'Subscription updated successfully') {
+                    if (data.success) {
                         location.reload();
                         localStorage.setItem('subscription_updated', 'true');
+                    } else {
+                        showToast(data.message || 'Ein Fehler ist aufgetreten', 'error');
                     }
+                })
+                .catch(error => {
+                    console.error('Fehler:', error);
+                    showToast('Ein Fehler ist aufgetreten bei der Aktualisierung des Abonnements', 'error');
                 });
             });
         });
@@ -314,7 +365,7 @@
             .then(data => {
                 if (data.success) {
                     location.reload();
-                    localStorage.setItem('subscription_updated', 'true');
+                    localStorage.setItem('subscription_cancelled', 'true'); // Geändert von subscription_updated
                     showToast('Dein Abo wurde erfolgreich gekündigt und läuft zum Ende der Laufzeit aus.', 'success');
                 } else {
                     showToast('Es gab einen Fehler bei der Kündigung. Bitte versuche es später erneut.', 'error');
@@ -325,9 +376,3 @@
         });
     </script>
 </section>
-
-
-
-
-
-
