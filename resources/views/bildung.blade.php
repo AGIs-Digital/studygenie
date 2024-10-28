@@ -82,6 +82,10 @@
                 }
             @endphp
 
+            @php
+                use App\Helpers\SubscriptionHelper;
+            @endphp
+
             @if (SubscriptionHelper::hasActiveSubscription(auth()->user()))
                 <a href="{{ route('bildung.texte') }}" class="Cloud">
                     <button type="button" class="btn" data-bs-toggle="tooltip" data-bs-placement="top"
