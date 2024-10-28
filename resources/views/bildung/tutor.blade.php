@@ -98,9 +98,7 @@
                             <img src="{{ asset('asset/images/ab3.svg') }}" class="ab1" alt="" loading="lazy">
                             <img src="{{ asset('asset/images/ab4.svg') }}" class="ab4" alt="" loading="lazy">
                             <img src="{{ asset('asset/images/ToolsImage.png') }}" class="ab5" alt="" loading="lazy">
-                            <div class="typing-container d-block">
-                                <div class="all_content" id="all_content"></div>
-                            </div>
+                            <div class="all_content" id="all_content"></div>
                             <div class="user_input_form">
                                 <form id="form_user_input" style="display: flex; align-items: center; gap: 10px;" method="POST" action="{{ route('bildung.tutor.store') }}">
                                     @csrf

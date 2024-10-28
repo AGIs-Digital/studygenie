@@ -55,27 +55,26 @@ class Conversation extends Model
     public function save(array $options = [])
     {
         $isNew = !$this->exists;
-
-        // Speichere zuerst die Konversation, um eine ID zu erhalten
         $saved = parent::save($options);
-
-        // if its a new conversation without any messages, we need to create the first message
-        if ($saved && $this->messages->count() === 0)
-        {
-            // Check, if the config key exists
-            if (!config('prompts.' . $this->tool_identifier . '.first_message')) {
-                // Add log message
-                \Log::warning('No first message prompt found for tool ' . $this->tool_identifier);
-                return $saved;
+        
+        if ($saved && $this->messages->count() === 0) {
+            $user = auth()->user();
+            $lastGreeting = $user->last_greeting_at;
+            $today = now()->startOfDay();
+            
+            // Prüfe ob heute schon eine Begrüßung stattfand
+            if (!$lastGreeting || $lastGreeting->startOfDay()->lt($today)) {
+                $message = $this->messages()->create([
+                    'user_id' => $this->user_id,
+                    'content' => $this->loadFirstMessagePrompt(['replacements' => ['username' => $user->name]]),
+                    'role' => 'assistant'
+                ]);
+                
+                // Aktualisiere den Zeitstempel der letzten Begrüßung
+                $user->update(['last_greeting_at' => now()]);
             }
-
-            $message = $this->messages()->create([
-                'user_id' => $this->user_id,
-                'content' => $this->loadFirstMessagePrompt(['replacements' => ['username' => auth()->user()->name]]),
-                'role' => 'assistant'
-            ]);
         }
-
+        
         return $saved;
     }
 

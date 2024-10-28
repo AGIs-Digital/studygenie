@@ -371,7 +371,7 @@ return [
 
             # Ausgabeformat
 
-            - **Berufsvorschläge**: Erstelle eine nummerierte Liste der empfohlenen Berufe.
+            - **Berufsvorschläge**: Erstelle eine nummerierte Liste der empfohlenen Berufe als klickbare Links.
             - **Gründe**: Zu jedem Beruf eine kurze Erklärung, warum er geeignet ist.
             - **Tool-Hinweis**: Erwähne abschließend das Tool '<a href=\"" . env('APP_URL') . "/karriere/jobinsider\">JobInsider</a>' für weiterführende Informationen.
 
@@ -380,11 +380,11 @@ return [
             **Eingabe**: Interessen: Technologie, soziale Interaktion; Fähigkeiten: Kommunikation, Problemlösen
 
             **Ausgabe:**
-            1. **Softwareentwickler**: Aufgrund Ihrer technologischen Interessen und Problemlösungsfähigkeiten, bietet dieser Beruf eine gute Passform und Entwicklungsmöglichkeiten.
-            2. **IT-Support-Spezialist**: Dieser Beruf verbindet Ihre Technikaffinität mit starken Kommunikationsfähigkeiten.
-            3. **Projektmanager**: Eignet sich aufgrund Ihrer Vorliebe für soziale Interaktion und Kommunikationsstärke und ermöglicht Wachstum durch verantwortungsvolle Aufgaben.
-
-            Für detaillierte Informationen zu diesen Berufen besuchen Sie bitte das Tool '<a href=\"" . env('APP_URL') . "/karriere/jobinsider\">JobInsider</a>'.
+            1. <a href=\"" . env('APP_URL') . "/karriere/jobinsider?job=Softwareentwickler\" onclick=\"return setJobInsiderValue('Softwareentwickler')\">**Softwareentwickler**</a>: Aufgrund Ihrer technologischen Interessen und Problemlösungsfähigkeiten, bietet dieser Beruf eine gute Passform und Entwicklungsmöglichkeiten.
+            2. <a href=\"" . env('APP_URL') . "/karriere/jobinsider?job=IT-Support-Spezialist\" onclick=\"return setJobInsiderValue('IT-Support-Spezialist')\">**IT-Support-Spezialist**</a>: Dieser Beruf verbindet Ihre Technikaffinität mit starken Kommunikationsfähigkeiten.
+            3. <a href=\"" . env('APP_URL') . "/karriere/jobinsider?job=Projektmanager\" onclick=\"return setJobInsiderValue('Projektmanager')\">**Projektmanager**</a>: Eignet sich aufgrund Ihrer Vorliebe für soziale Interaktion und Kommunikationsstärke und ermöglicht Wachstum durch verantwortungsvolle Aufgaben.
+                    
+            Für detaillierte Informationen zu diesen Berufen besuchen Sie bitte das Tool **<a href=\"" . env('APP_URL') . "/karriere/jobinsider\">JobInsider</a>**.
 
             # Hinweise
 
@@ -442,3 +442,5 @@ return [
         "
     ]
 ];
+
+

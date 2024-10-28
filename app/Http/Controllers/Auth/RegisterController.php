@@ -74,12 +74,14 @@ class RegisterController extends Controller
 
         $subscriptionUpdated = false;
         $userCount = User::count();
+
+/*      GRATIS ABONNEMENT   
         if ($userCount <= 103) {
             $user->subscription_name = 'Diamant';
             $user->expire_date = Carbon::now()->addYear(100);
             $user->save();
             $subscriptionUpdated = true;
-        }
+        } */
 
         Auth::login($user);
 

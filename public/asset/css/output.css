@@ -6,14 +6,6 @@ html, body {
   padding: 0;
 }
 
-.backimage {
-  background-image: url('../images/tool_back.png');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 100% 100%; /* Hintergrundbild über die gesamte Größe des Containers strecken */
-  height: 100%;
-}
-
 input[type='radio'] {
   cursor: pointer;
 }
@@ -150,34 +142,44 @@ input[type='radio'] {
   width: 20%;
 }
 
-.typing-container .all_content.message {
+.all_content.message {
   height: 66vh;
 }
 
 .content-written.left {
-  background-image: url('../images/left_background.png');
-  background-size: 100% 100%;
+  background: url('../images/left_background.png') center/100% 100% no-repeat;
+  padding: 96px 3rem 25px 8rem;
+  overflow: hidden;
+  width: 100%;
+  height: calc(100vh - 159px);
+  position: relative;
+  overflow: hidden;
+}
+
+.backimage {
+  background-image: url('../images/tool_back.png');
+  background-position: center;
   background-repeat: no-repeat;
-  background-position: top;
-  padding: 79px 7% 25px 14%;
-  margin-top: 0;
+  background-size: cover; /* Ändert von 100% 100% zu cover */
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+  overflow-x: hidden;
 }
 
 .output {
   display: flex;
   align-items: center;
   flex-direction: column;
-  gap: 1.3rem;
   position: relative;
 }
 
 .content-written.right {
   background: url('../images/output_border.png') center/100% 100% no-repeat;
-  padding: 30px;
+  padding: 40px;
   width: 600px;
-  height: calc(100vh - 190px);
   position: relative;
-  overflow: auto;
+  overflow: hidden;
 }
 
 .content-written {
@@ -202,8 +204,7 @@ input[type='radio'] {
   color: black;
   text-align: left;
   font-size: 16px;
-  max-height: calc(100% - 40px);
-  margin: 20px 20px 60px 20px;
+  height: 100%;
 }
 
 @media screen and (max-width: 767px) {
@@ -215,9 +216,16 @@ input[type='radio'] {
   }
 }
 
+.send_button_box {
+  margin: 1rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .send_button {
   border-radius: 10px;
-  background: rgba(41, 58, 74, 1);
+  background: #2d3e4e;
   color: #fff;
   font-size: 16px;
   font-style: normal;
@@ -229,34 +237,38 @@ input[type='radio'] {
   transition: background-color 0.3s, transform 0.2s;
 }
 
+.archive_button {
+  background: #e09e50;
+  color: white;
+  border: none;
+  padding: 9px 20px;
+  margin-top: 1rem;
+  transition: background-color 0.3s, transform 0.2s;
+  border-radius: 10px;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.5;
+  margin-top: 0rem;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.archive_button:hover {
+  background-color: #e8b06c;
+  transform: scale(1.05);
+}
+
+.archive_button:active {
+  background-color: #e4a864;
+  transform: scale(0.95);
+}
+
 .send_button:hover {
   background-color: rgba(41, 58, 74, 0.8);
   transform: scale(1.05);
 }
 
 .send_button:active {
-  background-color: rgba(41, 58, 74, 0.6);
-  transform: scale(0.95);
-}
-
-.content-written button {
-  border-radius: 10px;
-  color: #fff;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 1.5;
-  border: none;
-  margin-top: 2rem;
-  transition: background-color 0.3s, transform 0.2s;
-}
-
-.content-written button:hover {
-  background-color: rgba(41, 58, 74, 0.8);
-  transform: scale(1.05);
-}
-
-.content-written button:active {
   background-color: rgba(41, 58, 74, 0.6);
   transform: scale(0.95);
 }
@@ -410,14 +422,6 @@ input[type='radio'] {
   background-color: rgba(0, 0, 0, 0.1);
 }
 
-.typing-container {
-  display: flex;
-  color: #fff;
-  text-align: left;
-  overflow: auto;
-  height: calc(100vh - 190px);
-}
-
 .save_folder.center {
   position: absolute;
   bottom: -52px;
@@ -496,7 +500,7 @@ input[type='radio'] {
 }
 
 .left_scroll {
-  height: 87%;
+  height: 85%;
   overflow-y: auto;
   overflow-x: hidden;
 }
@@ -552,19 +556,26 @@ input[type='radio'] {
   height: 48px;
   border-top-right-radius: 50px;
   border-bottom-right-radius: 50px;
+  color: #fff;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.5;
+  border: none;
+  transition: background-color 0.3s, transform 0.2s;
 }
 
-.typing-container .right_box {
+.right_box {
   display: flex;
 }
 
-.typing-container .right_box span:first-child {
+.right_box span:first-child {
   display: block;
   margin-right: 10px;
   position: relative;
 }
 
-.typing-container .right_box span:last-child {
+.right_box span:last-child {
   display: block;
   background: #5b4f4f14;
   padding: 11px;
@@ -576,14 +587,14 @@ input[type='radio'] {
   position: relative;
 }
 
-.typing-container .left_box {
+.left_box {
   display: flex;
   text-align: right;
   justify-content: end;
   position: relative;
 }
 
-.typing-container .left_box span:first-child {
+.left_box span:first-child {
   display: block;
   background: #00000047;
   padding: 11px;
@@ -593,14 +604,16 @@ input[type='radio'] {
   font-size: 14px;
 }
 
-.typing-container .left_box span:last-child {
+.left_box span:last-child {
   display: block;
   margin-left: 10px;
 }
 
-.typing-container .all_content {
-  height: calc(100vh - 274px);
+.all_content {
+  height: 100%;
   overflow: auto;
+  text-align: left;
+  padding: 1.5rem;
 }
 
 input[type='text']:disabled {
@@ -652,7 +665,7 @@ input[type='text']:disabled {
 .section .form-group label {
   display: inline-block;
   text-decoration: none;
-  font-family: 'Milonga', cursive;
+  font-family: 'Milonga';
   color: black;
   font-weight: 400;
   font-size: 1rem;
@@ -834,18 +847,14 @@ input[type='text']:disabled {
 }
 
 @media only screen and (max-width: 800px) {
-  .output {
-    margin-bottom: 3rem;
-  }
+
   .content-written.information {
     height: 200px !important;
   }
   .content-written {
     height: 500px !important;
   }
-  .content-written.left {
-    padding: 53px 16% 20px 23% !important;
-  }
+
   #typed-text {
     height: 440px !important;
   }
@@ -1019,11 +1028,28 @@ input[type='text']:disabled {
   }
 }
 
-@media only screen and (max-width: 400px) {
+/* Media Queries für verschiedene Bildschirmgrößen */
+@media (max-width: 768px) {
+  .backimage {
+    background-attachment: scroll;
+  }
+  
   .content-written.left {
-    padding: 53px 11% 20px 17% !important;
+    height: auto;
+    min-height: calc(100vh - 200px);
+    margin: 10px;
+    padding: 96px 2rem 25px 4rem;
   }
 }
+
+@media (max-width: 480px) {
+  .content-written.left {
+    border-width: 8px;
+    margin: 5px;
+    padding: 96px 2rem 25px 6rem;
+  }
+}
+
 
 
 

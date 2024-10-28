@@ -44,14 +44,14 @@
                     </div>
                 </div>
                 <div class="col-md-5">
-                    <form id="myForm">
-                        @csrf
-                        <div class="output">
-                            <div class="content-written left brain">
-                                <div class="left_scroll">
+                    <div class="output">
+                        <div class="content-written left">
+                            <div class="left_scroll">
+                                <form id="myForm">
+                                    @csrf
                                     <div class="group-box">
                                         <span class="small_text_font">Fähigkeiten & Stärken: <strong type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Was kannst du deiner Meinung nach besonders gut?"> <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="" loading="lazy"></strong></span>
-                                        <input type="text" placeholder="Analytisches Denken, Kommunikationsfähigkeit, etc." id="field_1" name="field1">
+                                    <input type="text" placeholder="Analytisches Denken, Kommunikationsfähigkeit, etc." id="field_1" name="field1">
                                     </div>
                                     <div class="group-box">
                                         <span class="small_text_font">Interessen & Leidenschaften: <strong type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Welche Hobbies hast du, was begeistert dich?"> <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="" loading="lazy"></strong></span>
@@ -105,24 +105,22 @@
                                             </label>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="text-center" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
-                                    <button type="button" class="send_button" id="submitForm">Absenden</button>
-                                    <button type="button" class="send_button" id="showSaveModal">Archivieren</button>
-                                </div>
+                                </form>
+                            </div>
+                            <div class="send_button_box">
+                                <button type="button" class="send_button" id="submitForm">Absenden</button>
+                                <button type="button" class="archive_button" id="showSaveModal">Archivieren</button>
                             </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
                 <div class="col-md-5">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="output" id="first_box">
                                 <div class="content-written right">
-                                    <div class="typing-container">
-                                        <!-- Ausgabefenster -->
-                                        <div id="typed-text"></div>
-                                    </div>
+                                    <!-- Ausgabefenster -->
+                                    <div id="typed-text"></div>
                                 </div>
                                 <p style="font-size: 12px; color: gray; text-align: center;">StudyGenie kann Fehler machen. Überprüfe wichtige Informationen.</p>
                             </div>
@@ -197,15 +195,21 @@
                     processData: false,
                     success: function(response) {
                         clearTimeout(toastTimer); // Timer löschen
-                        conversation_id = response.message.conversation_id;
+                        // Prüfe ob response.message existiert
+                        if (response && response.message) {
+                            conversation_id = response.message.conversation_id || null;
+                            textToType = response.message.content.replace(/\n/g, " <br> ");
+                            $('#typed-text').empty();
+                            let checks = response.message.content.split('\n');
+                            textarray = checks;
+                            $("#save_val").val(textToType + " <br> <br> ");
+                            typeFun();
+                        } else {
+                            console.error("Unerwartetes Antwortformat vom Server");
+                            showToast("Es ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.");
+                        }
                         //Ladezeichen entfernen
                         $("#submitForm").removeClass('loading-button').text("Absenden").prop('disabled', false);
-                        textToType = response.message.content.replace(/\n/g, " <br> ");
-                        $('#typed-text').empty();
-                        let checks = response.message.content.split('\n');
-                        textarray = checks;
-                        $("#save_val").val(textToType + " <br> <br> ");
-                        typeFun();
                     },
                     error: function(xhr, status, error) {
                         clearTimeout(toastTimer); // Timer löschen

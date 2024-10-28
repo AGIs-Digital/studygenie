@@ -45,11 +45,11 @@
                     </div>
                 </div>
                 <div class="col-md-5">
-                    <form id="myForm">
-                        @csrf
-                        <div class="output">
-                            <div class="content-written left brain">
-                                <div class="left_scroll">
+                    <div class="output">
+                        <div class="content-written left">
+                            <div class="left_scroll">
+                                <form id="myForm">
+                                    @csrf
                                     <div class="group-box">
                                         <span class="small_text_font">Aufgabenart:
                                             <strong type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Aufsatz, Inhaltsangaben, Bachelorarbeit, etc.">
@@ -86,35 +86,38 @@
                                         <input type="text" placeholder="300 Worte, in Englisch, etc." id="field_4" name="field4">
                                     </div>
 
-                                    <div class="row radio_button_box">
-                                        <div class="col-md-12">
-                                            <label>Zu erstellender Absatz:</label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label>
-                                                <input type="radio" name="field5" value="Inhaltsverzeichnis">
-                                                Inhaltsverzeichnis
-                                            </label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label>
-                                                <input type="radio" name="field5" value="Einleitung">
-                                                Einleitung
-                                            </label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label>
-                                                <input type="radio" name="field5" value="Hauptteil">
-                                                Hauptteil
-                                            </label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label>
-                                                <input type="radio" name="field5" value="Schluss">
-                                                Schluss
-                                            </label>
+                                    <div class="group-box">
+                                        <div class="row radio_button_box">
+                                            <div class="col-md-12">
+                                                <label>Zu erstellender Absatz:</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label>
+                                                    <input type="radio" name="field5" value="Inhaltsverzeichnis">
+                                                    Inhaltsverzeichnis
+                                                </label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label>
+                                                    <input type="radio" name="field5" value="Einleitung">
+                                                    Einleitung
+                                                </label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label>
+                                                    <input type="radio" name="field5" value="Hauptteil">
+                                                    Hauptteil
+                                                </label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label>
+                                                    <input type="radio" name="field5" value="Schluss">
+                                                    Schluss
+                                                </label>
+                                            </div>
                                         </div>
                                     </div>
+
                                     <div class="group-box">
                                         <span class="small_text_font">Bisheriger Text:
                                             <strong type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Gib deinen Text ein, um ihn weiterformulieren zu lassen.">
@@ -123,23 +126,20 @@
                                         </span>
                                         <textarea name="field6" id="field_6" rows="10" style="width:100%;" oninput="this.style.height = '';this.style.height = this.scrollHeight + 'px'" placeholder="Deinen aktuellen Text hier eingeben"></textarea>
                                     </div>
-
-                                </div>
-                                <div class="text-center" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
-                                    <button type="button" class="send_button" id="submitForm">Absenden</button>
-                                    <button type="button" class="send_button" id="showSaveModal">Archivieren</button>
-                                </div>
+                                </form>
+                            </div>
+                            <div class="send_button_box">
+                                <button type="button" class="send_button" id="submitForm">Absenden</button>
+                                <button type="button" class="archive_button" id="showSaveModal">Archivieren</button>
                             </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
                 <div class="col-md-5">
                     <div class="output">
                         <div class="content-written right" id="checkcontent_box">
-                            <div class="typing-container">
-                                <!-- Ausgabefenster -->
-                                <div id="typed-text"></div>
-                            </div>
+                            <!-- Ausgabefenster -->
+                            <div id="typed-text"></div>
                         </div>
                         <p style="font-size: 12px; color: gray; text-align: center;">StudyGenie kann Fehler machen. Überprüfe wichtige Informationen.</p>
                     </div>
