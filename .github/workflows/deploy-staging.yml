@@ -143,7 +143,7 @@ jobs:
             php8.2-cli artisan config:cache
             php8.2-cli artisan route:cache
             php8.2-cli artisan view:cache
-            php8.2-cli artisan migrate:fresh --seed --force
+            php8.2-cli artisan migrate:fresh --seed --force || (php8.2-cli artisan migrate:fresh --force && php8.2-cli artisan db:seed --force)
             cp storage/app/manifest.json public/build/manifest.json
             php8.2-cli artisan config:cache
             php8.2-cli artisan route:cache

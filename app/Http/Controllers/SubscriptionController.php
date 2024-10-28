@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\DB;
 
 class SubscriptionController extends Controller
 {
@@ -82,48 +83,66 @@ class SubscriptionController extends Controller
     public function updateSubscription(Request $request)
     {
         try {
+            Log::info('Subscription Update Request:', [
+                'plan_name' => $request->input('plan_name'),
+                'subscription_id' => $request->input('subscription_id')
+            ]);
+
             $user = Auth::user();
             if (!$user) {
-                return response()->json(['message' => 'Benutzer nicht authentifiziert'], 401);
+                Log::error('Benutzer nicht authentifiziert');
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Benutzer nicht authentifiziert'
+                ], 401);
             }
 
             $planName = $request->input('plan_name');
-            if (!$planName) {
-                return response()->json(['message' => 'Plan Name ist erforderlich'], 400);
-            }
-
-            if (!in_array($planName, ['Silber', 'Gold', 'Diamant'])) {
-                return response()->json(['message' => 'Ungültiger Plan'], 400);
+            if (!$planName || !in_array($planName, ['Silber', 'Gold', 'Diamant'])) {
+                Log::error('Ungültiger Plan Name:', ['plan' => $planName]);
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Ungültiger Plan'
+                ], 400);
             }
 
             $subscriptionId = $request->input('subscription_id');
             
-            // Zurücksetzen des Kündigungsstatus und Enddatums bei neuem Abo
-            $user->subscription_name = $planName;
-            $user->subscription_status = null;        // Kündigungsstatus zurücksetzen
-            $user->subscription_end_date = null;      // Enddatum zurücksetzen
-            
-            if ($subscriptionId) {
-                $user->paypal_subscription_id = $subscriptionId;
+            DB::beginTransaction();
+            try {
+                $user->subscription_name = $planName;
+                $user->subscription_status = null;
+                $user->subscription_end_date = null;
+                
+                if ($subscriptionId) {
+                    $user->paypal_subscription_id = $subscriptionId;
+                }
+                
+                $user->save();
+                DB::commit();
+
+                Log::info('Abonnement erfolgreich aktualisiert', [
+                    'user_id' => $user->id,
+                    'new_plan' => $planName,
+                    'subscription_id' => $subscriptionId
+                ]);
+
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Abonnement erfolgreich aktualisiert'
+                ]);
+            } catch (\Exception $e) {
+                DB::rollBack();
+                Log::error('Datenbankfehler bei Abonnement-Aktualisierung:', [
+                    'error' => $e->getMessage(),
+                    'user_id' => $user->id
+                ]);
+                throw $e;
             }
-            
-            $user->save();
-
-            Log::info('Abonnement aktualisiert und Kündigungsstatus zurückgesetzt', [
-                'user_id' => $user->id,
-                'new_plan' => $planName,
-                'subscription_id' => $subscriptionId
-            ]);
-
-            return response()->json([
-                'success' => true,
-                'message' => 'Abonnement erfolgreich aktualisiert'
-            ]);
-            
         } catch (\Exception $e) {
-            Log::error('Fehler bei Abonnement-Aktualisierung:', [
+            Log::error('Allgemeiner Fehler bei Abonnement-Aktualisierung:', [
                 'error' => $e->getMessage(),
-                'user_id' => auth()->id()
+                'trace' => $e->getTraceAsString()
             ]);
             
             return response()->json([
