@@ -203,7 +203,7 @@ input[type='radio'] {
   text-align: left;
   font-size: 16px;
   max-height: calc(100% - 40px);
-  margin: 20px;
+  margin: 20px 20px 60px 20px;
 }
 
 @media screen and (max-width: 767px) {
@@ -415,6 +415,7 @@ input[type='radio'] {
   color: #fff;
   text-align: left;
   overflow: auto;
+  height: calc(100vh - 190px);
 }
 
 .save_folder.center {
