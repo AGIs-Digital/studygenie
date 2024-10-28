@@ -81,7 +81,8 @@
 
 #accordionFlushExample {
 	height: 70vh;
-	overflow: auto; /* Scrollbar wird angezeigt, wenn Overflow existiert */
+	overflow: auto;
+	background-color: #f8fa8c;
 }
 
 @keyframes spin {

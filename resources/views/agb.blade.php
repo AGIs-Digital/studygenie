@@ -8,7 +8,6 @@
 <body class="MainContainer">
     <div class="headerSpacer"></div>
     @include('components.navbar')
-    @include('components.feedback')
     @include('components.arrowupbutton')
 
     @guest

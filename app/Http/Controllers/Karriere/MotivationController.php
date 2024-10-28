@@ -58,24 +58,24 @@ class MotivationController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function downloadPDF(Request $request): \Illuminate\Http\Response
+    public function downloadPDF(Request $request)
     {
         try {
             $data = $request->all();
+            
+            if (empty($data['openai_response'])) {
+                throw new \Exception('Keine OpenAI-Antwort gefunden');
+            }
 
-            // Füge die OpenAI-Antwort zu den Daten hinzu
-            $data['motivational_letter'] = $this->getOpenAIResponse($data);
-
-            // Generiere das PDF nur mit den gefilterten Daten
+            // Generiere das PDF mit den Daten
             $pdf = PDF::loadView('karriere.motivation_template', $data)
-                          ->setPaper('a4', 'portrait')
-                          ->setOptions(['isHtml5ParserEnabled' => true, 'isPhpEnabled' => true]);
+                  ->setPaper('a4', 'portrait')
+                  ->setOptions(['isHtml5ParserEnabled' => true, 'isPhpEnabled' => true]);
 
-            return $pdf->download('motivationsschreiben.pdf');
+            return $pdf->download('Motivationsschreiben_' . date('d_m_Y') . '.pdf');
         } catch (\Exception $e) {
-            // Fehlerbehandlung und Debugging-Informationen
-            \Log::error('Fehler in downloadPDF Methode: ' . $e->getMessage());
-            return response()->json(['error' => $e->getMessage()], 500);
+            \Log::error('Fehler beim PDF-Download: ' . $e->getMessage());
+            return response()->json(['error' => 'PDF konnte nicht erstellt werden'], 500);
         }
     }
 

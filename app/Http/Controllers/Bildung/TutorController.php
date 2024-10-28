@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Conversation;
 use App\Models\Message;
 use OpenAI\Laravel\Facades\OpenAI;
+use Illuminate\Support\Facades\Log;
 
 class TutorController extends Controller
 {
@@ -50,7 +51,7 @@ class TutorController extends Controller
             $conversation->messages()->save($message);
             $payload = $conversation->createPayload();
 
-            $response = OpenAI::chat()->create($payload);
+            $response = OpenAI::client()->chat()->create($payload);
 
             # create new message for response
             $message = new Message();
@@ -66,7 +67,11 @@ class TutorController extends Controller
                 "message" => $message->toArray(),
             ]);
         } catch (\Exception $e) {
-            throw $e;
+            Log::error('Tutor-Fehler: ' . $e->getMessage());
+            return response()->json([
+                "status" => false,
+                "error" => "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut."
+            ], 500);
         }
     }
 }

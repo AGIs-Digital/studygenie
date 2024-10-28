@@ -92,6 +92,10 @@ class SubscriptionController extends Controller
                 return response()->json(['message' => 'Plan Name ist erforderlich'], 400);
             }
 
+            if (!in_array($planName, ['Silber', 'Gold', 'Diamant'])) {
+                return response()->json(['message' => 'Ungültiger Plan'], 400);
+            }
+
             $subscriptionId = $request->input('subscription_id');
             
             // Zurücksetzen des Kündigungsstatus und Enddatums bei neuem Abo

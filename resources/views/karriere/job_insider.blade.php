@@ -12,6 +12,23 @@
     <div class="headerSpacer"></div>
     @include('components.navbar')
     @include('components.feedback')
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // URL-Parameter auslesen
+        const urlParams = new URLSearchParams(window.location.search);
+        const job = urlParams.get('job');
+        
+        if (job) {
+            // Wert in das Eingabefeld setzen
+            $("#field1").val(job);
+            
+            // Kurze Verzögerung für die UI-Aktualisierung
+            setTimeout(function() {
+                $("#submitForm").click();
+            }, 500);
+        }
+    });
+    </script>
 
     <section class="TextInspiration_sec">
         <div class="container-fluid">
@@ -19,7 +36,6 @@
                 <div class="col-md-2">
                     <div class="leftCon" style="cursor: pointer">
                         <img id="closeIcon" onclick="window.location.href='/karriere/berufe'" src="{{ asset('asset/images/ic_close.png') }}" alt="closeIcon">
-
                         <svg xmlns="http://www.w3.org/2000/svg" width="134" height="113" viewBox="0 0 245 167" fill="none">
                             <g filter="url(#filter0_d_168_754)">
                                 <path d="M211.688 63.0115C215.695 65.9483 219.14 69.583 221.858 73.7415C224.672 77.8488 226.568 82.5146 227.415 87.4208C228.262 92.327 228.042 97.3582 226.768 102.171C223.428 114.981 216.168 124.581 205.168 130.681C199.693 133.815 193.534 135.563 187.228 135.771C185.427 135.82 183.625 135.692 181.848 135.391C178.002 138.834 173.501 141.466 168.615 143.129C163.728 144.792 158.556 145.453 153.408 145.071C146.826 144.762 140.437 142.746 134.868 139.221C133.668 140.021 132.478 140.761 131.278 141.441C123.634 145.763 115.227 148.568 106.518 149.701C95.3159 150.615 71.5349 149.799 66.0298 139.221C59.1483 126 52.5391 121 46.5298 124C40.5204 127 16.0298 111.549 17.0298 104.5C17.8298 98.8612 20.0088 97.4515 20.9983 97.4515C20.0533 93.3852 19.6332 89.2145 19.7483 85.0415C20.0283 74.8715 22.8383 66.0115 28.1083 58.7015C31.3727 54.0131 35.6054 50.08 40.5204 47.1679C45.4354 44.2559 50.9182 42.4326 56.5983 41.8215L57.0183 41.7615C57.5483 41.6815 58.1783 41.5715 59.1483 41.5215C60.1183 41.4715 60.9283 41.4715 61.5183 41.4715H62.5183C65.9209 41.6153 69.3075 42.0198 72.6483 42.6815C76.0785 36.3949 80.9649 31.0216 86.8983 27.0115C94.763 21.526 103.912 18.1673 113.458 17.2615C125.558 16.0115 136.998 19.2515 147.508 26.8115C151.874 24.746 156.55 23.4148 161.348 22.8715C172.878 21.3815 183.638 24.5315 193.348 32.2215C199.803 37.4345 204.973 44.0619 208.458 51.5915C210.146 55.198 211.237 59.055 211.688 63.0115Z" fill="#F8F8F8"></path>
@@ -44,12 +60,11 @@
                         </svg>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-5">
                     <form id="myForm">
                         @csrf
                         <div class="output">
-                            <div class="content-written left brain">
-                                <br>
+                            <div class="content-written left ">
                                 <div class="left_scroll">
                                     <div class="group-box">
                                         <span class="small_text_font">Welcher Beruf interessiert dich?
@@ -60,23 +75,21 @@
                                         <input type="text" name="field1" id="field1" placeholder="Maurer, Hundefriseur, etc.">
                                     </div>
                                 </div>
-                                <div class="text-center" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                                <div class="send_button_box">
                                     <button type="button" class="send_button" id="submitForm">Absenden</button>
-                                    <button type="button" class="send_button" id="showSaveModal">Archivieren</button>
+                                    <button type="button" class="archive_button" id="showSaveModal">Archivieren</button>
                                 </div>
                             </div>
                         </div>
                     </form>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-5">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="output" style="display: flex" id="second_box">
                                 <div class="content-written right">
-                                    <div class="typing-container">
-                                        <!-- Ausgabefenster -->
-                                        <div id="typed-text"></div>
-                                    </div>
+                                    <!-- Ausgabefenster -->
+                                    <div id="typed-text"></div>
                                 </div>
                                 <p style="font-size: 12px; color: gray; text-align: center;">StudyGenie kann Fehler machen. Überprüfe wichtige Informationen.</p>
                             </div>

@@ -82,7 +82,7 @@
             <p>Bewerbung - {{ $stellenbezeichnung_job }}</p>
         </div>
         <div class="content">
-            {!! $motivational_letter !!} <!-- Interpretiert den Inhalt als HTML -->
+            {!! $openai_response !!}
         </div>
         <div class="signature">
             <p>Mit freundlichen Grüßen,<br>{{ $name }}</p>

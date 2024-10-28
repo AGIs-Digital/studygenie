@@ -8,7 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
-<body class="MainContainer">
+<body class="MainContainer backimage">
     <div class="headerSpacer"></div>
     @include('components.navbar')
     @include('components.feedback')
@@ -24,7 +24,7 @@
                             <svg xmlns="http://www.w3.org/2000/svg" width="184" height="109" viewBox="0 0 184 109" x="30" y="30">
                                 <rect width="100%" height="100%" fill="none"></rect>
                                 <path d="M169.358 42.2315C168.781 41.9628 168.298 41.5259 167.973 40.978C167.649 40.4302 167.497 39.797 167.538 39.1615C167.542 35.3204 166.738 31.5215 165.178 28.0115C162.524 22.1812 158.554 17.0465 153.578 13.0115C146.948 7.75151 139.508 5.15151 130.978 6.26151C125.298 7.00151 119.978 8.62151 115.718 12.7015C114.988 13.3915 114.468 13.2215 113.838 12.6115C112.988 11.7915 112.108 11.0215 111.208 10.2615C102.958 3.37151 93.6882 -0.438494 82.7182 0.671506C75.2957 1.34277 68.1756 3.93439 62.0582 8.19151C55.4282 12.8215 50.7482 18.8215 48.9982 26.8615C48.8982 27.2948 48.7882 27.7148 48.6682 28.1215C48.2782 29.4915 48.2582 29.4915 46.9082 28.8715L46.4182 28.6215C41.2329 26.2577 35.6161 24.9879 29.9182 24.8915C29.2982 24.8915 28.6782 24.8915 28.0582 24.8915C27.4382 24.8915 26.7182 25.0615 26.0582 25.1415C22.1076 25.5463 18.2931 26.8095 14.8817 28.8425C11.4702 30.8756 8.54417 33.6294 6.30823 36.9115C2.14823 42.6815 0.498228 49.3015 0.308228 56.2815C0.0240566 64.608 2.75469 72.7572 7.99823 79.2315C13.7282 86.4815 20.9382 91.2315 30.4882 91.4715C30.8327 91.4485 31.1759 91.5321 31.4711 91.711C31.7663 91.89 31.9993 92.1555 32.1382 92.4715C33.7782 95.7615 36.4782 98.1215 39.2082 100.472C43.5116 104.24 48.7348 106.803 54.3482 107.902C59.814 108.946 65.4026 109.188 70.9382 108.622C78.7765 107.891 86.3705 105.505 93.2182 101.622C96.477 99.7219 99.5184 97.4719 102.288 94.9115C103.358 93.9115 103.398 93.9815 104.288 95.0515C106.509 97.6491 109.247 99.7553 112.327 101.236C115.408 102.717 118.762 103.539 122.178 103.652C131.868 104.212 139.718 100.362 145.718 92.7315C146.518 91.7315 146.518 91.6615 147.568 92.3715C149.763 93.8095 152.358 94.5102 154.978 94.3715C159.262 94.2134 163.441 93.0046 167.148 90.8515C175.398 86.1615 180.348 79.0115 182.698 70.0115C183.53 66.8929 183.668 63.6297 183.101 60.4522C182.534 57.2747 181.277 54.2602 179.418 51.6215C176.877 47.7215 173.424 44.4987 169.358 42.2315Z" fill="rgba(41,58,74,1)"></path>
-                                <text class="textStyle" x="50%" y="65" text-anchor="middle" font-family: 'Milonga', cursive; font-size="18" fill="#FFFFFF" font-weight="400">Motivationsschreiben</text>
+                                <text class="textStyle" x="50%" y="65" text-anchor="middle" font-size="18" fill="#FFFFFF" font-weight="400">Motivationsschreiben</text>
                             </svg>
                         </g>
                         <defs>
@@ -106,13 +106,17 @@
                                     <div class="section" id="stellenbezeichnung">
                                         <div class="entry">
                                             <p>Job/Studiengang:
-                                            <strong type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Trage hier ein wofür du dich bewirbst.">
-                                                <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="" loading="lazy">
-                                                </strong><input type="text" name="stellenbezeichnung_job" placeholder="Webentwicklerin, etc."></p>
+                                                <strong type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Trage hier ein wofür du dich bewirbst.">
+                                                    <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="" loading="lazy">
+                                                </strong>
+                                                <input type="text" name="stellenbezeichnung_job" placeholder="Webentwicklerin, etc.">
+                                            </p>
                                             <p>Stellenbeschreibung:
-                                            <strong type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Trage hier die relevanten Abschnitte wir 'was du mitbringst' 'was wir suchen' etc. ein.">
-                                                <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="" loading="lazy">
-                                                </strong><textarea name="stellenbezeichnung_stellenbeschreibung" rows="10" placeholder="Das zeichnet Sie aus: Sie haben Ihre Allgemeine Hochschulreife (Abitur) erworben oder sind kurz vor Ihrem Abschluss. Sie können sich sicher in Englisch und Deutsch verständigen"></textarea></p>
+                                                <strong type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Trage hier die relevanten Abschnitte wir 'was du mitbringst' 'was wir suchen' etc. ein.">
+                                                    <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="" loading="lazy">
+                                                </strong>
+                                                <textarea name="stellenbezeichnung_stellenbeschreibung" rows="10" placeholder="Das zeichnet Sie aus: Sie haben Ihre Allgemeine Hochschulreife (Abitur) erworben oder sind kurz vor Ihrem Abschluss. Sie können sich sicher in Englisch und Deutsch verständigen"></textarea>
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
@@ -121,39 +125,44 @@
 
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="flush-headingThree">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#flush-collapseThree" aria-expanded="false"
-                                    aria-controls="flush-collapseThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
                                     Qualifikationen
                                 </button>
                             </h2>
-                            <div id="flush-collapseThree" class="accordion-collapse collapse"
-                                aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                            <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
                                 <div class="accordion-body">
                                     <div class="section" id="qualification">
                                         <div class="entry">
-                                        <span class="small_text_font">Relevante Abschlüsse:
+                                            <span class="small_text_font">Relevante Abschlüsse:
                                                 <strong type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title=" Trage hier deine relevantesten Abschlüsse chronologisch ein.">
-                                                <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="" loading="lazy">
+                                                    <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="" loading="lazy">
                                                 </strong>
                                                 <input type="text" name="qualification_grade" placeholder="Architektin B.Sc., Ausbildung Maurer, etc.">
                                             </span>
                                             <p>Beruflicher Werdegang:
-                                            <strong type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Falls du bereits in Unternehmen gearbeitet hast, gebe hier, beginnend mit dem letzten, das Unternehmen und deine Position ein.">
-                                                <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="" loading="lazy">
-                                                </strong><input type="text" name="qualification_jobs" placeholder="Projektleitung bei Google, etc."></p>
+                                                <strong type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Falls du bereits in Unternehmen gearbeitet hast, gebe hier, beginnend mit dem letzten, das Unternehmen und deine Position ein.">
+                                                    <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="" loading="lazy">
+                                                </strong>
+                                                <input type="text" name="qualification_jobs" placeholder="Projektleitung bei Google, etc.">
+                                            </p>
                                             <p>Aktuelle Aufgaben:
-                                            <strong type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Trage hier die Aufgaben ein, die du derzeit ausführst.">
-                                                <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="" loading="lazy">
-                                                </strong><input type="text" name="qualification_tasks_now" placeholder="PHP programmieren, Kundenservice, etc."></p>
+                                                <strong type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Trage hier die Aufgaben ein, die du derzeit ausführst.">
+                                                    <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="" loading="lazy">
+                                                </strong>
+                                                <input type="text" name="qualification_tasks_now" placeholder="PHP programmieren, Kundenservice, etc.">
+                                            </p>
                                             <p>Frühere Aufgaben:
-                                            <strong type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Tätigkeiten die du in anderen Jobs ausgeübt hast und die für die jetzige Bewerbung von Wert sind.">
-                                                <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="" loading="lazy">
-                                                </strong><input type="text" name="qualification_tasks_earlier" placeholder="Präsentationen, Meetings organisieren, etc."></p>
+                                                <strong type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Tätigkeiten die du in anderen Jobs ausgeübt hast und die für die jetzige Bewerbung von Wert sind.">
+                                                    <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="" loading="lazy">
+                                                </strong>
+                                                <input type="text" name="qualification_tasks_earlier" placeholder="Präsentationen, Meetings organisieren, etc.">
+                                            </p>
                                             <p>Persönliche Stärken:
-                                            <strong type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Was macht dich zur idealen Stellenbesetzung?">
-                                                <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="" loading="lazy">
-                                                </strong><input type="text" name="qualification_skills" placeholder="Strukturiertes Arbeiten, Empathie, etc."></p>
+                                                <strong type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Was macht dich zur idealen Stellenbesetzung?">
+                                                    <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="" loading="lazy">
+                                                </strong>
+                                                <input type="text" name="qualification_skills" placeholder="Strukturiertes Arbeiten, Empathie, etc.">
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
@@ -162,43 +171,47 @@
 
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="flush-headingFour">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#flush-collapseFour" aria-expanded="false"
-                                    aria-controls="flush-collapseFour">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
                                     Motivationen
                                 </button>
                             </h2>
-                            <div id="flush-collapseFour" class="accordion-collapse collapse"
-                                aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
+                            <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
                                 <div class="accordion-body">
                                     <div class="section" id="motivationen">
                                         <div class="entry">
                                             <p>Karriereziele:
-                                            <strong type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Was möchtest du persönlich in diesem Job lernen oder erreichen?">
-                                                <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="" loading="lazy">
-                                                </strong><input type="text" name="motivationen_type" placeholder="Teamleitung, Aufstiegschancen etc."></p>
+                                                <strong type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Was möchtest du persönlich in diesem Job lernen oder erreichen?">
+                                                    <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="" loading="lazy">
+                                                </strong>
+                                                <input type="text" name="motivationen_type" placeholder="Teamleitung, Aufstiegschancen etc.">
+                                            </p>
                                             <p>Persönliche Interessen:
-                                            <strong type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Hobbies oder Leidenschaften von dir.">
-                                                <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="" loading="lazy">
-                                                </strong><input type="text" name="motivationen_level" placeholder="Mannschaftssport, Schülersprecher*in, etc."></p>
+                                                <strong type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Hobbies oder Leidenschaften von dir.">
+                                                    <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="" loading="lazy">
+                                                </strong>
+                                                <input type="text" name="motivationen_level" placeholder="Mannschaftssport, Schülersprecher*in, etc.">
+                                            </p>
                                             <p>Stil:
-                                            <strong type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Welchen Eindruck möchtest du mit deiner Bewerbung von dir vermitteln?">
-                                                <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="" loading="lazy">
-                                                </strong><input type="text" name="motivationen_style" placeholder=" Professionell, kreativ, sebstbewusst, etc."></p>
+                                                <strong type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Welchen Eindruck möchtest du mit deiner Bewerbung von dir vermitteln?">
+                                                    <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="" loading="lazy">
+                                                </strong>
+                                                <input type="text" name="motivationen_style" placeholder=" Professionell, kreativ, sebstbewusst, etc.">
+                                            </p>
                                             <p>Freitextfeld:
-                                            <strong type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Alles, woran wir nicht gedacht haben, dir aber wichtig ist :-)">
-                                                <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="" loading="lazy">
-                                                </strong><input type="text" name="motivationen_freitext" placeholder="Lust auf neue Aufgaben, etc."></p>
+                                                <strong type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Alles, woran wir nicht gedacht haben, dir aber wichtig ist :-)">
+                                                    <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="" loading="lazy">
+                                                </strong>
+                                                <input type="text" name="motivationen_freitext" placeholder="Lust auf neue Aufgaben, etc.">
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <br />
-                    <div class="text-center" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                    <div class="send_button_box">
                         <button type="button" class="send_button" id="preview-button">Vorschau</button>
-                        <button type="submit" class="send_button">Download</button>
+                        <button type="submit" class="archive_button">Download</button>
                     </div>
                     <input type="hidden" id="openai_response" name="openai_response">
                 </form>
@@ -212,7 +225,7 @@
         </div>
     </div>
 
-    <script>       
+    <script>
         document.addEventListener('DOMContentLoaded', () => {
             function checkFields() {
                 const accordionItems = document.querySelectorAll('.accordion-item');
@@ -304,30 +317,61 @@
                 event.preventDefault();
                 const form = document.getElementById('motivation-form');
                 const formData = new FormData(form);
-
+                
                 // Füge die OpenAI-Antwort zu den Formulardaten hinzu
                 const openaiResponse = document.getElementById('openai_response').value;
+                if (!openaiResponse) {
+                    showToast("Bitte zuerst eine Vorschau generieren", "error");
+                    return;
+                }
                 formData.append('openai_response', openaiResponse);
+
+                // Ladezeichen anzeigen
+                const downloadButton = event.submitter;
+                downloadButton.disabled = true;
+                downloadButton.textContent = 'Download...';
+
+                // Timer für den Toast
+                let toastTimer = setTimeout(() => {
+                    showToast("Der Download wird vorbereitet. Bitte haben Sie einen Moment Geduld.");
+                }, 20000);
 
                 // Sende die Formulardaten per AJAX an den Server
                 fetch(route('karriere.motivation.download-pdf'), {
-                        method: 'POST',
-                        body: formData,
-                        headers: {
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                        }
-                    })
-                    .then(response => response.blob())
-                    .then(blob => {
-                        const url = window.URL.createObjectURL(blob);
-                        const a = document.createElement('a');
-                        a.href = url;
-                        a.download = 'Motivationsschreiben.pdf';
-                        document.body.appendChild(a);
-                        a.click();
-                        a.remove();
-                    })
-                    .catch(error => console.error('Error:', error));
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    }
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Netzwerk-Antwort war nicht ok');
+                    }
+                    return response.blob();
+                })
+                .then(blob => {
+                    clearTimeout(toastTimer);
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    const name = document.querySelector('input[name="name"]')?.value || '';
+                    a.download = `Motivationsschreiben_${name}_${new Date().toLocaleDateString('de-DE').replace(/\./g, '_')}.pdf`;
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                    a.remove();
+                    showToast("Download erfolgreich");
+                })
+                .catch(error => {
+                    clearTimeout(toastTimer);
+                    console.error('Download-Fehler:', error);
+                    showToast("Beim Download ist ein Fehler aufgetreten", "error");
+                })
+                .finally(() => {
+                    downloadButton.disabled = false;
+                    downloadButton.textContent = 'Download';
+                });
             });
         });
     </script>

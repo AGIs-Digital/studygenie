@@ -8,7 +8,6 @@
     <script src="{{ asset('asset/js/toast.js') }}"></script>
 </head>
 @include('components.navbar')
-@include('components.feedback')
 <body class="MainContainer">
     <div class="headerSpacer"></div>
     @include('components.heroimage-section')
