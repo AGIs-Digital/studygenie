@@ -252,7 +252,8 @@
                         });
                     },
                     onApprove: function(data, actions) {
-                        const currentPlan = '{{ auth()->user()->subscription_name }}';
+                        // Sicherere Abfrage des aktuellen Plans
+                        const currentPlan = document.querySelector('meta[name="user-subscription"]')?.content || 'Silber';
                         const changeType = determineSubscriptionChange(currentPlan, planName);
                         
                         fetch('{{ route('subscriptions.update') }}', {
@@ -275,7 +276,6 @@
                         .then(data => {
                             if (data.success) {
                                 $(`#paypalModal${planName}`).modal('hide');
-                                location.reload();
                                 localStorage.setItem('subscription_updated', 'true');
                                 
                                 if (changeType === 'upgrade') {
@@ -284,6 +284,7 @@
                                 } else {
                                     showToast(`Dein Abonnement wurde auf ${planName} geändert.`, 'info');
                                 }
+                                location.reload();
                             } else {
                                 showToast(data.message || 'Ein Fehler ist aufgetreten', 'error');
                             }
@@ -375,3 +376,6 @@
         });
     </script>
 </section>
+
+<meta name="user-subscription" content="{{ auth()->user()?->subscription_name ?? 'Silber' }}">
+

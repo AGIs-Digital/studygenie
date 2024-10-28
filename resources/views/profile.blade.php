@@ -260,7 +260,12 @@
         // Bestätigungen
         function confirmSilberStatus(url) {
             $('#confirmSilberModal').modal('show');
-            document.getElementById('confirmSilberButton').onclick = function () {
+            const confirmButton = document.getElementById('confirmSilberButton');
+            if (!confirmButton) {
+                console.error('Confirm button not found');
+                return;
+            }
+            confirmButton.onclick = function () {
                 fetch(url, {
                     method: 'POST',
                     headers: {

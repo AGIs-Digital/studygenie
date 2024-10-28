@@ -6,15 +6,6 @@ html, body {
   padding: 0;
 }
 
-#main-body {
-  font-family: 'Milonga';
-  height: 90vh;
-  background-image: url('../images/WhatsApp\ Image\ 2023-09-18\ at\ 9.41.22\ AM.jpeg');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
 .backimage {
   background-image: url('../images/tool_back.png');
   background-position: center;
@@ -43,7 +34,7 @@ input[type='radio'] {
   margin-bottom: 25px;
 }
 .steuerungcontainer:last-child {
-  margin-bottom: 0; /* Entferne den unteren Abstand vom letzten Container */
+  margin-bottom: 0;
 }
 
 .legende .steuerung {
@@ -165,10 +156,10 @@ input[type='radio'] {
 
 .content-written.left {
   background-image: url('../images/left_background.png');
-  background-size: 100% 80%;
+  background-size: 100% 100%;
   background-repeat: no-repeat;
   background-position: top;
-  padding: 79px 8% 25px 17%;
+  padding: 79px 7% 25px 14%;
   margin-top: 0;
 }
 
@@ -181,38 +172,40 @@ input[type='radio'] {
 }
 
 .content-written.right {
-  height: calc(100vh - 195px);
-  background: #6ba292;
-  background-image: url('../images/noise-light.png');
-  border: 10px solid dimgrey;
-  border-radius: 18px;
+  background: url('../images/output_border.png') center/100% 100% no-repeat;
+  padding: 30px;
+  width: 600px;
+  height: calc(100vh - 190px);
+  position: relative;
+  overflow: auto;
 }
 
 .content-written {
-  border-image-repeat: unset;
   width: 600px;
-  overflow: hidden;
-  height: calc(100vh - 155px);
-  margin-top: 2rem;
-  padding: 20px;
+  height: calc(100vh - 190px);
+  margin-top: 3rem;
   text-align: center;
   position: relative;
   overflow: auto;
 }
 
 #typed-text2 {
-  height: calc(100vh - 241px);
   overflow-y: auto;
 }
 
 #typed-text1 {
-  height: calc(100vh - 241px);
   overflow-y: auto;
 }
 
 #typed-text {
-  height: calc(100vh - 241px);
   overflow-y: auto;
+  color: black;
+  text-align: left;
+  font-size: 16px;
+  max-height: calc(100% - 40px);
+  margin: 20px;
+  padding-right: 15px;
+  padding-bottom: 40px;
 }
 
 @media screen and (max-width: 767px) {
@@ -426,10 +419,6 @@ input[type='radio'] {
   overflow: auto;
 }
 
-#typed-text {
-  font-size: 16px;
-}
-
 .save_folder.center {
   position: absolute;
   bottom: -52px;
@@ -508,7 +497,7 @@ input[type='radio'] {
 }
 
 .left_scroll {
-  height: 77%;
+  height: 87%;
   overflow-y: auto;
   overflow-x: hidden;
 }
@@ -1036,3 +1025,6 @@ input[type='text']:disabled {
     padding: 53px 11% 20px 17% !important;
   }
 }
+
+
+

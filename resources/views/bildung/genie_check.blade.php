@@ -43,7 +43,7 @@
                         </svg>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-5">
                     <form id="myForm">
                         @csrf
                         <div class="output">
@@ -65,7 +65,7 @@
                         </div>
                     </form>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-5">
                     <div class="output">
                         <div class="content-written right" id="checkcontent_box">
                             <div class="typing-container">
@@ -164,10 +164,9 @@
                         $("#field1").val('');
                     },
                     error: function(xhr, status, error) {
-                        clearTimeout(toastTimer); // Timer löschen
-                        console.error("Ein Fehler ist aufgetreten: " + error);
-                        //Ladezeichen entfernen
-                        $("#submitForm").removeClass('loading-button').text("Absenden").prop('disabled', false);
+                        clearTimeout(toastTimer);
+                        showToast("Ein Fehler ist aufgetreten: " + error, 'error');
+                        $("#submitForm").removeClass('loading-button').text("Senden").prop('disabled', false);
                     }
                 });
             });
