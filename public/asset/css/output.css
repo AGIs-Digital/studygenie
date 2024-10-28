@@ -204,8 +204,6 @@ input[type='radio'] {
   font-size: 16px;
   max-height: calc(100% - 40px);
   margin: 20px;
-  padding-right: 15px;
-  padding-bottom: 40px;
 }
 
 @media screen and (max-width: 767px) {
@@ -1025,6 +1023,7 @@ input[type='text']:disabled {
     padding: 53px 11% 20px 17% !important;
   }
 }
+
 
 
 
