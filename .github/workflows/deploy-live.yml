@@ -164,3 +164,16 @@ jobs:
             cd studygenie.de/
             php8.2-cli artisan up
             echo "Maintenance mode disabled"
+
+      - name: Clear Application Cache
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          script: |
+            cd studygenie.de/
+            php8.2-cli artisan cache:clear
+            php8.2-cli artisan view:clear
+            php8.2-cli artisan config:clear
+            php8.2-cli artisan route:clear
