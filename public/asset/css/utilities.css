@@ -82,7 +82,7 @@
 #accordionFlushExample {
 	height: 70vh;
 	overflow: auto;
-	background-color: #f8fa8c;
+	background-color: white;
 }
 
 @keyframes spin {
