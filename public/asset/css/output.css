@@ -613,7 +613,7 @@ input[type='radio'] {
   height: 100%;
   overflow: auto;
   text-align: left;
-  padding: 1.5rem;
+  padding: 1.5rem 1.5rem 3.5rem 1.5rem;
 }
 
 input[type='text']:disabled {
