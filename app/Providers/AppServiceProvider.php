@@ -23,6 +23,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        // Generiere einen eindeutigen Hash basierend auf dem Release-Tag
+        $version = config('app.version', md5(time())); 
+        
+        // Füge Version zu allen Asset-URLs hinzu
+        \URL::macro('versioned', function ($path) use ($version) {
+            return url($path) . '?v=' . $version;
+        });
     }
 }

@@ -182,6 +182,143 @@
                 }
                 localStorage.removeItem('subscription_updated');
             }
+
+            function createPayPalButton(planId, planName, buttonId) {
+                if (typeof $ === 'undefined') {
+                    console.error('jQuery ist nicht geladen. PayPal-Integration kann nicht initialisiert werden.');
+                    return;
+                }
+
+                $(`#paypalModal${planName}`).on('shown.bs.modal', function () {
+                    paypal.Buttons({
+                        createSubscription: function(data, actions) {
+                            return actions.subscription.create({
+                                'plan_id': planId
+                            });
+                        },
+                        onApprove: function(data, actions) {
+                            // Sicherere Abfrage des aktuellen Plans
+                            const currentPlan = document.querySelector('meta[name="user-subscription"]')?.content || 'Silber';
+                            const changeType = determineSubscriptionChange(currentPlan, planName);
+                            
+                            fetch('{{ route('subscriptions.update') }}', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                                },
+                                body: JSON.stringify({ 
+                                    plan_name: planName,
+                                    subscription_id: data.subscriptionID 
+                                })
+                            })
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error('Netzwerk-Antwort war nicht ok');
+                                }
+                                return response.json();
+                            })
+                            .then(data => {
+                                if (data.success) {
+                                    $(`#paypalModal${planName}`).modal('hide');
+                                    localStorage.setItem('subscription_updated', 'true');
+                                    
+                                    if (changeType === 'upgrade') {
+                                        showToast(`Herzlichen Glückwunsch, du bist nun ein ${planName}-Abonnent!`, 'success');
+                                        showConfetti();
+                                    } else {
+                                        showToast(`Dein Abonnement wurde auf ${planName} geändert.`, 'info');
+                                    }
+                                    location.reload();
+                                } else {
+                                    showToast(data.message || 'Ein Fehler ist aufgetreten', 'error');
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Fehler:', error);
+                                showToast('Ein Fehler ist aufgetreten bei der Aktualisierung des Abonnements', 'error');
+                            });
+                        }
+                    }).render(buttonId);
+                });
+            }
+
+            // PayPal-Buttons für Gold und Diamant rendern
+            createPayPalButton('{{ config('services.paypal.gold_plan_id') }}', 'Gold', '#paypal-button-gold');
+            createPayPalButton('{{ config('services.paypal.diamant_plan_id') }}', 'Diamant', '#paypal-button-diamant');
+
+            document.addEventListener('DOMContentLoaded', function() {
+                // Überprüfen, ob der Silber-Button existiert, bevor der Event Listener hinzugefügt wird
+                const silberButton = document.getElementById('silberButton');
+                if (silberButton) {
+                    silberButton.addEventListener('click', function() {
+                        $('#confirmSilberModal').modal('show');
+                    });
+                }
+
+                // Event Listener für den Bestätigungsbutton im Modal
+                document.getElementById('confirmSilberButton').addEventListener('click', function() {
+                    fetch('{{ route('subscriptions.update') }}', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        },
+                        body: JSON.stringify({ plan_name: 'Silber' })
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Netzwerk-Antwort war nicht ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.success) {
+                            location.reload();
+                            localStorage.setItem('subscription_updated', 'true');
+                        } else {
+                            showToast(data.message || 'Ein Fehler ist aufgetreten', 'error');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Fehler:', error);
+                        showToast('Ein Fehler ist aufgetreten bei der Aktualisierung des Abonnements', 'error');
+                    });
+                });
+            });
+
+            // Event Listener für Kündigungs-Buttons
+            document.querySelectorAll('.cancel-subscription').forEach(button => {
+                button.addEventListener('click', function() {
+                    const planType = this.getAttribute('data-plan');
+                    document.getElementById('planType').textContent = planType;
+                    const modal = new bootstrap.Modal(document.getElementById('cancelSubscriptionModal'));
+                    modal.show();
+                });
+            });
+
+            // Event Listener für Kündigungs-Bestätigung
+            document.getElementById('confirmCancelButton').addEventListener('click', function() {
+                fetch('{{ route('subscriptions.cancel') }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        location.reload();
+                        localStorage.setItem('subscription_cancelled', 'true'); // Geändert von subscription_updated
+                        showToast('Dein Abo wurde erfolgreich gekündigt und läuft zum Ende der Laufzeit aus.', 'success');
+                    } else {
+                        showToast('Es gab einen Fehler bei der Kündigung. Bitte versuche es später erneut.', 'error');
+                    }
+                });
+                
+                bootstrap.Modal.getInstance(document.getElementById('cancelSubscriptionModal')).hide();
+            });
         });
 
         function showConfetti() {
@@ -241,139 +378,6 @@
             
             return planHierarchy[newPlan] > planHierarchy[oldPlan] ? 'upgrade' : 'downgrade';
         }
-
-        // Modifizieren Sie die PayPal-Button-Logik
-        function createPayPalButton(planId, planName, buttonId) {
-            $(`#paypalModal${planName}`).on('shown.bs.modal', function () {
-                paypal.Buttons({
-                    createSubscription: function(data, actions) {
-                        return actions.subscription.create({
-                            'plan_id': planId
-                        });
-                    },
-                    onApprove: function(data, actions) {
-                        // Sicherere Abfrage des aktuellen Plans
-                        const currentPlan = document.querySelector('meta[name="user-subscription"]')?.content || 'Silber';
-                        const changeType = determineSubscriptionChange(currentPlan, planName);
-                        
-                        fetch('{{ route('subscriptions.update') }}', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                            },
-                            body: JSON.stringify({ 
-                                plan_name: planName,
-                                subscription_id: data.subscriptionID 
-                            })
-                        })
-                        .then(response => {
-                            if (!response.ok) {
-                                throw new Error('Netzwerk-Antwort war nicht ok');
-                            }
-                            return response.json();
-                        })
-                        .then(data => {
-                            if (data.success) {
-                                $(`#paypalModal${planName}`).modal('hide');
-                                localStorage.setItem('subscription_updated', 'true');
-                                
-                                if (changeType === 'upgrade') {
-                                    showToast(`Herzlichen Glückwunsch, du bist nun ein ${planName}-Abonnent!`, 'success');
-                                    showConfetti();
-                                } else {
-                                    showToast(`Dein Abonnement wurde auf ${planName} geändert.`, 'info');
-                                }
-                                location.reload();
-                            } else {
-                                showToast(data.message || 'Ein Fehler ist aufgetreten', 'error');
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Fehler:', error);
-                            showToast('Ein Fehler ist aufgetreten bei der Aktualisierung des Abonnements', 'error');
-                        });
-                    }
-                }).render(buttonId);
-            });
-        }
-
-        // PayPal-Buttons für Gold und Diamant rendern
-        createPayPalButton('{{ config('services.paypal.gold_plan_id') }}', 'Gold', '#paypal-button-gold');
-        createPayPalButton('{{ config('services.paypal.diamant_plan_id') }}', 'Diamant', '#paypal-button-diamant');
-
-        document.addEventListener('DOMContentLoaded', function() {
-            // Überprüfen, ob der Silber-Button existiert, bevor der Event Listener hinzugefügt wird
-            const silberButton = document.getElementById('silberButton');
-            if (silberButton) {
-                silberButton.addEventListener('click', function() {
-                    $('#confirmSilberModal').modal('show');
-                });
-            }
-
-            // Event Listener für den Bestätigungsbutton im Modal
-            document.getElementById('confirmSilberButton').addEventListener('click', function() {
-                fetch('{{ route('subscriptions.update') }}', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    },
-                    body: JSON.stringify({ plan_name: 'Silber' })
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Netzwerk-Antwort war nicht ok');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    if (data.success) {
-                        location.reload();
-                        localStorage.setItem('subscription_updated', 'true');
-                    } else {
-                        showToast(data.message || 'Ein Fehler ist aufgetreten', 'error');
-                    }
-                })
-                .catch(error => {
-                    console.error('Fehler:', error);
-                    showToast('Ein Fehler ist aufgetreten bei der Aktualisierung des Abonnements', 'error');
-                });
-            });
-        });
-
-        // Event Listener für Kündigungs-Buttons
-        document.querySelectorAll('.cancel-subscription').forEach(button => {
-            button.addEventListener('click', function() {
-                const planType = this.getAttribute('data-plan');
-                document.getElementById('planType').textContent = planType;
-                const modal = new bootstrap.Modal(document.getElementById('cancelSubscriptionModal'));
-                modal.show();
-            });
-        });
-
-        // Event Listener für Kündigungs-Bestätigung
-        document.getElementById('confirmCancelButton').addEventListener('click', function() {
-            fetch('{{ route('subscriptions.cancel') }}', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    location.reload();
-                    localStorage.setItem('subscription_cancelled', 'true'); // Geändert von subscription_updated
-                    showToast('Dein Abo wurde erfolgreich gekündigt und läuft zum Ende der Laufzeit aus.', 'success');
-                } else {
-                    showToast('Es gab einen Fehler bei der Kündigung. Bitte versuche es später erneut.', 'error');
-                }
-            });
-            
-            bootstrap.Modal.getInstance(document.getElementById('cancelSubscriptionModal')).hide();
-        });
     </script>
 </section>
 
