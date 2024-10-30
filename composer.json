@@ -32,10 +32,7 @@
     "autoload": {
         "psr-4": {
             "App\\": "app/"
-        },
-        "files": [
-            "app/Helpers/SeasonalHelper.php"
-        ]
+        }
     },
     "autoload-dev": {
         "psr-4": {
