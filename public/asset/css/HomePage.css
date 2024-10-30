@@ -600,6 +600,37 @@ h4 ~ p {
   margin: 1rem 2rem;
 }
 
+.toolpreview {
+  width: 100%;
+  max-width: 400px; /* oder die gewünschte maximale Breite */
+  margin: 0 auto;
+}
+
+.toolpreview iframe {
+  width: 100%;
+  aspect-ratio: 16/9; /* Standard YouTube Seitenverhältnis */
+  height: auto;
+}
+
+.toolpreviewContainer {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+@media (max-width: 768px) {
+  .toolpreviewContainer {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .toolpreview {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
 .toolpreview p {
   display: block;
   max-width: 100%;
