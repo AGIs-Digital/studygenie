@@ -11,11 +11,11 @@
                 <h2 style="color: #fff">Silber</h2>
             </div>
             <div class="plancardContent">
-                <span class="highSpan">Kostenlos<span class="lowSpan">Immer<br /></span></span>
-                <p class="plancardbenefit">Du bekommst:</p>
-                <p class="planCardParagraph">
-                    <span class="textmarker">✓ Intelligente Soforthilfe</span><br />
-                    <span class="textmarker">✓ Traumberuf finden</span><br />
+                <span class="highSpan">Kostenlos <span class="lowSpan"></span></span>
+                <p class="plancardbenefit">Dein Genie kann:</p>
+                <p class="planCardParagraph" style="line-height: 2.5;">
+                    <span class="textmarker">✓ Fragen beantworten</span><br />
+                    <span class="textmarker">✓ Traumberufe finden</span><br />
                     <span class="textmarker">✓ Berufsinformationen</span><br />
                 </p>
                 @guest
@@ -58,9 +58,9 @@
             <div class="plancardContent">
                 <span class="highSpan">10 € <span class="lowSpan">/ Monat<br /></span></span>
                 <p class="plancardbenefit">Alles aus Silber +</p>
-                <p class="planCardParagraph">
-                    <span class="blue-textmarker">✓ Textinspirationen</span><br />
-                    <span class="blue-textmarker">✓ Textanalysen</span><br />
+                <p class="planCardParagraph" style="line-height: 2.5;">
+                    <span class="blue-textmarker">✓ Inspiration beim Schreibe</span><br />
+                    <span class="blue-textmarker">✓ Texte analysieren</span><br />
                     <span class="blue-textmarker">✓ Bewerbungsunterlagen</span><br />
                 </p>
                 @guest
@@ -105,10 +105,10 @@
             </div>
             <div class="plancardContent">
                 <span class="highSpan">20 € <span class="lowSpan">/ Monat<br /></span></span>
-                <p class="plancardbenefit">Alles aus Gold ++</p>
-                <p class="planCardParagraph">
-                    <span class="green-textmarker">✓ Tutor</span><br />
-                    <span class="green-textmarker">✓ Karriere Mentor</span>
+                <p class="plancardbenefit">Silber + Gold +</p>
+                <p class="planCardParagraph" style="line-height: 2.5;">
+                    <span class="green-textmarker">✓ Persönlicher Tutor</span><br />
+                    <span class="green-textmarker">✓ Individueller Karriere Mentor</span>
                     <br /><br />
                 </p>
                 @guest
