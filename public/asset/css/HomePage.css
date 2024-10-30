@@ -610,6 +610,7 @@ h4 ~ p {
   width: 100%;
   aspect-ratio: 16/9; /* Standard YouTube Seitenverhältnis */
   height: auto;
+  border-radius: 15px;
 }
 
 .toolpreviewContainer {
