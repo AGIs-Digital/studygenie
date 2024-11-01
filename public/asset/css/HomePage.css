@@ -1021,6 +1021,36 @@ h4 ~ p {
   .shadowOfCard2 {
     left: 5%;
   }
+
+  .toolpreviewContainer {
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+  }
+
+  .toolpreview {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .benefitsContainer {
+    margin: 0;
+  }
+
+  .questionContainer {
+    width: 100%;
+  }
+
+  h1,
+  h2 {
+    text-align: center;
+  }
+
+  #loginButton,
+  #registerButton {
+    margin: 0 auto;
+    font-size: 16px;
+  } 
 }
 
 /* Smartphones (Landscape) */
