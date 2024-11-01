@@ -169,8 +169,8 @@ Route::get('/subscription/expired', function () {
     return view('subscription.expired');
 })->name('subscription.expired');
 
-// Nur für Sandbox/Entwicklung!
-if (config('app.env') !== 'production') {
+// Sandbox/Test-Routen nur in nicht-Produktionsumgebungen
+if (config('services.paypal.mode') !== 'live') {
     Route::get('/paypal/test-webhook', [PayPalSandboxTestController::class, 'simulateWebhook'])
         ->middleware('auth')
         ->name('test.paypal.webhook');

@@ -55,20 +55,11 @@ html, body {
     .logoContainer, .linksContainer, .socialContainer {
         width: 100%;
     }
-
-    .linksContainer {
-        flex-direction: column;
-    }
 }
 
 @media (max-width: 480px) {
     .mainFooterContainer {
         padding: 0.5rem;
-    }
-
-    .logoContainer img, .socialContainer img {
-        width: 40px;
-        height: 40px;
     }
 
     .linksContainer {

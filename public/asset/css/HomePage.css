@@ -624,12 +624,33 @@ h4 ~ p {
   .toolpreviewContainer {
     flex-direction: column;
     align-items: center;
+    margin: 0;
   }
-  
+
   .toolpreview {
     width: 100%;
     max-width: 100%;
   }
+
+  .benefitsContainer {
+    margin: 0;
+  }
+
+  .questionContainer {
+    width: 100%;
+  }
+
+  .h1,
+  .h2 {
+    text-align: center;
+  }
+
+  .loginButton,
+  .registerButton {
+    margin: 0 auto;
+    font-size: 16px;
+  } 
+
 }
 
 .toolpreview p {
@@ -1053,6 +1074,7 @@ h4 ~ p {
   .navContainer {
     padding: 0.5rem 1rem;
   }
+
   .RightContainer {
     gap: 1rem;
   }
@@ -1094,6 +1116,36 @@ h4 ~ p {
     flex-wrap: wrap;
     justify-content: center;
   }
+
+  .toolpreviewContainer {
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+  }
+
+  .toolpreview {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .benefitsContainer {
+    margin: 0;
+  }
+
+  .questionContainer {
+    width: 100%;
+  }
+
+  h1,
+  h2 {
+    text-align: center;
+  }
+
+  #loginButton,
+  #registerButton {
+    margin: 0 auto;
+    font-size: 16px;
+  } 
 }
 /* Tablets (Landscape) */
 @media (min-width: 1025px) and (max-width: 1280px) {
@@ -1150,10 +1202,16 @@ h4 ~ p {
   top: 0;
 }
 
+.main {
+  position: relative;
+  z-index: 2; /* Höherer z-index als die Bilder */
+}
+
 .close-icon {
   position: absolute;
-  top: 8.5%;
-  right: 7%;
+  top: 10px;
+  right: 10px;
+  z-index: 3; /* Höchster z-index für den Schließen-Button */
   cursor: pointer;
 }
 
@@ -1248,12 +1306,6 @@ h4 ~ p {
   box-shadow: 3px 2px 15px 0px rgb(255, 255, 255);
 }
 
-.close-icon {
-  position: absolute;
-  top: 3.5%;
-  right: 7%;
-}
-
 .emailField,
 .password-field,
 .forgot-password {
@@ -1292,26 +1344,28 @@ input[type='password'] {
   border: 1px solid gray;
 }
 
-.login_m1 {
+.login_m1, .login_m2, .login_m3, .login_m4 {
   position: absolute;
+  pointer-events: none; /* Verhindert Interaktion mit den Bildern */
+  z-index: 1;
+}
+
+.login_m1 {
   top: 0;
   left: 0;
 }
 
 .login_m2 {
-  position: absolute;
   bottom: 0;
   left: 0;
 }
 
 .login_m3 {
-  position: absolute;
   bottom: 0;
   right: 0;
 }
 
 .login_m4 {
-  position: absolute;
   top: 33%;
   right: 0;
 }

@@ -17,8 +17,8 @@ class SubscriptionController extends Controller
     public function __construct()
     {
         $this->client = new Client();
-        $this->baseUrl = Config::get('app.env') === 'production' 
-            ? 'https://api-m.paypal.com' 
+        $this->baseUrl = Config::get('services.paypal.mode') === 'live'
+            ? 'https://api-m.paypal.com'
             : 'https://api-m.sandbox.paypal.com';
     }
 

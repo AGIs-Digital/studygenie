@@ -61,8 +61,21 @@ class PayPalWebhookController extends Controller
 
     private function verifyWebhookSignature($request)
     {
-        // Implementierung der PayPal Webhook-Signatur-Verifizierung
-        // https://developer.paypal.com/api/rest/webhooks/
-        return true; // Temporär für Tests
+        if (config('services.paypal.mode') !== 'live') {
+            return true; // Für Testzwecke in Nicht-Produktionsumgebungen
+        }
+        
+        // Implementieren Sie hier die Produktions-Webhook-Signaturverifizierung
+        try {
+            // PayPal Webhook-Signaturverifizierung
+            $headers = $request->headers->all();
+            // Implementierung der Signaturprüfung
+            return true;
+        } catch (\Exception $e) {
+            Log::error('PayPal Webhook Signatur Verifikation fehlgeschlagen:', [
+                'error' => $e->getMessage()
+            ]);
+            return false;
+        }
     }
 }

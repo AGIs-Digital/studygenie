@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-body p-0">
-                <div class="login_sec p-4 position-relative">
+                <div class="login_sec p-4">
                     <img class="login_m1" src="{{ asset('asset/images/m1.svg') }}" alt="" loading="lazy">
                     <img class="login_m2" src="{{ asset('asset/images/m2.svg') }}" alt="" loading="lazy">
                     <img class="login_m3" src="{{ asset('asset/images/m3.svg') }}" alt="" loading="lazy">
