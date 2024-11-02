@@ -5,6 +5,7 @@
         "build": "vite build"
     },
     "devDependencies": {
+        "@babel/plugin-transform-object-rest-spread": "^7.25.9",
         "@popperjs/core": "^2.11.6",
         "axios": "^1.7.5",
         "bootstrap": "^5.2.3",
@@ -22,6 +23,7 @@
         "g": "^2.0.1",
         "npm": "^10.8.2",
         "openai": "^4.56.0",
+        "rimraf": "^6.0.1",
         "webpack-dev-server": "^5.1.0",
         "ws": "^8.16.0",
         "ziggy-js": "^2.1.0"
