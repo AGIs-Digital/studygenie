@@ -1,4 +1,4 @@
-<script src="https://www.paypal.com/sdk/js?client-id=Ae9G4SKK4gDuWY0Yw7J_6irXsfPepGSudxvUktzRQlYbdnOKTaDp2xmuC1mCWS6GTvalCH9Owt-HUl4S&vault=true&intent=subscription"></script>
+<script src="https://www.paypal.com/sdk/js?client-id={{ config('services.paypal.client_id') }}&vault=true&intent=subscription"></script>
 <script src="{{ asset('asset/js/toast.js') }}"></script>
 <link rel="stylesheet" href="{{ asset('asset/css/plancards.css') }}">
 <section class="planCardsSection">
