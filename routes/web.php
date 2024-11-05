@@ -27,7 +27,7 @@ use App\Http\Controllers\WebhookController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
 
-### PUBLIC ROUTES ###
+### PUBLIC VIEW ROUTES ###
 Route::get('/', function () {
     return view('index');
 })->name('home');
@@ -36,9 +36,9 @@ Route::get('/home', function () {
     return view('home');
 })->name('dashboard');
 
-Route::view('impressum', 'impressum')->name('impressum');
 Route::view('agb', 'agb')->name('agb');
 Route::view('datenschutz', 'datenschutz')->name('datenschutz');
+Route::view('impressum', 'impressum')->name('impressum');
 
 ### AUTH ROUTES ###
 Auth::routes();
@@ -53,45 +53,42 @@ Route::post('/postRegistration', [RegisterController::class, 'postRegistration']
 Route::post('change-password', [FrontController::class, 'changePassword'])
     ->name('change.password');
 
+### PASSWORD RESET ROUTES ###
 Route::post('password/email', [ResetPasswordController::class, 'sendResetLinkEmail'])
     ->name('password.email');
-
 Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])
     ->name('password.reset');
-
 Route::post('password/reset', [ResetPasswordController::class, 'reset'])
     ->name('password.update');
 
 ### SOCIALITE ROUTES ###
-Route::get('login/{provider}', [LoginController::class, 'redirectToProvider']);
-Route::get('auth/callback/{provider}', [LoginController::class, 'handleProviderCallback']);
-
 Route::get('auth/google/redirect', [LoginController::class, 'redirectToGoogle'])
     ->name('google.redirect');
 Route::get('auth/google/callback', [LoginController::class, 'handleGoogleCallback']);
+Route::get('login/{provider}', [LoginController::class, 'redirectToProvider']);
+Route::get('auth/callback/{provider}', [LoginController::class, 'handleProviderCallback']);
+
+### CONVERSATION ROUTES ###
+Route::middleware('auth:sanctum')->prefix('conversation')->group(function () {
+    Route::post('/create', [ConversationController::class, 'create']);
+    Route::get('/init/{toolIdentifier}', [ConversationController::class, 'get'])
+        ->name('conversation.get');
+    Route::post('/{id}/message', [ConversationController::class, 'askAi'])
+        ->name('conversation.askAi');
+    Route::post('/{conversation}/archive', [ConversationController::class, 'archive'])
+        ->name('conversation.archive');
+});
 
 ### AUTHENTICATED ROUTES ###
 Route::group(['middleware' => ['auth']], function () {
     Route::view('tools', 'tools')->name('tools');
     Route::get('profile', [UserController::class, 'show'])->name('profile');
-    
-    Route::resource('archive', ArchiveController::class)
-        ->except(['create', 'store']);
-
-    ### CONVERSATION ROUTES ###
-    Route::middleware('auth:sanctum')->prefix('conversation')->group(function () {
-        Route::post('/create', [ConversationController::class, 'create']);
-        Route::get('/init/{toolIdentifier}', [ConversationController::class, 'get'])
-            ->name('conversation.get');
-        Route::post('/{id}/message', [ConversationController::class, 'askAi'])
-            ->name('conversation.askAi');
-        Route::post('/{conversation}/archive', [ConversationController::class, 'archive'])
-            ->name('conversation.archive');
-    });
+    Route::resource('archive', ArchiveController::class)->except(['create', 'store']);
 
     ### BILDUNG ROUTES ###
     Route::view('bildung', 'bildung')->name('bildung');
     Route::prefix('bildung')->name('bildung.')->group(function () {
+        // Basic routes
         Route::get('geniecheck', [GenieCheckController::class, 'create'])
             ->name('geniecheck.create');
         Route::resource('geniecheck', GenieCheckController::class)
@@ -99,19 +96,19 @@ Route::group(['middleware' => ['auth']], function () {
 
         // Diamant subscription routes
         Route::middleware(['check.subscription.expiry', 'check.subscription:Diamant'])->group(function () {
-            Route::get('tutor', [TutorController::class, 'create'])
-                ->name('tutor.create');
-            Route::post('tutor', [TutorController::class, 'store'])
-                ->name('tutor.store');
+            Route::get('tutor', [TutorController::class, 'create'])->name('tutor.create');
+            Route::post('tutor', [TutorController::class, 'store'])->name('tutor.store');
         });
 
-        // Gold or Diamant subscription routes
-        Route::middleware(['check.subscription.expiry', 'check.subscription:Gold,Diamant'])->group(function () {
+        // Gold/Diamant subscription routes
+        Route::middleware(['auth', 'check.subscription.expiry', 'check.subscription:Gold,Diamant'])->group(function () {
             Route::view('texte', 'bildung.texte')->name('texte');
+            
             Route::get('textinspiration', [TextInspirationController::class, 'create'])
                 ->name('textinspiration');
             Route::resource('textinspiration', TextInspirationController::class)
                 ->except(['index', 'create', 'show', 'edit', 'update', 'destroy']);
+            
             Route::get('textanalyse', [TextAnalysisController::class, 'create'])
                 ->name('textanalysis');
             Route::resource('textanalysis', TextAnalysisController::class)
@@ -126,17 +123,16 @@ Route::group(['middleware' => ['auth']], function () {
 
         // Diamant subscription routes
         Route::middleware(['check.subscription.expiry', 'check.subscription:Diamant'])->group(function () {
-            Route::get('mentor', [MentorController::class, 'create'])
-                ->name('mentor');
+            Route::get('mentor', [MentorController::class, 'create'])->name('mentor');
             Route::resource('mentor', MentorController::class)
                 ->except(['index', 'create', 'show', 'edit', 'update', 'destroy']);
         });
 
-        // Gold or Diamant subscription routes
+        // Gold/Diamant subscription routes
         Route::middleware(['check.subscription.expiry', 'check.subscription:Gold,Diamant'])->group(function () {
             Route::view('bewerbung', 'karriere.bewerbung')->name('bewerbung');
 
-            // Lebenslauf routes
+            // Lebenslauf
             Route::get('lebenslauf', [LebenslaufController::class, 'create'])
                 ->name('lebenslauf');
             Route::prefix('lebenslauf')->name('lebenslauf.')->group(function () {
@@ -146,7 +142,7 @@ Route::group(['middleware' => ['auth']], function () {
                     ->name('download');
             });
 
-            // Motivation routes
+            // Motivation
             Route::get('motivationsschreiben', [MotivationController::class, 'create'])
                 ->name('motivation');
             Route::prefix('motivation')->name('motivation.')->group(function () {
@@ -160,8 +156,7 @@ Route::group(['middleware' => ['auth']], function () {
         });
 
         // Job routes
-        Route::get('jobmatch', [JobMatchController::class, 'create'])
-            ->name('jobmatch');
+        Route::get('jobmatch', [JobMatchController::class, 'create'])->name('jobmatch');
         Route::resource('jobmatch', JobMatchController::class)
             ->except(['index', 'create', 'show', 'edit', 'update', 'destroy']);
 
@@ -174,9 +169,11 @@ Route::group(['middleware' => ['auth']], function () {
 
 ### USER ROUTES ###
 Route::prefix('user')->name('user.')->group(function () {
-    Route::delete('{user}/delete', [UserController::class, 'destroy'])
-        ->name('destroy');
+    Route::delete('{user}/delete', [UserController::class, 'destroy'])->name('destroy');
 });
+
+### FEEDBACK ROUTES ###
+Route::post('/feedback', [FeedbackController::class, 'store'])->name('feedback.store');
 
 ### ADMIN ROUTES ###
 Route::middleware('admin')->group(function () {
@@ -186,34 +183,28 @@ Route::middleware('admin')->group(function () {
         ->name('admin.feedbacks.destroy');
 });
 
-### SUBSCRIPTION & PAYMENT ROUTES ###
+### SUBSCRIPTION ROUTES ###
 Route::post('subscriptions/update', [SubscriptionController::class, 'updateSubscription'])
     ->name('subscriptions.update');
-
 Route::post('subscriptions/cancel', [SubscriptionController::class, 'cancelSubscription'])
     ->name('subscriptions.cancel')
     ->middleware('auth');
-
 Route::get('/subscription/expired', function () {
     return view('subscription.expired');
 })->name('subscription.expired');
 
+### PAYPAL ROUTES ###
 Route::post('/webhook/paypal', [WebhookController::class, 'handle']);
-
 Route::post('paypal/webhook', [PayPalWebhookController::class, 'handleWebhook'])
     ->name('paypal.webhook')
     ->middleware('api');
 
-// Test routes for non-production environments
+// Sandbox/Test routes
 if (config('services.paypal.mode') !== 'live') {
     Route::get('/paypal/test-webhook', [PayPalSandboxTestController::class, 'simulateWebhook'])
         ->middleware('auth')
         ->name('test.paypal.webhook');
 }
-
-### FEEDBACK ROUTES ###
-Route::post('/feedback', [FeedbackController::class, 'store'])
-    ->name('feedback.store');
 
 ### TOOL ACCESS ROUTES ###
 Route::middleware(['auth', 'tool.access'])->group(function () {
