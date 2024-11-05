@@ -249,16 +249,11 @@
                         },
                         body: JSON.stringify({ plan_name: 'Silber' })
                     })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Netzwerk-Antwort war nicht ok');
-                        }
-                        return response.json();
-                    })
+                    .then(response => response.json())
                     .then(data => {
                         if (data.success) {
-                            location.reload();
-                            localStorage.setItem('subscription_updated', 'true');
+                            SubscriptionManager.handleSubscriptionUpdate(data);
+                            $('#confirmSilberModal').modal('hide');
                         } else {
                             showToast(data.message || 'Ein Fehler ist aufgetreten', 'error');
                         }

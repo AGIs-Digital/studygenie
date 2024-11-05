@@ -142,12 +142,6 @@ window.fns = {
     'showLoadingChat': showLoadingChat,
 }
 
-// Füge am Ende der app.js hinzu
-if (window.performance && performance.navigation.type === 1) {
-    // Bei Page Refresh
-    window.location.reload(true);
-}
-
 // Service Worker Registration
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
