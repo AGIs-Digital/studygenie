@@ -31,6 +31,9 @@ class PayPalWebhookController extends Controller
             case 'BILLING.SUBSCRIPTION.CANCELLED':
             case 'BILLING.SUBSCRIPTION.EXPIRED':
             case 'BILLING.SUBSCRIPTION.SUSPENDED':
+            case 'BILLING.SUBSCRIPTION.PAYMENT.FAILED':
+            case 'BILLING.SUBSCRIPTION.ACTIVATED':
+            case 'BILLING.SUBSCRIPTION.UPDATED':
                 $this->handleSubscriptionEnd($payload);
                 break;
         }
@@ -62,15 +65,45 @@ class PayPalWebhookController extends Controller
     private function verifyWebhookSignature($request)
     {
         if (config('services.paypal.mode') !== 'live') {
-            return true; // Für Testzwecke in Nicht-Produktionsumgebungen
-        }
-        
-        // Implementieren Sie hier die Produktions-Webhook-Signaturverifizierung
-        try {
-            // PayPal Webhook-Signaturverifizierung
-            $headers = $request->headers->all();
-            // Implementierung der Signaturprüfung
             return true;
+        }
+
+        try {
+            $webhookId = config('services.paypal.webhook_id');
+            if (!$webhookId) {
+                Log::error('PayPal Webhook ID nicht konfiguriert');
+                return false;
+            }
+
+            $headers = getallheaders();
+            
+            // PayPal Verifizierungs-Payload
+            $verificationData = [
+                'auth_algo' => $headers['PAYPAL-AUTH-ALGO'] ?? '',
+                'cert_url' => $headers['PAYPAL-CERT-URL'] ?? '',
+                'transmission_id' => $headers['PAYPAL-TRANSMISSION-ID'] ?? '',
+                'transmission_sig' => $headers['PAYPAL-TRANSMISSION-SIG'] ?? '',
+                'transmission_time' => $headers['PAYPAL-TRANSMISSION-TIME'] ?? '',
+                'webhook_id' => $webhookId,
+                'webhook_event' => $request->all()
+            ];
+
+            // PayPal API-Aufruf zur Verifizierung
+            $client = new \GuzzleHttp\Client();
+            $response = $client->post(
+                'https://api-m.paypal.com/v1/notifications/verify-webhook-signature',
+                [
+                    'headers' => [
+                        'Authorization' => 'Bearer ' . $this->getAccessToken(),
+                        'Content-Type' => 'application/json'
+                    ],
+                    'json' => $verificationData
+                ]
+            );
+
+            $result = json_decode($response->getBody(), true);
+            return $result['verification_status'] === 'SUCCESS';
+
         } catch (\Exception $e) {
             Log::error('PayPal Webhook Signatur Verifikation fehlgeschlagen:', [
                 'error' => $e->getMessage()

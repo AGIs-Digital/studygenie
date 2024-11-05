@@ -1,4 +1,4 @@
-<script src="https://www.paypal.com/sdk/js?client-id={{ config('services.paypal.client_id') }}&vault=true&intent=subscription"></script>
+<script src="https://www.paypal.com/sdk/js?client-id={{ config('services.paypal.client_id') }}&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script>
 <script src="{{ asset('asset/js/toast.js') }}"></script>
 <link rel="stylesheet" href="{{ asset('asset/css/plancards.css') }}">
 <section class="planCardsSection">
@@ -59,7 +59,7 @@
                 <span class="highSpan">10 € <span class="lowSpan">/ Monat<br /></span></span>
                 <p class="plancardbenefit">Alles aus Silber +</p>
                 <p class="planCardParagraph" style="line-height: 2.5;">
-                    <span class="blue-textmarker">✓ Inspiration beim Schreibe</span><br />
+                    <span class="blue-textmarker">✓ Inspiration beim Schreiben</span><br />
                     <span class="blue-textmarker">✓ Texte analysieren</span><br />
                     <span class="blue-textmarker">✓ Bewerbungsunterlagen</span><br />
                 </p>
@@ -184,68 +184,51 @@
             }
 
             function createPayPalButton(planId, planName, buttonId) {
-                if (typeof $ === 'undefined') {
-                    console.error('jQuery ist nicht geladen. PayPal-Integration kann nicht initialisiert werden.');
-                    return;
-                }
-
-                $(`#paypalModal${planName}`).on('shown.bs.modal', function () {
-                    paypal.Buttons({
-                        createSubscription: function(data, actions) {
-                            return actions.subscription.create({
-                                'plan_id': planId
-                            });
-                        },
-                        onApprove: function(data, actions) {
-                            // Sicherere Abfrage des aktuellen Plans
-                            const currentPlan = document.querySelector('meta[name="user-subscription"]')?.content || 'Silber';
-                            const changeType = determineSubscriptionChange(currentPlan, planName);
-                            
-                            fetch('{{ route('subscriptions.update') }}', {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                                },
-                                body: JSON.stringify({ 
-                                    plan_name: planName,
-                                    subscription_id: data.subscriptionID 
-                                })
+                paypal.Buttons({
+                    style: {
+                        shape: 'pill',
+                        color: 'gold',
+                        layout: 'vertical',
+                        label: 'subscribe'
+                    },
+                    createSubscription: function(data, actions) {
+                        return actions.subscription.create({
+                            plan_id: planId
+                        });
+                    },
+                    onApprove: function(data, actions) {
+                        fetch('{{ route('subscriptions.update') }}', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                            },
+                            body: JSON.stringify({ 
+                                plan_name: planName,
+                                subscription_id: data.subscriptionID 
                             })
-                            .then(response => {
-                                if (!response.ok) {
-                                    throw new Error('Netzwerk-Antwort war nicht ok');
-                                }
-                                return response.json();
-                            })
-                            .then(data => {
-                                if (data.success) {
-                                    $(`#paypalModal${planName}`).modal('hide');
-                                    localStorage.setItem('subscription_updated', 'true');
-                                    
-                                    if (changeType === 'upgrade') {
-                                        showToast(`Herzlichen Glückwunsch, du bist nun ein ${planName}-Abonnent!`, 'success');
-                                        showConfetti();
-                                    } else {
-                                        showToast(`Dein Abonnement wurde auf ${planName} geändert.`, 'info');
-                                    }
-                                    location.reload();
-                                } else {
-                                    showToast(data.message || 'Ein Fehler ist aufgetreten', 'error');
-                                }
-                            })
-                            .catch(error => {
-                                console.error('Fehler:', error);
-                                showToast('Ein Fehler ist aufgetreten bei der Aktualisierung des Abonnements', 'error');
-                            });
-                        }
-                    }).render(buttonId);
-                });
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                $(`#paypalModal${planName}`).modal('hide');
+                                localStorage.setItem('subscription_updated', 'true');
+                                location.reload();
+                            } else {
+                                showToast(data.message || 'Ein Fehler ist aufgetreten', 'error');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Fehler:', error);
+                            showToast('Ein Fehler ist aufgetreten bei der Aktualisierung des Abonnements', 'error');
+                        });
+                    }
+                }).render(buttonId);
             }
 
             // PayPal-Buttons für Gold und Diamant rendern
-            createPayPalButton('{{ config('services.paypal.gold_plan_id') }}', 'Gold', '#paypal-button-gold');
-            createPayPalButton('{{ config('services.paypal.diamant_plan_id') }}', 'Diamant', '#paypal-button-diamant');
+            createPayPalButton('P-7WJ75259TP171340JM4U7LTY', 'Gold', '#paypal-button-gold');
+            createPayPalButton('P-0C806817T3121690VM4U7Q5I', 'Diamant', '#paypal-button-diamant');
 
             document.addEventListener('DOMContentLoaded', function() {
                 // Überprüfen, ob der Silber-Button existiert, bevor der Event Listener hinzugefügt wird
@@ -266,16 +249,11 @@
                         },
                         body: JSON.stringify({ plan_name: 'Silber' })
                     })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Netzwerk-Antwort war nicht ok');
-                        }
-                        return response.json();
-                    })
+                    .then(response => response.json())
                     .then(data => {
                         if (data.success) {
-                            location.reload();
-                            localStorage.setItem('subscription_updated', 'true');
+                            SubscriptionManager.handleSubscriptionUpdate(data);
+                            $('#confirmSilberModal').modal('hide');
                         } else {
                             showToast(data.message || 'Ein Fehler ist aufgetreten', 'error');
                         }
