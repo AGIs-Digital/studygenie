@@ -190,11 +190,3 @@ if (config('services.paypal.mode') !== 'live') {
         ->middleware('auth')
         ->name('test.paypal.webhook');
 }
-
-### TOOL ACCESS ROUTES ###
-Route::middleware(['auth', 'tool.access'])->group(function () {
-    Route::get('/bildung/tutor', [TutorController::class, 'index'])
-        ->name('bildung.tutor');
-    Route::get('/bildung/textanalyse', [TextAnalyseController::class, 'index'])
-        ->name('bildung.textanalyse');
-});
