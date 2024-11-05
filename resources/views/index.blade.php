@@ -22,7 +22,7 @@
     @include('components.testimonials-section')
     @include('components.toolpreview-section')
 
-    <div align="center" style="padding-top: 50px; padding-bottom: 35px;">
+    <div align="center" style="padding-bottom: 35px;">
         <img src="{{ asset('asset/images/swoosh1.svg') }}" alt="swoosh1" loading="lazy">
     </div>
 

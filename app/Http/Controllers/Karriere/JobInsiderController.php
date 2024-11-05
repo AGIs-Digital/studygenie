@@ -9,6 +9,7 @@ use App\Models\Message;
 use App\Custom\Prompt;
 use OpenAI\Laravel\Facades\OpenAI;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\ValidationException;
 
 class JobInsiderController extends Controller
 {
@@ -31,9 +32,23 @@ class JobInsiderController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): \Illuminate\Http\JsonResponse
+    public function store(Request $request)
     {
         try {
+            $validated = $request->validate([
+                'field1' => [
+                    'required',
+                    'string',
+                    'max:2000',
+                    'min:10',
+                    function ($attribute, $value, $fail) {
+                        if (preg_match('/[<>]/', $value)) {
+                            $fail('HTML-Tags sind nicht erlaubt.');
+                        }
+                    },
+                ]
+            ]);
+
             $toolIdentifier = 'job_insider';
 
             # make sure $request->field1 is set and not empty
@@ -75,14 +90,17 @@ class JobInsiderController extends Controller
                 "status" => true,
                 "message" => $message->toArray()
             ]);
-        } catch (\Exception $e) {
-
-            Log::error("JobMatchError: " . $e->getMessage());
-            print($e->getMessage());
+        } catch (ValidationException $e) {
             return response()->json([
                 "status" => false,
-                "error" => "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut."
-            ]);
+                "error" => $e->errors()
+            ], 422);
+        } catch (\Exception $e) {
+            Log::error("JobInsiderError: " . $e->getMessage());
+            return response()->json([
+                "status" => false,
+                "error" => "Ein unerwarteter Fehler ist aufgetreten."
+            ], 500);
         }
     }
 

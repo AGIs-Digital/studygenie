@@ -65,6 +65,9 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
+        $request->session()->regenerate();
+        session()->put('last_activity', time());
+        
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
