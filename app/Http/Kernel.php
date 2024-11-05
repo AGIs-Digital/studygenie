@@ -67,5 +67,6 @@ class Kernel extends HttpKernel
         'check.subscription' => \App\Http\Middleware\CheckSubscription::class,
         'check.subscription.expiry' => \App\Http\Middleware\CheckSubscriptionExpiry::class,
         'admin' => \App\Http\Middleware\AdminMiddleware::class,
+        'tool.access' => \App\Http\Middleware\ToolAccessMiddleware::class,
     ];
 }
