@@ -108,8 +108,8 @@
                 <p class="plancardbenefit">Silber + Gold +</p>
                 <p class="planCardParagraph" style="line-height: 2.5;">
                     <span class="green-textmarker">✓ Persönlicher Tutor</span><br />
-                    <span class="green-textmarker">✓ Individueller Karriere Mentor</span>
-                    <br /><br />
+                    <span class="green-textmarker">✓ Dein Karriere Mentor</span><br />
+                    <br />
                 </p>
                 @guest
                     <button data-bs-toggle="modal" data-bs-target="#signupModal" class="plancardButton">Hol dir Diamant</button>
