@@ -1,5 +1,3 @@
-
-
 .box {
   position: relative;
   max-width: 600px;
@@ -986,14 +984,39 @@ h4 ~ p {
 /* ===========================Responsiveness Main Home Page ======================== */
 .barIconContainer {
   display: none;
+  cursor: pointer;
+  padding: 0.5rem;
 }
 
 .barIconContainer img {
   width: 1.5rem;
+  height: 1.5rem;
 }
 
-.barIconContainer img:hover {
-  cursor: pointer;
+@media (max-width: 768px) {
+  .barIconContainer {
+    display: block;
+  }
+  
+  .buttonContainerNav {
+    display: none;
+  }
+  
+  .mobileMenu {
+    display: none;
+    position: fixed;
+    top: 60px;
+    left: 0;
+    right: 0;
+    background: white;
+    padding: 1rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    z-index: 1000;
+  }
+  
+  .mobileMenu.active {
+    display: block;
+  }
 }
 
 /* Smartphones (Portrait) */

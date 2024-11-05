@@ -37,26 +37,51 @@
   align-items: center;
   gap: 1rem;
   width: 100%;
-  max-width: 280px;
+  max-width: 300px;
   box-shadow: 0px 0px 4px 4px rgba(0, 0, 0, 0.1);
   border-top-left-radius: 1rem;
   border-top-right-radius: 1rem;
-  margin: 1rem;
+  margin: 1rem auto;
   background-color: white;
   z-index: 1;
   height: 100%;
+  padding: 0;
+}
+
+.plancardContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 1.5rem;
+  flex: 1;
+}
+
+.planCardParagraph {
+  width: 100%;
+  text-align: left;
+  padding: 0 1rem;
+}
+
+.plancardButton {
+  width: 80%;
+  margin: 1rem auto;
+  display: block;
 }
 
 .subscription-alert {
-  background-color: #fff3cd;
-  border: 1px solid #ffeeba;
-  color: #856404;
-  padding: 0.75rem 1.25rem;
-  margin-top: 0.5rem;
-  border-radius: 0.25rem;
-  font-size: 0.875rem;
+  width: 80%;
+  margin: 1rem auto;
+  text-align: center;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+}
+
+.plancardbenefit {
   width: 100%;
-  box-sizing: border-box;
+  text-align: left;
+  padding: 0 1rem;
 }
 
 .planCard.back {
@@ -79,32 +104,6 @@
 .plancardHeader img {
   width: 64px;
   height: 64px;
-}
-
-.plancardContent {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  gap: 0.5rem;
-  padding-bottom: 2rem;
-}
-
-.plancardbenefit,
-.planCardParagraph {
-  font-family: 'Montserrat', sans-serif;
-  text-align: left;
-  color: black;
-  width: 100%;
-}
-
-.plancardbenefit {
-  font-weight: 600;
-  font-size: 18px;
-}
-
-.planCardParagraph {
-  font-weight: 500;
-  font-size: 14px;
 }
 
 .highSpan {
@@ -188,8 +187,14 @@
 }
 
 @media (min-width: 576px) {
+  .planCardsContainer {
+    justify-content: center;
+    gap: 2rem;
+  }
+  
   .planCard {
     width: calc(50% - 2rem);
+    margin: 1rem;
   }
 }
 
@@ -264,5 +269,19 @@
 
 .modal-backdrop {
   z-index: 1;
+}
+
+@media (max-width: 575px) {
+  .highSpan {
+    font-size: 22px;
+  }
+  
+  .planCardParagraph {
+    font-size: 14px;
+  }
+  
+  .plancardbenefit {
+    font-size: 16px;
+  }
 }
 
