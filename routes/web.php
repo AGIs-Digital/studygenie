@@ -87,81 +87,66 @@ Route::group(['middleware' => ['auth']], function () {
 
     ### BILDUNG ROUTES ###
     Route::view('bildung', 'bildung')->name('bildung');
-    Route::prefix('bildung')->name('bildung.')->group(function () {
-        // Basic routes
-        Route::get('geniecheck', [GenieCheckController::class, 'create'])
-            ->name('geniecheck.create');
-        Route::resource('geniecheck', GenieCheckController::class)
-            ->except(['index', 'create', 'show', 'edit', 'update', 'destroy']);
-
-        // Diamant subscription routes
-        Route::middleware(['check.subscription.expiry', 'check.subscription:Diamant'])->group(function () {
-            Route::get('tutor', [TutorController::class, 'create'])->name('tutor.create');
-            Route::post('tutor', [TutorController::class, 'store'])->name('tutor.store');
-        });
-
-        // Gold/Diamant subscription routes
-        Route::middleware(['auth', 'check.subscription.expiry', 'check.subscription:Gold,Diamant'])->group(function () {
-            Route::view('texte', 'bildung.texte')->name('texte');
-            
-            Route::get('textinspiration', [TextInspirationController::class, 'create'])
-                ->name('textinspiration');
-            Route::resource('textinspiration', TextInspirationController::class)
-                ->except(['index', 'create', 'show', 'edit', 'update', 'destroy']);
-            
-            Route::get('textanalyse', [TextAnalysisController::class, 'create'])
-                ->name('textanalysis');
-            Route::resource('textanalysis', TextAnalysisController::class)
-                ->except(['index', 'create', 'show', 'edit', 'update', 'destroy']);
-        });
-    });
-
-    ### KARRIERE ROUTES ###
     Route::prefix('karriere')->name('karriere.')->group(function () {
         Route::view('/', 'karriere')->name('index');
         Route::view('berufe', 'karriere.berufe')->name('berufe');
+    });
+});
 
-        // Diamant subscription routes
-        Route::middleware(['check.subscription.expiry', 'check.subscription:Diamant'])->group(function () {
-            Route::get('mentor', [MentorController::class, 'create'])->name('mentor');
-            Route::resource('mentor', MentorController::class)
-                ->except(['index', 'create', 'show', 'edit', 'update', 'destroy']);
+### TOOL ACCESS ROUTES ###
+Route::middleware(['auth', 'tool.access'])->group(function () {
+    // Bildung Routes
+    Route::prefix('bildung')->name('bildung.')->group(function () {
+        // Geniecheck (Silber, Gold, Diamant)
+        Route::get('geniecheck', [GenieCheckController::class, 'create'])->name('geniecheck.create');
+        Route::resource('geniecheck', GenieCheckController::class)
+            ->except(['index', 'create', 'show', 'edit', 'update', 'destroy']);
+
+        // Tutor (Diamant)
+        Route::get('tutor', [TutorController::class, 'create'])->name('tutor.create');
+        Route::post('tutor', [TutorController::class, 'store'])->name('tutor.store');
+        
+        // Text Tools (Gold, Diamant)
+        Route::view('texte', 'bildung.texte')->name('texte');
+        Route::get('textinspiration', [TextInspirationController::class, 'create'])->name('textinspiration');
+        Route::resource('textinspiration', TextInspirationController::class)
+            ->except(['index', 'create', 'show', 'edit', 'update', 'destroy']);
+        Route::get('textanalyse', [TextAnalysisController::class, 'create'])->name('textanalysis');
+        Route::resource('textanalysis', TextAnalysisController::class)
+            ->except(['index', 'create', 'show', 'edit', 'update', 'destroy']);
+    });
+
+    // Karriere Routes
+    Route::prefix('karriere')->name('karriere.')->group(function () {
+        // Mentor (Diamant)
+        Route::get('mentor', [MentorController::class, 'create'])->name('mentor');
+        Route::resource('mentor', MentorController::class)
+            ->except(['index', 'create', 'show', 'edit', 'update', 'destroy']);
+
+        // Bewerbung Tools (Gold, Diamant)
+        Route::view('bewerbung', 'karriere.bewerbung')->name('bewerbung');
+        
+        // Lebenslauf
+        Route::get('lebenslauf', [LebenslaufController::class, 'create'])->name('lebenslauf');
+        Route::prefix('lebenslauf')->name('lebenslauf.')->group(function () {
+            Route::post('preview', [LebenslaufController::class, 'preview'])->name('preview');
+            Route::post('download', [LebenslaufController::class, 'download'])->name('download');
         });
 
-        // Gold/Diamant subscription routes
-        Route::middleware(['check.subscription.expiry', 'check.subscription:Gold,Diamant'])->group(function () {
-            Route::view('bewerbung', 'karriere.bewerbung')->name('bewerbung');
-
-            // Lebenslauf
-            Route::get('lebenslauf', [LebenslaufController::class, 'create'])
-                ->name('lebenslauf');
-            Route::prefix('lebenslauf')->name('lebenslauf.')->group(function () {
-                Route::post('preview', [LebenslaufController::class, 'preview'])
-                    ->name('preview');
-                Route::post('download', [LebenslaufController::class, 'download'])
-                    ->name('download');
-            });
-
-            // Motivation
-            Route::get('motivationsschreiben', [MotivationController::class, 'create'])
-                ->name('motivation');
-            Route::prefix('motivation')->name('motivation.')->group(function () {
-                Route::post('preview', [MotivationController::class, 'preview'])
-                    ->name('preview');
-                Route::post('generate', [MotivationController::class, 'generate'])
-                    ->name('generate');
-                Route::post('download-pdf', [MotivationController::class, 'downloadPDF'])
-                    ->name('download-pdf');
-            });
+        // Motivation
+        Route::get('motivationsschreiben', [MotivationController::class, 'create'])->name('motivation');
+        Route::prefix('motivation')->name('motivation.')->group(function () {
+            Route::post('preview', [MotivationController::class, 'preview'])->name('preview');
+            Route::post('generate', [MotivationController::class, 'generate'])->name('generate');
+            Route::post('download-pdf', [MotivationController::class, 'downloadPDF'])->name('download-pdf');
         });
 
-        // Job routes
+        // Job Tools (Silber, Gold, Diamant)
         Route::get('jobmatch', [JobMatchController::class, 'create'])->name('jobmatch');
         Route::resource('jobmatch', JobMatchController::class)
             ->except(['index', 'create', 'show', 'edit', 'update', 'destroy']);
 
-        Route::get('jobinsider', [JobInsiderController::class, 'create'])
-            ->name('jobinsider');
+        Route::get('jobinsider', [JobInsiderController::class, 'create'])->name('jobinsider');
         Route::resource('jobinsider', JobInsiderController::class)
             ->except(['index', 'create', 'show', 'edit', 'update', 'destroy']);
     });
