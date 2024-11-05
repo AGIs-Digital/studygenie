@@ -1,5 +1,5 @@
 <section class="benefitsSection">
-    <h2>Was wir noch für dich haben:</h2>
+    <h2>Was wir noch für dich haben</h2>
     <div class="benefitsContainer">
         <div class="benefit">
             <img src="{{ asset('asset/images/landingpage/Der_perfekte_Lernplan_fuer_dich.png') }}" alt="Individuelle Lernhilfe" loading="lazy">

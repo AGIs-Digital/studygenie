@@ -7,7 +7,6 @@
             </h1>
             <p>Die neue und innovative Art zu lernen</p>
         </div>
-        <img src="{{ asset('asset/images/yes.png') }}" alt="Z Design Illustration" loading="lazy" style="position: absolute; top: 40%; left: 20%;"> <!-- Freischwebend -->
     </div>
     <div class="headerDesign">
         <img src="{{ asset('asset/images/Group_391.png') }}" alt="Haupt Hintergrundbild" loading="lazy">
