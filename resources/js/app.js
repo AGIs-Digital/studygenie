@@ -142,19 +142,30 @@ window.fns = {
     'showLoadingChat': showLoadingChat,
 }
 
-// Füge am Ende der app.js hinzu
-if (window.performance && performance.navigation.type === 1) {
-    // Bei Page Refresh
-    window.location.reload(true);
-}
-
 // Service Worker Registration
 if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js').then(registration => {
-            console.log('ServiceWorker registration successful');
-        }).catch(err => {
-            console.log('ServiceWorker registration failed: ', err);
-        });
+    window.addEventListener('load', async () => {
+        try {
+            const registration = await navigator.serviceWorker.register('/sw.js');
+            console.log('ServiceWorker erfolgreich registriert');
+        } catch (err) {
+            console.error('ServiceWorker Registrierung fehlgeschlagen:', err);
+        }
     });
 }
+
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
+    beforeSend: function() {
+        if (this.url.indexOf('http') !== 0) {
+            this.url = window.location.origin + this.url;
+        }
+    },
+    error: function(xhr, status, error) {
+        if (xhr.status === 419) { // CSRF token mismatch
+            window.location.reload();
+        }
+    }
+});

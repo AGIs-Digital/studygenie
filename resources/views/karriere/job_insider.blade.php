@@ -167,7 +167,11 @@
                     cache: false,
                     processData: false,
                     success: function(response) {
-                        clearTimeout(toastTimer); // Timer löschen
+                        clearTimeout(toastTimer);
+                        if (!response || !response.message) {
+                            showToast("Unerwartete Serverantwort", "error");
+                            return;
+                        }
                         conversation_id = response.message.conversation_id;
                         //Ladezeichen entfernen
                         $("#submitForm").removeClass('loading-button').text("Absenden").prop('disabled', false);
@@ -177,14 +181,11 @@
                         textarray = checks;
                         $("#save_val").val(textToType + " <br> <br> ");
                         typeFun();
-
-                        // Textfeld leeren
-                        $("#field1").val('');
                     },
                     error: function(xhr, status, error) {
-                        clearTimeout(toastTimer); // Timer löschen
-                        console.error("Ein Fehler ist aufgetreten: " + error);
-                        //Ladezeichen entfernen
+                        clearTimeout(toastTimer);
+                        console.error("Fehler:", error);
+                        showToast("Ein Fehler ist aufgetreten: " + error, "error");
                         $("#submitForm").removeClass('loading-button').text("Absenden").prop('disabled', false);
                     }
                 });

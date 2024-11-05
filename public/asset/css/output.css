@@ -1050,6 +1050,55 @@ input[type='text']:disabled {
   }
 }
 
+/* Tablet Breakpoint */
+@media screen and (min-width: 768px) {
+  .content-written {
+    padding: 2rem;
+  }
+  
+  .content-written.left {
+    padding: 60px 2rem;
+  }
+  
+  .user_input_form {
+    width: 98%;
+  }
+  
+  .user_input_form input {
+    width: 85%;
+  }
+  
+  .user_input_form button {
+    width: 15%;
+  }
+}
+
+/* Desktop Breakpoint */
+@media screen and (min-width: 1024px) {
+  .content-written.right {
+    padding: 40px;
+  }
+  
+  .content-written.left {
+    padding: 96px 3rem 25px 8rem;
+  }
+  
+  .user_input_form input {
+    width: 88.5%;
+  }
+  
+  .user_input_form button {
+    width: 10.8%;
+  }
+}
+
+/* Große Bildschirme */
+@media screen and (min-width: 1440px) {
+  .content-written {
+    max-width: 800px;
+  }
+}
+
 
 
 

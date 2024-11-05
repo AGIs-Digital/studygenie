@@ -424,6 +424,8 @@ h4 ~ p {
   text-align: center; 
   gap: 1rem; 
   background-image: url('../images/forgetPassbg.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
   margin: 3rem 0;
 }
 
@@ -431,6 +433,7 @@ h4 ~ p {
   position: relative;
   overflow: hidden;
   height: 250px;
+  margin-bottom: 3rem;
 }
 
 .carousel-inner {
@@ -574,15 +577,17 @@ h4 ~ p {
 }
 
 .toolpreviewSection {
-  background-image: url('../images/videosectionbackground.png');
+  background-image: url('../images/videosectionbackground.svg');
+  background-size: 100% auto;
+  background-position: center;
+  background-repeat: no-repeat;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-items: center;
   text-align: center;
-  margin: 3rem 0; 
-  gap: 1rem; 
-  background-repeat: no-repeat;
+  margin: 3rem 0;
+  gap: 1rem;
 }
 
 .toolpreviewContainer {
@@ -1037,7 +1042,7 @@ h4 ~ p {
     margin: 0;
   }
 
-  .questionContainer {
+  .questionsContainer {
     width: 100%;
   }
 
@@ -1046,10 +1051,19 @@ h4 ~ p {
     text-align: center;
   }
 
+  h1 ~ p {
+    text-align: center;
+  }
+
+  .buttonContainer {
+    gap: 0.5rem;
+  }
+
   #loginButton,
   #registerButton {
     margin: 0 auto;
     font-size: 16px;
+    width: 110px;
   } 
 }
 

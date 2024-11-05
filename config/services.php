@@ -30,6 +30,7 @@ return [
         'secret' => env('PAYPAL_SECRET'),
         'gold_plan_id' => env('PAYPAL_GOLD_PLAN_ID'),
         'diamant_plan_id' => env('PAYPAL_DIAMANT_PLAN_ID'),
+        'webhook_id' => env('PAYPAL_WEBHOOK_ID'),
     ],
     
     'google' => [

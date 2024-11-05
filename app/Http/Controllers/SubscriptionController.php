@@ -67,7 +67,25 @@ class SubscriptionController extends Controller
 
     public function store(Request $request)
     {
-        // Logik zur Erstellung eines Abonnements mit PayPal
+        try {
+            Log::info('PayPal Subscription Creation', [
+                'plan_name' => $request->plan_name,
+                'subscription_id' => $request->subscription_id
+            ]);
+            
+            // Ihre bestehende Logik hier
+            
+        } catch (\Exception $e) {
+            Log::error('PayPal Subscription Error', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+            
+            return response()->json([
+                'success' => false,
+                'message' => 'Ein Fehler ist aufgetreten'
+            ], 500);
+        }
     }
 
     public function success()
@@ -90,7 +108,6 @@ class SubscriptionController extends Controller
 
             $user = Auth::user();
             if (!$user) {
-                Log::error('Benutzer nicht authentifiziert');
                 return response()->json([
                     'success' => false,
                     'message' => 'Benutzer nicht authentifiziert'
@@ -99,48 +116,37 @@ class SubscriptionController extends Controller
 
             $planName = $request->input('plan_name');
             if (!$planName || !in_array($planName, ['Silber', 'Gold', 'Diamant'])) {
-                Log::error('Ungültiger Plan Name:', ['plan' => $planName]);
                 return response()->json([
                     'success' => false,
                     'message' => 'Ungültiger Plan'
                 ], 400);
             }
 
-            $subscriptionId = $request->input('subscription_id');
-            
             DB::beginTransaction();
             try {
                 $user->subscription_name = $planName;
                 $user->subscription_status = null;
                 $user->subscription_end_date = null;
                 
-                if ($subscriptionId) {
+                if ($subscriptionId = $request->input('subscription_id')) {
                     $user->paypal_subscription_id = $subscriptionId;
                 }
                 
                 $user->save();
                 DB::commit();
 
-                Log::info('Abonnement erfolgreich aktualisiert', [
-                    'user_id' => $user->id,
-                    'new_plan' => $planName,
-                    'subscription_id' => $subscriptionId
-                ]);
-
                 return response()->json([
                     'success' => true,
-                    'message' => 'Abonnement erfolgreich aktualisiert'
+                    'subscription_name' => $planName,
+                    'message' => 'Abonnement erfolgreich aktualisiert',
+                    'reload_required' => false
                 ]);
             } catch (\Exception $e) {
                 DB::rollBack();
-                Log::error('Datenbankfehler bei Abonnement-Aktualisierung:', [
-                    'error' => $e->getMessage(),
-                    'user_id' => $user->id
-                ]);
                 throw $e;
             }
         } catch (\Exception $e) {
-            Log::error('Allgemeiner Fehler bei Abonnement-Aktualisierung:', [
+            Log::error('Fehler bei Abonnement-Aktualisierung:', [
                 'error' => $e->getMessage(),
                 'trace' => $e->getTraceAsString()
             ]);

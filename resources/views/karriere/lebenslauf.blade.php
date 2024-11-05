@@ -403,6 +403,14 @@
                         console.error('Error:', error);
                     });
             });
+
+            const cleanup = () => {
+                document.removeEventListener('DOMContentLoaded', checkFields);
+                // weitere Event Listener entfernen
+            };
+
+            // Cleanup bei Page Unload
+            window.addEventListener('unload', cleanup);
         });
     </script>
 
