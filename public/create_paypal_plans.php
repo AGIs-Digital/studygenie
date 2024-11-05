@@ -8,7 +8,7 @@ $clientSecret = 'EGnxbz2nF5UZ-zynJxuNXM3w3fFs98fUYO7CF12qkPMXj2LJd5RK-P4CRHk5dcD
 function getAccessToken($clientId, $clientSecret) {
     $ch = curl_init();
 
-    curl_setopt($ch, CURLOPT_URL, "https://api-m.sandbox.paypal.com/v1/oauth2/token");
+    curl_setopt($ch, CURLOPT_URL, "https://api-m.paypal.com/v1/oauth2/token");
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($ch, CURLOPT_POST, 1);
     curl_setopt($ch, CURLOPT_POSTFIELDS, "grant_type=client_credentials");
@@ -41,7 +41,7 @@ function createProduct($accessToken) {
 
     $ch = curl_init();
 
-    curl_setopt($ch, CURLOPT_URL, "https://api-m.sandbox.paypal.com/v1/catalogs/products");
+    curl_setopt($ch, CURLOPT_URL, "https://api-m.paypal.com/v1/catalogs/products");
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($ch, CURLOPT_POST, 1);
     curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($productData));
@@ -98,7 +98,7 @@ function createPlan($accessToken, $productId, $planName, $planDescription, $pric
 
     $ch = curl_init();
 
-    curl_setopt($ch, CURLOPT_URL, "https://api-m.sandbox.paypal.com/v1/billing/plans");
+    curl_setopt($ch, CURLOPT_URL, "https://api-m.paypal.com/v1/billing/plans");
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($ch, CURLOPT_POST, 1);
     curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($planData));

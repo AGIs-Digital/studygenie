@@ -67,7 +67,25 @@ class SubscriptionController extends Controller
 
     public function store(Request $request)
     {
-        // Logik zur Erstellung eines Abonnements mit PayPal
+        try {
+            Log::info('PayPal Subscription Creation', [
+                'plan_name' => $request->plan_name,
+                'subscription_id' => $request->subscription_id
+            ]);
+            
+            // Ihre bestehende Logik hier
+            
+        } catch (\Exception $e) {
+            Log::error('PayPal Subscription Error', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+            
+            return response()->json([
+                'success' => false,
+                'message' => 'Ein Fehler ist aufgetreten'
+            ], 500);
+        }
     }
 
     public function success()
