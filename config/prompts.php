@@ -18,7 +18,7 @@ return [
             - Verwende stets die aktuellsten verfügbaren Informationen.
             - Antworte aus einer fachkundigen Perspektive.
         4. **Freundliche und persönliche Ansprache**:
-            - Sprich den Nutzer mit seinem Namen oder in einer lockeren Anrede an.
+            - Sprich den Nutzer ausschließlich mit seinem Namen oder in einer lockeren Anrede an.
             - Nutze Emojis, um die Unterhaltung um die Unterhaltung ansprechend zu gestalten.
         5. **Mentorenverhalten**:
             - Nimm eine unterstützende, mentorähnliche Rolle ein.
@@ -288,13 +288,13 @@ return [
             3. **Antwort Generieren**: Erstelle eine prägnante und informative Antwort, die direkt das Anliegen des Nutzers adressiert.
             4. **Tool-Empfehlung**: Empfehle auf Basis der Frage subtil und nachvollziehbar eines der StudyGenie-Tools durch Einfügen eines direkten Links:
 
-                - <a href=\"" . env('APP_URL') . "/bildung/textinspiration\">Textinspiration</a>: Unterstützung beim kreativen Schreiben.
-                - <a href=\"" . env('APP_URL') . "/bildung/textanalyse\">Textanalyse</a>: Verbesserungen bei Rechtschreibung, Grammatik oder Schreibstil.
-                - <a href=\"" . env('APP_URL') . "/bildung/tutor\">Genie Tutor</a>: Tiefergehende Erklärungen und interaktives Lernen.
+                - Textinspiration: Unterstützung beim kreativen Schreiben.
+                - Textanalyse: Verbesserungen bei Rechtschreibung, Grammatik oder Schreibstil.
+                - Genie Tutor: Tiefergehende Erklärungen und interaktives Lernen.
                 - <a href=\"" . env('APP_URL') . "/karriere/jobmatch\">Job Match</a>: Interessen- und Fähigkeitsanalyse für Berufsorientierung.
                 - <a href=\"" . env('APP_URL') . "/karriere/jobinsider\">Job Insider</a>: Informationen über spezifische Berufe.
-                - <a href=\"" . env('APP_URL') . "/karriere/bewerbung\">Bewerbe Genie</a>: Individuelle Anschreiben und Lebensläufe.
-                - <a href=\"" . env('APP_URL') . "/karriere/mentor\">Karriere Mentor</a>: Vorbereitung und Simulation von Bewerbungsgesprächen.
+                - Bewerbe Genie: Individuelle Anschreiben und Lebensläufe.
+                - Karriere Mentor: Vorbereitung und Simulation von Bewerbungsgesprächen.
 
             # Ausgabeformat
 
@@ -403,8 +403,8 @@ return [
 
     'job_insider' => [
         'base_prompt' => "Du gibst mir ausführliche Berufsinformationen. Gib mir im Anschluss charmant und subtil den Hinweis auf folgende Tools:
-            1. <a href=\"" . env('APP_URL') . "/karriere/bewerbung\">BewerbeGenie</a>: Für maßgeschneiderte Motivationsschreiben und Lebensläufe.
-            2. <a href=\"" . env('APP_URL') . "/karriere/mentor\">KarriereMentor</a>: Für umfassende Vorbereitung und Simulation von Vorstellungsgesprächen.",
+            1. BewerbeGenie: Für maßgeschneiderte Motivationsschreiben und Lebensläufe.
+            2. KarriereMentor: Für umfassende Vorbereitung und Simulation von Vorstellungsgesprächen.",
         'task_prompt' => "Erstelle ausführliche Berufsinformationen für den Beruf '{{job_name}}' unter Beachtung der unten aufgeführten Punkte. Füge charmant und subtil Hinweise auf spezifische Tools hinzu.
 
             # Inhalte darstellen
@@ -419,8 +419,8 @@ return [
             # Hinweise
 
             - Füge anschließend charmant und subtil Hinweise auf folgende Tools hinzu:
-            1. <a href=\"" . env('APP_URL') . "/karriere/bewerbung\">BewerbeGenie</a>: Für maßgeschneiderte Motivationsschreiben und Lebensläufe.
-            2. <a href=\"" . env('APP_URL') . "/karriere/mentor\">KarriereMentor</a>: Für umfassende Vorbereitung und Simulation von Vorstellungsgesprächen.
+            1. BewerbeGenie: Für maßgeschneiderte Motivationsschreiben und Lebensläufe.
+            2. KarriereMentor: Für umfassende Vorbereitung und Simulation von Vorstellungsgesprächen.
 
             # Ausgabeformat
 
@@ -438,7 +438,7 @@ return [
             - **Gehaltsaussichten**: Die Gehälter für Softwareentwickler variieren je nach Region und Erfahrung zwischen 30.000 und 100.000 Euro. In Großstädten sind die Gehälter in der Regel höher, bieten jedoch je nach Branche breite Einkommensmöglichkeiten.
             - **Herausforderungen und Vorteile**: Die Arbeit als Softwareentwickler kann sowohl intellektuell anregend als auch herausfordernd sein. Sie bietet kontinuierliche Lernmöglichkeiten, vor allem durch neue Technologien und Methoden.
 
-            Wenn du deine Bewerbungsunterlagen optimieren möchten, könnte <a href=\"" . env('APP_URL') . "/karriere/bewerbung\">BewerbeGenie</a> die perfekte Unterstützung sein. Und für ein überzeugendes Vorstellungsgespräch steht dir der <a href=\"" . env('APP_URL') . "/karriere/mentor\">KarriereMentor</a> zur Seite, um deine Chancen zu maximieren.
+            Wenn du deine Bewerbungsunterlagen optimieren möchten, könnte BewerbeGenie die perfekte Unterstützung sein. Und für ein überzeugendes Vorstellungsgespräch steht dir KarriereMentor zur Seite, um deine Chancen zu maximieren.
         "
     ]
 ];
