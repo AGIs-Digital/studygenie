@@ -57,7 +57,7 @@ class Conversation extends Model
         $isNew = !$this->exists;
         $saved = parent::save($options);
         
-        if ($saved && $this->messages->count() === 0) {
+        if ($saved) {
             $user = auth()->user();
             $lastGreeting = $user->last_greeting_at;
             $today = now()->startOfDay();

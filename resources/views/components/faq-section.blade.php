@@ -2,6 +2,17 @@
     <img src="{{ asset('asset/images/fragezeichen.svg') }}" alt="fragezeichen" loading="lazy">
     <h2>Wissenswertes über StudyGenie</h2>
     <div class="questionsContainer">
+    <div class="question">
+            <div class="questionContentContainer">
+                <img class="plusIcon" src="{{ asset('asset/images/ic_plus.png') }}" alt="Plus Icon" loading="lazy">
+                <img class="crossIcon" src="{{ asset('asset/images/ic_cross.png') }}" alt="Kreuz Icon" loading="lazy">
+                Wieso StudyGenie und keine LLMs (KI) wie ChatGPT und co?
+            </div>
+            <div class="answerContentContainer">
+            Bei StudyGenie haben wir die komplexen KI-Einstellungen bereits für dich optimiert. Ohne diese Einstellungen liefern KI-Tools oft ungenaue Ergebnisse. Bei uns kannst du dir sicher sein, immer die neuesten KI-Modelle zu nutzen. Zudem ist unser Diamant-Abo kostengünstiger als vergleichbare Abos bei anderen KI-Tools.
+            </div>
+
+        </div>
         <div class="question">
             <div class="questionContentContainer">
                 <img class="plusIcon" src="{{ asset('asset/images/ic_plus.png') }}" alt="Plus Icon" loading="lazy">
@@ -31,7 +42,7 @@
                 Wie sicher sind meine Daten?
             </div>
             <div class="answerContentContainer">
-            Die Sicherheit deiner Daten ist uns sehr wichtig. Deine Daten, Fragen und Antworten werden nicht zum Training für künstliche Intelligenzen benutzt. Deine Daten sind bei uns durch modernste Verschlüsselungstechnologien geschützt. So kannst du sicher sein, dass deine Daten bei StudyGenie bestens geschützt sind.
+            Die Sicherheit deiner Daten ist uns sehr wichtig. Deine Daten, Fragen und Antworten werden nicht zum Training für künstliche Intelligenzen benutzt. Deine Daten werden mit modernsten Technologien verschlüsselt. So kannst du sicher sein, dass deine Daten bei StudyGenie bestens geschützt sind.
             </div>
         </div>
         <div class="question">

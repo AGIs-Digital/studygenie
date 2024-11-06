@@ -41,6 +41,7 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'subscription_name' => 'Silber'
         ]);
     }
 
@@ -75,7 +76,7 @@ class RegisterController extends Controller
         $subscriptionUpdated = false;
         $userCount = User::count();
 
-/*      GRATIS ABONNEMENT   
+        /*      GRATIS ABONNEMENT   
         if ($userCount <= 103) {
             $user->subscription_name = 'Diamant';
             $user->expire_date = Carbon::now()->addYear(100);
@@ -88,7 +89,7 @@ class RegisterController extends Controller
         return response()->json([
             'status' => true,
             'subscription_updated' => $subscriptionUpdated,
-            'redirect' => route('tools')
+            'redirect' => $request->input('registration_source') === 'plancards' ? route('profile') : route('tools')
         ]);
     }
 

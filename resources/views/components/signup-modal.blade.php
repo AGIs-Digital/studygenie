@@ -15,6 +15,7 @@
                     <div class="main">
                         <form method="POST" action="{{ route('register.post') }}" id="registerForm">
                             @csrf
+                            <input type="hidden" name="registration_source" id="registration_source" value="default">
                             <br />
                             <div class="emailInput">
                                 <div class="emailField">

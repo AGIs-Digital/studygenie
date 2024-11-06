@@ -360,6 +360,32 @@ h4 ~ p {
   gap: 1rem; 
 }
 
+.wiesoSection {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.wiesoContentContainer {
+  background: #FFFFFF;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  padding: 30px;
+  margin: 20px auto;
+  background-image: url('../images/download_app.png');
+}
+
+.wiesoSection h2 {
+  margin-bottom: 30px;
+}
+
+.wiesoContentContainer p {
+  line-height: 1.8;
+  margin: 0;
+  text-align: justify;
+}
+
 .buttonContainer {
   display: flex;
   flex-direction: row;

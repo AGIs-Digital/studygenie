@@ -118,9 +118,9 @@
             .then(response => response.json())
             .then(data => {
                 if (data.status === 'success') {
-                    showToast(data.message, 'success');
+                    showToast('In deinen E-Mails findest du den Link zum Passwort-Reset.', 'success');
                 } else {
-                    showToast(data.message, 'error');
+                    showToast(data.message || 'Ein Fehler ist aufgetreten beim Zurücksetzen des Passworts.', 'error');
                 }
             })
             .catch(error => showToast('Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.', 'error'));

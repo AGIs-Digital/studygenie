@@ -19,7 +19,7 @@
                     <span class="textmarker">✓ Berufsinformationen</span><br />
                 </p>
                 @guest
-                <button data-bs-toggle="modal" data-bs-target="#signupModal" class="plancardButton">Kostenlos</button>
+                <button data-bs-toggle="modal" data-bs-target="#signupModal" class="plancardButton" onclick="setRegistrationSource('plancards')">Kostenlos</button>
             @else
                 @if(auth()->user()->subscription_name == 'Silber')
                     <button class="plancardButton" disabled>Aktueller Status</button>
@@ -64,7 +64,7 @@
                     <span class="blue-textmarker">✓ Bewerbungsunterlagen</span><br />
                 </p>
                 @guest
-                    <button data-bs-toggle="modal" data-bs-target="#signupModal" class="plancardButton">Hol dir Gold</button>
+                    <button data-bs-toggle="modal" data-bs-target="#signupModal" class="plancardButton" onclick="setRegistrationSource('plancards')">Hol dir Gold</button>
                 @else
                     @if(auth()->user()->subscription_name == 'Gold')
                         @if(auth()->user()->subscription_status === 'cancelled')
@@ -112,7 +112,7 @@
                     <br />
                 </p>
                 @guest
-                    <button data-bs-toggle="modal" data-bs-target="#signupModal" class="plancardButton">Hol dir Diamant</button>
+                    <button data-bs-toggle="modal" data-bs-target="#signupModal" class="plancardButton" onclick="setRegistrationSource('plancards')">Hol dir Diamant</button>
                 @else
                     @if(auth()->user()->subscription_name == 'Diamant')
                         @if(auth()->user()->subscription_status === 'cancelled')    
@@ -385,6 +385,10 @@
             };
             
             return planHierarchy[newPlan] > planHierarchy[oldPlan] ? 'upgrade' : 'downgrade';
+        }
+
+        function setRegistrationSource(source) {
+            document.getElementById('registration_source').value = source;
         }
     </script>
 </section>

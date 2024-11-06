@@ -19,6 +19,7 @@
     @include('components.login-modal')
     @include('components.tooglePasswordVisibility')
     @include('components.signup-modal')
+    @include('components.wieso')
     @include('components.testimonials-section')
     @include('components.toolpreview-section')
 
