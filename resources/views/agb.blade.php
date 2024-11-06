@@ -105,6 +105,10 @@
                         längere gesetzliche Aufbewahrungspflicht besteht, jedoch nur bis zum Ende der jeweiligen
                         Aufbewahrungsfrist. Der Auftragnehmer hat dem Unternehmen auf dessen Verlangen die Löschung
                         schriftlich zu bestätigen.</p>
+                        <p>6.4 Widerrufsrecht für Abonnements
+                        Der Auftraggeber hat das Recht, innerhalb von 14 Tagen nach Abschluss des Abonnements ohne Angabe von Gründen zu kündigen und eine Rückerstattung zu erhalten.
+                        Zur Ausübung des Widerrufsrechts genügt eine formlose Mitteilung per E-Mail an: info@agis.digital.
+                        Der Auftragnehmer verpflichtet sich, den gezahlten Betrag innerhalb von 14 Tagen nach Erhalt der Widerrufserklärung zurückzuerstatten.</p>
                         <br />
                         <h4>7. Vertraulichkeit und Datenschutz</h2>
                     <p>7.1 Der Auftragnehmer wird alle ihm im Zusammenhang mit dem Auftrag zur Kenntnis gelangenden
