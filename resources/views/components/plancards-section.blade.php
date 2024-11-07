@@ -191,42 +191,29 @@
                         layout: 'vertical',
                         label: 'subscribe'
                     },
-
-                    createSubscription: function(data, actions) {
-                        const descriptions = {
-                            'Gold': {
-                                description: 'StudyGenie Gold Abonnement\n' +
-                                           '✓ Alle Silber Features\n' +
-                                           '✓ Textanalysen und Inspiration\n' +
-                                           '✓ Bewerbungsunterlagen',
-                                custom_id: 'gold_monthly'
+                    createSubscription: async function(data, actions) {
+                        // Subscription serverseitig erstellen
+                        const response = await fetch('{{ route("subscriptions.create") }}', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
                             },
-                            'Diamant': {
-                                description: 'StudyGenie Diamant Abonnement\n' +
-                                           '✓ Alle Gold Features\n' +
-                                           '✓ Persönlicher Tutor\n' +
-                                           '✓ Indvidueller Karriere Mentor',
-                                custom_id: 'diamant_monthly'
-                            }
-                        };
-                        
-                        return actions.subscription.create({
-                            plan_id: planId,
-                            custom_id: descriptions[planName].custom_id,
-                            application_context: {
-                                shipping_preference: 'NO_SHIPPING',
-                                user_action: 'SUBSCRIBE_NOW',
-                                brand_name: 'StudyGenie',
-                                description: descriptions[planName].description,
-                                payment_method: {
-                                    payer_selected: 'PAYPAL',
-                                    payee_preferred: 'IMMEDIATE_PAYMENT_REQUIRED'
-                                }
-                            }
+                            body: JSON.stringify({
+                                plan_id: planId,
+                                plan_name: planName
+                            })
                         });
+                        
+                        const subscriptionData = await response.json();
+                        if (!subscriptionData.success) {
+                            throw new Error(subscriptionData.message);
+                        }
+                        
+                        return subscriptionData.subscription_id;
                     },
                     onApprove: function(data, actions) {
-                        fetch('{{ route('subscriptions.update') }}', {
+                        return fetch('{{ route("subscriptions.update") }}', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
@@ -244,13 +231,13 @@
                                 localStorage.setItem('subscription_updated', 'true');
                                 location.reload();
                             } else {
-                                showToast(data.message || 'Ein Fehler ist aufgetreten', 'error');
+                                throw new Error(data.message || 'Ein Fehler ist aufgetreten');
                             }
-                        })
-                        .catch(error => {
-                            console.error('Fehler:', error);
-                            showToast('Ein Fehler ist aufgetreten bei der Aktualisierung des Abonnements', 'error');
                         });
+                    },
+                    onError: function(err) {
+                        console.error('PayPal Fehler:', err);
+                        showToast('Bei der Verarbeitung ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.', 'error');
                     }
                 }).render(buttonId);
             }
