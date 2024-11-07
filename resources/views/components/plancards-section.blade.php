@@ -191,39 +191,9 @@
                         layout: 'vertical',
                         label: 'subscribe'
                     },
-                    locale: 'de_DE',
                     createSubscription: function(data, actions) {
-                        const descriptions = {
-                            'Gold': {
-                                description: 'StudyGenie Gold Abonnement\n' +
-                                           '✓ Alle Silber Features\n' +
-                                           '✓ Textanalysen und Inspiration\n' +
-                                           '✓ Bewerbungsunterlagen',
-                                custom_id: 'gold_monthly'
-                            },
-                            'Diamant': {
-                                description: 'StudyGenie Diamant Abonnement\n' +
-                                           '✓ Alle Gold Features\n' +
-                                           '✓ Persönlicher Tutor\n' +
-                                           '✓ Indvidueller Karriere Mentor',
-                                custom_id: 'diamant_monthly'
-                            }
-                        };
-                        
                         return actions.subscription.create({
-                            plan_id: planId,
-                            custom_id: descriptions[planName].custom_id,
-                            application_context: {
-                                shipping_preference: 'NO_SHIPPING',
-                                user_action: 'SUBSCRIBE_NOW',
-                                brand_name: 'StudyGenie',
-                                locale: 'de_DE',
-                                description: descriptions[planName].description,
-                                payment_method: {
-                                    payer_selected: 'PAYPAL',
-                                    payee_preferred: 'IMMEDIATE_PAYMENT_REQUIRED'
-                                }
-                            }
+                            plan_id: planId
                         });
                     },
                     onApprove: function(data, actions) {
