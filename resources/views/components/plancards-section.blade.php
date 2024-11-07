@@ -1,4 +1,4 @@
-<script src="https://www.paypal.com/sdk/js?client-id={{ config('services.paypal.client_id') }}&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script>
+<script src="https://www.paypal.com/sdk/js?client-id={{ config('services.paypal.client_id') }}&vault=true&intent=subscription&components=applepay" data-sdk-integration-source="button-factory"></script>
 <script src="{{ asset('asset/js/toast.js') }}"></script>
 <link rel="stylesheet" href="{{ asset('asset/css/plancards.css') }}">
 <section class="planCardsSection">
@@ -191,7 +191,7 @@
                         layout: 'vertical',
                         label: 'subscribe'
                     },
-                    locale: 'de_DE',
+
                     createSubscription: function(data, actions) {
                         const descriptions = {
                             'Gold': {
@@ -217,7 +217,6 @@
                                 shipping_preference: 'NO_SHIPPING',
                                 user_action: 'SUBSCRIBE_NOW',
                                 brand_name: 'StudyGenie',
-                                locale: 'de_DE',
                                 description: descriptions[planName].description,
                                 payment_method: {
                                     payer_selected: 'PAYPAL',
