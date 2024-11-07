@@ -1,4 +1,3 @@
-<script src="https://www.paypal.com/sdk/js?client-id={{ config('services.paypal.client_id') }}&vault=true&intent=subscription&components=applepay" data-sdk-integration-source="button-factory"></script>
 <script src="{{ asset('asset/js/toast.js') }}"></script>
 <link rel="stylesheet" href="{{ asset('asset/css/plancards.css') }}">
 <section class="planCardsSection">
@@ -170,212 +169,231 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const subscription_name = @json(auth()->check() ? auth()->user()->subscription_name : '');
-            
-            if (localStorage.getItem('subscription_cancelled') === 'true') {
-                showToast('Dein Abo wurde erfolgreich gekündigt und läuft zum Ende der Laufzeit aus.', 'success');
-                localStorage.removeItem('subscription_cancelled');
-            } else if (localStorage.getItem('subscription_updated') === 'true') {
-                showSuccessMessage(subscription_name);
-                if (subscription_name !== 'Silber' && subscription_name !== '') {
-                    showConfetti();
+            // Warten auf PayPal SDK
+            const waitForPayPal = setInterval(() => {
+                if (typeof paypal !== 'undefined') {
+                    clearInterval(waitForPayPal);
+                    initializePayPalButtons();
                 }
-                localStorage.removeItem('subscription_updated');
-            }
+            }, 100);
 
-            function createPayPalButton(planId, planName, buttonId) {
-                paypal.Buttons({
-                    style: {
-                        shape: 'pill',
-                        color: 'gold',
-                        layout: 'vertical',
-                        label: 'subscribe'
-                    },
-                    createSubscription: async function(data, actions) {
-                        // Subscription serverseitig erstellen
-                        const response = await fetch('{{ route("subscriptions.create") }}', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                            },
-                            body: JSON.stringify({
-                                plan_id: planId,
-                                plan_name: planName
+            function initializePayPalButtons() {
+                const subscription_name = @json(auth()->check() ? auth()->user()->subscription_name : '');
+                
+                if (localStorage.getItem('subscription_cancelled') === 'true') {
+                    showToast('Dein Abo wurde erfolgreich gekündigt und läuft zum Ende der Laufzeit aus.', 'success');
+                    localStorage.removeItem('subscription_cancelled');
+                } else if (localStorage.getItem('subscription_updated') === 'true') {
+                    showSuccessMessage(subscription_name);
+                    if (subscription_name !== 'Silber' && subscription_name !== '') {
+                        showConfetti();
+                    }
+                    localStorage.removeItem('subscription_updated');
+                }
+
+                function createPayPalButton(planId, planName, buttonId) {
+                    paypal.Buttons({
+                        style: {
+                            shape: 'pill',
+                            color: 'gold',
+                            layout: 'vertical',
+                            label: 'subscribe'
+                        },
+                        createSubscription: async function(data, actions) {
+                            // Subscription serverseitig erstellen
+                            const response = await fetch('{{ route("subscriptions.create") }}', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                                },
+                                body: JSON.stringify({
+                                    plan_id: planId,
+                                    plan_name: planName
+                                })
+                            });
+                            
+                            const subscriptionData = await response.json();
+                            if (!subscriptionData.success) {
+                                throw new Error(subscriptionData.message);
+                            }
+                            
+                            return subscriptionData.subscription_id;
+                        },
+                        onApprove: function(data, actions) {
+                            return fetch('{{ route("subscriptions.update") }}', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                                },
+                                body: JSON.stringify({ 
+                                    plan_name: planName,
+                                    subscription_id: data.subscriptionID 
+                                })
                             })
-                        });
-                        
-                        const subscriptionData = await response.json();
-                        if (!subscriptionData.success) {
-                            throw new Error(subscriptionData.message);
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.success) {
+                                    $(`#paypalModal${planName}`).modal('hide');
+                                    localStorage.setItem('subscription_updated', 'true');
+                                    location.reload();
+                                } else {
+                                    throw new Error(data.message || 'Ein Fehler ist aufgetreten');
+                                }
+                            });
+                        },
+                        onError: function(err) {
+                            console.error('PayPal Fehler:', err);
+                            showToast('Bei der Verarbeitung ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.', 'error');
                         }
-                        
-                        return subscriptionData.subscription_id;
-                    },
-                    onApprove: function(data, actions) {
-                        return fetch('{{ route("subscriptions.update") }}', {
+                    }).render(buttonId);
+                }
+
+                // PayPal-Buttons für Gold und Diamant rendern
+                createPayPalButton('P-7WJ75259TP171340JM4U7LTY', 'Gold', '#paypal-button-gold');
+                createPayPalButton('P-0C806817T3121690VM4U7Q5I', 'Diamant', '#paypal-button-diamant');
+
+                document.addEventListener('DOMContentLoaded', function() {
+                    // Überprüfen, ob der Silber-Button existiert, bevor der Event Listener hinzugefügt wird
+                    const silberButton = document.getElementById('silberButton');
+                    if (silberButton) {
+                        silberButton.addEventListener('click', function() {
+                            $('#confirmSilberModal').modal('show');
+                        });
+                    }
+
+                    // Event Listener für den Bestätigungsbutton im Modal
+                    document.getElementById('confirmSilberButton').addEventListener('click', function() {
+                        fetch('{{ route('subscriptions.update') }}', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
                                 'X-CSRF-TOKEN': '{{ csrf_token() }}'
                             },
-                            body: JSON.stringify({ 
-                                plan_name: planName,
-                                subscription_id: data.subscriptionID 
-                            })
+                            body: JSON.stringify({ plan_name: 'Silber' })
                         })
                         .then(response => response.json())
                         .then(data => {
                             if (data.success) {
-                                $(`#paypalModal${planName}`).modal('hide');
-                                localStorage.setItem('subscription_updated', 'true');
-                                location.reload();
+                                SubscriptionManager.handleSubscriptionUpdate(data);
+                                $('#confirmSilberModal').modal('hide');
                             } else {
-                                throw new Error(data.message || 'Ein Fehler ist aufgetreten');
+                                showToast(data.message || 'Ein Fehler ist aufgetreten', 'error');
                             }
+                        })
+                        .catch(error => {
+                            console.error('Fehler:', error);
+                            showToast('Ein Fehler ist aufgetreten bei der Aktualisierung des Abonnements', 'error');
                         });
-                    },
-                    onError: function(err) {
-                        console.error('PayPal Fehler:', err);
-                        showToast('Bei der Verarbeitung ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.', 'error');
-                    }
-                }).render(buttonId);
-            }
-
-            // PayPal-Buttons für Gold und Diamant rendern
-            createPayPalButton('P-7WJ75259TP171340JM4U7LTY', 'Gold', '#paypal-button-gold');
-            createPayPalButton('P-0C806817T3121690VM4U7Q5I', 'Diamant', '#paypal-button-diamant');
-
-            document.addEventListener('DOMContentLoaded', function() {
-                // Überprüfen, ob der Silber-Button existiert, bevor der Event Listener hinzugefügt wird
-                const silberButton = document.getElementById('silberButton');
-                if (silberButton) {
-                    silberButton.addEventListener('click', function() {
-                        $('#confirmSilberModal').modal('show');
                     });
-                }
+                });
 
-                // Event Listener für den Bestätigungsbutton im Modal
-                document.getElementById('confirmSilberButton').addEventListener('click', function() {
-                    fetch('{{ route('subscriptions.update') }}', {
+                // Event Listener für Kündigungs-Buttons
+                document.querySelectorAll('.cancel-subscription').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const planType = this.getAttribute('data-plan');
+                        document.getElementById('planType').textContent = planType;
+                        const modal = new bootstrap.Modal(document.getElementById('cancelSubscriptionModal'));
+                        modal.show();
+                    });
+                });
+
+                // Event Listener für Kündigungs-Bestätigung
+                document.getElementById('confirmCancelButton').addEventListener('click', function() {
+                    fetch('{{ route('subscriptions.cancel') }}', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
                             'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                        },
-                        body: JSON.stringify({ plan_name: 'Silber' })
+                        }
                     })
                     .then(response => response.json())
                     .then(data => {
                         if (data.success) {
-                            SubscriptionManager.handleSubscriptionUpdate(data);
-                            $('#confirmSilberModal').modal('hide');
+                            location.reload();
+                            localStorage.setItem('subscription_cancelled', 'true'); // Geändert von subscription_updated
+                            showToast('Dein Abo wurde erfolgreich gekündigt und läuft zum Ende der Laufzeit aus.', 'success');
                         } else {
-                            showToast(data.message || 'Ein Fehler ist aufgetreten', 'error');
+                            showToast('Es gab einen Fehler bei der Kündigung. Bitte versuche es später erneut.', 'error');
                         }
-                    })
-                    .catch(error => {
-                        console.error('Fehler:', error);
-                        showToast('Ein Fehler ist aufgetreten bei der Aktualisierung des Abonnements', 'error');
                     });
+                    
+                    bootstrap.Modal.getInstance(document.getElementById('cancelSubscriptionModal')).hide();
                 });
-            });
+            }
 
-            // Event Listener für Kündigungs-Buttons
-            document.querySelectorAll('.cancel-subscription').forEach(button => {
-                button.addEventListener('click', function() {
-                    const planType = this.getAttribute('data-plan');
-                    document.getElementById('planType').textContent = planType;
-                    const modal = new bootstrap.Modal(document.getElementById('cancelSubscriptionModal'));
-                    modal.show();
-                });
-            });
-
-            // Event Listener für Kündigungs-Bestätigung
-            document.getElementById('confirmCancelButton').addEventListener('click', function() {
-                fetch('{{ route('subscriptions.cancel') }}', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        location.reload();
-                        localStorage.setItem('subscription_cancelled', 'true'); // Geändert von subscription_updated
-                        showToast('Dein Abo wurde erfolgreich gekündigt und läuft zum Ende der Laufzeit aus.', 'success');
-                    } else {
-                        showToast('Es gab einen Fehler bei der Kündigung. Bitte versuche es später erneut.', 'error');
-                    }
-                });
-                
-                bootstrap.Modal.getInstance(document.getElementById('cancelSubscriptionModal')).hide();
-            });
-        });
-
-        function showConfetti() {
-            const particleCount1 = Math.floor(Math.random() * 301) + 100;
-            const spread1 = Math.floor(Math.random() * 301) + 100;
-            const origin1 = { x: Math.random(), y: Math.random() };
-
-            confetti({
-                particleCount: particleCount1,
-                spread: spread1,
-                origin: origin1
-            });
-
-            setTimeout(() => {
-                const particleCount2 = Math.floor(Math.random() * 301) + 100;
-                const spread2 = Math.floor(Math.random() * 301) + 100;
-                const origin2 = { x: Math.random(), y: Math.random() };
+            function showConfetti() {
+                const particleCount1 = Math.floor(Math.random() * 301) + 100;
+                const spread1 = Math.floor(Math.random() * 301) + 100;
+                const origin1 = { x: Math.random(), y: Math.random() };
 
                 confetti({
-                    particleCount: particleCount2,
-                    spread: spread2,
-                    origin: origin2
+                    particleCount: particleCount1,
+                    spread: spread1,
+                    origin: origin1
                 });
-            }, 1500);
-        }
 
-        function showSuccessMessage(plan_name) {
-            const modalHTML = `
-                <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-body text-center">
-                                <p>${plan_name === 'Silber' ? `Du bist jetzt wieder ${plan_name} Abonnent.` : `Herzlichen Glückwunsch! Du bist jetzt ${plan_name} Abonnent.`}</p>
+                setTimeout(() => {
+                    const particleCount2 = Math.floor(Math.random() * 301) + 100;
+                    const spread2 = Math.floor(Math.random() * 301) + 100;
+                    const origin2 = { x: Math.random(), y: Math.random() };
+
+                    confetti({
+                        particleCount: particleCount2,
+                        spread: spread2,
+                        origin: origin2
+                    });
+                }, 1500);
+            }
+
+            function showSuccessMessage(plan_name) {
+                const modalHTML = `
+                    <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-body text-center">
+                                    <p>${plan_name === 'Silber' ? `Du bist jetzt wieder ${plan_name} Abonnent.` : `Herzlichen Glückwunsch! Du bist jetzt ${plan_name} Abonnent.`}</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            `;
-            document.body.insertAdjacentHTML('beforeend', modalHTML);
-            const successModal = new bootstrap.Modal(document.getElementById('successModal'));
-            successModal.show();
+                `;
+                document.body.insertAdjacentHTML('beforeend', modalHTML);
+                const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+                successModal.show();
 
-            setTimeout(() => {
-                $('#successModal').fadeOut(4000, () => {
-                    successModal.hide();
-                    document.getElementById('successModal').remove();
+                setTimeout(() => {
+                    $('#successModal').fadeOut(4000, () => {
+                        successModal.hide();
+                        document.getElementById('successModal').remove();
+                    });
+                }, 2000);
+            }
+
+            function determineSubscriptionChange(oldPlan, newPlan) {
+                const planHierarchy = {
+                    'Silber': 1,
+                    'Gold': 2,
+                    'Diamant': 3
+                };
+                
+                return planHierarchy[newPlan] > planHierarchy[oldPlan] ? 'upgrade' : 'downgrade';
+            }
+
+            function setRegistrationSource(source) {
+                document.getElementById('registration_source').value = source;
+            }
+        });
+
+        setTimeout(() => {
+            if (typeof paypal === 'undefined') {
+                console.error('PayPal SDK konnte nicht geladen werden');
+                document.querySelectorAll('[id^="paypal-button"]').forEach(button => {
+                    button.innerHTML = '<p class="text-danger">Zahlungsoptionen temporär nicht verfügbar</p>';
                 });
-            }, 2000);
-        }
-
-        function determineSubscriptionChange(oldPlan, newPlan) {
-            const planHierarchy = {
-                'Silber': 1,
-                'Gold': 2,
-                'Diamant': 3
-            };
-            
-            return planHierarchy[newPlan] > planHierarchy[oldPlan] ? 'upgrade' : 'downgrade';
-        }
-
-        function setRegistrationSource(source) {
-            document.getElementById('registration_source').value = source;
-        }
+            }
+        }, 5000);
     </script>
 </section>
 

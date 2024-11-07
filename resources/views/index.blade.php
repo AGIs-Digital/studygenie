@@ -6,6 +6,7 @@
     <meta http-equiv="Permissions-Policy" content="picture-in-picture=(self)">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id={{ config('services.paypal.client_id') }}&vault=true&intent=subscription&components=applepay" data-sdk-integration-source="button-factory"></script>
     <script src="{{ asset('asset/js/toast.js') }}"></script>
 </head>
 @include('components.navbar')
