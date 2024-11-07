@@ -60,64 +60,30 @@ class SubscriptionController extends Controller
         }
     }
 
-    public function create(Request $request)
+    public function create()
+    {
+        return view('subscriptions.create');
+    }
+
+    public function store(Request $request)
     {
         try {
-            $planId = $request->input('plan_id');
-            $planName = $request->input('plan_name');
-            
-            $descriptions = [
-                'Gold' => [
-                    'description' => "StudyGenie Gold Abonnement\n✓ Alle Silber Features\n✓ Textanalysen und Inspiration\n✓ Bewerbungsunterlagen",
-                    'custom_id' => 'gold_monthly'
-                ],
-                'Diamant' => [
-                    'description' => "StudyGenie Diamant Abonnement\n✓ Alle Gold Features\n✓ Persönlicher Tutor\n✓ Individueller Karriere Mentor",
-                    'custom_id' => 'diamant_monthly'
-                ]
-            ];
-
-            $accessToken = $this->getAccessToken();
-            if (!$accessToken) {
-                throw new \Exception('PayPal Authentifizierung fehlgeschlagen');
-            }
-
-            $response = $this->client->post(
-                $this->baseUrl . '/v1/billing/subscriptions',
-                [
-                    'headers' => [
-                        'Authorization' => "Bearer {$accessToken}",
-                        'Content-Type' => 'application/json'
-                    ],
-                    'json' => [
-                        'plan_id' => $planId,
-                        'custom_id' => $descriptions[$planName]['custom_id'],
-                        'application_context' => [
-                            'brand_name' => 'StudyGenie',
-                            'shipping_preference' => 'NO_SHIPPING',
-                            'user_action' => 'SUBSCRIBE_NOW',
-                            'description' => $descriptions[$planName]['description']
-                        ]
-                    ]
-                ]
-            );
-
-            $subscriptionData = json_decode($response->getBody(), true);
-            
-            return response()->json([
-                'success' => true,
-                'subscription_id' => $subscriptionData['id']
+            Log::info('PayPal Subscription Creation', [
+                'plan_name' => $request->plan_name,
+                'subscription_id' => $request->subscription_id
             ]);
-
+            
+            // Ihre bestehende Logik hier
+            
         } catch (\Exception $e) {
-            Log::error('PayPal Subscription Creation Error:', [
+            Log::error('PayPal Subscription Error', [
                 'error' => $e->getMessage(),
                 'trace' => $e->getTraceAsString()
             ]);
             
             return response()->json([
                 'success' => false,
-                'message' => 'Ein Fehler ist aufgetreten bei der Erstellung des Abonnements'
+                'message' => 'Ein Fehler ist aufgetreten'
             ], 500);
         }
     }

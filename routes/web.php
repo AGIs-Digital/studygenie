@@ -181,9 +181,6 @@ Route::post('subscriptions/cancel', [SubscriptionController::class, 'cancelSubsc
 Route::get('/subscription/expired', function () {
     return view('subscription.expired');
 })->name('subscription.expired');
-Route::post('/subscriptions/create', [SubscriptionController::class, 'create'])
-    ->name('subscriptions.create')
-    ->middleware(['auth']);
 
 ### PAYPAL ROUTES ###
 Route::post('/webhook/paypal', [WebhookController::class, 'handle']);
