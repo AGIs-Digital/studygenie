@@ -49,6 +49,7 @@
                         <h2 style="color: #2D3E4E; font-family: Milonga; font-size: 32px; font-style: normal; font-weight: 400; line-height: 38px; position: relative; margin-top: 3rem;">
                             Lebenslauf
                         </h2>
+                        <p style="font-size: 12px; color: gray; text-align: center; margin: 0;">Fasse dich kurz, damit dein Lebenslauf auf eine Seite passt.</p>
                         <div class="accordion accordion-flush" id="accordionFlushExample" style="border: 1px solid #2D3E4E; border-radius: 12px;">
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="flush-headingOne">

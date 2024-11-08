@@ -63,7 +63,9 @@
                 $check = false;
                 $date = auth()->user()->expire_date;
                 $subscriptionName = auth()->user()->subscription_name;
-                if ($subscriptionName == 'Diamant' || ($date != null && \Carbon\Carbon::parse($date)->gt(\Carbon\Carbon::now()))) {
+                if (
+                    $subscriptionName == 'Diamant' ||
+                    ($date != null && \Carbon\Carbon::parse($date)->gt(\Carbon\Carbon::now()))) {
                     $check = true;
                 }
             @endphp
