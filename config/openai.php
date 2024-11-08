@@ -25,15 +25,38 @@ return [
     */
 
     'request_timeout' => env('OPENAI_REQUEST_TIMEOUT', 30),
-    'preferred_model' => 'gpt-4o',
+    'preferred_model' => 'gpt-4o-mini',
 
     'tools' => [
         'genie_check' => [
             'model' => 'gpt-4o-mini',
         ],
-        'default' => [
+        'text_inspiration' => [
+            'model' => 'gpt-4o-mini',
+        ],
+        'text_analysis' => [
+            'model' => 'gpt-4o-mini',
+        ],
+        'tutor' => [
             'model' => 'gpt-4o',
         ],
-        // Füge hier weitere Tools hinzu, falls nötig
+        'job_match' => [
+            'model' => 'gpt-4o-mini',
+        ],
+        'job_insider' => [
+            'model' => 'gpt-4o-mini',
+        ],
+        'motivation' => [
+            'model' => 'gpt-4o-mini',
+        ],
+        'lebenslauf' => [
+            'model' => 'gpt-4o-mini',
+        ],
+        'mentor' => [
+            'model' => 'gpt-4o',
+        ],
+        'default' => [
+            'model' => 'gpt-4o-mini',
+        ],
     ],
 ];
