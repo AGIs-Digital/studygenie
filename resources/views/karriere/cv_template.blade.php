@@ -9,9 +9,7 @@
         @page {
             size: A4;
             margin: 20mm;
-            @top-right {
-                content: element(side-panel);
-            }
+
         }
 
         @page :not(:first) {
@@ -94,7 +92,6 @@
         }
 
         .side-panel {
-            position: running(side-panel);
             width: 230px;
             background-color: {{ $side_panel_color ?? '#E09E50' }};
             color: {{ $side_panel_text_color ?? '#ffffff' }};
@@ -102,11 +99,13 @@
             box-sizing: border-box;
             border-bottom-left-radius: 200px;
             height: 100%;
+            position: absolute;
             right: 0;
             top: 0;
             bottom: 0;
             display: flex;
             flex-direction: column;
+            page-break-inside: avoid;
         }
 
         .side-panel h2 {
