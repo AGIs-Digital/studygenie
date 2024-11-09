@@ -37,8 +37,19 @@
     document.addEventListener('DOMContentLoaded', function() {
         const burgerMenu = document.querySelector('.burger-menu');
         const navContainer = document.querySelector('.navContainer');
-        burgerMenu.addEventListener('click', function() {
+        
+        // Burger-Menü Toggle
+        burgerMenu.addEventListener('click', function(event) {
+            event.stopPropagation();
             navContainer.classList.toggle('open');
+        });
+        
+        // Klick außerhalb schließt Menü
+        document.addEventListener('click', function(event) {
+            if (navContainer.classList.contains('open') && 
+                !navContainer.contains(event.target)) {
+                navContainer.classList.remove('open');
+            }
         });
     });
 </script>

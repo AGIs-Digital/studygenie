@@ -24,7 +24,7 @@
             imageUrl: '{{ asset('asset/images/lock2.png') }}',
             imageWidth: 167,
             imageHeight: 243,
-            html: 'Upgrade deinen <b>{{ auth()->user()->subscription_name }} - Status</b> zum freizuschalten',
+            html: 'Upgrade deinen <b>{{ auth()->user()->subscription_name }} - Status</b> zum Freischalten',
             showCloseButton: true,
             focusConfirm: false,
             confirmButtonText: 'Upgrade',

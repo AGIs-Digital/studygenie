@@ -55,8 +55,11 @@
 }
 
 .headerSpacer {
-	height: 75px; 
-	padding-bottom: 75px;
+	height: 75px;
+	width: 100%;
+	display: block;
+	margin: 0;
+	padding: 0;
 }
 
 .burger-menu {
@@ -114,5 +117,15 @@
 	.navContainer.open .buttonContainer {
 		border-top: 1px solid #2d3e4e;
 		padding-top: 1rem;
+	}
+
+	.mainNavContainer {
+		height: 60px;
+		padding: 0.5rem;
+	}
+
+	.headerSpacer {
+		height: 60px;
+		margin-bottom: 60px;
 	}
 }

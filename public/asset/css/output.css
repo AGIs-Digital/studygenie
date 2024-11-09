@@ -1040,6 +1040,20 @@ input[type='text']:disabled {
     margin: 10px;
     padding: 96px 2rem 25px 4rem;
   }
+
+  .send_button_box {
+    flex-direction: row;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+    padding: 0 1rem;
+  }
+
+  .send_button,
+  .archive_button {
+    min-width: 110px;
+    font-size: 0.9rem;
+  }
 }
 
 @media (max-width: 480px) {

@@ -1031,13 +1031,13 @@ h4 ~ p {
   .mobileMenu {
     display: none;
     position: fixed;
-    top: 60px;
+    top: 80px;
     left: 0;
     right: 0;
     background: white;
     padding: 1rem;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    z-index: 1000;
+    z-index: 999;
   }
   
   .mobileMenu.active {
@@ -1914,5 +1914,86 @@ a,
 .close-icon,
 input[type='radio'] {
   cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .changePasswordForm {
+    flex-direction: column;
+    padding: 0 1rem;
+  }
+
+  .changePasswordForm .col-md-4 {
+    width: 100%;
+    margin-bottom: 1.5rem;
+  }
+
+  .emailField {
+    width: 100%;
+  }
+
+  .password-field {
+    position: relative;
+    width: 100%;
+  }
+
+  .criteria-container {
+    margin-top: 1rem;
+    padding: 0.5rem;
+  }
+
+  .criteria-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  #passwordChangeFormFields {
+    margin-top: 2rem;
+  }
+
+  .toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .emailLogin {
+    width: 100%;
+    padding-right: 40px;
+  }
+}
+
+.admin-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.admin-header img {
+  height: 70px;
+  width: auto;
+}
+
+.admin-header h1 {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+@media (max-width: 768px) {
+  .admin-header img {
+    height: 80px;
+  }
+  
+}
+
+@media (max-width: 480px) {
+  .admin-header img {
+    height: 50px;
+  }
 }
 
