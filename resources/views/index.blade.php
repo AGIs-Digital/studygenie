@@ -10,7 +10,7 @@
 </head>
 @include('components.navbar')
 <body class="MainContainer">
-    <div class="headerSpacer"></div>
+    <div class="headerSpacer" style="margin-bottom: 75px; @media screen and (max-width: 768px) { margin-bottom: 60px !important; }"></div>
     @include('components.heroimage-section')
     @include('components.problem-solution-section')
     @include('components.cookie-consent')

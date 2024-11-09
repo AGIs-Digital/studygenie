@@ -13,10 +13,10 @@
 @include('components.feedback')
 
 <body class="MainContainer">
-    <div class="headerSpacer"><br><br></div>
+    <div class="headerSpacer" style="margin-bottom: 0px;"><br><br></div>
     @include('components.tooglePasswordVisibility')
 
-    <div class="mainContent container mt-5">
+    <div class="mainContent container">
         <div class="row">
             <div class="col-md-12">
                 <div class="admin-header">
