@@ -42,12 +42,6 @@ const config = {
   sftp: true
 };
 
-// ftpDeploy.on("uploading", function (data) {
-//     console.log(data.totalFilesCount); // total file count being transferred
-//     console.log(data.transferredFileCount); // number of files transferred
-//     console.log(data.filename); // partial path with filename being uploaded
-// });
-
 ftpDeploy.on('uploaded', function (data) {
   console.log(
     '✅ ' + data.filename + ' (' + data.transferredFileCount + ' / ' + data.totalFilesCount + ')'

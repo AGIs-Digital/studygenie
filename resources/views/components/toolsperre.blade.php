@@ -35,20 +35,20 @@
 <script>
     function showDialog() {
         Swal.fire({
-            title: '<strong>Tool noch gesperrt</strong>',
-            icon: 'info',
-            html: 'Upgrade dein ' +
-                '<a href="/profile" style="color: #e09e50; text-decoration: underline;">Abo</a> ' +
-                'um dieses Tool zu benutzen.',
+            title: '<h2>Noch nicht freigeschaltet</h2>',
+            imageUrl: '/images/lock.png',
+            imageWidth: 64,
+            imageHeight: 64,
+            html: 'Upgrade deinen ({{ auth()->user()->subscription_name }})Status zum freizuschalten',
             showCloseButton: true,
             focusConfirm: false,
-            confirmButtonText: 'Verstanden',
+            confirmButtonText: 'Upgrade',
             confirmButtonColor: '#e09e50',
             customClass: {
                 popup: 'swal2-elegant-popup',
                 title: 'swal2-elegant-title',
                 content: 'swal2-elegant-content',
-                confirmButton: 'swal2-elegant-confirm-button'
+                confirmButton: 'plancardButton'
             }
         });
     }
