@@ -12,6 +12,7 @@
     <div class="headerSpacer"></div>
     @include('components.navbar')
     @include('components.feedback')
+    @include('components.mobile_warning')
 
     <section class="TextInspiration_sec">
         <div class="container-fluid">

@@ -178,8 +178,9 @@
     .mainContainer {
         height: auto;
     }
-    .categoryClouds.tools {
-        flex-direction: column;
+    .categoryClouds.tools,
+    .categoryClouds.twoClouds {
+        grid-template-columns: 1fr;
         gap: 1rem;
     }
 }
@@ -197,5 +198,33 @@
     .mainContainer .ab7,
     .mainContainer .ab8 {
         display: none;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .categoryClouds {
+        grid-template-columns: 1fr;
+        row-gap: 2rem;
+    }
+    #StudyGenieImage {
+        display: none;
+    }
+    
+    .mainContainer {
+        height: auto;
+        padding: 2rem 1rem;
+    }
+    
+    .categoryClouds {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        margin-top: 1rem;
+    }
+    
+    .Cloud svg,
+    .Cloud_Karriere svg {
+        width: 100%;
+        max-width: 245px;
+        height: auto;
     }
 }

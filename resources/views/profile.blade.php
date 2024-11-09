@@ -13,17 +13,17 @@
 @include('components.feedback')
 
 <body class="MainContainer">
-    <div class="headerSpacer"><br><br></div>
+    <div class="headerSpacer" style="margin-bottom: 0px;"><br><br></div>
     @include('components.tooglePasswordVisibility')
 
-    <div class="mainContent container mt-5">
+    <div class="mainContent container">
         <div class="row">
             <div class="col-md-12">
-                <h1 class="d-flex align-items-center justify-content-center flex-wrap">
-                    <img class="img-fluid" style="max-height: 70px; width: auto;" src="{{ asset('asset/images/blitzneu.png') }}" alt="Blitz">
-                    <span class="mx-2 text-center">{{ auth()->user()->name }} - Einstellungen</span>
-                    <img class="img-fluid" style="max-height: 70px; width: auto;" src="{{ asset('asset/images/blitzneu.png') }}" alt="Blitz">
-                </h1>
+                <div class="admin-header">
+                    <img src="{{ asset('asset/images/blitzneu.png') }}" alt="Blitz">
+                    <h1>Admin - Einstellungen</h1>
+                    <img src="{{ asset('asset/images/blitzneu.png') }}" alt="Blitz">
+                </div>
             </div>
         </div>
 

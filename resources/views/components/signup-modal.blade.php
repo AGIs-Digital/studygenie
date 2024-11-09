@@ -34,13 +34,11 @@
                                     </span>
                                 </div>
                                 <div id="passwordCriteria" class="criteria-container mt-2">
-                                    <div class="criteria-row">
-                                        <span id="lengthCriteria" class="text-danger"><span class="checkmark">✘</span> 8 Zeichen</span><br>
-                                        <span id="uppercaseCriteria" class="text-danger"><span class="checkmark">✘</span> Großbuchstabe</span><br>
-                                    </div>
-                                    <div class="criteria-row">
-                                        <span id="numberCriteria" class="text-danger"><span class="checkmark">✘</span> Zahl</span><br>
-                                        <span id="specialCharCriteria" class="text-danger"><span class="checkmark">✘</span> Sonderzeichen</span><br>
+                                    <div class="criteria-grid">
+                                        <span id="lengthCriteria" class="text-danger"><span class="checkmark">✘</span> 8 Zeichen</span>
+                                        <span id="uppercaseCriteria" class="text-danger"><span class="checkmark">✘</span> Großbuchstabe</span>
+                                        <span id="numberCriteria" class="text-danger"><span class="checkmark">✘</span> Zahl</span>
+                                        <span id="specialCharCriteria" class="text-danger"><span class="checkmark">✘</span> Sonderzeichen</span>
                                     </div>
                                 </div>
                                 <input type="submit" value="Registrieren" class="emailLogin">
