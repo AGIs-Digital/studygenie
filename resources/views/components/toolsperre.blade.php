@@ -6,49 +6,36 @@
         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
     }
 
-    .swal2-elegant-title {
-        font-size: 26px;
-        color: #333;
-        font-weight: 600;
-        font-family: Milonga;
+    .swal2-actions {
+        justify-content: center !important;
     }
 
-    .swal2-elegant-content {
-        font-size: 18px;
-        color: #555;
-    }
-
-    .swal2-elegant-confirm-button {
-        background-color: #1a73e8;
-        color: #fff;
-        border-radius: 8px;
-        padding: 12px 24px;
-        font-size: 16px;
-        font-weight: 500;
-        transition: background-color 0.3s ease;
-    }
-
-    .swal2-elegant-confirm-button:hover {
-        background-color: #155ab6;
+    .swal2-confirm {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        min-width: 120px !important;
     }
 </style>
 <script>
     function showDialog() {
         Swal.fire({
             title: '<h2>Noch nicht freigeschaltet</h2>',
-            imageUrl: '/images/lock.png',
-            imageWidth: 64,
-            imageHeight: 64,
-            html: 'Upgrade deinen ({{ auth()->user()->subscription_name }})Status zum freizuschalten',
+            imageUrl: '{{ asset('asset/images/lock2.png') }}',
+            imageWidth: 167,
+            imageHeight: 243,
+            html: 'Upgrade deinen <b>{{ auth()->user()->subscription_name }} - Status</b> zum freizuschalten',
             showCloseButton: true,
             focusConfirm: false,
             confirmButtonText: 'Upgrade',
             confirmButtonColor: '#e09e50',
             customClass: {
                 popup: 'swal2-elegant-popup',
-                title: 'swal2-elegant-title',
-                content: 'swal2-elegant-content',
                 confirmButton: 'plancardButton'
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = '{{ route('profile') }}';
             }
         });
     }
