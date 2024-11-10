@@ -200,18 +200,39 @@
 @media (min-width: 768px) {
   .planCard {
     width: calc(33.333% - 2rem);
+    gap: 0;
+  }
+
+  .plancardHeader h2 {
+    font-size: xx-large;
+  }
+
+  .planCardContent {
+    padding: 1rem 0 0 0;
   }
   
   .planCardParagraph {
     font-size: 16px;
+    width: auto;
+    font-size: larger
   }
   
   .highSpan {
-    font-size: 28px;
+    font-size: xx-large;
   }
   
   .lowSpan {
     font-size: 16px;
+  }
+
+  .planCardsContainer {
+    background-position: bottom;
+    background-size: 100%;
+    padding: 0;
+  }
+
+  .plancardContent {
+    padding: 1rem 0 0 0;
   }
 }
 
@@ -268,19 +289,5 @@
 
 .modal-backdrop {
   z-index: 1;
-}
-
-@media (max-width: 575px) {
-  .highSpan {
-    font-size: 22px;
-  }
-  
-  .planCardParagraph {
-    font-size: 14px;
-  }
-  
-  .plancardbenefit {
-    font-size: 16px;
-  }
 }
 

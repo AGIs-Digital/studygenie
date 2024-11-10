@@ -374,6 +374,9 @@ h4 ~ p {
   padding: 30px;
   margin: 20px auto;
   background-image: url('../images/download_app.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
 }
 
 .wiesoSection h2 {
@@ -381,9 +384,10 @@ h4 ~ p {
 }
 
 .wiesoContentContainer p {
-  line-height: 1.8;
+  line-height: 1.5;
   margin: 0;
   text-align: justify;
+  hyphens: auto;
 }
 
 .buttonContainer {
@@ -430,7 +434,7 @@ h4 ~ p {
   max-width: 100%;
   text-align: justify;
   white-space: normal;
-  padding: 2% 10% 0 10%;
+  padding: 10% 5% 0 5%;
   hyphens: auto;
 }
 
@@ -656,6 +660,11 @@ h4 ~ p {
     margin: 0;
   }
 
+  .toolpreviewSection {
+    background-image: none;
+    margin: 0;
+  }
+
   .toolpreview {
     width: 100%;
     max-width: 100%;
@@ -669,6 +678,10 @@ h4 ~ p {
     width: 100%;
   }
 
+  .testimonialsSection {
+    background-position: unset;
+  }
+
   .h1,
   .h2 {
     text-align: center;
@@ -679,6 +692,14 @@ h4 ~ p {
     margin: 0 auto;
     font-size: 16px;
   } 
+
+  .benefit {
+    padding: 0;
+  }
+
+  .call-to-actionSection {
+    margin: 1rem 0;
+  }
 
 }
 
@@ -2060,8 +2081,8 @@ input[type='radio'] {
   }
 
   #googleLogin img {
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
   }
 }
 
@@ -2112,6 +2133,26 @@ input[type='radio'] {
 @media (max-width: 768px) {
   .criteria-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+.swoosh-image {
+  width: 100%;
+  max-width: 800px;
+  height: auto;
+}
+
+@media screen and (max-width: 768px) {
+  .swoosh-image {
+    width: 90%;
+    max-width: 400px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .swoosh-image {
+    width: 95%;
+    max-width: 300px;
   }
 }
 
