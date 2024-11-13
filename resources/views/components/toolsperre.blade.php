@@ -21,7 +21,7 @@
     function showDialog() {
         Swal.fire({
             title: '<h2>Noch nicht freigeschaltet</h2>',
-            imageUrl: '{{ asset('asset/images/lock2.png') }}',
+            imageUrl: '{{ asset('asset/images/lock2.svg') }}',
             imageWidth: 167,
             imageHeight: 243,
             html: 'Upgrade deinen <b>{{ auth()->user()->subscription_name }} - Status</b> zum Freischalten',

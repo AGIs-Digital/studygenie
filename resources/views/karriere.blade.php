@@ -26,7 +26,7 @@
             </div>
             <div class="centerCon">
                 <h1>Genie Karriere</h1><br />
-                <img id="StudyGenieImage" src="{{ asset('asset/images/ToolsImage.png') }}" alt="StudyGenieImage">
+                <img id="StudyGenieImage" src="{{ asset('asset/images/toolsImage.svg') }}" alt="StudyGenieImage">
             </div>
         </div>
 

@@ -57,7 +57,7 @@
                                                 <img src="{{ asset('asset/images/info-tools.svg') }}" width="16" alt="" loading="lazy">
                                             </strong>
                                         </span>
-                                        <textarea name="text1" id="field1" rows="18" style="width:100%;" placeholder="Was möchtest du wissen?" oninput="this.style.height = '';this.style.height = this.scrollHeight + 'px'"></textarea>
+                                        <textarea name="text1" id="field1" rows="12" style="width:100%;" placeholder="Was möchtest du wissen?" oninput="this.style.height = '';this.style.height = this.scrollHeight + 'px'"></textarea>
                                     </div>
                                 </form>
                             </div>

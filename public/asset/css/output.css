@@ -147,7 +147,7 @@ input[type='radio'] {
 }
 
 .content-written.left {
-  background: url('../images/left_background.png') center/100% 100% no-repeat;
+  background: url('../images/left_background.svg') center/100% 100% no-repeat;
   padding: 96px 3rem 25px 8rem;
   overflow: hidden;
   width: 100%;
@@ -157,7 +157,7 @@ input[type='radio'] {
 }
 
 .backimage {
-  background-image: url('../images/tool_back.png');
+  background-image: url('../images/tool_back.svg');
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover; /* Ändert von 100% 100% zu cover */
@@ -175,7 +175,7 @@ input[type='radio'] {
 }
 
 .content-written.right {
-  background: url('../images/output_border.png') center/100% 100% no-repeat;
+  background: url('../images/output_border.svg') center/100% 100% no-repeat;
   padding: 40px;
   width: 600px;
   position: relative;

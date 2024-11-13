@@ -58,7 +58,7 @@
                                             </strong>
                                         </span>
                                         <span id="charCount" style="font-size: 12px;">0 / 2000</span>
-                                        <textarea name="text1" id="field1" rows="17" maxlength="2000" oninput="updateCharCount();" placeholder="Deinen aktuellen Text hier eingeben"></textarea>
+                                        <textarea name="text1" id="field1" rows="16" maxlength="2000" oninput="updateCharCount();" placeholder="Deinen aktuellen Text hier eingeben"></textarea>
                                     </div>
                                 </form>
                             </div>
