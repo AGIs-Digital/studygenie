@@ -213,7 +213,7 @@ return [
         'mail' => [
             'to' => 'your@example.com',
             'from' => [
-                'address' => env('MAIL_FROM_ADDRESS', 'social.media@agis.digital'),
+                'address' => env('MAIL_FROM_ADDRESS', 'info@studygenie.de'),
                 'name' => env('MAIL_FROM_NAME', 'StudyGenie'),
             ],
         ],

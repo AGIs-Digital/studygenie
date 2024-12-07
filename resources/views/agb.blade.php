@@ -24,7 +24,7 @@
                 <div class="headerSpacer"></div>
                     <h2>Allgemeine Geschäftsbedingungen</h2>
                     <p>für die Erbringung von Dienstleistungen von Abeln Goltz GbR, Adalbert-Stifter-Straße 14, 30655
-                        Hannover, E-Mail: info@agis.digital (nachfolgend „Auftragnehmer“) gegenüber seinen Kunden
+                        Hannover, E-Mail: info@studygenie.de (nachfolgend „Auftragnehmer“) gegenüber seinen Kunden
                         (nachfolgend „Auftraggeber“)</p>
                         <br />
                     <h4>1. Allgemeines</h2>
@@ -107,7 +107,7 @@
                         schriftlich zu bestätigen.</p>
                         <p>6.4 Widerrufsrecht für Abonnements
                         Der Auftraggeber hat das Recht, innerhalb von 14 Tagen nach Abschluss des Abonnements ohne Angabe von Gründen zu kündigen und eine Rückerstattung zu erhalten.
-                        Zur Ausübung des Widerrufsrechts genügt eine formlose Mitteilung per E-Mail an: info@agis.digital.
+                        Zur Ausübung des Widerrufsrechts genügt eine formlose Mitteilung per E-Mail an: info@studygenie.de.
                         Der Auftragnehmer verpflichtet sich, den gezahlten Betrag innerhalb von 14 Tagen nach Erhalt der Widerrufserklärung zurückzuerstatten.</p>
                         <br />
                         <h4>7. Vertraulichkeit und Datenschutz</h2>

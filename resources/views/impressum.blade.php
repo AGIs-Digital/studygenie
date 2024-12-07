@@ -37,7 +37,9 @@
 
                     <h4>Kontakt</h4>
                     <p>Telefon: +49 155 60106486<br />
-                        E-Mail: <a href="mailto:info@agis.digital">info@agis.digital</a></p>
+                        E-Mail:
+                        <a href="mailto:info@studygenie.de">info@studygenie.de</a> - Für Anfragen zu Abrechnungen, Erstattungen, Feedback und ähnliche Anliegen.<br />
+                        <a href="mailto:kontakt@studygenie.de">kontakt@studygenie.de</a> - Für Kooperations- und sonstige Geschäftsanfragen.
                     <br />
 
                     <h4>Umsatzsteuer-ID</h4>
@@ -60,7 +62,7 @@
                     <h4>Zentrale Kontaktstelle nach dem Digital Services Act - DSA (Verordnung (EU) 2022/265)</h4>
                     <p>Unsere zentrale Kontaktstelle f&uuml;r Nutzer und Beh&ouml;rden nach Art. 11, 12 DSA erreichen
                         Sie wie folgt:</p>
-                    <p>E-Mail: <a href="mailto:info@agis.digital">info@agis.digital</a><br />
+                    <p>E-Mail: <a href="mailto:info@studygenie.de">info@studygenie.de</a><br />
                         Telefon: +49 155 60106486
                     </p>
                     <br />
