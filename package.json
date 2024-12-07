@@ -18,7 +18,7 @@
     },
     "dependencies": {
         "cookie": "^0.7.2",
-        "express": "^4.21.1",
+        "express": "^4.21.2",
         "ftp-deploy": "^2.4.7",
         "g": "^2.0.1",
         "npm": "^10.8.2",

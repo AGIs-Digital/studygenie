@@ -63,8 +63,6 @@ a {
   animation: highlight 0.5s ease-in-out;
 }
 
-
-
 .toggle-password {
   position: absolute;
   top: 50%;
@@ -164,19 +162,9 @@ a {
 	linear-gradient(182deg, #afd7ff00, #afd7ff4d 8%, #afd7ff00 15%);
 }
 
-
-
 .navbar {
   position: relative;
   z-index: 2;
-}
-
-.RightContainer {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 3rem;
-  padding: 2rem 6rem 2rem 0rem;
 }
 
 .anchorTagsContainer a {
@@ -368,15 +356,27 @@ h4 ~ p {
 }
 
 .wiesoContentContainer {
-  background: #FFFFFF;
+  position: relative;
+  background: #e8eceb;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   border-radius: 12px;
   padding: 30px;
   margin: 20px auto;
-  background-image: url('../images/download_app.png');
+}
+
+.wiesoContentContainer::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 300px;
+  height: 300px;
+  background-image: url('../images/lock.png');
+  background-position: right bottom;
   background-repeat: no-repeat;
-  background-position: center;
-  background-size: 100% 100%;
+  background-size: contain;
+  opacity: 0.15;
+  z-index: 0;
 }
 
 .wiesoSection h2 {
@@ -864,8 +864,6 @@ h4 ~ p {
   top: -5%;
 }
 
-
-
 .thumbnailshow,
 .videos {
   display: none;
@@ -877,7 +875,6 @@ h4 ~ p {
   width: 200px;
   height: 170px;
 }
-
 
 .videoDescription {
   font-family: 'Montserrat', sans-serif;
@@ -1148,10 +1145,6 @@ h4 ~ p {
     height: 300px;
   }
 
-  .RightContainer {
-    gap: 1rem;
-  }
-
 .CardDiv {
     margin-block: 3.5rem;
   }
@@ -1187,10 +1180,6 @@ h4 ~ p {
   /* Stile für Tablets im Hochformat */
   .navContainer {
     padding: 0.5rem 1rem;
-  }
-
-  .RightContainer {
-    gap: 1rem;
   }
 
   .contentContainer {
@@ -1867,13 +1856,6 @@ body {
   gap: 1rem;
 }
 
-.RightContainer {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 3rem;
-}
-
 .socialAnchorTags {
   display: flex;
   flex-direction: row;
@@ -2138,7 +2120,7 @@ input[type='radio'] {
 
 .swoosh-image {
   width: 100%;
-  max-width: 800px;
+  max-width: 600px;
   height: auto;
 }
 
@@ -2155,4 +2137,3 @@ input[type='radio'] {
     max-width: 300px;
   }
 }
-

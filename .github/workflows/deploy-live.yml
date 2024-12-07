@@ -178,3 +178,8 @@ jobs:
             php8.2-cli artisan view:clear
             php8.2-cli artisan config:clear
             php8.2-cli artisan route:clear
+
+      - name: Generate Asset Version
+        run: |
+          echo "ASSET_VERSION=$(date +%s)" >> .env
+          echo "Asset version generated: $(date +%s)"

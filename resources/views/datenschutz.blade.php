@@ -105,7 +105,7 @@
                     <h4>Hinweis zur verantwortlichen Stelle</h4>
                     <p>Die verantwortliche Stelle für die Datenverarbeitung auf dieser Website ist:</p>
                     <p>Abeln Goltz GbR<br />Adalbert-Stifter-Straße 14<br />30655 Hannover</p>
-                    <p>Telefon: +49 155 60106486<br />E-Mail: info@agis.digital</p>
+                    <p>Telefon: +49 155 60106486<br />E-Mail: info@studygenie.de</p>
                     <p>Verantwortliche Stelle ist die natürliche oder juristische Person, die allein oder gemeinsam mit
                         anderen über die Zwecke und Mittel der Verarbeitung von personenbezogenen Daten (z. B. Namen,
                         E-Mail-Adressen o. Ä.) entscheidet.</p>

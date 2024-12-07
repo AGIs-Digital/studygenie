@@ -40,7 +40,7 @@ class JobInsiderController extends Controller
                     'required',
                     'string',
                     'max:2000',
-                    'min:10',
+                    'min:1',
                     function ($attribute, $value, $fail) {
                         if (preg_match('/[<>]/', $value)) {
                             $fail('HTML-Tags sind nicht erlaubt.');
