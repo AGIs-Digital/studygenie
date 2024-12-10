@@ -13,7 +13,7 @@
                 <a class="nav-link anchor {{ request()->is('profile') ? 'active' : '' }}" href="/profile">Profil</a>
                 <a class="nav-link anchor {{ request()->is('archive') ? 'active' : '' }}" href="/archive">Archiv</a>
                 @if(Auth::user()->is_admin)
-                    <a class="nav-link anchor {{ request()->is('admin/feedbacks') ? 'active' : '' }}" href="{{ route('admin.feedbacks.index') }}">Feedbak</a>
+                    <a class="nav-link anchor {{ request()->is('admin/feedbacks') ? 'active' : '' }}" href="{{ route('admin.feedbacks.index') }}">Feedback</a>
                 @endif
             @endauth
         </div>
