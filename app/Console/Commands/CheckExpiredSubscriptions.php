@@ -4,13 +4,20 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\Models\User;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\Log;
+use App\Services\SubscriptionService;
 
 class CheckExpiredSubscriptions extends Command
 {
     protected $signature = 'subscriptions:check-expired';
     protected $description = 'Überprüft und aktualisiert abgelaufene Abonnements';
+
+    private $subscriptionService;
+
+    public function __construct(SubscriptionService $subscriptionService)
+    {
+        parent::__construct();
+        $this->subscriptionService = $subscriptionService;
+    }
 
     public function handle()
     {
@@ -20,16 +27,7 @@ class CheckExpiredSubscriptions extends Command
             ->get();
 
         foreach ($expiredUsers as $user) {
-            $user->subscription_name = 'Silber';
-            $user->subscription_status = null;
-            $user->subscription_end_date = null;
-            $user->paypal_subscription_id = null;
-            $user->save();
-
-            Log::info('Benutzer-Abonnement auf Silber zurückgesetzt', [
-                'user_id' => $user->id,
-                'email' => $user->email
-            ]);
+            $this->subscriptionService->checkAndUpdateExpiredSubscription($user);
         }
 
         $this->info("Abgelaufene Abonnements wurden überprüft und aktualisiert.");

@@ -1,0 +1,17 @@
+<svg width="800" height="1200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Hintergrund -->
+  <rect width="100%" height="100%" fill="#f9f9f9"/>
+  
+  <!-- Subtile horizontale Linien -->
+  <pattern id="lines" width="100%" height="30" patternUnits="userSpaceOnUse">
+    <line x1="0" y1="29" x2="100%" y2="29" stroke="#e0e0e0" stroke-width="1"/>
+  </pattern>
+  <rect width="100%" height="100%" fill="url(#lines)"/>
+  
+  <!-- Schatten-Effekt am Rand -->
+  <rect width="100%" height="100%" fill="url(#shadow)"/>
+  <linearGradient id="shadow">
+    <stop offset="0%" stop-color="rgba(0,0,0,0.1)"/>
+    <stop offset="5%" stop-color="rgba(0,0,0,0)"/>
+  </linearGradient>
+</svg>
