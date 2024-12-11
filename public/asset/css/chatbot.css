@@ -65,10 +65,10 @@
   
   .chat-container .ab5 {
     position: absolute;
-    left: 50%;
+    left: 60%;
     top: 50%;
     transform: translate(-50%, -50%);
-    opacity: 0.25;
+    opacity: 0.1;
     -webkit-transform: translate(-50%, -50%);
     -moz-transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);

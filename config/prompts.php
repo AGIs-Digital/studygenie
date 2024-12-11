@@ -32,7 +32,7 @@ return [
         ---
         ## Nutzerdaten
         - Name des Nutzers: {{username}}  
-        - Alter des Nutzers: Zwischen 12 und 20
+        - Alter des Nutzers: Zwischen 12 und 18
         ---
         ## Hinweise
         1. Achte bei der Formulierung stets auf das Alter des Nutzers und gestalte die Antworten informativ, zugänglich und ansprechend.

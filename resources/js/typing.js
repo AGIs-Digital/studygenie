@@ -127,3 +127,19 @@ function scrollContainerToBottom(container) {
         behavior: 'smooth'
     });
 }
+
+export function updateChatBubbleProgressively(messageId, content, container) {
+    const element = container.querySelector(`[data-message-id="${messageId}"]`);
+    if (!element) return;
+    
+    const contentDiv = element.querySelector('.message-content');
+    if (!contentDiv) return;
+    
+    let currentText = contentDiv.innerHTML;
+    const newContent = content.slice(currentText.length);
+    
+    if (newContent) {
+        contentDiv.innerHTML += newContent;
+        container.scrollTop = container.scrollHeight;
+    }
+}

@@ -79,38 +79,33 @@ class ConversationController extends Controller
     }
 
     // POST /conversation/{id}/message
-    public function askAi($id, Request $request)
+    public function askAi(Conversation $conversation, Request $request)
     {
-        // Make sure, $id and message content are set
-        $request->validate([
-            'content' => 'required',
-        ]);
-
-        // Get the conversation by the id
-        $conversation = Conversation::find($id);
-
-        // Create a new message for the conversation
-        $message = $conversation->messages()->create([
-            'user_id' => auth()->id(),
-            'role' => 'user',
-            'content' => $request->input('content'),
-        ]);
-
-        $payload = $conversation->createPayload(numberOfMessages: config('genie.number_of_messages'));
-
-        $result = OpenAI::chat()->create($payload);
-
-        # create new message for response
         $message = new Message();
         $message->user_id = auth()->user()->id;
-        $message->content = $result->choices[0]->message->content;
-        $message->role = 'assistant';
-
-        # add message to conversation
+        $message->role = 'user';
+        $message->content = $request->content;
         $conversation->messages()->save($message);
 
-        // Return the message as resource
-        return new MessageResource($message);
+        $payload = $conversation->createPayload();
+        
+        return response()->stream(function () use ($payload) {
+            $stream = OpenAI::chat()->createStreamed($payload);
+            
+            foreach ($stream as $response) {
+                $text = $response->choices[0]->delta->content;
+                if (connection_aborted()) {
+                    break;
+                }
+                echo "data: " . json_encode(['content' => $text]) . "\n\n";
+                ob_flush();
+                flush();
+            }
+        }, 200, [
+            'Cache-Control' => 'no-cache',
+            'X-Accel-Buffering' => 'no',
+            'Content-Type' => 'text/event-stream',
+        ]);
     }
 
     public function archive(Conversation $conversation, Request $request)
