@@ -21,7 +21,7 @@
             <div class="col-md-12">
                 <div class="admin-header">
                     <img src="{{ asset('asset/images/blitzneu.png') }}" alt="Blitz">
-                    <h1>Admin - Einstellungen</h1>
+                    <h1>{{ auth()->user()->name }} - Einstellungen</h1>
                     <img src="{{ asset('asset/images/blitzneu.png') }}" alt="Blitz">
                 </div>
             </div>
