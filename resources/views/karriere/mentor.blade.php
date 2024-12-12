@@ -125,8 +125,10 @@
                     <form id="form_user_input" class="chat-form">
                         @csrf
                         <button type="submit" id="button_submit" class="send-button">Senden</button>
-                        <input type="text" id="user_input" name="text1" required 
-                               placeholder="Sende eine Nachricht an StudyGenie">
+                        <textarea type="text" id="user_input" name="text1" required 
+                                  placeholder="Sende eine Nachricht an StudyGenie"
+                                  style="min-height: 40px; max-height: 200px; overflow-y: hidden;"
+                                  oninput="this.style.height = ''; this.style.height = Math.min(this.scrollHeight, 200) + 'px'"></textarea>
                         <button type="button" class="archive-button" id="showSaveModal" data-bs-toggle="modal" data-bs-target="#saveModal">
                             <img src="{{ asset('asset/images/savefolder.svg') }}" 
                                  data-bs-toggle="tooltip" data-bs-placement="top" 
@@ -282,6 +284,16 @@
             })
             .then(response => response.json());
         }
+
+        function autoResize(textarea) {
+    textarea.style.height = '';
+    textarea.style.height = Math.min(textarea.scrollHeight, 200) + 'px';
+    
+    // Scroll zum Ende des Textareas wenn maximale Höhe erreicht
+    if (textarea.scrollHeight > 200) {
+        textarea.scrollTop = textarea.scrollHeight;
+    }
+}
     </script>
 </body>
 </html>
