@@ -64,7 +64,7 @@
                     <span class="blue-textmarker">✓ Bewerbungsunterlagen</span><br />
                 </p>
                 @guest
-                    <button data-bs-toggle="modal" data-bs-target="#signupModal" class="plancardButton" onclick="setRegistrationSource('plancards')">Hol dir Gold</button>
+                    <button data-bs-toggle="modal" data-bs-target="#signupModal" class="plancardButton" onclick="setRegistrationSource('plancards')">Gold kaufen</button>
                 @else
                     @if(auth()->user()->subscription_name == 'Gold')
                         @if(auth()->user()->subscription_status === 'cancelled')
@@ -76,7 +76,7 @@
                             <button class="plancardButton cancel-subscription" data-plan="{{ auth()->user()->subscription_name }}">Abo kündigen</button>
                         @endif
                     @else
-                        <button class="plancardButton" data-bs-toggle="modal" data-bs-target="#paypalModalGold">Hol dir Gold</button>
+                        <button class="plancardButton" data-bs-toggle="modal" data-bs-target="#paypalModalGold">Gold kaufen</button>
                     @endif
                 @endguest
             </div>
@@ -120,11 +120,16 @@
                             <div class="alert alert-warning subscription-alert">
                                 Läuft am {{ auth()->user()->subscription_end_date ? auth()->user()->subscription_end_date->format('d.m.Y') : now()->addMonth()->format('d.m.Y') }} aus
                             </div>
+                        @elseif(!is_null(auth()->user()->expire_date))
+                            <button class="plancardButton" data-bs-toggle="modal" data-bs-target="#paypalModalDiamant">Diamant kaufen</button>
+                            <div class="alert alert-warning subscription-alert">
+                                Probezeitraum endet am {{ auth()->user()->expire_date->format('d.m.Y')}}
+                            </div>
                         @else
                             <button class="plancardButton cancel-subscription" data-plan="Diamant">Abo kündigen</button>
                         @endif
                     @else
-                        <button class="plancardButton" data-bs-toggle="modal" data-bs-target="#paypalModalDiamant">Hol dir Diamant</button>
+                        <button class="plancardButton" data-bs-toggle="modal" data-bs-target="#paypalModalDiamant">Diamant kaufen</button>
                     @endif
                 @endguest
             </div>

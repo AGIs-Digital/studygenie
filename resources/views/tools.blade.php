@@ -62,16 +62,16 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-        const subscription_name = '{{ auth()->user()->subscription_name }}';
-        if (localStorage.getItem('subscription_updated') === 'true') {
-            showSuccessMessage(subscription_name);
+            const subscription_name = '{{ auth()->user()->subscription_name }}';
+            if (localStorage.getItem('subscription_updated') === 'true') {
+                showSuccessMessage(subscription_name);
                 // Start of Selection
                 if (subscription_name !== 'Silber') {
                     showConfetti();
                 }
-            localStorage.removeItem('subscription_updated');
-        }
-    });
+                localStorage.removeItem('subscription_updated');
+            }
+        });
 
         function showConfetti() {
             // Zufällige Werte für particleCount und spread zwischen 100 und 400
@@ -99,28 +99,60 @@
         }
 
         function showSuccessMessage(subscription_name) {
-        const modalHTML = `
-            <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-body text-center">
-                            <p>${subscription_name === 'Silber' ? `Du bist jetzt wieder ${subscription_name} Abonnent.` : `Herzlichen Glückwunsch! Du bist jetzt ${subscription_name} Abonnent.`}</p>
+            const isNewDiamantUser = localStorage.getItem('new_diamant_user') === 'true';
+            const user_name = '{{ auth()->user()->name }}';
+            if (isNewDiamantUser) {
+                const modalHTML = `
+                    <div class="modal fade" id="diamantWelcomeModal" tabindex="-1" role="dialog" aria-labelledby="diamantWelcomeModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Willkommen bei StudyGenie!</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body text-center">
+                                    <p>Hallo ${user_name}, wir freuen uns, dich bei StudyGenie begrüßen zu können. Um uns kennenzulernen, erhältst du <strong>14 Tage kostenlosen Zugang</strong> zu allen Premium-Features von StudyGenie!</p>
+                                    <p>Danach kannst du dich entscheiden, ob du Diamant kaufen möchtest oder nicht.</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Los geht's!</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        `;
-        document.body.insertAdjacentHTML('beforeend', modalHTML);
-        const successModal = new bootstrap.Modal(document.getElementById('successModal'));
-        successModal.show();
+                `;
+                document.body.insertAdjacentHTML('beforeend', modalHTML);
+                const welcomeModal = new bootstrap.Modal(document.getElementById('diamantWelcomeModal'));
+                welcomeModal.show();
+                localStorage.removeItem('new_diamant_user');
+                
+                if (subscription_name !== 'Silber') {
+                    showConfetti();
+                }
+            } else {
+                const modalHTML = `
+                    <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-body text-center">
+                                    <p>${subscription_name === 'Silber' ? `Du bist jetzt wieder ${subscription_name} Abonnent.` : `Herzlichen Glückwunsch! Du bist jetzt ${subscription_name} Abonnent.`}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                document.body.insertAdjacentHTML('beforeend', modalHTML);
+                const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+                successModal.show();
 
-        setTimeout(() => {
-            $('#successModal').fadeOut(4000, () => {
-                successModal.hide();
-                document.getElementById('successModal').remove();
-            });
-        }, 2000);
-    }
+                setTimeout(() => {
+                    $('#successModal').fadeOut(4000, () => {
+                        successModal.hide();
+                        document.getElementById('successModal').remove();
+                    });
+                }, 2000);
+            }
+        }
     </script>
 </body>
 

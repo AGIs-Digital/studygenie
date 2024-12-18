@@ -76,11 +76,14 @@
             .then(response => response.json())
             .then(data => {
                 if (!data.status) {
-                    const errorMessages = data.errors.join('<br>'); // Fehler in separate Zeilen aufteilen
+                    const errorMessages = data.errors.join('<br>');
                     showToast(errorMessages, 'error');
                 } else {
                     if (data.subscription_updated) {
-                        localStorage.setItem('subscription_updated', 'true'); // Setze nur bei erfolgreicher Antwort
+                        localStorage.setItem('subscription_updated', 'true');
+                    }
+                    if (data.new_diamant_user) {
+                        localStorage.setItem('new_diamant_user', 'true');
                     }
                     window.location.href = data.redirect;
                 }

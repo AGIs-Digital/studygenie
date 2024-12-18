@@ -44,23 +44,6 @@ class FrontController extends Controller
         return $sessionId;
     }
 
-    // Benutzer erstellen
-    public function create(array $data)
-    {
-        // Erstelle den neuen Benutzer
-        $user = User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'expire_date' => Carbon::now()->addYear(100),
-            'subscription_name' => 'Silber'
-        ]);
-
-        $user->save();
-
-        return $user;
-    }
-
     public function changePassword(Request $request)
     {
         $validationResult = $this->validatePasswordUpdate($request);

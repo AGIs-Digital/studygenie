@@ -28,7 +28,10 @@ class User extends Authenticatable
         'paypal_subscription_id',
         'subscription_end_date',
         'subscription_status',
-        'last_greeting_at'
+        'last_greeting_at',
+        'expire_date',
+        'remember_token',
+        'trial_confirmed_at'
     ];
     /**
      * The attributes that should be hidden for serialization.
@@ -47,7 +50,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'subscription_end_date' => 'datetime',
-        'last_greeting_at' => 'datetime'
+        'last_greeting_at' => 'datetime',
+        'expire_date' => 'datetime'
     ];
 
     // Relation to Archives. User can have multiple archives
