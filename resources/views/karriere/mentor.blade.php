@@ -59,7 +59,7 @@
                                  width="16" alt="" loading="lazy">
                         </strong>
                     </span>
-                    <label class="radio-button" onclick="setInputValue('/motivation')">
+                    <label class="radio-button" data-value="/motivation">
                         <input type="radio" name="mode" value="motivation">
                         <span class="radio-label">Motivation
                             <strong type="button" data-bs-toggle="tooltip" 
@@ -71,7 +71,7 @@
                         </span>
                     </label>
 
-                    <label class="radio-button" onclick="setInputValue('/insides')">
+                    <label class="radio-button" data-value="/insides">
                         <input type="radio" name="mode" value="insides">
                         <span class="radio-label">Insider
                             <strong type="button" data-bs-toggle="tooltip" 
@@ -83,7 +83,7 @@
                         </span>
                     </label>
 
-                    <label class="radio-button" onclick="setInputValue('/tipps')">
+                    <label class="radio-button" data-value="/tipps">
                         <input type="radio" name="mode" value="tipps">
                         <span class="radio-label">Tipps
                             <strong type="button" data-bs-toggle="tooltip" 
@@ -95,7 +95,7 @@
                         </span>
                     </label>
 
-                    <label class="radio-button" onclick="setInputValue('/interview')">
+                    <label class="radio-button" data-value="/interview">
                         <input type="radio" name="mode" value="interview">
                         <span class="radio-label">Interview
                             <strong type="button" data-bs-toggle="tooltip" 
@@ -264,14 +264,21 @@
             } else {
                 userInput.value = value;
             }
-
-            // Trigger the submit event programmatically
-            const event = new Event('submit', {
-                'bubbles': true,
-                'cancelable': true
-            });
-            document.getElementById('form_user_input').dispatchEvent(event);
         }
+
+        // Event-Listener für die Radio-Buttons
+        document.querySelectorAll('.radio-button input[type="radio"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const value = this.closest('.radio-button').getAttribute('data-value');
+                setInputValue(value);
+                
+                const event = new Event('submit', {
+                    'bubbles': true,
+                    'cancelable': true
+                });
+                document.getElementById('form_user_input').dispatchEvent(event);
+            });
+        });
 
         function sendInput(value) {
             fetch('/submit-input', {

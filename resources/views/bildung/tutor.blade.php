@@ -59,7 +59,7 @@
                                  width="16" alt="" loading="lazy">
                         </strong>
                     </span>
-                    <label class="radio-button" onclick="setInputValue('/Tutor')">
+                    <label class="radio-button" data-value="/Tutor">
                         <input type="radio" name="mode" value="tutor">
                         <span class="radio-label">Tutor
                             <strong type="button" data-bs-toggle="tooltip" 
@@ -71,7 +71,7 @@
                         </span>
                     </label>
 
-                    <label class="radio-button" onclick="setInputValue('/Sokrates')">
+                    <label class="radio-button" data-value="/Sokrates">
                         <input type="radio" name="mode" value="sokrates">
                         <span class="radio-label">Sokrates
                             <strong type="button" data-bs-toggle="tooltip" 
@@ -83,7 +83,7 @@
                         </span>
                     </label>
 
-                    <label class="radio-button" onclick="setInputValue('/MC-Test')">
+                    <label class="radio-button" data-value="/MC-Test">
                         <input type="radio" name="mode" value="mc">
                         <span class="radio-label">Multiple Choice
                             <strong type="button" data-bs-toggle="tooltip" 
@@ -95,7 +95,7 @@
                         </span>
                     </label>
 
-                    <label class="radio-button" onclick="setInputValue('/Test')">
+                    <label class="radio-button" data-value="/Test">
                         <input type="radio" name="mode" value="test">
                         <span class="radio-label">Probeklausur
                             <strong type="button" data-bs-toggle="tooltip" 
@@ -262,30 +262,38 @@
 
                 showToast(document.title + " wurde im Archiv gespeichert");
             });
+
+            function setInputValue(value) {
+                const userInput = document.getElementById('user_input');
+                const levelInput = document.getElementById('level_input').value.trim();
+                const themaInput = document.getElementById('thema_input').value.trim();
+
+                if (levelInput) {
+                    userInput.value = `${value} Level: ${levelInput} Thema: ${themaInput}`;
+                } else {
+                    userInput.value = value;
+                }
+            }
+
+            // Event-Listener für die Radio-Buttons
+            document.querySelectorAll('.radio-button input[type="radio"]').forEach(radio => {
+                radio.addEventListener('change', function() {
+                    const value = this.closest('.radio-button').getAttribute('data-value');
+                    setInputValue(value);
+                    
+                    const event = new Event('submit', {
+                        'bubbles': true,
+                        'cancelable': true
+                    });
+                    document.getElementById('form_user_input').dispatchEvent(event);
+                });
+            });
         });
 
         var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
         var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
             return new bootstrap.Tooltip(tooltipTriggerEl)
         });
-
-        function setInputValue(value) {
-            const userInput = document.getElementById('user_input');
-            const levelInput = document.getElementById('level_input').value.trim();
-            const themaInput = document.getElementById('thema_input').value.trim();
-
-            if (levelInput) {
-                userInput.value = `${value} Level: ${levelInput} Thema: ${themaInput}`;
-            } else {
-                userInput.value = value;
-            }
-
-            const event = new Event('submit', {
-                'bubbles': true,
-                'cancelable': true
-            });
-            document.getElementById('form_user_input').dispatchEvent(event);
-        }
 
         function sendInput(value) {
             fetch('/submit-input', {
