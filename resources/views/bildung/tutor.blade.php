@@ -214,29 +214,15 @@
                 }, 20000);
 
                 try {
-                    // Erstelle eine leere Bot-Nachricht mit Lade-Indikator
-                    const botMessageId = window.fns.addChatBubble({ 
-                        role: 'assistant', 
-                        content: 'hmmm...' 
-                    }, messageContainer);
+                    // create an empty bot message
+                    const botMessageId = window.fns.addChatBubble({ role: 'assistant', content: '' }, messageContainer);
 
                     const data = await window.fns.sendMessage(userValue, conversation.id);
 
                     clearTimeout(toastTimer);
 
-                    // Warte auf das nächste Frame bevor Update
-                    requestAnimationFrame(() => {
-                        window.fns.updateChatBubble(botMessageId, data.data.content, messageContainer);
-                        
-                        // Scroll zum Ende der Nachricht
-                        messageContainer.scrollTop = messageContainer.scrollHeight;
-                        
-                        // Warte auf MathJax-Rendering
-                        MathJax.typesetPromise([messageContainer]).then(() => {
-                            // Nochmal scrollen nach MathJax-Rendering
-                            messageContainer.scrollTop = messageContainer.scrollHeight;
-                        });
-                    });
+                    window.fns.updateChatBubble(botMessageId, data.data.content, messageContainer);
+
 
                     formSubmitButton.textContent = 'Senden';
                     formSubmitButton.disabled = false;

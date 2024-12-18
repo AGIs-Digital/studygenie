@@ -72,36 +72,20 @@ async function sendMessage(message, conversationId) {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "Accept": "text/event-stream",
+                "Accept": "application/json",
                 "X-CSRF-TOKEN": csrfToken,
             },
+            credentials: "include",
             body: JSON.stringify({
                 content: message,
             }),
         });
 
-        const reader = response.body.getReader();
-        const decoder = new TextDecoder();
-        let content = '';
-
-        while (true) {
-            const {value, done} = await reader.read();
-            if (done) break;
-            
-            const chunk = decoder.decode(value);
-            const lines = chunk.split('\n');
-            
-            for (const line of lines) {
-                if (line.startsWith('data: ')) {
-                    const data = JSON.parse(line.slice(6));
-                    content += data.content || '';
-                    // Update UI progressiv
-                    window.fns.updateChatBubble(botMessageId, content);
-                }
-            }
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
 
-        return {data: {content}};
+        return await response.json();
     } catch (error) {
         console.error("Fehlerdetails:", error);
         throw error;
@@ -185,19 +169,3 @@ $.ajaxSetup({
         }
     }
 });
-
-async function sendMessageWithRetry(message, conversationId, maxRetries = 3) {
-    for (let i = 0; i < maxRetries; i++) {
-        try {
-            return await sendMessage(message, conversationId);
-        } catch (error) {
-            if (i === maxRetries - 1) throw error;
-            await new Promise(resolve => setTimeout(resolve, 1000 * Math.pow(2, i)));
-            
-            // Fallback auf alternatives Modell bei Timeout
-            if (error.message.includes('timeout') && i === maxRetries - 2) {
-                return await sendMessage(message, conversationId, true); // true für fallback
-            }
-        }
-    }
-}
