@@ -25,6 +25,8 @@ class User extends Authenticatable
         'provider',
         'provider_id',
         'subscription_name',
+        'last_tutor_greeting_at',
+        'last_mentor_greeting_at',
         'paypal_subscription_id',
         'subscription_end_date',
         'subscription_status',
