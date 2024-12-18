@@ -37,12 +37,17 @@ class RegisterController extends Controller
 
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'subscription_name' => 'Silber'
+            'subscription_name' => 'Diamant',
+            'expire_date' => now()->addDays(14)
         ]);
+
+        $subscriptionUpdated = true;
+        $isDiamantUser = true;
+        return $user;
     }
 
     public function postRegistration(Request $request)
@@ -76,19 +81,12 @@ class RegisterController extends Controller
         $subscriptionUpdated = false;
         $userCount = User::count();
 
-        // 14 Tage Diamant gratis   
-        if ($userCount <= 1003) {
-            $user->subscription_name = 'Diamant';
-            $user->expire_date = Carbon::now()->addDays(14);
-            $user->save();
-            $subscriptionUpdated = true;
-        }
-
         Auth::login($user);
 
         return response()->json([
             'status' => true,
-            'subscription_updated' => $subscriptionUpdated,
+            'subscription_updated' => true,
+            'new_diamant_user' => true,
             'redirect' => $request->input('registration_source') === 'plancards' ? route('profile') : route('tools')
         ]);
     }
