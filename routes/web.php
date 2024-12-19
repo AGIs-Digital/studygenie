@@ -171,6 +171,14 @@ Route::middleware('admin')->group(function () {
         ->name('admin.feedbacks.index');
     Route::delete('/admin/feedbacks/{id}', [AdminFeedbackController::class, 'destroy'])
         ->name('admin.feedbacks.destroy');
+    
+    // Newsletter Routen
+    Route::get('/admin/newsletter/create', [NewsletterController::class, 'create'])
+        ->name('newsletter.create');
+    Route::post('/admin/newsletter/send', [NewsletterController::class, 'send'])
+        ->name('newsletter.send');
+    Route::get('/newsletter/unsubscribe/{token}', [NewsletterController::class, 'unsubscribe'])
+        ->name('newsletter.unsubscribe');
 });
 
 ### SUBSCRIPTION ROUTES ###
