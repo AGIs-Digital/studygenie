@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use App\Custom\Prompt;
 use OpenAI\Laravel\Facades\OpenAI;
+use Carbon\Carbon;
 
 class Conversation extends Model
 {
@@ -136,6 +137,11 @@ class Conversation extends Model
     public function loadFirstMessagePrompt($params)
     {
         try {
+            // Prüfen ob neues Greeting nötig ist
+            if (!$this->needsNewGreeting()) {
+                return null; // Kein neues Greeting nötig
+            }
+
             $greetingContext = $this->getGreetingContext();
             
             // Erstelle einen Prompt für die KI
@@ -167,12 +173,15 @@ class Conversation extends Model
                 'temperature' => 1.0
             ]);
 
+            // Nach erfolgreicher Generierung: Timestamp aktualisieren
+            auth()->user()->update([
+                'last_tutor_greeting_at' => now()
+            ]);
+
             return $response->choices[0]->message->content;
 
         } catch (\Exception $e) {
             \Log::error('Fehler bei der Generierung der Begrüßung: ' . $e->getMessage());
-            
-            // Fallback-Begrüßung mit Emoji
             return "👋 Hallo {$params['replacements']['username']}, wie kann ich dir helfen?";
         }
     }
@@ -388,5 +397,15 @@ class Conversation extends Model
             'special_emoji' => $specialDay ? $specialDay['emoji'] : null,
             'last_conversation' => $lastConversation ? $lastConversation->created_at->diffForHumans() : null
         ];
+    }
+
+    private function needsNewGreeting()
+    {
+        if (!auth()->user()->last_tutor_greeting_at) {
+            return true;
+        }
+        
+        $lastGreeting = Carbon::parse(auth()->user()->last_tutor_greeting_at);
+        return $lastGreeting->diffInHours(now()) >= 24;
     }
 }
