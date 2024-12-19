@@ -60,7 +60,6 @@ jobs:
           sed -i 's#^DB_DATABASE=.*#DB_DATABASE=${{ secrets.STAGING_DB_DBNAME }}#' .env
           sed -i 's#^DB_USERNAME=.*#DB_USERNAME=${{ secrets.STAGING_DB_USERNAME }}#' .env
           sed -i 's#^DB_PASSWORD=.*#DB_PASSWORD=${{ secrets.STAGING_DB_PASSWORD }}#' .env
-          sed -i 's#^MAIL_PASSWORD=.*#MAIL_PASSWORD=${{ secrets.STUDYGENIE_MAIL_PASSWORD }}#' .env
           sed -i 's#^OPENAI_API_KEY=.*#OPENAI_API_KEY="${{ secrets.OPENAI_APIKEY }}"#' .env
           sed -i 's#^PAYPAL_MODE=.*#PAYPAL_MODE=sandbox#' .env
           sed -i 's#^PAYPAL_CLIENT_ID=.*#PAYPAL_CLIENT_ID=${{ secrets.STAGING_PAYPAL_CLIENT_ID }}#' .env
@@ -71,7 +70,9 @@ jobs:
           sed -i 's#^GOOGLE_CLIENT_SECRET=.*#GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}#' .env
           sed -i 's#^GOOGLE_REDIRECT_URI=.*#GOOGLE_REDIRECT_URI=${{ secrets.STAGING_GOOGLE_REDIRECT_URI }}#' .env
           sed -i 's#^PAYPAL_WEBHOOK_ID=.*#PAYPAL_WEBHOOK_ID=${{ secrets.PAYPAL_WEBHOOK_ID }}#' .env
-
+          sed -i 's#^MAIL_USERNAME=.*#MAIL_USERNAME=${{ secrets.MAIL_USERNAME }}#' .env
+          sed -i 's#^MAIL_PASSWORD=.*#MAIL_PASSWORD=${{ secrets.MAIL_PASSWORD }}#' .env
+          
       - name: 🔐 Run Laravel specific commands
         run: |
           php artisan key:generate

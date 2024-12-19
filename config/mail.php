@@ -92,8 +92,18 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-        'name' => env('MAIL_FROM_NAME', 'Example'),
+        'address' => env('MAIL_FROM_ADDRESS', 'info@studygenie.de'),
+        'name' => env('MAIL_FROM_NAME', 'StudyGenie'),
+    ],
+
+    'noreply' => [
+        'address' => env('MAIL_NOREPLY_ADDRESS', 'noreply@studygenie.de'),
+        'name' => env('MAIL_FROM_NAME', 'StudyGenie'),
+    ],
+
+    'newsletter' => [
+        'address' => env('MAIL_NEWSLETTER_ADDRESS', 'newsletter@studygenie.de'),
+        'name' => env('MAIL_FROM_NAME', 'StudyGenie'),
     ],
 
     /*

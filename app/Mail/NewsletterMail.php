@@ -2,13 +2,12 @@
 
 namespace App\Mail;
 
-use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
 class NewsletterMail extends Mailable
 {
-    use Queueable, SerializesModels;
+    use SerializesModels;
 
     public $subject;
     public $content;
@@ -23,7 +22,8 @@ class NewsletterMail extends Mailable
 
     public function build()
     {
-        return $this->subject($this->subject)
-                    ->markdown('emails.newsletter');
+        return $this->from(config('mail.newsletter.address'), config('mail.newsletter.name'))
+                    ->subject($this->subject)
+                    ->view('emails.newsletter');
     }
 } 
