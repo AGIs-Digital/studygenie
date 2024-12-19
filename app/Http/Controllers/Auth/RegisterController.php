@@ -42,7 +42,8 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'subscription_name' => 'Diamant',
-            'expire_date' => now()->addDays(14)
+            'expire_date' => now()->addDays(14),
+            'newsletter_subscribed' => true
         ]);
 
         $subscriptionUpdated = true;
