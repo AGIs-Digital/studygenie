@@ -78,6 +78,9 @@ class RegisterController extends Controller
 
         Log::info('User registered successfully.', ['email' => $user->email]);
 
+        $user->newsletter_subscribed = true;
+        $user->save();
+
         $subscriptionUpdated = false;
         $userCount = User::count();
 
@@ -122,6 +125,7 @@ class RegisterController extends Controller
                 'provider_id' => $socialUser->getId(),
                 'password' => Hash::make(Str::random(16)),
                 'subscription_name' => 'Silber',
+                'newsletter_subscribed' => true
             ]);
         }
 
