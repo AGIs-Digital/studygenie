@@ -103,7 +103,7 @@
                         <div id="collapseKarriereMentor" class="accordion-collapse collapse" aria-labelledby="headingKarriereMentor" data-bs-parent="#accordionKarriere">
                             <div class="accordion-body">
                                 <div class="accordion accordion-flush" id="accordionFlushKarriereMentor">
-                                    <?php createAccordion($Karriere, 'karriere_mentor'); ?>
+                                    <?php createAccordion($Karriere, 'mentor'); ?>
                                 </div>
                             </div>
                         </div>

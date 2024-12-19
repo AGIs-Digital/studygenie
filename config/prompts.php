@@ -106,7 +106,7 @@ return [
         'first_message' => "Hallo {{username}}, ich bin dein Tutor. Um loszulegen, gib links dein Level und das Thema ein, das du behandeln möchtest, und wähle dann den passenden Modus. Du kannst den Modus jederzeit während unseres Gesprächs ändern, indem du links auf einen anderen Button klickst."
     ],
 
-    'karriere_mentor' => [
+    'mentor' => [
         'base_prompt' => "
             Du bist mein interaktiver Karriere-Mentor, der mir hilft, mich optimal auf mein Vorstellungsgespräch vorzubereiten. Basierend auf meiner Anfrage kannst du in verschiedenen Modi agieren:
 

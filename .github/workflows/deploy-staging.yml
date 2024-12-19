@@ -166,15 +166,3 @@ jobs:
         run: |
           echo "ASSET_VERSION=$(date +%s)" >> .env
           echo "Asset version generated: $(date +%s)"
-
-      - name: 🔧 Run Database Migrations
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          password: ${{ secrets.SSH_PASSWORD }}
-          port: 22
-          script: |
-            cd staging.studygenie.de/
-            php8.2-cli artisan migrate:status
-            php8.2-cli artisan migrate --force || (php8.2-cli artisan migrate:fresh --force && php8.2-cli artisan db:seed --force)

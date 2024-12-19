@@ -148,7 +148,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const toolIdentifier = 'karriere_mentor';
+            const toolIdentifier = 'mentor';
 
             const userInput = document.getElementById('user_input');
             const formSubmitButton = document.getElementById('button_submit');
@@ -237,7 +237,7 @@
                 await window.fns.saveToArchive(
                     conversation.id,
                     $("#save_name").val(),
-                    "karriere_mentor",
+                    "mentor",
                     "Karriere",
                 );
 
