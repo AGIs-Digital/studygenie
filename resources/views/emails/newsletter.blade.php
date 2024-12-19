@@ -11,7 +11,7 @@
             padding: 0;
         }
         .container {
-            max-width: 600px;
+            max-width: 900px;
             margin: 0 auto;
             background-color: #ffffff;
             border-radius: 8px;
@@ -19,12 +19,12 @@
             overflow: hidden;
         }
         .header {
-            background-color: #2D3E4E;
+            background-color: #E8ECEB;
             padding: 30px;
             text-align: center;
         }
         .logo {
-            max-width: 200px;
+            width: 180px;
             height: auto;
         }
         .content-wrapper {
@@ -37,29 +37,29 @@
         }
         .content {
             line-height: 1.6;
-            color: #4a5568;
+            color: #2D3E4E;
             margin-bottom: 30px;
         }
         .button {
             display: inline-block;
             padding: 12px 25px;
-            background-color: #2D3E4E;
-            color: white !important;
+            background-color: #E09E50;
+            color: #2D3E4E !important;
             text-decoration: none;
-            border-radius: 4px;
-            font-weight: 500;
+            border-radius: 9px;
+            font-weight: 600;
             margin: 20px 0;
         }
         .footer {
-            background-color: #f8fafc;
-            padding: 20px 30px;
+            background-color: #2D3E4E;
+            padding: 10px 20px;
             border-top: 1px solid #edf2f7;
             font-size: 12px;
-            color: #666;
+            color: #FEFEFE;
             text-align: center;
         }
         .footer a {
-            color: #2D3E4E;
+            color: #FEFEFE;
             text-decoration: underline;
         }
     </style>
@@ -67,7 +67,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <img src="{{ asset('images/Logo_(2).png') }}" alt="StudyGenie Logo" class="logo">
+            <img src="https://studygenie.de/asset/images/Logo_(2).png" alt="StudyGenie Logo" class="logo">
         </div>
         
         <div class="content-wrapper">
