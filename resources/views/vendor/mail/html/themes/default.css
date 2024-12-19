@@ -1,0 +1,35 @@
+/* Base */
+body {
+    background-color: #f8fafc;
+    color: #2D3E4E;
+}
+
+.body {
+    background-color: #ffffff;
+    border: 1px solid #edf2f7;
+    box-shadow: 0 2px 0 rgba(0, 0, 150, 0.025);
+    border-radius: 8px;
+}
+
+.button-primary {
+    background-color: #2D3E4E;
+    border-radius: 4px;
+    color: #ffffff;
+    padding: 12px 25px;
+}
+
+.button-primary:hover {
+    background-color: #1a252f;
+}
+
+.footer {
+    color: #666;
+    font-size: 12px;
+}
+
+.header {
+    padding: 25px 0;
+    text-align: center;
+}
+
+/* Weitere Anpassungen hier */ 

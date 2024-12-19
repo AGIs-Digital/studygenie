@@ -17,6 +17,8 @@
 
     @yield('content')
 
-    @include('components.footer')
+    @if(!Request::is('admin/newsletter*'))
+        @include('layouts.footer')
+    @endif
 </body>
 </html>

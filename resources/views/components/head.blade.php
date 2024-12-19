@@ -31,3 +31,4 @@
 </script>
 @routes
 @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+<link href="{{ asset('asset/css/admin.css') }}" rel="stylesheet">

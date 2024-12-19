@@ -1,0 +1,58 @@
+.navbar .dropdown-menu {
+    background-color: #fff;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.navbar .dropdown-item {
+    color: #2D3E4E;
+    padding: 8px 20px;
+}
+
+.navbar .dropdown-item:hover {
+    background-color: #f8f9fa;
+    color: #1a252f;
+}
+
+.navbar .nav-item.dropdown:hover .dropdown-menu {
+    display: block;
+} 
+
+.card {
+    border: none;
+    border-radius: 10px;
+}
+
+.card-header {
+    border-radius: 10px 10px 0 0 !important;
+    background-color: #2D3E4E !important;
+}
+
+.btn-primary {
+    background-color: #2D3E4E;
+    border-color: #2D3E4E;
+}
+
+.btn-primary:hover {
+    background-color: #1a252f;
+    border-color: #1a252f;
+}
+
+.modal-content {
+    border-radius: 10px;
+    border: none;
+}
+
+.modal-header {
+    background-color: #f8f9fa;
+    border-radius: 10px 10px 0 0;
+}
+
+.ck.ck-editor__main>.ck-editor__editable {
+    background-color: #fff !important;
+}
+
+.spinner-border {
+    color: #2D3E4E;
+} 

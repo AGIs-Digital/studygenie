@@ -14,6 +14,7 @@
                 <a class="nav-link anchor {{ request()->is('archive') ? 'active' : '' }}" href="/archive">Archiv</a>
                 @if(Auth::user()->is_admin)
                     <a class="nav-link anchor {{ request()->is('admin/feedbacks') ? 'active' : '' }}" href="{{ route('admin.feedbacks.index') }}">Feedback</a>
+                    <a class="dropdown-item" href="{{ route('newsletter.create') }}">Newsletter</a>
                 @endif
             @endauth
         </div>

@@ -24,6 +24,7 @@ use App\Http\Controllers\PayPalWebhookController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WebhookController;
+use App\Http\Controllers\NewsletterController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
 
@@ -194,3 +195,5 @@ if (config('services.paypal.mode') !== 'live') {
         ->middleware('auth')
         ->name('test.paypal.webhook');
 }
+
+Route::post('/newsletter/preview', [NewsletterController::class, 'preview'])->name('newsletter.preview');
