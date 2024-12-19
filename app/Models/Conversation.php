@@ -120,6 +120,13 @@ class Conversation extends Model
             }
         }
 
+        // Füge Zeitinformationen zu den Replacements hinzu
+        $now = now()->setTimezone('Europe/Berlin');
+        $params['replacements']['current_time'] = $now->format('H:i');
+        $params['replacements']['current_date'] = $now->format('d.m.Y');
+        $params['replacements']['weekday'] = trans('dates.days.' . $now->format('l'));
+        $params['replacements']['is_holiday'] = $this->getSpecialDay($now) ? 'true' : 'false';
+
         return $prompt->get();
     }
 
@@ -185,6 +192,18 @@ class Conversation extends Model
         // Lade den globalen System-Prompt
         $globalSystemPrompt = new Prompt('prompts.system_prompt');
         $globalSystemPrompt->replace('username', auth()->user()->name);
+
+        // Füge Zeitinformationen hinzu
+        $now = now();
+        $globalSystemPrompt->replace('current_time', $now->format('H:i'));
+        $globalSystemPrompt->replace('current_date', $now->format('d.m.Y'));
+        $globalSystemPrompt->replace('weekday', trans('dates.days.' . $now->format('l')));
+        $globalSystemPrompt->replace('season', match($now->month) {
+            12, 1, 2 => 'Winter',
+            3, 4, 5 => 'Frühling',
+            6, 7, 8 => 'Sommer',
+            9, 10, 11 => 'Herbst',
+        });
 
         // Lade den tool-spezifischen System-Prompt
         $contextualSystemPrompt = $this->loadSystemPrompt(['replacements' => ['username' => auth()->user()->name]]);
@@ -331,7 +350,7 @@ class Conversation extends Model
     public function getGreetingContext()
     {
         $user = auth()->user();
-        $now = now();
+        $now = now()->setTimezone('Europe/Berlin');
         $hour = $now->hour;
         
         // Basis-Tageszeit-Gruß mit Emojis
