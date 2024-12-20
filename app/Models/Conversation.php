@@ -401,11 +401,13 @@ class Conversation extends Model
 
     private function needsNewGreeting()
     {
-        if (!auth()->user()->last_tutor_greeting_at) {
+        $greetingColumn = 'last_' . $this->tool_identifier . '_greeting_at';
+        $lastGreeting = auth()->user()->$greetingColumn;
+        
+        if (!$lastGreeting) {
             return true;
         }
         
-        $lastGreeting = Carbon::parse(auth()->user()->last_tutor_greeting_at);
-        return $lastGreeting->diffInHours(now()) >= 24;
+        return Carbon::parse($lastGreeting)->diffInHours(now()) >= 24;
     }
 }
